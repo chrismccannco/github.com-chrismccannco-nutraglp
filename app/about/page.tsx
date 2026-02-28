@@ -55,7 +55,7 @@ const team = [
     role: "Co-Founder & President",
     image: "/images/chris-mccann.png",
     bio: [
-      "Chris spent fifteen years leading enterprise sales organizations across SaaS, cloud infrastructure, and emerging technology before co-founding NutraGLP. The pattern he observed across every category was the same: the best technology means nothing without distribution and trust.",
+      "Chris spent fifteen years leading enterprise sales organizations across SaaS, cloud infrastructure, and emerging technology before co-founding NutraGLP. The pattern he observed across every category was the same: the best technology means nothing without trust.",
       "At NutraGLP he is responsible for go-to-market strategy, capital formation, and commercial operations. He builds the systems that connect the science to the market, the investors to the mission, and the product to the consumer.",
       "He also studies consciousness, identity, and the structures that shape human decision-making. That work informs how he thinks about brand, positioning, and the gap between what people want and what they are willing to try.",
     ],
