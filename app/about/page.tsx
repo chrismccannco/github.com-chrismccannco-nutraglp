@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import Footer from "../components/Footer";
 
@@ -11,26 +12,62 @@ export const metadata: Metadata = {
   },
 };
 
-const personSchema = {
+const teamSchema = {
   "@context": "https://schema.org",
-  "@type": "Person",
-  name: "[Founder Name]",
-  jobTitle: "Founder & CEO",
-  worksFor: {
+  "@type": "Organization",
+  name: "NutraGLP",
+  url: "https://nutraglp.com",
+  parentOrganization: {
     "@type": "Organization",
-    name: "NutraGLP",
-    url: "https://nutraglp.com",
+    name: "NanoAlchemie",
   },
-  description:
-    "Founder and CEO of NutraGLP. Background in metabolic science and nutraceutical product development. Leading development of patent-pending nanoemulsion delivery systems for natural GLP-1 activation.",
+  member: [
+    {
+      "@type": "Person",
+      name: "Richard Kaufman, PhD",
+      jobTitle: "Founder & CEO",
+      description:
+        "Architect of the NutraGLP platform and IP portfolio. Inventor of patented nanoparticle delivery systems across 24+ countries. Former CSO & Co-Founder of Nanosphere Health Sciences.",
+    },
+    {
+      "@type": "Person",
+      name: "Chris McCann",
+      jobTitle: "Co-Founder & President",
+      description:
+        "15+ years leading enterprise sales organizations across SaaS, cloud infrastructure, and emerging technology. Responsible for go-to-market strategy, capital formation, and commercial operations at NutraGLP.",
+    },
+  ],
 };
+
+const team = [
+  {
+    name: "Richard Kaufman, PhD",
+    role: "Founder & CEO",
+    image: "/images/richard-kaufman.jpg",
+    bio: [
+      "Richard built the NutraGLP platform and its underlying intellectual property portfolio. He invented the patented nanoparticle delivery systems that form the basis of the company's technology, with patent protection across 24+ countries spanning nutraceutical and pharmaceutical biotechnology applications.",
+      "Before NutraGLP, Richard served as Chief Science Officer and Co-Founder of Nanosphere Health Sciences, a publicly traded nanoemulsion technology company. His work in nano-encapsulation earned the Frost & Sullivan Innovation Award.",
+      "His focus now is the same problem he has studied for two decades: how to get bioactive compounds past the GI tract and into the bloodstream at concentrations that matter. The nanoemulsion platform is the answer he kept arriving at.",
+    ],
+  },
+  {
+    name: "Chris McCann",
+    role: "Co-Founder & President",
+    image: "/images/chris-mccann.png",
+    bio: [
+      "Chris spent fifteen years leading enterprise sales organizations across SaaS, cloud infrastructure, and emerging technology before co-founding NutraGLP. The pattern he observed across every category was the same: the best technology means nothing without distribution and trust.",
+      "At NutraGLP he is responsible for go-to-market strategy, capital formation, and commercial operations. He builds the systems that connect the science to the market, the investors to the mission, and the product to the consumer.",
+      "He also studies consciousness, identity, and the structures that shape human decision-making. That work informs how he thinks about brand, positioning, and the gap between what people want and what they are willing to try.",
+    ],
+  },
+];
 
 export default function AboutPage() {
   return (
     <main>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(teamSchema) }}
       />
 
       {/* Hero */}
@@ -50,53 +87,47 @@ export default function AboutPage() {
         </p>
       </section>
 
-      {/* Founder */}
+      {/* Leadership */}
       <section className="py-24 px-6 md:px-12">
-        <div className="max-w-[720px] mx-auto">
-          <div className="md:flex md:gap-12 md:items-start">
-            {/* Photo placeholder */}
-            <div className="w-[160px] h-[160px] rounded-xl bg-white border border-rule flex items-center justify-center shrink-0 mb-8 md:mb-0">
-              <div className="text-center">
-                <div
-                  className="text-4xl text-forest-mid/20 mb-1"
-                  style={{ fontFamily: "'Fraunces', Georgia, serif" }}
-                >
-                  ?
-                </div>
-                <p className="text-[9px] text-mist-light uppercase tracking-wider">Photo</p>
-              </div>
-            </div>
+        <div className="max-w-[900px] mx-auto">
+          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-10">
+            Leadership
+          </p>
 
-            <div>
-              <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-3">
-                Founder &amp; CEO
-              </p>
-              <h2
-                className="text-2xl md:text-3xl font-normal tracking-tight text-ink mb-4"
-                style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+          <div className="space-y-20">
+            {team.map((person) => (
+              <div
+                key={person.name}
+                className="md:flex md:gap-12 md:items-start"
               >
-                [Founder Name]
-              </h2>
-              <div className="space-y-4 text-[16px] leading-[1.75] text-mist">
-                <p>
-                  [Placeholder: 2-3 sentences about the founder&apos;s background.
-                  What led them to metabolic health. Professional experience
-                  relevant to building a nutraceutical company. Keep it factual,
-                  not promotional.]
-                </p>
-                <p>
-                  [Placeholder: The origin of NutraGLP. The observation or
-                  problem that started it. The thesis: that the bioavailability
-                  problem is solvable, and that endogenous GLP-1 activation is a
-                  viable complement to pharmaceutical approaches.]
-                </p>
-                <p>
-                  [Placeholder: What they are focused on now. The nanoemulsion
-                  platform, the regulatory pathway, the team they are building.
-                  A sentence about what drives them. End there.]
-                </p>
+                <div className="w-[180px] h-[220px] rounded-xl overflow-hidden shrink-0 mb-8 md:mb-0 bg-cream-warm border border-rule">
+                  <Image
+                    src={person.image}
+                    alt={person.name}
+                    width={180}
+                    height={220}
+                    className="w-full h-full object-cover object-top"
+                  />
+                </div>
+
+                <div>
+                  <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-3">
+                    {person.role}
+                  </p>
+                  <h2
+                    className="text-2xl md:text-3xl font-normal tracking-tight text-ink mb-4"
+                    style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+                  >
+                    {person.name}
+                  </h2>
+                  <div className="space-y-4 text-[16px] leading-[1.75] text-mist">
+                    {person.bio.map((paragraph, i) => (
+                      <p key={i}>{paragraph}</p>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
