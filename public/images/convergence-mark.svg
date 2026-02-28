@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none">
+  <!-- Left arc (forest/science) -->
+  <path d="M20 5.5 C12 5.5 5.5 12 5.5 20 C5.5 28 12 34.5 20 34.5" stroke="#1a4a35" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <!-- Right arc (gold/nutrition) -->
+  <path d="M20 5.5 C28 5.5 34.5 12 34.5 20 C34.5 28 28 34.5 20 34.5" stroke="#b8955a" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+  <!-- Top convergence dot -->
+  <circle cx="20" cy="5.5" r="2.5" fill="#b8955a"/>
+  <!-- Bottom convergence dot -->
+  <circle cx="20" cy="34.5" r="2.5" fill="#b8955a"/>
+</svg>

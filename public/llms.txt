@@ -1,0 +1,62 @@
+# NutraGLP
+
+> NutraGLP develops patent-pending nanoemulsion formulas for natural GLP-1 activation. Flagship product: Slim SHOT, a daily drinkable liquid formula that amplifies endogenous GLP-1 production and inhibits DPP-4 degradation.
+
+For comprehensive product details, science, and full FAQ, see: https://nutraglp.com/llms-full.txt
+
+## About
+
+NutraGLP is building the platform layer between pharmaceutical GLP-1 drugs and the supplement aisle. The company's patent-pending nanoemulsion technology solves the bioavailability problem that limits most oral nutraceutical formats, ensuring active compounds reach their target metabolic pathways at effective concentrations.
+
+Parent company: NanoAlchemie
+
+## Products
+
+### Slim SHOT
+- Daily drinkable liquid nanoemulsion (not an injection)
+- Activates endogenous GLP-1 and GIP production
+- Inhibits DPP-4 enzyme to extend incretin half-life
+- Patent-pending nanoemulsion delivery system
+- Price: $145/month, subscription, cancel anytime
+- Four GRAS-certified active systems targeting AMPK activation, GPR120 signaling, insulin receptor sensitization, and DPP-4 inhibition
+- Status: Pre-order / Waitlist
+
+## Science
+
+The formula targets 13 distinct metabolic pathways across three primary mechanisms:
+
+1. GLP-1 & GIP Activation: AMPK-mediated L-cell stimulation, GPR120 receptor activation triggering incretin secretion, and insulin receptor sensitization supporting glucose-dependent GLP-1 release.
+
+2. DPP-4 Inhibition: Natural DPP-4 inhibitors extend the half-life of endogenously produced GLP-1 by inhibiting enzymatic degradation.
+
+3. Complementary Metabolic Support: Insulin sensitivity enhancement, appetite regulation via gut-brain axis, and AMPK-mediated lipid metabolism.
+
+The nanoemulsion delivery system encapsulates active compounds in lipid-based nanoparticles, increasing surface area, protecting against GI tract degradation, and enhancing cellular uptake.
+
+## Quality & Compliance
+
+- All compounds hold GRAS (Generally Recognized as Safe) status
+- Patent-pending nanoemulsion formulation
+- Third-party tested for purity, potency, and composition
+- Manufactured in cGMP-certified facilities
+- Regulated as a dietary supplement under DSHEA
+
+## Pages
+
+- Homepage: https://nutraglp.com
+- Slim SHOT Product: https://nutraglp.com/slim-shot
+- The Science: https://nutraglp.com/science
+- FAQ: https://nutraglp.com/faq
+- About: https://nutraglp.com/about
+- Blog: https://nutraglp.com/blog
+- Natural GLP-1 Activation: https://nutraglp.com/blog/natural-glp1-activation
+- Nanoemulsion vs Capsules: https://nutraglp.com/blog/nanoemulsion-vs-capsules
+- Natural DPP-4 Inhibition: https://nutraglp.com/blog/natural-dpp4-inhibition
+- Endogenous vs Exogenous GLP-1: https://nutraglp.com/blog/endogenous-vs-exogenous-glp1
+- Privacy Policy: https://nutraglp.com/privacy
+- Terms of Service: https://nutraglp.com/terms
+
+## Contact
+
+- Website: https://nutraglp.com
+- Investor inquiries: investors@nutraglp.com

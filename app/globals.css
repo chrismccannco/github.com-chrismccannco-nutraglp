@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+@theme {
+  /* Forest family */
+  --color-forest-deep: #0f2d20;
+  --color-forest: #1a4a35;
+  --color-forest-mid: #2d6b4a;
+  --color-forest-light: #3d8a62;
+
+  /* Gold accent */
+  --color-gold: #b8955a;
+  --color-gold-light: #d4ad72;
+  --color-gold-wash: #f0e6d4;
+
+  /* Neutrals */
+  --color-cream: #f5f2eb;
+  --color-cream-warm: #eee9df;
+  --color-ink: #1a1a18;
+  --color-mist: #8a8a80;
+  --color-mist-light: #b3b0a8;
+  --color-rule: #ddd8ce;
+}
+
+@layer base {
+  body {
+    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Subtle dot grid pattern for cream sections */
+.bg-dot-grid {
+  background-image: radial-gradient(circle, #c8c3b8 0.5px, transparent 0.5px);
+  background-size: 24px 24px;
+}
+
+/* Subtle diagonal line pattern for dark sections */
+.bg-line-texture {
+  background-image: repeating-linear-gradient(
+    135deg,
+    transparent,
+    transparent 20px,
+    rgba(255,255,255,0.015) 20px,
+    rgba(255,255,255,0.015) 21px
+  );
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
