@@ -41,7 +41,7 @@ export default function Footer() {
               <circle cx="20" cy="34.5" r="2.5" fill="#d4ad72"/>
             </svg>
           <p className="text-xs text-white/40">
-            &copy; {new Date().getFullYear()} NutraGLP. All rights reserved.
+            &copy; {new Date().getFullYear()} NutraGLP Biosciences. All rights reserved.
           </p>
         </div>
       </div>
