@@ -136,7 +136,7 @@ export default function FAQPage() {
           FAQ
         </p>
         <h1
-          className="text-3xl md:text-[48px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6"
+          className="text-3xl md:text-[48px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6 font-heading"
          
         >
           Common questions about natural GLP-1 activation
@@ -160,7 +160,7 @@ export default function FAQPage() {
               {cat.faqs.map((faq) => (
                 <div key={faq.q}>
                   <h2
-                    className="text-xl md:text-2xl font-normal tracking-tight leading-tight mb-4 text-ink"
+                    className="text-xl md:text-2xl font-normal tracking-tight leading-tight mb-4 text-ink font-heading"
                    
                   >
                     {faq.q}

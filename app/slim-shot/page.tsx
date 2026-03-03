@@ -136,7 +136,7 @@ export default function SlimShotPage() {
               Slim SHOT &mdash; a drinkable daily liquid, not an injection
             </p>
             <h1
-              className="text-3xl md:text-[44px] font-normal text-white leading-[1.1] tracking-tight mb-6"
+              className="text-3xl md:text-[44px] font-normal text-white leading-[1.1] tracking-tight mb-6 font-heading"
              
             >
               Daily GLP-1 activation.
@@ -151,7 +151,7 @@ export default function SlimShotPage() {
             </p>
             <div className="flex items-baseline gap-3 mb-8">
               <span
-                className="text-3xl text-gold font-normal"
+                className="text-3xl text-gold font-normal font-heading"
                
               >
                 $155
@@ -188,7 +188,7 @@ export default function SlimShotPage() {
         ].map((s) => (
           <div key={s.label} className="text-center">
             <div
-              className="text-xl font-normal tracking-tight text-gold"
+              className="text-xl font-normal tracking-tight text-gold font-heading"
              
             >
               {s.value}
@@ -206,7 +206,7 @@ export default function SlimShotPage() {
           The Mechanism
         </p>
         <h2
-          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink"
+          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink font-heading"
          
         >
           Three systems. One daily protocol.
@@ -248,7 +248,7 @@ export default function SlimShotPage() {
           What to Expect
         </p>
         <h2
-          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink"
+          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink font-heading"
          
         >
           The first 30 days.
@@ -271,7 +271,7 @@ export default function SlimShotPage() {
                   <div className={`w-14 h-14 rounded-full flex items-center justify-center border-2 ${
                     i === 2 ? 'border-gold bg-gold/10' : 'border-forest-mid/30 bg-forest-mid/5'
                   }`}>
-                    <span className={`text-lg font-normal ${i === 2 ? 'text-gold' : 'text-forest-mid'}`}
+                    <span className={`text-lg font-normal ${i === 2 ? 'text-gold' : 'text-forest-mid'} font-heading`}
                      >
                       {i + 1}
                     </span>
@@ -282,7 +282,7 @@ export default function SlimShotPage() {
                     {t.week}
                   </p>
                   <h3
-                    className="text-lg font-normal tracking-tight text-ink mb-3"
+                    className="text-lg font-normal tracking-tight text-ink mb-3 font-heading"
                    
                   >
                     {t.title}
@@ -302,7 +302,7 @@ export default function SlimShotPage() {
             Questions
           </p>
           <h2
-            className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-12 text-ink"
+            className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-12 text-ink font-heading"
            
           >
             Things people ask before they start.
@@ -334,7 +334,7 @@ export default function SlimShotPage() {
       {/* CTA */}
       <section className="bg-forest py-20 px-6 md:px-12 text-center">
         <h2
-          className="text-3xl md:text-4xl font-normal text-white tracking-tight mb-4"
+          className="text-3xl md:text-4xl font-normal text-white tracking-tight mb-4 font-heading"
          
         >
           Ready to try a different approach?

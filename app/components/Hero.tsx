@@ -10,7 +10,7 @@ export default function Hero() {
           <p className="text-xs font-semibold uppercase tracking-[3px] text-gold/70 mb-6">
             Natural GLP-1 Activation
           </p>
-          <h1 className="text-4xl md:text-[56px] font-normal text-white leading-[1.08] tracking-tight max-w-[800px] md:max-w-none mb-6">
+          <h1 className="text-4xl md:text-[56px] font-normal text-white leading-[1.08] tracking-tight max-w-[800px] md:max-w-none mb-6 font-heading">
             No needle. No prescription.
             <br />
             <span className="text-gold italic">No catch.</span>

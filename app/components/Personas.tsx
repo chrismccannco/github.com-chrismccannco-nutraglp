@@ -24,7 +24,7 @@ export default function Personas() {
           Who This Is For
         </p>
         <h2
-          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink"
+          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink font-heading"
          
         >
           Three reasons people find us.
@@ -44,7 +44,7 @@ export default function Personas() {
                 {p.label}
               </p>
               <h3
-                className="text-xl md:text-2xl font-normal tracking-tight text-ink mb-4 leading-snug"
+                className="text-xl md:text-2xl font-normal tracking-tight text-ink mb-4 leading-snug font-heading"
                
               >
                 {p.headline}

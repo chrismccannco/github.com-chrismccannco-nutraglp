@@ -9,7 +9,7 @@ export default function NotFound() {
           404
         </p>
         <h1
-          className="text-3xl md:text-[48px] font-normal text-white leading-[1.1] tracking-tight max-w-[600px] mx-auto mb-6"
+          className="text-3xl md:text-[48px] font-normal text-white leading-[1.1] tracking-tight max-w-[600px] mx-auto mb-6 font-heading"
          
         >
           Page not found.

@@ -32,7 +32,7 @@ export default function Investors() {
           NutraGLP Sync&trade; Platform
         </p>
         <h1
-          className="text-4xl md:text-[52px] font-normal text-white leading-[1.08] tracking-tight max-w-[820px] mx-auto mb-6"
+          className="text-4xl md:text-[52px] font-normal text-white leading-[1.08] tracking-tight max-w-[820px] mx-auto mb-6 font-heading"
          
         >
           Your body already makes GLP-1.
@@ -57,7 +57,7 @@ export default function Investors() {
         {metrics.map((s) => (
           <div key={s.label} className="text-center">
             <div
-              className="text-2xl font-normal tracking-tight text-gold"
+              className="text-2xl font-normal tracking-tight text-gold font-heading"
              
             >
               {s.value}
@@ -75,7 +75,7 @@ export default function Investors() {
           Investment Thesis
         </p>
         <h2
-          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink"
+          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading"
          
         >
           The space between pharma and supplements is unoccupied.
@@ -111,7 +111,7 @@ export default function Investors() {
           Market Opportunity
         </p>
         <h2
-          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink"
+          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading"
          
         >
           $132B TAM. No platform-level entrant.
@@ -123,7 +123,7 @@ export default function Investors() {
             { value: "~$500M", title: "Serviceable Obtainable Market", desc: "Direct-to-consumer capture within 5 years" },
           ].map((item) => (
             <div key={item.value} className="grid grid-cols-[90px_1fr] sm:grid-cols-[120px_1fr] items-baseline gap-4 sm:gap-6">
-              <span className="text-2xl sm:text-3xl font-normal text-gold text-right">
+              <span className="text-2xl sm:text-3xl font-normal text-gold text-right font-heading">
                 {item.value}
               </span>
               <div>
@@ -142,7 +142,7 @@ export default function Investors() {
             Financial Projections
           </p>
           <h2
-            className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-12 text-white"
+            className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-12 text-white font-heading"
            
           >
             Path to $135M in four years.
@@ -156,7 +156,7 @@ export default function Investors() {
             ].map((y) => (
               <div key={y.year} className="text-center">
                 <p className="text-xs text-white/40 uppercase tracking-wider mb-2">{y.year}</p>
-                <p className="text-3xl font-normal text-gold mb-2">
+                <p className="text-3xl font-normal text-gold mb-2 font-heading">
                   {y.revenue}
                 </p>
                 <p className="text-xs text-white/40">{y.note}</p>
@@ -169,7 +169,7 @@ export default function Investors() {
       {/* CTA */}
       <section className="bg-forest py-20 px-6 md:px-12 text-center">
         <h2
-          className="text-3xl md:text-4xl font-normal text-white tracking-tight mb-4"
+          className="text-3xl md:text-4xl font-normal text-white tracking-tight mb-4 font-heading"
          
         >
           Raising $4.5M seed.

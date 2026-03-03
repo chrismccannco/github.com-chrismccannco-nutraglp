@@ -19,6 +19,9 @@
   --color-mist: #8a8a80;
   --color-mist-light: #b3b0a8;
   --color-rule: #ddd8ce;
+
+  /* Typography */
+  --font-heading: 'Fraunces', Georgia, serif;
 }
 
 @layer base {

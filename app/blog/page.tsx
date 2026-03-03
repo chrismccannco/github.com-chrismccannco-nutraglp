@@ -93,7 +93,7 @@ export default function BlogIndex() {
           Research &amp; Insights
         </p>
         <h1
-          className="text-3xl md:text-[48px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6"
+          className="text-3xl md:text-[48px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6 font-heading"
          
         >
           The science behind natural GLP-1 activation
@@ -132,7 +132,7 @@ export default function BlogIndex() {
                   <span className="text-[11px] text-mist-light">{post.readTime} read</span>
                 </div>
                 <h2
-                  className="text-xl md:text-2xl font-normal tracking-tight text-ink mb-3 group-hover:text-forest transition"
+                  className="text-xl md:text-2xl font-normal tracking-tight text-ink mb-3 group-hover:text-forest transition font-heading"
                  
                 >
                   {post.title}
