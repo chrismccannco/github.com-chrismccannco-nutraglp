@@ -10,7 +10,7 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-forest-deep/95 backdrop-blur-sm border-b border-white/[0.06]">
       <div className="max-w-[1200px] mx-auto flex items-center justify-between px-6 md:px-12 py-4">
         <Link href="/" className="flex items-center gap-2.5 no-underline">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none" className="w-8 h-8 flex-shrink-0" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none" className="w-9 h-9 flex-shrink-0" aria-hidden="true">
             <path d="M 206.44 324.74 A 140 140 0 0 1 206.44 75.26" fill="none" stroke="#D4B87A" strokeWidth="3" strokeLinecap="round"/>
             <path d="M 193.56 75.26 A 140 140 0 0 1 193.56 324.74" fill="none" stroke="#F5F2EB" strokeWidth="3" strokeLinecap="round"/>
             <circle cx="200.0" cy="75.3" r="2.4" fill="#D4B87A"/>
@@ -18,7 +18,7 @@ export default function Header() {
           </svg>
           <span className="flex items-baseline gap-2">
             <span className="text-xl font-bold tracking-tight text-cream font-heading">NutraGLP</span>
-            <span className="text-[9px] font-medium uppercase tracking-[2.5px] text-gold/60">Biosciences</span>
+            <span className="text-[10px] font-semibold uppercase tracking-[2.5px] text-gold/80">Biosciences</span>
           </span>
         </Link>
 
