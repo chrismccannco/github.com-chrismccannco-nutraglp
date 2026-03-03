@@ -66,12 +66,6 @@ export default function AboutPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(teamSchema) }}
       />
 
-      {/* Hero */}
-      <section className="bg-forest-deep px-6 md:px-12 pt-28 pb-20 text-center">
-        
-        </div>
-      </section>
-
       {/* Cross-links */}
       <section className="py-12 px-6 md:px-12 border-t border-rule">
         <div className="max-w-[720px] mx-auto flex flex-wrap gap-6">
