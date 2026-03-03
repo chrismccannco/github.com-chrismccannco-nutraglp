@@ -18,7 +18,7 @@ export default function Header() {
           </svg>
           <span className="flex items-baseline gap-2">
             <span className="text-xl font-bold tracking-tight text-cream font-heading">NutraGLP</span>
-            <span className="text-[9px] font-medium uppercase tracking-[2.5px] text-cream/40">Biosciences</span>
+            <span className="text-[9px] font-medium uppercase tracking-[2.5px] text-gold/60">Biosciences</span>
           </span>
         </Link>
 
