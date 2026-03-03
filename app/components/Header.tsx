@@ -12,9 +12,9 @@ export default function Header() {
         <Link href="/" className="flex items-center gap-2.5 no-underline">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none" className="w-9 h-9 flex-shrink-0" aria-hidden="true">
             <path d="M 206.44 324.74 A 140 140 0 0 1 206.44 75.26" fill="none" stroke="#D4B87A" strokeWidth="3" strokeLinecap="round"/>
-            <path d="M 193.56 75.26 A 140 140 0 0 1 193.56 324.74" fill="none" stroke="#F5F2EB" strokeWidth="3" strokeLinecap="round"/>
+            <path d="M 193.56 75.26 A 140 140 0 0 1 193.56 324.74" fill="none" stroke="#FFFFFF" strokeWidth="3" strokeWidth="3" strokeLinecap="round"/>
             <circle cx="200.0" cy="75.3" r="2.4" fill="#D4B87A"/>
-            <circle cx="200.0" cy="324.7" r="2.4" fill="#F5F2EB"/>
+            <circle cx="200.0" cy="324.7" r="2.4" fill="#FFFFFF"/>
           </svg>
           <span className="flex items-baseline gap-2">
             <span className="text-xl font-bold tracking-tight text-cream font-heading">NutraGLP</span>
