@@ -16,9 +16,9 @@ export default function Header() {
             <circle cx="200.0" cy="75.3" r="2.4" fill="#D4B87A"/>
             <circle cx="200.0" cy="324.7" r="2.4" fill="#F5F2EB"/>
           </svg>
-          <span className="flex flex-col leading-none">
-            <span className="text-xs font-semibold uppercase tracking-[3px] text-gold font-heading">NutraGLP</span>
-            <span className="text-[7px] font-medium uppercase tracking-[2.5px] text-white/40">Biosciences</span>
+          <span className="flex items-baseline gap-2">
+            <span className="text-xl font-bold tracking-tight text-cream font-heading">NutraGLP</span>
+            <span className="text-[9px] font-medium uppercase tracking-[2.5px] text-cream/40">Biosciences</span>
           </span>
         </Link>
 
