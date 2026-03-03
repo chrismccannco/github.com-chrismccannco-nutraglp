@@ -6,7 +6,7 @@ export default function WhoItsFor() {
       </p>
       <h2
         className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink"
-        style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+       
       >
         The people between prescriptions and placebo.
       </h2>

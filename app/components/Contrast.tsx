@@ -25,7 +25,7 @@ export default function Contrast() {
         </p>
         <h2
           className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-12 text-white"
-          style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+         
         >
           What changes when you don&apos;t need a prescription.
         </h2>

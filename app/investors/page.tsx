@@ -33,7 +33,7 @@ export default function Investors() {
         </p>
         <h1
           className="text-4xl md:text-[52px] font-normal text-white leading-[1.08] tracking-tight max-w-[820px] mx-auto mb-6"
-          style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+         
         >
           Your body already makes GLP-1.
           <br />
@@ -58,7 +58,7 @@ export default function Investors() {
           <div key={s.label} className="text-center">
             <div
               className="text-2xl font-normal tracking-tight text-gold"
-              style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+             
             >
               {s.value}
             </div>
@@ -76,7 +76,7 @@ export default function Investors() {
         </p>
         <h2
           className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink"
-          style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+         
         >
           The space between pharma and supplements is unoccupied.
         </h2>
@@ -112,7 +112,7 @@ export default function Investors() {
         </p>
         <h2
           className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink"
-          style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+         
         >
           $132B TAM. No platform-level entrant.
         </h2>
@@ -123,7 +123,7 @@ export default function Investors() {
             { value: "~$500M", title: "Serviceable Obtainable Market", desc: "Direct-to-consumer capture within 5 years" },
           ].map((item) => (
             <div key={item.value} className="grid grid-cols-[90px_1fr] sm:grid-cols-[120px_1fr] items-baseline gap-4 sm:gap-6">
-              <span className="text-2xl sm:text-3xl font-normal text-gold text-right" style={{ fontFamily: "'Fraunces', Georgia, serif" }}>
+              <span className="text-2xl sm:text-3xl font-normal text-gold text-right">
                 {item.value}
               </span>
               <div>
@@ -143,7 +143,7 @@ export default function Investors() {
           </p>
           <h2
             className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-12 text-white"
-            style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+           
           >
             Path to $135M in four years.
           </h2>
@@ -156,7 +156,7 @@ export default function Investors() {
             ].map((y) => (
               <div key={y.year} className="text-center">
                 <p className="text-xs text-white/40 uppercase tracking-wider mb-2">{y.year}</p>
-                <p className="text-3xl font-normal text-gold mb-2" style={{ fontFamily: "'Fraunces', Georgia, serif" }}>
+                <p className="text-3xl font-normal text-gold mb-2">
                   {y.revenue}
                 </p>
                 <p className="text-xs text-white/40">{y.note}</p>
@@ -170,7 +170,7 @@ export default function Investors() {
       <section className="bg-forest py-20 px-6 md:px-12 text-center">
         <h2
           className="text-3xl md:text-4xl font-normal text-white tracking-tight mb-4"
-          style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+         
         >
           Raising $4.5M seed.
         </h2>

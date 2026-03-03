@@ -30,7 +30,7 @@ export default function LatestResearch() {
         </p>
         <h2
           className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-10 text-ink"
-          style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+         
         >
           The evidence behind the formula
         </h2>
@@ -43,7 +43,7 @@ export default function LatestResearch() {
             >
               <h3
                 className="text-[17px] font-normal tracking-tight text-ink mb-3 leading-snug group-hover:text-forest transition"
-                style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+               
               >
                 {post.title}
               </h3>

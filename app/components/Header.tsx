@@ -11,13 +11,14 @@ export default function Header() {
       <div className="max-w-[1200px] mx-auto flex items-center justify-between px-6 md:px-12 py-4">
         <Link href="/" className="flex items-center gap-2.5 no-underline">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none" className="w-8 h-8 flex-shrink-0" aria-hidden="true">
-            <path d="M20 4 C11 4 4 11 4 20 C4 29 11 36 20 36" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" fill="none"/>
-            <path d="M20 4 C29 4 36 11 36 20 C36 29 29 36 20 36" stroke="#d4ad72" strokeWidth="3" strokeLinecap="round" fill="none"/>
-            <circle cx="20" cy="4" r="3" fill="#d4ad72"/>
-            <circle cx="20" cy="36" r="3" fill="#d4ad72"/>
+            <path d="M20 5.5 C12 5.5 5.5 12 5.5 20 C5.5 28 12 34.5 20 34.5" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
+            <path d="M20 5.5 C28 5.5 34.5 12 34.5 20 C34.5 28 28 34.5 20 34.5" stroke="#d4ad72" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
+            <circle cx="20" cy="5.5" r="2.5" fill="#d4ad72"/>
+            <circle cx="20" cy="34.5" r="2.5" fill="#d4ad72"/>
           </svg>
-          <span className="text-xs font-semibold uppercase tracking-[3px] text-gold">
-            NutraGLP
+          <span className="flex flex-col leading-none">
+            <span className="text-xs font-semibold uppercase tracking-[3px] text-gold">NutraGLP</span>
+            <span className="text-[7px] font-medium uppercase tracking-[2.5px] text-white/40">Biosciences</span>
           </span>
         </Link>
 

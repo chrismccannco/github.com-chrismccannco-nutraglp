@@ -7,7 +7,7 @@ const personas = [
   {
     label: "The cost question",
     headline: "I can\u2019t justify $1,600 a month. I still need something that works.",
-    body: "Ozempic without insurance runs $800\u2013$1,600/month. Compounded versions are legally uncertain. The supplement aisle is noise. Slim SHOT is $145/mo, ships to your door, and uses patent-pending nanoemulsion technology to actually deliver what most supplements can\u2019t. Real mechanism of action. Real bioavailability. Price that doesn\u2019t require a second income.",
+    body: "Ozempic without insurance runs $800\u2013$1,600/month. Compounded versions are legally uncertain. The supplement aisle is noise. Slim SHOT is $155/mo, ships to your door, and uses patent-pending nanoemulsion technology to actually deliver what most supplements can\u2019t. Real mechanism of action. Real bioavailability. Price that doesn\u2019t require a second income.",
   },
   {
     label: "The performance question",
@@ -25,7 +25,7 @@ export default function Personas() {
         </p>
         <h2
           className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink"
-          style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+         
         >
           Three reasons people find us.
         </h2>
@@ -45,7 +45,7 @@ export default function Personas() {
               </p>
               <h3
                 className="text-xl md:text-2xl font-normal tracking-tight text-ink mb-4 leading-snug"
-                style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+               
               >
                 {p.headline}
               </h3>

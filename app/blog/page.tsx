@@ -94,7 +94,7 @@ export default function BlogIndex() {
         </p>
         <h1
           className="text-3xl md:text-[48px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6"
-          style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+         
         >
           The science behind natural GLP-1 activation
         </h1>
@@ -133,7 +133,7 @@ export default function BlogIndex() {
                 </div>
                 <h2
                   className="text-xl md:text-2xl font-normal tracking-tight text-ink mb-3 group-hover:text-forest transition"
-                  style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+                 
                 >
                   {post.title}
                 </h2>

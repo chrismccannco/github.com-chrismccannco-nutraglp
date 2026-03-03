@@ -35,11 +35,11 @@ export default function Footer() {
         </div>
         <div className="flex items-center justify-center gap-2 mt-6">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none" className="w-5 h-5 opacity-50" aria-hidden="true">
-            <path d="M20 4 C11 4 4 11 4 20 C4 29 11 36 20 36" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" fill="none"/>
-            <path d="M20 4 C29 4 36 11 36 20 C36 29 29 36 20 36" stroke="#d4ad72" strokeWidth="3" strokeLinecap="round" fill="none"/>
-            <circle cx="20" cy="4" r="3" fill="#d4ad72"/>
-            <circle cx="20" cy="36" r="3" fill="#d4ad72"/>
-          </svg>
+              <path d="M20 5.5 C12 5.5 5.5 12 5.5 20 C5.5 28 12 34.5 20 34.5" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
+              <path d="M20 5.5 C28 5.5 34.5 12 34.5 20 C34.5 28 28 34.5 20 34.5" stroke="#d4ad72" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
+              <circle cx="20" cy="5.5" r="2.5" fill="#d4ad72"/>
+              <circle cx="20" cy="34.5" r="2.5" fill="#d4ad72"/>
+            </svg>
           <p className="text-xs text-white/40">
             &copy; {new Date().getFullYear()} NutraGLP. All rights reserved.
           </p>

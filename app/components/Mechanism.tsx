@@ -45,7 +45,7 @@ export default function Mechanism() {
       </p>
       <h2
         className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink"
-        style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+       
       >
         Your body already makes GLP-1.
         <br />Slim SHOT helps it make more.

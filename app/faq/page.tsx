@@ -137,7 +137,7 @@ export default function FAQPage() {
         </p>
         <h1
           className="text-3xl md:text-[48px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6"
-          style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+         
         >
           Common questions about natural GLP-1 activation
         </h1>
@@ -161,7 +161,7 @@ export default function FAQPage() {
                 <div key={faq.q}>
                   <h2
                     className="text-xl md:text-2xl font-normal tracking-tight leading-tight mb-4 text-ink"
-                    style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+                   
                   >
                     {faq.q}
                   </h2>

@@ -76,7 +76,7 @@ export default function SciencePage() {
         </p>
         <h1
           className="text-3xl md:text-[48px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6"
-          style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+         
         >
           Built on published research. Not marketing claims.
         </h1>
@@ -91,7 +91,7 @@ export default function SciencePage() {
       <section className="py-20 px-6 md:px-12 max-w-[720px] mx-auto">
         <h2
           className="text-2xl md:text-3xl font-normal tracking-tight leading-tight mb-6 text-ink"
-          style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+         
         >
           What is endogenous GLP-1 activation?
         </h2>
@@ -122,7 +122,7 @@ export default function SciencePage() {
       <section className="py-20 px-6 md:px-12 max-w-[1000px] mx-auto">
         <h2
           className="text-2xl md:text-3xl font-normal tracking-tight leading-tight mb-4 text-ink"
-          style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+         
         >
           Which metabolic pathways does NutraGLP target?
         </h2>
@@ -164,7 +164,7 @@ export default function SciencePage() {
       <section className="py-20 px-6 md:px-12 max-w-[720px] mx-auto">
         <h2
           className="text-2xl md:text-3xl font-normal tracking-tight leading-tight mb-6 text-ink"
-          style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+         
         >
           Why do most oral supplements fail at absorption?
         </h2>
@@ -224,7 +224,7 @@ export default function SciencePage() {
           </p>
           <h2
             className="text-2xl md:text-3xl font-normal tracking-tight leading-tight mb-6 text-white"
-            style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+           
           >
             How does NutraGLP meet quality and safety standards?
           </h2>
@@ -248,7 +248,7 @@ export default function SciencePage() {
       <section className="bg-forest py-16 px-6 md:px-12 text-center">
         <h2
           className="text-2xl md:text-3xl font-normal text-white tracking-tight mb-4"
-          style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+         
         >
           Questions about the science?
         </h2>

@@ -57,7 +57,7 @@ export default function OGImage() {
           }}
         >
           A daily drinkable liquid that activates your body&apos;s own GLP-1
-          production. $145/mo. No prescription. No injection.
+          production. $155/mo. No prescription. No injection.
         </div>
       </div>
     ),

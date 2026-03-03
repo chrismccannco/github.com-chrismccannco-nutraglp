@@ -281,7 +281,7 @@ export default async function BlogPost({
           </Link>
           <h1
             className="text-3xl md:text-[42px] font-normal text-white leading-[1.12] tracking-tight mt-6 mb-6"
-            style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+           
           >
             {article.title}
           </h1>
@@ -306,7 +306,7 @@ export default async function BlogPost({
             <div key={section.heading}>
               <h2
                 className="text-xl md:text-2xl font-normal tracking-tight leading-tight mb-5 text-ink"
-                style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+               
               >
                 {section.heading}
               </h2>
@@ -344,7 +344,7 @@ export default async function BlogPost({
                   >
                     <p
                       className="text-[17px] font-normal tracking-tight text-ink mb-1"
-                      style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+                     
                     >
                       {related.title}
                     </p>
@@ -389,12 +389,12 @@ export default async function BlogPost({
       <section className="bg-forest py-20 px-6 md:px-12 text-center">
         <h2
           className="text-3xl md:text-4xl font-normal text-white tracking-tight mb-4"
-          style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+         
         >
           Ready to try a different approach?
         </h2>
         <p className="text-[17px] text-white/50 max-w-[520px] mx-auto mb-8">
-          $145/mo. No prescription. No commitment. Join the waitlist for
+          $155/mo. No prescription. No commitment. Join the waitlist for
           early access and launch pricing.
         </p>
         <WaitlistForm variant="cta" />

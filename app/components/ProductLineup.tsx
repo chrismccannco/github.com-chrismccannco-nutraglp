@@ -53,7 +53,7 @@ export default function ProductLineup() {
         </p>
         <h2
           className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink"
-          style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+         
         >
           One platform. Multiple formats.
         </h2>
@@ -82,7 +82,7 @@ export default function ProductLineup() {
                 </div>
                 <p
                   className="text-[17px] font-normal tracking-tight text-ink mb-1.5"
-                  style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+                 
                 >
                   {p.name}
                 </p>

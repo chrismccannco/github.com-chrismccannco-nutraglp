@@ -56,3 +56,9 @@
     transform: translateY(0);
   }
 }
+
+@layer utilities {
+  .font-display {
+    font-family: "Fraunces", Georgia, serif;
+  }
+}

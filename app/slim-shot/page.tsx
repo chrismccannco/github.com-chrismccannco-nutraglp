@@ -7,7 +7,7 @@ import Footer from "../components/Footer";
 export const metadata: Metadata = {
   title: "Slim SHOT — Daily GLP-1 Activation",
   description:
-    "A daily liquid formula that activates your body's own GLP-1 production. Patent-pending nanoemulsion delivery, clinically studied compounds. $145/mo.",
+    "A daily liquid formula that activates your body's own GLP-1 production. Patent-pending nanoemulsion delivery, clinically studied compounds. $155/mo.",
   alternates: {
     canonical: "https://nutraglp.com/slim-shot",
   },
@@ -95,7 +95,7 @@ const productSchema = {
   image: "https://nutraglp.com/og-image.png",
   offers: {
     "@type": "Offer",
-    price: "145.00",
+    price: "155.00",
     priceCurrency: "USD",
     availability: "https://schema.org/PreOrder",
     priceValidUntil: "2026-12-31",
@@ -137,7 +137,7 @@ export default function SlimShotPage() {
             </p>
             <h1
               className="text-3xl md:text-[44px] font-normal text-white leading-[1.1] tracking-tight mb-6"
-              style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+             
             >
               Daily GLP-1 activation.
               <br />
@@ -152,9 +152,9 @@ export default function SlimShotPage() {
             <div className="flex items-baseline gap-3 mb-8">
               <span
                 className="text-3xl text-gold font-normal"
-                style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+               
               >
-                $145
+                $155
               </span>
               <span className="text-white/40 text-sm">/month &middot; Ships direct &middot; Cancel anytime</span>
             </div>
@@ -189,7 +189,7 @@ export default function SlimShotPage() {
           <div key={s.label} className="text-center">
             <div
               className="text-xl font-normal tracking-tight text-gold"
-              style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+             
             >
               {s.value}
             </div>
@@ -207,7 +207,7 @@ export default function SlimShotPage() {
         </p>
         <h2
           className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink"
-          style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+         
         >
           Three systems. One daily protocol.
         </h2>
@@ -249,7 +249,7 @@ export default function SlimShotPage() {
         </p>
         <h2
           className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink"
-          style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+         
         >
           The first 30 days.
         </h2>
@@ -272,7 +272,7 @@ export default function SlimShotPage() {
                     i === 2 ? 'border-gold bg-gold/10' : 'border-forest-mid/30 bg-forest-mid/5'
                   }`}>
                     <span className={`text-lg font-normal ${i === 2 ? 'text-gold' : 'text-forest-mid'}`}
-                      style={{ fontFamily: "'Fraunces', Georgia, serif" }}>
+                     >
                       {i + 1}
                     </span>
                   </div>
@@ -283,7 +283,7 @@ export default function SlimShotPage() {
                   </p>
                   <h3
                     className="text-lg font-normal tracking-tight text-ink mb-3"
-                    style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+                   
                   >
                     {t.title}
                   </h3>
@@ -303,7 +303,7 @@ export default function SlimShotPage() {
           </p>
           <h2
             className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-12 text-ink"
-            style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+           
           >
             Things people ask before they start.
           </h2>
@@ -335,12 +335,12 @@ export default function SlimShotPage() {
       <section className="bg-forest py-20 px-6 md:px-12 text-center">
         <h2
           className="text-3xl md:text-4xl font-normal text-white tracking-tight mb-4"
-          style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+         
         >
           Ready to try a different approach?
         </h2>
         <p className="text-[17px] text-white/50 max-w-[520px] mx-auto mb-8">
-          $145/mo. No prescription. No commitment. Join the waitlist for
+          $155/mo. No prescription. No commitment. Join the waitlist for
           early access and launch pricing.
         </p>
         <WaitlistForm variant="cta" />

@@ -18,7 +18,7 @@ export default function ThankYouPage() {
         </p>
         <h1
           className="text-3xl md:text-[48px] font-normal text-white leading-[1.1] tracking-tight max-w-[600px] mx-auto mb-6"
-          style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+         
         >
           You&apos;re in.
         </h1>
