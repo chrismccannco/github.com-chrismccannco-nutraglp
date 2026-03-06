@@ -61,7 +61,7 @@ export async function PUT(
     }
     if (body.published !== undefined) {
       updates.push("published = ?");
-      values.push(body.published ? 1 : 0);
+      values.push(String(body.published ? 1 : 0));
     }
 
     if (updates.length === 0)
