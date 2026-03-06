@@ -176,6 +176,7 @@ export default function EditPage() {
           </button>
         </div>
       </div>
+      </div>
 
       {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
 
