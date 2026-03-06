@@ -95,9 +95,9 @@ export default function VersionHistory({
                       {formatDate(v.created_at)}
                     </p>
                   </div>
-                  {v.version_data.title && (
+                  {typeof v.version_data.title === "string" && (
                     <p className="text-xs text-gray-500 mt-0.5 truncate">
-                      {v.version_data.title as string}
+                      {v.version_data.title}
                     </p>
                   )}
                 </div>
