@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import Footer from "../components/Footer";
 
@@ -17,10 +16,6 @@ const teamSchema = {
   "@type": "Organization",
   name: "NutraGLP",
   url: "https://nutraglp.com",
-  parentOrganization: {
-    "@type": "Organization",
-    name: "NanoAlchemie",
-  },
   member: [
     {
       "@type": "Person",
@@ -76,8 +71,7 @@ export default function AboutPage() {
           About
         </p>
         <h1
-          className="text-3xl md:text-[48px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6"
-          style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+          className="text-3xl md:text-[48px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6 font-display"
         >
           The team behind NutraGLP
         </h1>
@@ -101,7 +95,8 @@ export default function AboutPage() {
                 className="md:flex md:gap-12 md:items-start"
               >
                 <div className="w-[180px] h-[220px] rounded-xl overflow-hidden shrink-0 mb-8 md:mb-0 bg-cream-warm border border-rule">
-                  <Image
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
                     src={person.image}
                     alt={person.name}
                     width={180}
@@ -115,8 +110,7 @@ export default function AboutPage() {
                     {person.role}
                   </p>
                   <h2
-                    className="text-2xl md:text-3xl font-normal tracking-tight text-ink mb-4"
-                    style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+                    className="text-2xl md:text-3xl font-normal tracking-tight text-ink mb-4 font-display"
                   >
                     {person.name}
                   </h2>
@@ -141,8 +135,7 @@ export default function AboutPage() {
             The Thesis
           </p>
           <h2
-            className="text-2xl md:text-3xl font-normal tracking-tight leading-tight mb-6 text-ink"
-            style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+            className="text-2xl md:text-3xl font-normal tracking-tight leading-tight mb-6 text-ink font-display"
           >
             The supplement aisle has a delivery problem, not a formulation
             problem.
@@ -181,8 +174,7 @@ export default function AboutPage() {
             Standards
           </p>
           <h2
-            className="text-2xl md:text-3xl font-normal tracking-tight leading-tight mb-8 text-ink"
-            style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+            className="text-2xl md:text-3xl font-normal tracking-tight leading-tight mb-8 text-ink font-display"
           >
             How the product is made
           </h2>
@@ -214,18 +206,6 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Parent company */}
-      <section className="py-16 px-6 md:px-12">
-        <div className="max-w-[720px] mx-auto text-center">
-          <p className="text-sm text-mist">
-            NutraGLP is a brand of{" "}
-            <span className="text-ink font-semibold">NanoAlchemie</span>, a
-            nanoemulsion technology company developing next-generation delivery
-            systems for bioactive compounds.
-          </p>
         </div>
       </section>
 

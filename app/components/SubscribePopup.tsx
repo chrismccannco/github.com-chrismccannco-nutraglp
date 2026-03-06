@@ -114,8 +114,7 @@ export default function SubscribePopup() {
         {submitted ? (
           <div className="text-center py-4">
             <p
-              className="text-2xl font-normal text-forest mb-2"
-              style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+              className="text-2xl font-normal text-forest mb-2 font-display"
             >
               You&apos;re in.
             </p>
@@ -129,8 +128,7 @@ export default function SubscribePopup() {
               Early Access
             </p>
             <h3
-              className="text-2xl font-normal tracking-tight text-ink mb-2 leading-snug"
-              style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+              className="text-2xl font-normal tracking-tight text-ink mb-2 leading-snug font-display"
             >
               Get on the list before we launch.
             </h3>
@@ -194,7 +192,7 @@ export default function SubscribePopup() {
               {/* Submit */}
               <button
                 type="submit"
-                className="w-full py-3.5 text-[15px] font-bold rounded-lg bg-forest text-white hover:bg-forest-mid transition cursor-pointer"
+                className="w-full py-3.5 text-[15px] font-bold rounded-lg bg-gold text-white hover:bg-gold-light transition cursor-pointer"
               >
                 Join Early Access
               </button>

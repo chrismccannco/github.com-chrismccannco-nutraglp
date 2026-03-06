@@ -6,7 +6,7 @@ const products = [
     statusColor: "bg-gold text-white",
     description:
       "Daily liquid formula. Drink half in the morning, half in the evening. GRAS-certified compounds in a patent-pending nanoemulsion delivery system that naturally modulates GLP-1 and GIP signals.",
-    price: "$145/mo",
+    price: "$155/mo",
   },
   {
     name: "NutraGLP Sweetener",
@@ -45,8 +45,7 @@ export default function Pipeline() {
           Product Pipeline
         </p>
         <h2
-          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink"
-          style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink font-display"
         >
           One platform. Multiple products.
         </h2>
@@ -65,8 +64,7 @@ export default function Pipeline() {
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <h3
-                    className="text-xl font-normal tracking-tight text-ink mb-1"
-                    style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+                    className="text-xl font-normal tracking-tight text-ink mb-1 font-display"
                   >
                     {p.name}
                   </h3>
@@ -114,8 +112,7 @@ export default function Pipeline() {
           </div>
           <div>
             <h3
-              className="text-lg font-normal tracking-tight text-ink mb-1"
-              style={{ fontFamily: "'Fraunces', Georgia, serif" }}
+              className="text-lg font-normal tracking-tight text-ink mb-1 font-display"
             >
               NutraGLP Companion App
             </h3>

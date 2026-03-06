@@ -72,7 +72,7 @@ export default function WaitlistForm({ variant = "default" }: { variant?: "defau
         type="submit"
         className={`px-7 py-3.5 text-[15px] font-bold rounded-md cursor-pointer transition whitespace-nowrap ${
           isLight
-            ? "bg-white text-forest hover:brightness-95"
+            ? "bg-gold text-white hover:bg-gold-light"
             : "bg-gold text-white hover:bg-gold-light"
         }`}
       >

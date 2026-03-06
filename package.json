@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "build": "npx tsx lib/db.ts && npx tsx lib/seed.ts && next build",
+    "start": "next start",
+    "db:setup": "npx tsx lib/db.ts",
+    "db:seed": "npx tsx lib/seed.ts"
   },
   "keywords": [],
   "author": "",
@@ -16,10 +18,18 @@
     "@types/node": "^25.3.0",
     "@types/react": "^19.2.14",
     "next": "^16.1.6",
+    "playwright": "^1.58.2",
     "postcss": "^8.5.6",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "tailwindcss": "^4.2.1",
+    "@libsql/client": "^0.14.0",
+    "@tiptap/react": "^2.12.0",
+    "@tiptap/starter-kit": "^2.12.0",
+    "@tiptap/extension-link": "^2.12.0",
+    "@tiptap/extension-image": "^2.12.0",
+    "@tiptap/pm": "^2.12.0",
+    "@vercel/blob": "^0.27.0",
     "typescript": "^5.9.3"
   },
   "devDependencies": {

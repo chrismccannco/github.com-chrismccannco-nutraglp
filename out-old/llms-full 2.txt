@@ -1,0 +1,152 @@
+# NutraGLP — Complete Reference
+
+> NutraGLP develops patent-pending nanoemulsion formulas for natural GLP-1 activation. Flagship product: Slim SHOT, a daily drinkable liquid formula that amplifies endogenous GLP-1 production and inhibits DPP-4 degradation.
+
+## Company
+
+NutraGLP is building the platform layer between pharmaceutical GLP-1 drugs and the supplement aisle. The company's patent-pending nanoemulsion technology solves the bioavailability problem that limits most oral nutraceutical formats, ensuring active compounds reach their target metabolic pathways at effective concentrations.
+
+Parent company: NanoAlchemie
+Founded: 2025
+Website: https://nutraglp.com
+
+## Product: Slim SHOT
+
+Slim SHOT is a daily drinkable liquid nanoemulsion. It is not an injection. It is taken by mouth, like a wellness shot, once per day ideally in the morning on an empty stomach. Refrigerate after opening.
+
+Price: $145 per month, subscription, cancel anytime.
+Status: Pre-order / Waitlist
+Format: Drinkable liquid nanoemulsion
+
+### What Slim SHOT does
+
+Slim SHOT activates endogenous GLP-1 and GIP production, inhibits DPP-4 enzyme to extend incretin half-life, and provides complementary metabolic support across 13 distinct pathways. It is a dietary supplement, not a drug, and is not a replacement for prescribed GLP-1 medications.
+
+### Active Systems
+
+The formula contains four GRAS-certified active systems delivered via a patent-pending nanoemulsion carrier:
+
+- AMPK-Mediated L-Cell Activation: Stimulates GLP-1 secretion from intestinal L-cells via AMPK pathway activation. Multiple RCTs demonstrate significant increases in postprandial GLP-1 levels.
+- Insulin Receptor Sensitization: Enhances insulin receptor sensitivity and supports glucose-dependent GLP-1 release. Established GRAS compound with extensive clinical literature on glucose metabolism.
+- GPR120 Receptor Activation: Activates GPR120 receptors on L-cells, triggering GLP-1 and GIP secretion. Published mechanisms via free fatty acid receptor pathways.
+- Natural DPP-4 Inhibitors (proprietary blend): Extend the half-life of endogenously produced GLP-1 by inhibiting enzymatic degradation. Compounds with demonstrated in vitro DPP-4 inhibitory activity.
+- Nanoemulsion Carrier (patent-pending): Lipid-based nanoparticles that encapsulate active compounds, increase surface area, protect against GI tract degradation, and enhance cellular uptake.
+
+### How it works (three steps)
+
+1. Activate: Four GRAS-certified active systems stimulate your body's own GLP-1 and GIP production in the gut through AMPK activation, GPR120 signaling, and insulin receptor sensitization. The same hormones the drugs target, produced naturally.
+2. Protect: Natural DPP-4 inhibitors extend the life of your GLP-1 before it breaks down. More active hormone. Longer metabolic window. No synthetic peptides.
+3. Deliver: The patent-pending nanoemulsion technology ensures high bioavailability. Every dose, every day.
+
+## Science
+
+### The endogenous activation thesis
+
+Pharmaceutical GLP-1 receptor agonists work by introducing synthetic peptides that mimic natural incretin hormones. NutraGLP takes a different approach. Rather than replacing the body's incretin production with synthetic analogs, the formula is designed to amplify the GLP-1 and GIP the gut already produces, while extending the window those hormones remain active by inhibiting DPP-4.
+
+### Metabolic pathways (13 total)
+
+GLP-1 & GIP Activation:
+- AMPK-Mediated L-Cell Activation: Stimulates GLP-1 secretion from intestinal L-cells via AMPK pathway activation
+- Insulin Receptor Sensitization: Enhances insulin receptor sensitivity and supports glucose-dependent GLP-1 release
+- GPR120 Receptor Activation: Activates GPR120 receptors on L-cells, triggering GLP-1 and GIP secretion
+
+DPP-4 Inhibition:
+- Natural DPP-4 Inhibitors: Extend the half-life of endogenously produced GLP-1 by inhibiting enzymatic degradation
+
+Complementary Metabolic Support:
+- Insulin Sensitivity Enhancement: Multiple pathways supporting glucose uptake and GLUT4 translocation
+- Appetite Regulation: GLP-1-mediated satiety signaling through the gut-brain axis
+- Lipid Metabolism: AMPK-mediated fatty acid oxidation and triglyceride reduction
+
+### Nanoemulsion delivery system
+
+Most oral nutraceuticals fail at absorption. The compounds may have demonstrated efficacy in vitro or clinical studies, but they never reach their target pathways at meaningful concentrations when taken as a standard oral supplement. Bioavailability is the bottleneck.
+
+NutraGLP uses a patent-pending nanoemulsion delivery system that encapsulates active compounds in lipid-based nanoparticles (20-200nm). This increases surface area, protects against enzymatic degradation in the GI tract, and enhances cellular uptake through improved membrane permeability.
+
+The liquid format is required because compressing a nanoemulsion into a dry capsule or tablet would destroy the nanoparticle structure. The liquid allows for faster absorption since there is no dissolution step.
+
+### Nanoemulsion vs liposomal delivery
+
+Both use lipid-based carriers. Liposomes are spherical vesicles with a water-filled core surrounded by a lipid bilayer. Nanoemulsions are thermodynamically stable droplets of oil dispersed in water stabilized by surfactants. Nanoemulsions generally offer better physical stability, longer shelf life, and more consistent particle size distribution.
+
+## Frequently Asked Questions
+
+### GLP-1 Basics
+
+Q: What is GLP-1 and why does it matter for weight management?
+A: GLP-1 (glucagon-like peptide-1) is an incretin hormone produced naturally in your gut after eating. It signals your brain to reduce appetite, slows gastric emptying so you feel full longer, and stimulates insulin secretion to regulate blood sugar. GLP-1 is the same hormone targeted by prescription drugs like Ozempic and Wegovy.
+
+Q: Can you increase GLP-1 naturally without injections?
+A: Yes. Intestinal L-cells produce GLP-1 in response to specific nutrients and compounds. Research shows AMPK pathway activation stimulates GLP-1 secretion from L-cells. GPR120 receptor signaling triggers additional incretin release. Insulin receptor sensitization supports glucose-dependent GLP-1 output. The challenge has always been bioavailability.
+
+Q: What is DPP-4 and how does it affect GLP-1 levels?
+A: DPP-4 (dipeptidyl peptidase-4) is an enzyme that rapidly degrades GLP-1 after it is produced. Natural GLP-1 has a half-life of about 2 minutes because DPP-4 breaks it down almost immediately. Inhibiting DPP-4 extends the window naturally produced GLP-1 remains active.
+
+Q: What is the difference between endogenous and exogenous GLP-1?
+A: Endogenous GLP-1 is what your body produces on its own, primarily from L-cells in the small intestine. Exogenous GLP-1 is introduced from outside the body, like the synthetic semaglutide in Ozempic. Endogenous activation works with your body's existing feedback loops. Exogenous injection overrides those loops with pharmaceutical-grade concentrations.
+
+### Formulation & Science
+
+Q: How does AMPK activation stimulate GLP-1 production?
+A: AMP-activated protein kinase (AMPK) is a key metabolic sensor in intestinal L-cells. When activated, it stimulates the secretion of GLP-1. Multiple randomized controlled trials have demonstrated significant increases in postprandial GLP-1 levels through AMPK-mediated pathways.
+
+Q: What role does GPR120 receptor activation play in GLP-1 signaling?
+A: GPR120 (FFAR4) is a free fatty acid receptor expressed on intestinal L-cells. When GPR120 is activated, it triggers intracellular signaling cascades that result in GLP-1 secretion. This is a distinct pathway from AMPK activation, which is why the two mechanisms work synergistically.
+
+Q: How does insulin receptor sensitization contribute to the formula?
+A: Insulin receptor sensitization enhances the binding of insulin to its receptor, facilitating glucose uptake into cells via GLUT4 translocation. This complements direct GLP-1 activation through AMPK and GPR120 pathways by improving the downstream metabolic response.
+
+### Product
+
+Q: Is Slim SHOT FDA approved?
+A: Slim SHOT is a dietary supplement, not a drug. Dietary supplements are regulated under DSHEA and do not require pre-market approval. All compounds hold GRAS status, and the product is manufactured in cGMP-certified facilities with third-party testing.
+
+Q: How is this different from Ozempic or Wegovy?
+A: GLP-1 drugs inject synthetic peptides that mimic incretin hormones. Slim SHOT amplifies your body's own GLP-1 production while inhibiting the enzyme that breaks it down. No injection, no prescription, no synthetic peptides. Different mechanism, same biological pathway. Slim SHOT is not a replacement for prescribed medication.
+
+Q: Is this an injection?
+A: No. Slim SHOT is a drinkable liquid taken by mouth, like a wellness shot. One per day, ideally in the morning on an empty stomach. No needle, no syringe, no mixing, no measuring.
+
+Q: Will this interact with my medication?
+A: Certain active compounds in the formula can interact with medications, particularly those metabolized by the liver (CYP enzymes) and blood sugar-lowering drugs. Consult your healthcare provider before starting Slim SHOT if you take any prescription medication.
+
+Q: Is this safe for athletes?
+A: All compounds are naturally derived and none appear on WADA or USADA prohibited substance lists. Slim SHOT is designed to support metabolic efficiency without the muscle-wasting effects associated with higher-dose synthetic GLP-1 agonists.
+
+### Safety & Quality
+
+Q: What does GRAS status mean?
+A: GRAS stands for Generally Recognized as Safe. It is an FDA designation indicating that a substance is generally recognized, among qualified experts, as safe under its intended conditions of use.
+
+Q: What is cGMP manufacturing?
+A: cGMP stands for current Good Manufacturing Practice. These are FDA-enforced regulations that ensure products are consistently produced and controlled according to quality standards, covering facility design, equipment, raw material testing, production processes, and final product testing.
+
+## Quality & Compliance
+
+- All compounds hold GRAS (Generally Recognized as Safe) status
+- Patent-pending nanoemulsion formulation
+- Third-party tested for purity, potency, and composition
+- Manufactured in cGMP-certified facilities
+- Regulated as a dietary supplement under DSHEA
+
+## Pages
+
+- Homepage: https://nutraglp.com
+- Slim SHOT Product: https://nutraglp.com/slim-shot
+- The Science: https://nutraglp.com/science
+- FAQ: https://nutraglp.com/faq
+- About: https://nutraglp.com/about
+- Blog: https://nutraglp.com/blog
+- Natural GLP-1 Activation: https://nutraglp.com/blog/natural-glp1-activation
+- Nanoemulsion vs Capsules: https://nutraglp.com/blog/nanoemulsion-vs-capsules
+- Natural DPP-4 Inhibition: https://nutraglp.com/blog/natural-dpp4-inhibition
+- Endogenous vs Exogenous GLP-1: https://nutraglp.com/blog/endogenous-vs-exogenous-glp1
+- Privacy Policy: https://nutraglp.com/privacy
+- Terms of Service: https://nutraglp.com/terms
+
+## Contact
+
+- Website: https://nutraglp.com
+- Investor inquiries: investors@nutraglp.com

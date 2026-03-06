@@ -8,8 +8,6 @@ For comprehensive product details, science, and full FAQ, see: https://nutraglp.
 
 NutraGLP is building the platform layer between pharmaceutical GLP-1 drugs and the supplement aisle. The company's patent-pending nanoemulsion technology solves the bioavailability problem that limits most oral nutraceutical formats, ensuring active compounds reach their target metabolic pathways at effective concentrations.
 
-Parent company: NanoAlchemie
-
 ## Products
 
 ### Slim SHOT
@@ -17,7 +15,7 @@ Parent company: NanoAlchemie
 - Activates endogenous GLP-1 and GIP production
 - Inhibits DPP-4 enzyme to extend incretin half-life
 - Patent-pending nanoemulsion delivery system
-- Price: $145/month, subscription, cancel anytime
+- Price: $155/month, subscription, cancel anytime
 - Four GRAS-certified active systems targeting AMPK activation, GPR120 signaling, insulin receptor sensitization, and DPP-4 inhibition
 - Status: Pre-order / Waitlist
 

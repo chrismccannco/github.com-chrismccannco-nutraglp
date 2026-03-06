@@ -10,7 +10,7 @@ export default function Hero() {
           <p className="text-xs font-semibold uppercase tracking-[3px] text-gold/70 mb-6">
             Natural GLP-1 Activation
           </p>
-          <h1 className="text-4xl md:text-[56px] font-normal text-white leading-[1.08] tracking-tight max-w-[800px] md:max-w-none mb-6" style={{ fontFamily: "'Fraunces', Georgia, serif" }}>
+          <h1 className="text-4xl md:text-[56px] font-normal text-white leading-[1.08] tracking-tight max-w-[800px] md:max-w-none mb-6 font-display">
             No needle. No prescription.
             <br />
             <span className="text-gold italic">No catch.</span>
@@ -18,7 +18,7 @@ export default function Hero() {
           <p className="text-lg md:text-xl text-white/50 max-w-[580px] mx-auto md:mx-0 mb-12 leading-relaxed">
             Slim SHOT is a daily liquid formula that activates your body&apos;s
             own GLP-1 production. Clinically studied compounds. Patent-pending
-            nanoemulsion delivery. $145/mo.
+            nanoemulsion delivery. $155/mo.
           </p>
           <WaitlistForm variant="hero" />
           <div className="mt-6">
