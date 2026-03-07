@@ -79,8 +79,8 @@ export default function MediaLibrary() {
 
   return (
     <div className="max-w-4xl">
-      <h1 className="text-2xl font-semibold text-gray-900 mb-1">Media</h1>
-      <p className="text-sm text-gray-500 mb-8">
+      <h1 className="text-2xl font-semibold text-neutral-900 mb-1">Media</h1>
+      <p className="text-sm text-neutral-500 mb-8">
         {blobs.length} file{blobs.length !== 1 ? "s" : ""} uploaded
       </p>
 
@@ -95,7 +95,7 @@ export default function MediaLibrary() {
         className={`border-2 border-dashed rounded-xl p-8 text-center mb-8 transition ${
           dragOver
             ? "border-emerald-500 bg-emerald-50"
-            : "border-gray-300 bg-white"
+            : "border-neutral-300 bg-white"
         }`}
       >
         <input
@@ -106,7 +106,7 @@ export default function MediaLibrary() {
           onChange={(e) => handleUpload(e.target.files)}
           className="hidden"
         />
-        <p className="text-sm text-gray-600 mb-2">
+        <p className="text-sm text-neutral-600 mb-2">
           {uploading
             ? "Uploading..."
             : "Drag images here or click to upload"}
@@ -114,11 +114,11 @@ export default function MediaLibrary() {
         <button
           onClick={() => fileRef.current?.click()}
           disabled={uploading}
-          className="px-4 py-2 bg-[#0f2d20] text-white text-sm rounded-lg hover:bg-[#1a4a33] transition disabled:opacity-50"
+          className="px-4 py-2 bg-emerald-600 text-white text-sm rounded-lg hover:bg-emerald-700 transition disabled:opacity-50"
         >
           {uploading ? "Uploading..." : "Choose files"}
         </button>
-        <p className="text-xs text-gray-400 mt-2">
+        <p className="text-xs text-neutral-400 mt-2">
           JPEG, PNG, WebP, GIF, SVG. Max 4MB each.
         </p>
       </div>
@@ -128,9 +128,9 @@ export default function MediaLibrary() {
         {blobs.map((blob) => (
           <div
             key={blob.url}
-            className="bg-white border border-gray-200 rounded-xl overflow-hidden group"
+            className="bg-white border border-neutral-200 rounded-xl overflow-hidden group"
           >
-            <div className="aspect-square bg-gray-100 relative">
+            <div className="aspect-square bg-neutral-100 relative">
               <img
                 src={blob.url}
                 alt={blob.pathname}
@@ -140,7 +140,7 @@ export default function MediaLibrary() {
                 <div className="flex gap-2">
                   <button
                     onClick={() => copyUrl(blob.url)}
-                    className="px-3 py-1.5 bg-white text-gray-900 text-xs rounded-lg font-medium"
+                    className="px-3 py-1.5 bg-white text-neutral-900 text-xs rounded-lg font-medium"
                   >
                     {copied === blob.url ? "Copied!" : "Copy URL"}
                   </button>
@@ -154,8 +154,8 @@ export default function MediaLibrary() {
               </div>
             </div>
             <div className="px-3 py-2">
-              <p className="text-xs text-gray-700 truncate">{blob.pathname}</p>
-              <p className="text-[10px] text-gray-400">
+              <p className="text-xs text-neutral-700 truncate">{blob.pathname}</p>
+              <p className="text-[10px] text-neutral-400">
                 {formatSize(blob.size)}
               </p>
             </div>
@@ -164,7 +164,7 @@ export default function MediaLibrary() {
       </div>
 
       {blobs.length === 0 && !uploading && (
-        <p className="text-sm text-gray-400 text-center py-12">
+        <p className="text-sm text-neutral-400 text-center py-12">
           No images uploaded yet.
         </p>
       )}

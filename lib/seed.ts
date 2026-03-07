@@ -489,6 +489,16 @@ export async function seed() {
   await db.execute({ sql: settingSql, args: ["copyright", "\u00a9 {year} NutraGLP. All rights reserved."] });
   await db.execute({ sql: settingSql, args: ["admin_password", "nutraglp-admin-2026"] });
 
+  // Popup / Email Capture defaults
+  await db.execute({ sql: settingSql, args: ["popup_enabled", "true"] });
+  await db.execute({ sql: settingSql, args: ["popup_delay_seconds", "12"] });
+  await db.execute({ sql: settingSql, args: ["popup_scroll_threshold", "55"] });
+  await db.execute({ sql: settingSql, args: ["popup_heading", "Get on the list before we launch."] });
+  await db.execute({ sql: settingSql, args: ["popup_subheading", "Slim SHOT ships soon. Early subscribers get first access and launch pricing."] });
+  await db.execute({ sql: settingSql, args: ["popup_cta_text", "Join Early Access"] });
+  await db.execute({ sql: settingSql, args: ["popup_show_phone", "true"] });
+  await db.execute({ sql: settingSql, args: ["popup_show_sms_optin", "true"] });
+
   console.log("Seed complete.");
 }
 

@@ -1,7 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import DataTable, { Column } from "../components/DataTable";
+import StatusBadge from "../components/StatusBadge";
+import Breadcrumbs from "../components/Breadcrumbs";
 
 interface PageRow {
   id: number;
@@ -12,9 +15,51 @@ interface PageRow {
   updated_at: string;
 }
 
+const columns: Column<PageRow>[] = [
+  {
+    key: "title",
+    label: "Title",
+    sortable: true,
+    render: (row) => (
+      <div>
+        <p className="font-medium text-neutral-900">{row.title}</p>
+        <p className="text-xs text-neutral-400 mt-0.5">
+          /{row.slug === "home" ? "" : row.slug}
+        </p>
+      </div>
+    ),
+  },
+  {
+    key: "published",
+    label: "Status",
+    render: (row) => (
+      <StatusBadge status={row.published ? "published" : "draft"} />
+    ),
+    className: "w-28",
+  },
+  {
+    key: "updated_at",
+    label: "Updated",
+    sortable: true,
+    render: (row) => (
+      <span className="text-xs text-neutral-500">
+        {row.updated_at
+          ? new Date(row.updated_at).toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+              year: "numeric",
+            })
+          : "\u2014"}
+      </span>
+    ),
+    className: "w-32",
+  },
+];
+
 export default function PagesAdmin() {
   const [pages, setPages] = useState<PageRow[]>([]);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     fetch("/api/pages")
@@ -26,48 +71,33 @@ export default function PagesAdmin() {
       .catch(() => setLoading(false));
   }, []);
 
-  if (loading) return <p className="text-sm text-gray-500 p-4">Loading pages...</p>;
+  if (loading)
+    return <p className="text-sm text-neutral-400 p-4">Loading pages\u2026</p>;
 
   return (
-    <div className="max-w-3xl">
-      <h1 className="text-2xl font-semibold text-gray-900 mb-1">Pages</h1>
-      <p className="text-sm text-gray-500 mb-8">
-        {pages.length} page{pages.length !== 1 ? "s" : ""} in database
-      </p>
-
-      {pages.length === 0 && (
-        <p className="text-sm text-gray-400">No pages found. Pages are created via seed data or the API.</p>
-      )}
-
-      <div className="space-y-2">
-        {pages.map((p) => (
-          <Link
-            key={p.slug}
-            href={`/admin/pages/${p.slug}`}
-            className="flex items-center justify-between bg-white border border-gray-200 rounded-lg px-5 py-4 no-underline hover:border-gray-300 hover:shadow-sm transition"
-          >
-            <div className="flex items-center gap-3">
-              <div>
-                <p className="text-sm font-medium text-gray-900">{p.title}</p>
-                <p className="text-xs text-gray-500 mt-0.5">
-                  /{p.slug === "home" ? "" : p.slug}
-                  {p.meta_description ? ` — ${p.meta_description.slice(0, 60)}...` : ""}
-                </p>
-              </div>
-              <span
-                className={`px-2 py-0.5 text-[10px] font-medium rounded-full ${
-                  p.published
-                    ? "bg-emerald-100 text-emerald-800"
-                    : "bg-amber-100 text-amber-800"
-                }`}
-              >
-                {p.published ? "Live" : "Draft"}
-              </span>
-            </div>
-            <span className="text-xs text-gray-400">Edit &rarr;</span>
-          </Link>
-        ))}
+    <div>
+      <Breadcrumbs items={[{ label: "Admin", href: "/admin" }, { label: "Pages" }]} />
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h1 className="text-xl font-semibold text-neutral-900">Pages</h1>
+          <p className="text-xs text-neutral-400 mt-1">
+            {pages.length} page{pages.length !== 1 ? "s" : ""}
+          </p>
+        </div>
       </div>
+      <DataTable
+        data={pages}
+        columns={columns}
+        searchKeys={["title", "slug"]}
+        onRowClick={(row) => router.push(`/admin/pages/${row.slug}`)}
+        actions={[
+          {
+            label: "Edit",
+            onClick: (row) => router.push(`/admin/pages/${row.slug}`),
+          },
+        ]}
+        emptyMessage="No pages found. Pages are created via seed data or the API."
+      />
     </div>
   );
 }

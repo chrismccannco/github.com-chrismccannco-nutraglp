@@ -5,3 +5,6 @@ out/
 .env.local
 .netlify/
 .vercel
+.env*.local
+.next-old/
+out-old/

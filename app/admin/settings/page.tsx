@@ -1,79 +1,204 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import Breadcrumbs from "../components/Breadcrumbs";
+import FormSection from "../components/FormSection";
+import AutosaveIndicator from "../components/AutosaveIndicator";
+import { useAutosave } from "../hooks/useAutosave";
 
-const settingFields = [
+const generalFields = [
   { key: "site_name", label: "Site name" },
   { key: "tagline", label: "Tagline" },
+  { key: "copyright", label: "Copyright" },
+];
+
+const disclaimerFields = [
   { key: "fda_disclaimer", label: "FDA disclaimer", multiline: true },
   { key: "supplement_disclaimer", label: "Supplement disclaimer", multiline: true },
-  { key: "copyright", label: "Copyright" },
+];
+
+const socialFields = [
   { key: "social_instagram", label: "Instagram URL" },
   { key: "social_twitter", label: "Twitter URL" },
   { key: "social_linkedin", label: "LinkedIn URL" },
-  { key: "admin_password", label: "Admin password" },
+];
+
+const securityFields = [
+  { key: "admin_password", label: "Admin password", password: true },
 ];
 
 export default function SettingsAdmin() {
   const [settings, setSettings] = useState<Record<string, string>>({});
-  const [saving, setSaving] = useState(false);
-  const [saved, setSaved] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     fetch("/api/settings")
       .then((r) => r.json())
-      .then((data) => setSettings(data));
+      .then((data) => {
+        setSettings(data);
+        setLoaded(true);
+      });
   }, []);
 
-  const handleSave = async () => {
-    setSaving(true);
-    await fetch("/api/settings", {
+  const autoSaveFn = useCallback(async () => {
+    if (!loaded) return;
+    const res = await fetch("/api/settings", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(settings),
     });
-    setSaving(false);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+    if (!res.ok) throw new Error("Save failed");
+  }, [settings, loaded]);
+
+  const autosaveStatus = useAutosave(autoSaveFn, [settings]);
+
+  const update = (key: string, value: string) => {
+    setSettings((prev) => ({ ...prev, [key]: value }));
   };
+
+  const renderField = (f: { key: string; label: string; multiline?: boolean; password?: boolean }) => (
+    <div key={f.key} className="mb-4 last:mb-0">
+      <label className="block text-xs font-medium text-neutral-500 mb-1">
+        {f.label}
+      </label>
+      {f.multiline ? (
+        <textarea
+          value={settings[f.key] || ""}
+          onChange={(e) => update(f.key, e.target.value)}
+          rows={3}
+          className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+        />
+      ) : (
+        <input
+          type={f.password ? "password" : "text"}
+          value={settings[f.key] || ""}
+          onChange={(e) => update(f.key, e.target.value)}
+          className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+        />
+      )}
+    </div>
+  );
 
   return (
     <div className="max-w-2xl">
-      <div className="flex items-center justify-between mb-8">
+      <Breadcrumbs
+        items={[{ label: "Admin", href: "/admin" }, { label: "Settings" }]}
+      />
+      <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900 mb-1">Settings</h1>
-          <p className="text-sm text-gray-500">Global site configuration</p>
+          <h1 className="text-xl font-semibold text-neutral-900">Settings</h1>
+          <p className="text-xs text-neutral-400 mt-1">
+            Global site configuration
+          </p>
         </div>
-        <button
-          onClick={handleSave}
-          disabled={saving}
-          className="px-4 py-2 bg-[#0f2d20] text-white text-sm rounded-lg hover:bg-[#1a4a33] transition disabled:opacity-50"
-        >
-          {saving ? "Saving..." : saved ? "Saved!" : "Save settings"}
-        </button>
+        <AutosaveIndicator status={autosaveStatus} />
       </div>
 
-      <div className="bg-white border border-gray-200 rounded-xl p-5 space-y-4">
-        {settingFields.map((f) => (
-          <div key={f.key}>
-            <label className="block text-xs font-medium text-gray-500 mb-1">{f.label}</label>
-            {f.multiline ? (
-              <textarea
-                value={settings[f.key] || ""}
-                onChange={(e) => setSettings({ ...settings, [f.key]: e.target.value })}
-                rows={3}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
-              />
-            ) : (
+      <div className="space-y-4">
+        <FormSection title="General">
+          {generalFields.map(renderField)}
+        </FormSection>
+
+        <FormSection title="Disclaimers">
+          {disclaimerFields.map(renderField)}
+        </FormSection>
+
+        <FormSection title="Social Links">
+          {socialFields.map(renderField)}
+        </FormSection>
+
+        <FormSection title="Popup / Email Capture">
+          <div className="mb-4">
+            <label className="flex items-center gap-2 text-sm">
               <input
-                type={f.key === "admin_password" ? "password" : "text"}
-                value={settings[f.key] || ""}
-                onChange={(e) => setSettings({ ...settings, [f.key]: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                type="checkbox"
+                checked={settings.popup_enabled === "true"}
+                onChange={(e) => update("popup_enabled", e.target.checked ? "true" : "false")}
+                className="rounded border-neutral-300"
               />
-            )}
+              <span className="text-xs font-medium text-neutral-500">Enable popup</span>
+            </label>
           </div>
-        ))}
+          <div className="grid grid-cols-2 gap-4 mb-4">
+            <div>
+              <label className="block text-xs font-medium text-neutral-500 mb-1">
+                Delay (seconds)
+              </label>
+              <input
+                type="number"
+                value={settings.popup_delay_seconds || ""}
+                onChange={(e) => update("popup_delay_seconds", e.target.value)}
+                className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-neutral-500 mb-1">
+                Scroll threshold (%)
+              </label>
+              <input
+                type="number"
+                value={settings.popup_scroll_threshold || ""}
+                onChange={(e) => update("popup_scroll_threshold", e.target.value)}
+                className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              />
+            </div>
+          </div>
+          <div className="mb-4">
+            <label className="block text-xs font-medium text-neutral-500 mb-1">
+              Heading
+            </label>
+            <input
+              value={settings.popup_heading || ""}
+              onChange={(e) => update("popup_heading", e.target.value)}
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-xs font-medium text-neutral-500 mb-1">
+              Subheading
+            </label>
+            <textarea
+              value={settings.popup_subheading || ""}
+              onChange={(e) => update("popup_subheading", e.target.value)}
+              rows={2}
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-xs font-medium text-neutral-500 mb-1">
+              CTA button text
+            </label>
+            <input
+              value={settings.popup_cta_text || ""}
+              onChange={(e) => update("popup_cta_text", e.target.value)}
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            />
+          </div>
+          <div className="flex gap-6">
+            <label className="flex items-center gap-2 text-sm">
+              <input
+                type="checkbox"
+                checked={settings.popup_show_phone === "true"}
+                onChange={(e) => update("popup_show_phone", e.target.checked ? "true" : "false")}
+                className="rounded border-neutral-300"
+              />
+              <span className="text-xs font-medium text-neutral-500">Show phone field</span>
+            </label>
+            <label className="flex items-center gap-2 text-sm">
+              <input
+                type="checkbox"
+                checked={settings.popup_show_sms_optin === "true"}
+                onChange={(e) => update("popup_show_sms_optin", e.target.checked ? "true" : "false")}
+                className="rounded border-neutral-300"
+              />
+              <span className="text-xs font-medium text-neutral-500">Show SMS opt-in</span>
+            </label>
+          </div>
+        </FormSection>
+
+        <FormSection title="Security">
+          {securityFields.map(renderField)}
+        </FormSection>
       </div>
     </div>
   );

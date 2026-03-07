@@ -19,6 +19,7 @@ export async function GET(
       id: r.id, slug: r.slug, title: r.title, description: r.description,
       date: r.date, read_time: r.read_time, tag: r.tag, gradient: r.gradient,
       featured_image: r.featured_image,
+      meta_title: r.meta_title, meta_description: r.meta_description, og_image: r.og_image,
       sections: JSON.parse(r.sections as string),
       related_slugs: JSON.parse(r.related_slugs as string),
       published: r.published, created_at: r.created_at, updated_at: r.updated_at,
@@ -47,6 +48,7 @@ export async function PUT(
     const allowed = [
       "title", "description", "date", "read_time", "tag",
       "gradient", "featured_image", "published",
+      "meta_title", "meta_description", "og_image",
     ];
     for (const key of allowed) {
       if (body[key] !== undefined) {
@@ -81,6 +83,7 @@ export async function PUT(
       id: r.id, slug: r.slug, title: r.title, description: r.description,
       date: r.date, read_time: r.read_time, tag: r.tag, gradient: r.gradient,
       featured_image: r.featured_image,
+      meta_title: r.meta_title, meta_description: r.meta_description, og_image: r.og_image,
       sections: JSON.parse(r.sections as string),
       related_slugs: JSON.parse(r.related_slugs as string),
       published: r.published, created_at: r.created_at, updated_at: r.updated_at,

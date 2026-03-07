@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Breadcrumbs from "../../components/Breadcrumbs";
+import FormSection from "../../components/FormSection";
 
 export default function NewBlogPost() {
   const router = useRouter();
@@ -9,6 +11,9 @@ export default function NewBlogPost() {
   const [slug, setSlug] = useState("");
   const [description, setDescription] = useState("");
   const [tag, setTag] = useState("");
+  const [metaTitle, setMetaTitle] = useState("");
+  const [metaDescription, setMetaDescription] = useState("");
+  const [ogImage, setOgImage] = useState("");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
@@ -28,6 +33,9 @@ export default function NewBlogPost() {
           slug,
           description,
           tag,
+          meta_title: metaTitle || undefined,
+          meta_description: metaDescription || undefined,
+          og_image: ogImage || undefined,
           date: new Date().toISOString().split("T")[0],
           read_time: "5 min",
           gradient: "from-emerald-900 to-green-800",
@@ -48,40 +56,110 @@ export default function NewBlogPost() {
 
   return (
     <div className="max-w-xl">
-      <button onClick={() => router.push("/admin/blog")} className="text-xs text-gray-500 hover:text-gray-700 mb-1">
-        &larr; All posts
-      </button>
-      <h1 className="text-2xl font-semibold text-gray-900 mb-6">New blog post</h1>
+      <Breadcrumbs
+        items={[
+          { label: "Admin", href: "/admin" },
+          { label: "Blog", href: "/admin/blog" },
+          { label: "New post" },
+        ]}
+      />
+      <h1 className="text-xl font-semibold text-neutral-900 mb-6">
+        New blog post
+      </h1>
 
-      <form onSubmit={handleCreate} className="bg-white border border-gray-200 rounded-xl p-5 space-y-4">
-        <div>
-          <label className="block text-xs font-medium text-gray-500 mb-1">Title</label>
-          <input value={title} onChange={(e) => setTitle(e.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
-        </div>
-        <div>
-          <label className="block text-xs font-medium text-gray-500 mb-1">Slug</label>
-          <input
-            value={slug}
-            onChange={(e) => setSlug(e.target.value.replace(/[^a-z0-9-]/g, ""))}
-            placeholder="my-article-slug"
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
-          />
-        </div>
-        <div>
-          <label className="block text-xs font-medium text-gray-500 mb-1">Description</label>
-          <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={2} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
-        </div>
-        <div>
-          <label className="block text-xs font-medium text-gray-500 mb-1">Tag</label>
-          <input value={tag} onChange={(e) => setTag(e.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
-        </div>
+      <form onSubmit={handleCreate} className="space-y-4">
+        <FormSection title="Details">
+          <div className="mb-4">
+            <label className="block text-xs font-medium text-neutral-500 mb-1">
+              Title
+            </label>
+            <input
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-xs font-medium text-neutral-500 mb-1">
+              Slug
+            </label>
+            <input
+              value={slug}
+              onChange={(e) =>
+                setSlug(e.target.value.replace(/[^a-z0-9-]/g, ""))
+              }
+              placeholder="my-article-slug"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-xs font-medium text-neutral-500 mb-1">
+              Description
+            </label>
+            <textarea
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows={2}
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-neutral-500 mb-1">
+              Tag
+            </label>
+            <input
+              value={tag}
+              onChange={(e) => setTag(e.target.value)}
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            />
+          </div>
+        </FormSection>
+
+        <FormSection title="SEO (optional)" collapsible>
+          <div className="mb-4">
+            <label className="block text-xs font-medium text-neutral-500 mb-1">
+              Meta Title
+            </label>
+            <input
+              value={metaTitle}
+              onChange={(e) => setMetaTitle(e.target.value)}
+              placeholder="Override post title for search engines"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-xs font-medium text-neutral-500 mb-1">
+              Meta Description (SEO)
+            </label>
+            <textarea
+              value={metaDescription}
+              onChange={(e) => setMetaDescription(e.target.value)}
+              rows={2}
+              placeholder="Override post description for search engines"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-neutral-500 mb-1">
+              OG Image URL
+            </label>
+            <input
+              value={ogImage}
+              onChange={(e) => setOgImage(e.target.value)}
+              placeholder="https://..."
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            />
+          </div>
+        </FormSection>
+
         {error && <p className="text-xs text-red-600">{error}</p>}
+
         <button
           type="submit"
           disabled={saving}
-          className="px-4 py-2 bg-[#0f2d20] text-white text-sm rounded-lg hover:bg-[#1a4a33] transition disabled:opacity-50"
+          className="px-4 py-2 bg-emerald-600 text-white text-sm rounded-lg hover:bg-emerald-700 transition disabled:opacity-50"
         >
-          {saving ? "Creating..." : "Create post"}
+          {saving ? "Creating\u2026" : "Create post"}
         </button>
       </form>
     </div>

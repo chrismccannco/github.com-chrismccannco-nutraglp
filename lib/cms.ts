@@ -18,8 +18,13 @@ export interface BlogPost {
   tag: string | null;
   gradient: string | null;
   featured_image: string | null;
+  meta_title: string | null;
+  meta_description: string | null;
+  og_image: string | null;
   sections: { heading: string; body: string | string[] }[];
   related_slugs: string[];
+  blocks: import("./types/blocks").Block[];
+  blocks_draft: import("./types/blocks").Block[];
   published: number;
   created_at: string;
   updated_at: string;
@@ -30,9 +35,26 @@ export interface Page {
   slug: string;
   title: string;
   meta_description: string | null;
+  meta_title: string | null;
+  og_image: string | null;
   content: Record<string, unknown>;
+  blocks: import("./types/blocks").Block[];
+  blocks_draft: import("./types/blocks").Block[];
   published: number;
   updated_at: string;
+}
+
+export interface Testimonial {
+  id: number;
+  name: string;
+  title: string | null;
+  quote: string;
+  rating: number;
+  avatar_url: string | null;
+  featured: number;
+  sort_order: number;
+  published: number;
+  created_at: string;
 }
 
 export interface Faq {
@@ -80,6 +102,8 @@ export async function getPage(slug: string): Promise<Page | null> {
   return {
     ...(row as unknown as Page),
     content: JSON.parse(row.content as string),
+    blocks: JSON.parse((row.blocks as string) || "[]"),
+    blocks_draft: JSON.parse((row.blocks_draft as string) || "[]"),
   };
 }
 
@@ -94,6 +118,8 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
       ...(row as unknown as BlogPost),
       sections: JSON.parse(row.sections as string),
       related_slugs: JSON.parse(row.related_slugs as string),
+      blocks: JSON.parse((row.blocks as string) || "[]"),
+      blocks_draft: JSON.parse((row.blocks_draft as string) || "[]"),
     };
   });
 }
@@ -110,6 +136,8 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
     ...(row as unknown as BlogPost),
     sections: JSON.parse(row.sections as string),
     related_slugs: JSON.parse(row.related_slugs as string),
+    blocks: JSON.parse((row.blocks as string) || "[]"),
+    blocks_draft: JSON.parse((row.blocks_draft as string) || "[]"),
   };
 }
 
@@ -153,4 +181,12 @@ export async function getSettings(): Promise<Record<string, string>> {
     settings[row.key as string] = row.value as string;
   }
   return settings;
+}
+
+export async function getTestimonials(): Promise<Testimonial[]> {
+  const db = getDb();
+  const result = await db.execute(
+    "SELECT * FROM testimonials WHERE published = 1 ORDER BY sort_order ASC, id ASC"
+  );
+  return result.rows.map((r) => rowToObject(r) as unknown as Testimonial);
 }

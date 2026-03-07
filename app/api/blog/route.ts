@@ -18,6 +18,9 @@ export async function GET() {
       gradient: r.gradient,
       sections: JSON.parse(r.sections as string),
       related_slugs: JSON.parse(r.related_slugs as string),
+      meta_title: r.meta_title,
+      meta_description: r.meta_description,
+      og_image: r.og_image,
       published: r.published,
       created_at: r.created_at,
       updated_at: r.updated_at,
@@ -34,8 +37,8 @@ export async function POST(req: NextRequest) {
     const db = getDb();
 
     const insertResult = await db.execute({
-      sql: `INSERT INTO blog_posts (slug, title, description, date, read_time, tag, gradient, sections, related_slugs, published)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      sql: `INSERT INTO blog_posts (slug, title, description, date, read_time, tag, gradient, sections, related_slugs, published, meta_title, meta_description, og_image)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       args: [
         body.slug,
         body.title,
@@ -47,6 +50,9 @@ export async function POST(req: NextRequest) {
         JSON.stringify(body.sections || []),
         JSON.stringify(body.related_slugs || []),
         body.published !== undefined ? (body.published ? 1 : 0) : 1,
+        body.meta_title || null,
+        body.meta_description || null,
+        body.og_image || null,
       ],
     });
 
@@ -59,6 +65,7 @@ export async function POST(req: NextRequest) {
       {
         id: r.id, slug: r.slug, title: r.title, description: r.description,
         date: r.date, read_time: r.read_time, tag: r.tag, gradient: r.gradient,
+        meta_title: r.meta_title, meta_description: r.meta_description, og_image: r.og_image,
         sections: JSON.parse(r.sections as string),
         related_slugs: JSON.parse(r.related_slugs as string),
         published: r.published, created_at: r.created_at, updated_at: r.updated_at,

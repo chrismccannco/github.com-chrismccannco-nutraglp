@@ -32,7 +32,7 @@ function ToolbarButton({
       className={`px-2 py-1 text-xs rounded transition ${
         active
           ? "bg-emerald-100 text-emerald-800 font-semibold"
-          : "text-gray-600 hover:bg-gray-100"
+          : "text-neutral-600 hover:bg-neutral-100"
       }`}
     >
       {children}
@@ -96,9 +96,9 @@ export default function RichTextEditor({
 
   return (
     <>
-      <div className="border border-gray-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-emerald-500 focus-within:border-emerald-500">
+      <div className="border border-neutral-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-emerald-500 focus-within:border-emerald-500">
         {/* Toolbar */}
-        <div className="flex flex-wrap gap-0.5 px-2 py-1.5 border-b border-gray-200 bg-gray-50">
+        <div className="flex flex-wrap gap-0.5 px-2 py-1.5 border-b border-neutral-200 bg-neutral-50">
           <ToolbarButton
             active={editor.isActive("bold")}
             onClick={() => editor.chain().focus().toggleBold().run()}
@@ -121,7 +121,7 @@ export default function RichTextEditor({
             <s>S</s>
           </ToolbarButton>
 
-          <span className="w-px bg-gray-300 mx-1" />
+          <span className="w-px bg-neutral-300 mx-1" />
 
           <ToolbarButton
             active={editor.isActive("heading", { level: 2 })}
@@ -151,7 +151,7 @@ export default function RichTextEditor({
             H4
           </ToolbarButton>
 
-          <span className="w-px bg-gray-300 mx-1" />
+          <span className="w-px bg-neutral-300 mx-1" />
 
           <ToolbarButton
             active={editor.isActive("bulletList")}
@@ -175,7 +175,7 @@ export default function RichTextEditor({
             &ldquo; Quote
           </ToolbarButton>
 
-          <span className="w-px bg-gray-300 mx-1" />
+          <span className="w-px bg-neutral-300 mx-1" />
 
           <ToolbarButton
             active={editor.isActive("link")}
@@ -192,7 +192,7 @@ export default function RichTextEditor({
             Image
           </ToolbarButton>
 
-          <span className="w-px bg-gray-300 mx-1" />
+          <span className="w-px bg-neutral-300 mx-1" />
 
           <ToolbarButton
             active={editor.isActive("codeBlock")}
@@ -215,7 +215,7 @@ export default function RichTextEditor({
 
         {placeholder && !editor.getText() && (
           <div className="px-3 pb-2 -mt-6 pointer-events-none">
-            <p className="text-sm text-gray-400">{placeholder}</p>
+            <p className="text-sm text-neutral-400">{placeholder}</p>
           </div>
         )}
       </div>

@@ -19,7 +19,9 @@ export async function GET(
       id: row.id,
       slug: row.slug,
       title: row.title,
+      meta_title: row.meta_title,
       meta_description: row.meta_description,
+      og_image: row.og_image,
       content: JSON.parse(row.content as string),
       published: row.published,
       updated_at: row.updated_at,
@@ -59,6 +61,14 @@ export async function PUT(
       updates.push("content = ?");
       values.push(JSON.stringify(body.content));
     }
+    if (body.meta_title !== undefined) {
+      updates.push("meta_title = ?");
+      values.push(body.meta_title);
+    }
+    if (body.og_image !== undefined) {
+      updates.push("og_image = ?");
+      values.push(body.og_image);
+    }
     if (body.published !== undefined) {
       updates.push("published = ?");
       values.push(String(body.published ? 1 : 0));
@@ -84,7 +94,9 @@ export async function PUT(
       id: row.id,
       slug: row.slug,
       title: row.title,
+      meta_title: row.meta_title,
       meta_description: row.meta_description,
+      og_image: row.og_image,
       content: JSON.parse(row.content as string),
       published: row.published,
       updated_at: row.updated_at,

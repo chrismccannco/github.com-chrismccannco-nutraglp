@@ -2,57 +2,142 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import {
+  LayoutDashboard,
+  FileText,
+  BookOpen,
+  HelpCircle,
+  Package,
+  Image,
+  Settings,
+  ExternalLink,
+  X,
+  Star,
+  BarChart3,
+} from "lucide-react";
 
-const nav = [
-  { label: "Dashboard", href: "/admin" },
-  { label: "Pages", href: "/admin/pages" },
-  { label: "Blog", href: "/admin/blog" },
-  { label: "FAQ", href: "/admin/faq" },
-  { label: "Products", href: "/admin/products" },
-  { label: "Media", href: "/admin/media" },
-  { label: "Settings", href: "/admin/settings" },
+const contentNav = [
+  { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
+  { label: "Pages", href: "/admin/pages", icon: FileText },
+  { label: "Blog", href: "/admin/blog", icon: BookOpen },
+  { label: "Products", href: "/admin/products", icon: Package },
+  { label: "Testimonials", href: "/admin/testimonials", icon: Star },
+  { label: "Media", href: "/admin/media", icon: Image },
+  { label: "Analytics", href: "/admin/analytics", icon: BarChart3 },
 ];
 
-export default function Sidebar() {
+const settingsNav = [
+  { label: "FAQ", href: "/admin/faq", icon: HelpCircle },
+  { label: "Settings", href: "/admin/settings", icon: Settings },
+];
+
+interface SidebarProps {
+  open?: boolean;
+  onClose?: () => void;
+}
+
+export default function Sidebar({ open, onClose }: SidebarProps) {
   const pathname = usePathname();
 
-  return (
-    <aside className="w-56 bg-[#0f2d20] text-white min-h-screen flex flex-col">
-      <div className="p-5 border-b border-white/10">
-        <Link href="/admin" className="no-underline">
-          <p className="text-lg font-semibold tracking-tight text-white">NutraGLP</p>
-          <p className="text-[11px] uppercase tracking-widest text-white/40 mt-0.5">CMS</p>
+  const isActive = (href: string) =>
+    href === "/admin" ? pathname === "/admin" : pathname.startsWith(href);
+
+  const renderLink = (item: { label: string; href: string; icon: typeof LayoutDashboard }) => {
+    const active = isActive(item.href);
+    const Icon = item.icon;
+    return (
+      <Link
+        key={item.href}
+        href={item.href}
+        onClick={onClose}
+        className={`flex items-center gap-3 px-4 py-2 text-sm rounded-lg no-underline transition ${
+          active
+            ? "bg-emerald-50 text-emerald-700 font-medium border-l-2 border-emerald-600 -ml-px"
+            : "text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900"
+        }`}
+      >
+        <Icon className="w-4 h-4 flex-shrink-0" />
+        {item.label}
+      </Link>
+    );
+  };
+
+  const sidebarContent = (
+    <>
+      {/* Logo */}
+      <div className="px-5 py-5 border-b border-neutral-100">
+        <Link href="/admin" className="no-underline" onClick={onClose}>
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-[#0f2d20] flex items-center justify-center">
+              <span className="text-white text-xs font-bold">N</span>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-neutral-900 leading-tight">
+                NutraGLP
+              </p>
+              <p className="text-[10px] uppercase tracking-widest text-neutral-400">
+                CMS
+              </p>
+            </div>
+          </div>
         </Link>
       </div>
-      <nav className="flex-1 py-4">
-        {nav.map((item) => {
-          const active =
-            item.href === "/admin"
-              ? pathname === "/admin"
-              : pathname.startsWith(item.href);
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`block px-5 py-2.5 text-sm no-underline transition ${
-                active
-                  ? "bg-white/10 text-white font-medium"
-                  : "text-white/60 hover:text-white hover:bg-white/5"
-              }`}
-            >
-              {item.label}
-            </Link>
-          );
-        })}
+
+      {/* Nav */}
+      <nav className="flex-1 py-4 px-3 space-y-6 overflow-y-auto">
+        <div>
+          <p className="px-4 mb-2 text-[10px] font-semibold uppercase tracking-widest text-neutral-400">
+            Content
+          </p>
+          <div className="space-y-0.5">{contentNav.map(renderLink)}</div>
+        </div>
+        <div>
+          <p className="px-4 mb-2 text-[10px] font-semibold uppercase tracking-widest text-neutral-400">
+            Settings
+          </p>
+          <div className="space-y-0.5">{settingsNav.map(renderLink)}</div>
+        </div>
       </nav>
-      <div className="p-5 border-t border-white/10">
+
+      {/* Footer */}
+      <div className="px-5 py-4 border-t border-neutral-100">
         <Link
           href="/"
-          className="text-xs text-white/40 hover:text-white/70 no-underline transition"
+          target="_blank"
+          className="flex items-center gap-2 text-xs text-neutral-400 hover:text-neutral-600 no-underline transition"
         >
-          View live site &rarr;
+          <ExternalLink className="w-3 h-3" />
+          View live site
         </Link>
       </div>
-    </aside>
+    </>
+  );
+
+  return (
+    <>
+      {/* Desktop sidebar */}
+      <aside className="hidden md:flex w-64 bg-white border-r border-neutral-200 min-h-screen flex-col">
+        {sidebarContent}
+      </aside>
+
+      {/* Mobile overlay */}
+      {open && (
+        <div className="fixed inset-0 z-50 md:hidden">
+          <div
+            className="absolute inset-0 bg-black/30"
+            onClick={onClose}
+          />
+          <aside className="relative w-72 bg-white min-h-screen flex flex-col shadow-xl">
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 p-1 text-neutral-400 hover:text-neutral-600"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            {sidebarContent}
+          </aside>
+        </div>
+      )}
+    </>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { Menu } from "lucide-react";
 import Sidebar from "./components/Sidebar";
 
 export default function AdminLayout({
@@ -11,6 +12,7 @@ export default function AdminLayout({
   const [authed, setAuthed] = useState(false);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     const token = sessionStorage.getItem("cms_auth");
@@ -36,18 +38,29 @@ export default function AdminLayout({
 
   if (!authed) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen flex items-center justify-center bg-neutral-50">
         <form
           onSubmit={handleLogin}
-          className="bg-white p-8 rounded-xl shadow-sm border border-gray-200 w-80"
+          className="bg-white p-8 rounded-xl shadow-sm border border-neutral-200 w-80"
         >
-          <h1 className="text-xl font-semibold text-gray-900 mb-1">NutraGLP CMS</h1>
-          <p className="text-sm text-gray-500 mb-6">Enter your admin password</p>
+          <div className="flex items-center gap-2.5 mb-6">
+            <div className="w-8 h-8 rounded-lg bg-[#0f2d20] flex items-center justify-center">
+              <span className="text-white text-xs font-bold">N</span>
+            </div>
+            <div>
+              <h1 className="text-lg font-semibold text-neutral-900 leading-tight">
+                NutraGLP
+              </h1>
+              <p className="text-[10px] uppercase tracking-widest text-neutral-400">
+                CMS
+              </p>
+            </div>
+          </div>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm mb-3 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm mb-3 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
             placeholder="Password"
             autoFocus
           />
@@ -56,7 +69,7 @@ export default function AdminLayout({
           )}
           <button
             type="submit"
-            className="w-full bg-[#0f2d20] text-white py-2 rounded-lg text-sm font-medium hover:bg-[#1a4a33] transition"
+            className="w-full bg-emerald-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-emerald-700 transition"
           >
             Sign in
           </button>
@@ -66,9 +79,27 @@ export default function AdminLayout({
   }
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      <Sidebar />
-      <main className="flex-1 p-6 md:p-10 overflow-auto">{children}</main>
+    <div className="flex min-h-screen bg-neutral-50">
+      <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+
+      <div className="flex-1 flex flex-col min-w-0">
+        {/* Mobile header */}
+        <header className="md:hidden sticky top-0 z-40 bg-white border-b border-neutral-200 px-4 py-3 flex items-center gap-3">
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="p-1 -ml-1 text-neutral-600 hover:text-neutral-900"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+          <span className="text-sm font-semibold text-neutral-900">
+            NutraGLP
+          </span>
+        </header>
+
+        <main className="flex-1 p-5 md:p-8 lg:p-10 overflow-auto">
+          {children}
+        </main>
+      </div>
     </div>
   );
 }

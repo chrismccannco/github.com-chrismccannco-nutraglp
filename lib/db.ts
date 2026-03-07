@@ -105,6 +105,27 @@ export async function initDb(): Promise<Client> {
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       created_by TEXT DEFAULT 'admin'
     );
+
+    CREATE TABLE IF NOT EXISTS testimonials (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      title TEXT,
+      quote TEXT NOT NULL,
+      rating INTEGER DEFAULT 5,
+      avatar_url TEXT,
+      featured INTEGER DEFAULT 0,
+      sort_order INTEGER DEFAULT 0,
+      published INTEGER DEFAULT 1,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS page_views (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      path TEXT NOT NULL,
+      referrer TEXT,
+      user_agent TEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
   `);
 
   // Add columns that may not exist on older databases
@@ -116,6 +137,16 @@ export async function initDb(): Promise<Client> {
     "ALTER TABLE blog_posts ADD COLUMN draft_description TEXT",
     "ALTER TABLE blog_posts ADD COLUMN draft_sections TEXT",
     "ALTER TABLE products ADD COLUMN published INTEGER DEFAULT 1",
+    "ALTER TABLE pages ADD COLUMN meta_title TEXT",
+    "ALTER TABLE pages ADD COLUMN og_image TEXT",
+    "ALTER TABLE blog_posts ADD COLUMN meta_title TEXT",
+    "ALTER TABLE blog_posts ADD COLUMN meta_description TEXT",
+    "ALTER TABLE blog_posts ADD COLUMN og_image TEXT",
+    // Block-based page builder columns
+    "ALTER TABLE pages ADD COLUMN blocks TEXT DEFAULT '[]'",
+    "ALTER TABLE pages ADD COLUMN blocks_draft TEXT DEFAULT '[]'",
+    "ALTER TABLE blog_posts ADD COLUMN blocks TEXT DEFAULT '[]'",
+    "ALTER TABLE blog_posts ADD COLUMN blocks_draft TEXT DEFAULT '[]'",
   ];
 
   for (const sql of migrations) {
@@ -124,6 +155,13 @@ export async function initDb(): Promise<Client> {
     } catch {
       // Column already exists — ignore
     }
+  }
+
+  // Indexes
+  try {
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_page_views_path_date ON page_views (path, created_at)");
+  } catch {
+    // Index may already exist
   }
 
   return db;

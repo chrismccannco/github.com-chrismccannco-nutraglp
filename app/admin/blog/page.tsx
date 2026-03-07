@@ -1,7 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
+import DataTable, { Column } from "../components/DataTable";
+import StatusBadge from "../components/StatusBadge";
+import Breadcrumbs from "../components/Breadcrumbs";
+import { Plus } from "lucide-react";
 
 interface Post {
   id: number;
@@ -14,58 +19,103 @@ interface Post {
 
 export default function BlogAdmin() {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     fetch("/api/blog")
       .then((r) => r.json())
-      .then((data) => setPosts(Array.isArray(data) ? data : []));
+      .then((data) => {
+        setPosts(Array.isArray(data) ? data : []);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
   }, []);
 
-  const handleDelete = async (slug: string) => {
-    if (!confirm(`Delete "${slug}"?`)) return;
-    await fetch(`/api/blog/${slug}`, { method: "DELETE" });
-    setPosts((prev) => prev.filter((p) => p.slug !== slug));
+  const handleDelete = async (post: Post) => {
+    if (!confirm(`Delete "${post.title}"?`)) return;
+    await fetch(`/api/blog/${post.slug}`, { method: "DELETE" });
+    setPosts((prev) => prev.filter((p) => p.slug !== post.slug));
   };
+
+  const columns: Column<Post>[] = [
+    {
+      key: "title",
+      label: "Title",
+      sortable: true,
+      render: (row) => (
+        <div>
+          <p className="font-medium text-neutral-900">{row.title}</p>
+          <p className="text-xs text-neutral-400 mt-0.5">/{row.slug}</p>
+        </div>
+      ),
+    },
+    {
+      key: "tag",
+      label: "Tag",
+      render: (row) => (
+        <span className="text-xs text-neutral-500">{row.tag || "\u2014"}</span>
+      ),
+      className: "w-32",
+    },
+    {
+      key: "published",
+      label: "Status",
+      render: (row) => (
+        <StatusBadge status={row.published ? "published" : "draft"} />
+      ),
+      className: "w-28",
+    },
+    {
+      key: "date",
+      label: "Date",
+      sortable: true,
+      render: (row) => (
+        <span className="text-xs text-neutral-500">{row.date || "\u2014"}</span>
+      ),
+      className: "w-32",
+    },
+  ];
+
+  if (loading)
+    return <p className="text-sm text-neutral-400 p-4">Loading posts\u2026</p>;
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-8">
+      <Breadcrumbs items={[{ label: "Admin", href: "/admin" }, { label: "Blog" }]} />
+      <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-semibold text-gray-900 mb-1">Blog Posts</h1>
-          <p className="text-sm text-gray-500">{posts.length} articles</p>
+          <h1 className="text-xl font-semibold text-neutral-900">Blog Posts</h1>
+          <p className="text-xs text-neutral-400 mt-1">
+            {posts.length} article{posts.length !== 1 ? "s" : ""}
+          </p>
         </div>
         <Link
           href="/admin/blog/new"
-          className="px-4 py-2 bg-[#0f2d20] text-white text-sm rounded-lg no-underline hover:bg-[#1a4a33] transition"
+          className="flex items-center gap-1.5 px-4 py-2 bg-emerald-600 text-white text-sm rounded-lg no-underline hover:bg-emerald-700 transition"
         >
+          <Plus className="w-4 h-4" />
           New post
         </Link>
       </div>
-
-      <div className="space-y-2">
-        {posts.map((post) => (
-          <div
-            key={post.slug}
-            className="flex items-center justify-between bg-white border border-gray-200 rounded-lg px-5 py-4"
-          >
-            <Link href={`/admin/blog/${post.slug}`} className="no-underline flex-1">
-              <p className="text-sm font-medium text-gray-900">{post.title}</p>
-              <p className="text-xs text-gray-500 mt-0.5">
-                {post.date} · {post.tag}
-                {!post.published && (
-                  <span className="ml-2 text-amber-600 font-medium">Draft</span>
-                )}
-              </p>
-            </Link>
-            <button
-              onClick={() => handleDelete(post.slug)}
-              className="text-xs text-red-500 hover:text-red-700 ml-4"
-            >
-              Delete
-            </button>
-          </div>
-        ))}
-      </div>
+      <DataTable
+        data={posts}
+        columns={columns}
+        searchKeys={["title", "slug", "tag"]}
+        onRowClick={(row) => router.push(`/admin/blog/${row.slug}`)}
+        actions={[
+          {
+            label: "Edit",
+            onClick: (row) => router.push(`/admin/blog/${row.slug}`),
+          },
+          {
+            label: "Delete",
+            onClick: handleDelete,
+            destructive: true,
+          },
+        ]}
+        emptyMessage="No blog posts yet."
+      />
     </div>
   );
 }

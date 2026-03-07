@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "./components/Header";
+import PageViewTracker from "./components/PageViewTracker";
 
 export const metadata: Metadata = {
   title: {
@@ -91,6 +92,7 @@ export default function RootLayout({
             }),
           }}
         />
+        <PageViewTracker />
         <Header />
         {children}
       </body>

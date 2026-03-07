@@ -47,24 +47,24 @@ export default function ImageUploadModal({
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="bg-white rounded-xl shadow-lg w-full max-w-md mx-4">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-200">
-          <h3 className="text-sm font-semibold text-gray-900">Insert image</h3>
+        <div className="flex items-center justify-between px-5 py-4 border-b border-neutral-200">
+          <h3 className="text-sm font-semibold text-neutral-900">Insert image</h3>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 text-lg leading-none"
+            className="text-neutral-400 hover:text-neutral-600 text-lg leading-none"
           >
             &times;
           </button>
         </div>
 
         {/* Tabs */}
-        <div className="flex border-b border-gray-200">
+        <div className="flex border-b border-neutral-200">
           <button
             onClick={() => setTab("upload")}
             className={`flex-1 px-4 py-2.5 text-xs font-medium transition ${
               tab === "upload"
                 ? "text-emerald-700 border-b-2 border-emerald-600"
-                : "text-gray-500 hover:text-gray-700"
+                : "text-neutral-500 hover:text-neutral-700"
             }`}
           >
             Upload
@@ -74,7 +74,7 @@ export default function ImageUploadModal({
             className={`flex-1 px-4 py-2.5 text-xs font-medium transition ${
               tab === "url"
                 ? "text-emerald-700 border-b-2 border-emerald-600"
-                : "text-gray-500 hover:text-gray-700"
+                : "text-neutral-500 hover:text-neutral-700"
             }`}
           >
             Paste URL
@@ -93,7 +93,7 @@ export default function ImageUploadModal({
               className={`border-2 border-dashed rounded-lg p-8 text-center transition ${
                 dragOver
                   ? "border-emerald-500 bg-emerald-50"
-                  : "border-gray-300"
+                  : "border-neutral-300"
               }`}
             >
               <input
@@ -106,7 +106,7 @@ export default function ImageUploadModal({
                 }}
                 className="hidden"
               />
-              <p className="text-sm text-gray-600 mb-3">
+              <p className="text-sm text-neutral-600 mb-3">
                 {uploading ? "Uploading..." : "Drag an image here"}
               </p>
               <button
@@ -116,7 +116,7 @@ export default function ImageUploadModal({
               >
                 {uploading ? "Uploading..." : "Choose file"}
               </button>
-              <p className="text-[10px] text-gray-400 mt-2">Max 4MB</p>
+              <p className="text-[10px] text-neutral-400 mt-2">Max 4MB</p>
             </div>
           ) : (
             <div className="space-y-3">
@@ -124,7 +124,7 @@ export default function ImageUploadModal({
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 placeholder="https://example.com/image.jpg"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               />
               <button
                 onClick={() => {

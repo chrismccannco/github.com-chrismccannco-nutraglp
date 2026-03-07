@@ -15,11 +15,22 @@ export async function generateMetadata({
   const { slug } = await params;
   const article = await getBlogPost(slug);
   if (!article) return {};
+  const seoTitle = (article.meta_title as string) || (article.title as string);
+  const seoDescription = (article.meta_description as string) || (article.description as string);
+  const ogImage = article.og_image as string | undefined;
+
   return {
-    title: article.title as string,
-    description: article.description as string,
+    title: seoTitle,
+    description: seoDescription,
     alternates: {
       canonical: `https://nutraglp.com/blog/${slug}`,
+    },
+    openGraph: {
+      title: seoTitle,
+      description: seoDescription,
+      url: `https://nutraglp.com/blog/${slug}`,
+      type: "article",
+      ...(ogImage ? { images: [{ url: ogImage, width: 1200, height: 630, alt: seoTitle }] } : {}),
     },
   };
 }
