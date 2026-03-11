@@ -45,7 +45,7 @@ export default function WaitlistForm({ variant = "default" }: { variant?: "defau
       data-netlify="true"
       netlify-honeypot="bot-field"
       onSubmit={handleSubmit}
-      className="flex flex-col sm:flex-row gap-3 max-w-[480px] mx-auto"
+      className="flex flex-col sm:flex-row gap-3 max-w-[480px] mx-auto md:mx-0"
     >
       <input type="hidden" name="form-name" value="waitlist" />
       <p className="hidden">
