@@ -1,6 +1,6 @@
 # NutraGLP — Complete Reference
 
-> NutraGLP develops patent-pending nanoemulsion formulas for natural GLP-1 activation. Flagship product: Slim SHOT, a daily drinkable liquid formula that amplifies endogenous GLP-1 production and inhibits DPP-4 degradation.
+> NutraGLP develops patent-pending nanoemulsion formulas for natural GLP-1 amplification. Flagship product: Slim SHOT, a daily drinkable liquid formula that amplifies endogenous GLP-1 production and inhibits DPP-4 degradation.
 
 ## Company
 
@@ -39,7 +39,7 @@ The formula contains four GRAS-certified active systems delivered via a patent-p
 
 ## Science
 
-### The endogenous activation thesis
+### The endogenous amplification thesis
 
 Pharmaceutical GLP-1 receptor agonists work by introducing synthetic peptides that mimic natural incretin hormones. NutraGLP takes a different approach. Rather than replacing the body's incretin production with synthetic analogs, the formula is designed to amplify the GLP-1 and GIP the gut already produces, while extending the window those hormones remain active by inhibiting DPP-4.
 
@@ -84,7 +84,7 @@ Q: What is DPP-4 and how does it affect GLP-1 levels?
 A: DPP-4 (dipeptidyl peptidase-4) is an enzyme that rapidly degrades GLP-1 after it is produced. Natural GLP-1 has a half-life of about 2 minutes because DPP-4 breaks it down almost immediately. Inhibiting DPP-4 extends the window naturally produced GLP-1 remains active.
 
 Q: What is the difference between endogenous and exogenous GLP-1?
-A: Endogenous GLP-1 is what your body produces on its own, primarily from L-cells in the small intestine. Exogenous GLP-1 is introduced from outside the body, like the synthetic semaglutide in Ozempic. Endogenous activation works with your body's existing feedback loops. Exogenous injection overrides those loops with pharmaceutical-grade concentrations.
+A: Endogenous GLP-1 is what your body produces on its own, primarily from L-cells in the small intestine. Exogenous GLP-1 is introduced from outside the body, like the synthetic semaglutide in Ozempic. Endogenous amplification works with your body's existing feedback loops. Exogenous injection overrides those loops with pharmaceutical-grade concentrations.
 
 ### Formulation & Science
 
@@ -95,7 +95,7 @@ Q: What role does GPR120 receptor activation play in GLP-1 signaling?
 A: GPR120 (FFAR4) is a free fatty acid receptor expressed on intestinal L-cells. When GPR120 is activated, it triggers intracellular signaling cascades that result in GLP-1 secretion. This is a distinct pathway from AMPK activation, which is why the two mechanisms work synergistically.
 
 Q: How does insulin receptor sensitization contribute to the formula?
-A: Insulin receptor sensitization enhances the binding of insulin to its receptor, facilitating glucose uptake into cells via GLUT4 translocation. This complements direct GLP-1 activation through AMPK and GPR120 pathways by improving the downstream metabolic response.
+A: Insulin receptor sensitization enhances the binding of insulin to its receptor, facilitating glucose uptake into cells via GLUT4 translocation. This complements direct GLP-1 amplification through AMPK and GPR120 pathways by improving the downstream metabolic response.
 
 ### Product
 
@@ -138,7 +138,7 @@ A: cGMP stands for current Good Manufacturing Practice. These are FDA-enforced r
 - FAQ: https://nutraglp.com/faq
 - About: https://nutraglp.com/about
 - Blog: https://nutraglp.com/blog
-- Natural GLP-1 Activation: https://nutraglp.com/blog/natural-glp1-activation
+- Natural GLP-1 Amplification: https://nutraglp.com/blog/natural-glp1-amplification
 - Nanoemulsion vs Capsules: https://nutraglp.com/blog/nanoemulsion-vs-capsules
 - Natural DPP-4 Inhibition: https://nutraglp.com/blog/natural-dpp4-inhibition
 - Endogenous vs Exogenous GLP-1: https://nutraglp.com/blog/endogenous-vs-exogenous-glp1

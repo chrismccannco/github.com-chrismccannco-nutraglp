@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 export const metadata: Metadata = {
   title: "Research & Insights",
   description:
-    "Evidence-based articles on natural GLP-1 activation, nanoemulsion bioavailability, DPP-4 inhibition, and the science behind metabolic health supplements.",
+    "Evidence-based articles on natural GLP-1 amplification, nanoemulsion bioavailability, DPP-4 inhibition, and the science behind metabolic health supplements.",
   alternates: {
     canonical: "https://nutraglp.com/blog",
   },
@@ -13,8 +13,8 @@ export const metadata: Metadata = {
 
 const posts = [
   {
-    slug: "natural-glp1-activation",
-    title: "Natural GLP-1 Activation: What the Research Shows",
+    slug: "natural-glp1-amplification",
+    title: "Natural GLP-1 Amplification: What the Research Shows",
     excerpt:
       "AMPK activation in intestinal L-cells stimulates endogenous GLP-1 secretion. A look at the clinical evidence behind natural incretin production and what it means for metabolic support.",
     date: "2026-02-20",
@@ -46,7 +46,7 @@ const posts = [
     slug: "endogenous-vs-exogenous-glp1",
     title: "Endogenous vs. Exogenous GLP-1: Two Approaches to the Same Pathway",
     excerpt:
-      "Pharmaceutical GLP-1 drugs inject synthetic peptides. Endogenous activation amplifies the hormones your gut already produces. Different mechanisms, different risk-benefit profiles, same biological target.",
+      "Pharmaceutical GLP-1 drugs inject synthetic peptides. Endogenous amplification amplifies the hormones your gut already produces. Different mechanisms, different risk-benefit profiles, same biological target.",
     date: "2026-01-30",
     readTime: "9 min",
     tag: "GLP-1 Fundamentals",
@@ -59,7 +59,7 @@ const blogSchema = {
   "@type": "Blog",
   name: "NutraGLP Research & Insights",
   description:
-    "Evidence-based articles on natural GLP-1 activation, nanoemulsion bioavailability, and metabolic health science.",
+    "Evidence-based articles on natural GLP-1 amplification, nanoemulsion bioavailability, and metabolic health science.",
   url: "https://nutraglp.com/blog",
   publisher: {
     "@type": "Organization",
@@ -96,7 +96,7 @@ export default function BlogIndex() {
           className="text-3xl md:text-[48px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6 font-heading"
          
         >
-          The science behind natural GLP-1 activation
+          The science behind natural GLP-1 amplification
         </h1>
         <p className="text-lg text-white/50 max-w-[560px] mx-auto leading-relaxed">
           Evidence-based articles on the compounds, delivery systems, and

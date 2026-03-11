@@ -93,7 +93,7 @@ export default function SciencePage() {
           className="text-2xl md:text-3xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading"
          
         >
-          What is endogenous GLP-1 activation?
+          What is endogenous GLP-1 amplification?
         </h2>
         <p className="text-[17px] leading-relaxed text-mist mb-5">
           Pharmaceutical GLP-1 receptor agonists work by introducing synthetic
@@ -111,7 +111,7 @@ export default function SciencePage() {
         <p className="text-[17px] leading-relaxed text-mist">
           This is not a single-mechanism product. GLP-1 signaling is part of a
           larger metabolic system. NutraGLP engages 13 distinct pathways across
-          incretin activation, enzyme inhibition, insulin sensitivity, appetite
+          incretin amplification, enzyme inhibition, insulin sensitivity, appetite
           regulation, glucose uptake, and lipid metabolism.
         </p>
       </section>

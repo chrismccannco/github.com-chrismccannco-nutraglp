@@ -2,7 +2,7 @@ export const dynamic = "force-static";
 import { ImageResponse } from "next/og";
 
 export const runtime = "nodejs";
-export const alt = "Slim SHOT — Natural GLP-1 Activation";
+export const alt = "Slim SHOT — Natural GLP-1 Amplification";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -56,7 +56,7 @@ export default function OGImage() {
             maxWidth: 700,
           }}
         >
-          A daily drinkable liquid that activates your body&apos;s own GLP-1
+          A daily drinkable liquid that amplifies your body&apos;s own GLP-1
           production. $155/mo. No prescription. No injection.
         </div>
       </div>

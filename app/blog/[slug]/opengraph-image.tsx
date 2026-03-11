@@ -7,8 +7,8 @@ export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
 const titles: Record<string, { title: string; description: string }> = {
-  "natural-glp1-activation": {
-    title: "Natural GLP-1 Activation: What the Research Shows",
+  "natural-glp1-amplification": {
+    title: "Natural GLP-1 Amplification: What the Research Shows",
     description:
       "AMPK activation in intestinal L-cells, clinical evidence, and bioavailability.",
   },
@@ -25,7 +25,7 @@ const titles: Record<string, { title: string; description: string }> = {
   "endogenous-vs-exogenous-glp1": {
     title: "Endogenous vs. Exogenous GLP-1: Two Approaches",
     description:
-      "Pharmaceutical GLP-1 drugs vs. endogenous activation. Different mechanisms, same biological target.",
+      "Pharmaceutical GLP-1 drugs vs. endogenous amplification. Different mechanisms, same biological target.",
   },
 };
 
@@ -37,7 +37,7 @@ export default async function OGImage({ params }: { params: Promise<{ slug: stri
   const { slug } = await params;
   const article = titles[slug] || {
     title: "NutraGLP Research",
-    description: "Evidence-based articles on natural GLP-1 activation.",
+    description: "Evidence-based articles on natural GLP-1 amplification.",
   };
 
   return new ImageResponse(

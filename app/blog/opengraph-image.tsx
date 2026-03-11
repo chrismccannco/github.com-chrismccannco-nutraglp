@@ -56,7 +56,7 @@ export default function OGImage() {
             maxWidth: 700,
           }}
         >
-          Evidence-based articles on natural GLP-1 activation, nanoemulsion
+          Evidence-based articles on natural GLP-1 amplification, nanoemulsion
           bioavailability, and metabolic health science.
         </div>
       </div>

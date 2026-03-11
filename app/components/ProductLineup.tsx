@@ -14,7 +14,7 @@ const products = [
   },
   {
     name: "Thermogenic",
-    desc: "GLP-1 activation meets clean energy. Ready-to-drink.",
+    desc: "GLP-1 amplification meets clean energy. Ready-to-drink.",
     status: "Coming 2026",
     live: false,
     image: "/images/product-thermogenic.png",

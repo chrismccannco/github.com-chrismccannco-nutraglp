@@ -42,7 +42,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/blog/natural-glp1-activation`,
+      url: `${baseUrl}/blog/natural-glp1-amplification`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.7,

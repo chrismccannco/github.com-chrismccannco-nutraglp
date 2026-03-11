@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 export const metadata: Metadata = {
   title: "Investors",
   description:
-    "NutraGLP investor overview. $132B addressable market, patent-pending nanoemulsion platform, and a clear path to category leadership in natural GLP-1 activation.",
+    "NutraGLP investor overview. $132B addressable market, patent-pending nanoemulsion platform, and a clear path to category leadership in natural GLP-1 amplification.",
   alternates: {
     canonical: "https://nutraglp.com/investors",
   },
@@ -40,7 +40,7 @@ export default function Investors() {
           <span className="text-gold italic">We built the platform to optimize it.</span>
         </h1>
         <p className="text-lg text-white/50 max-w-[620px] mx-auto mb-10 leading-relaxed">
-          A patent-pending metabolic activation platform that coordinates
+          A patent-pending metabolic amplification platform that coordinates
           endogenous incretin pathways. One core mechanism. Multiple product
           formats. A $132B market with no platform-level entrant.
         </p>

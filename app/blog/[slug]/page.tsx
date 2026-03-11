@@ -19,8 +19,8 @@ interface Article {
 }
 
 const articles: Record<string, Article> = {
-  "natural-glp1-activation": {
-    title: "Natural GLP-1 Activation: What the Research Shows",
+  "natural-glp1-amplification": {
+    title: "Natural GLP-1 Amplification: What the Research Shows",
     description:
       "AMPK activation in intestinal L-cells stimulates endogenous GLP-1 secretion. A review of the clinical evidence behind natural incretin production and what it means for metabolic support.",
     date: "2026-02-20",
@@ -61,7 +61,7 @@ const articles: Record<string, Article> = {
       {
         heading: "Safety and drug interaction considerations",
         body: [
-          "The compounds used in natural GLP-1 activation formulas carry GRAS (Generally Recognized as Safe) status and have well-documented safety profiles at standard dosages. The most common side effects are mild gastrointestinal symptoms, particularly when initiating a new regimen.",
+          "The compounds used in natural GLP-1 amplification formulas carry GRAS (Generally Recognized as Safe) status and have well-documented safety profiles at standard dosages. The most common side effects are mild gastrointestinal symptoms, particularly when initiating a new regimen.",
           "The primary safety concern is drug interactions. Some AMPK-activating compounds inhibit cytochrome P450 enzymes (CYP2D6, CYP2C9, CYP3A4), which metabolize many prescription medications. They can also potentiate the effects of blood sugar-lowering drugs.",
           "Anyone taking prescription medication should consult their healthcare provider before starting any new regimen. This applies to any compound with documented metabolic activity, regardless of its regulatory classification.",
         ],
@@ -75,7 +75,7 @@ const articles: Record<string, Article> = {
       "Most oral supplements fail at absorption. Nanoemulsion technology encapsulates active compounds in lipid-based nanoparticles, dramatically improving bioavailability compared to standard capsules and tablets.",
     date: "2026-02-14",
     readTime: "7 min",
-    relatedSlugs: ["natural-glp1-activation", "natural-dpp4-inhibition"],
+    relatedSlugs: ["natural-glp1-amplification", "natural-dpp4-inhibition"],
     sections: [
       {
         heading: "The bioavailability problem in oral supplements",
@@ -98,7 +98,7 @@ const articles: Record<string, Article> = {
         body: [
           "Liposomal delivery is another lipid-based approach that has gained popularity in the supplement market. Liposomes are spherical vesicles with a phospholipid bilayer surrounding an aqueous core. They can encapsulate both hydrophilic (water-soluble) and hydrophobic (fat-soluble) compounds.",
           "Nanoemulsions and liposomes share the principle of lipid-based encapsulation but differ in structure and performance characteristics. Nanoemulsions are thermodynamically stable oil-in-water (or water-in-oil) systems, while liposomes are metastable structures that can fuse, aggregate, or leak over time. This gives nanoemulsions a practical advantage in shelf stability and batch-to-batch consistency.",
-          "For the specific compounds used in GLP-1 activation formulas, nanoemulsion was selected over liposomal delivery because of superior physical stability, more consistent particle size distribution, and better compatibility with the hydrophobic nature of the active compounds.",
+          "For the specific compounds used in GLP-1 amplification formulas, nanoemulsion was selected over liposomal delivery because of superior physical stability, more consistent particle size distribution, and better compatibility with the hydrophobic nature of the active compounds.",
         ],
       },
       {
@@ -125,7 +125,7 @@ const articles: Record<string, Article> = {
       "DPP-4 breaks down GLP-1 within minutes of production. Natural compounds with demonstrated DPP-4 inhibitory activity can extend the half-life of endogenous incretins.",
     date: "2026-02-07",
     readTime: "6 min",
-    relatedSlugs: ["endogenous-vs-exogenous-glp1", "natural-glp1-activation"],
+    relatedSlugs: ["endogenous-vs-exogenous-glp1", "natural-glp1-amplification"],
     sections: [
       {
         heading: "What is DPP-4 and why does it matter?",
@@ -165,7 +165,7 @@ const articles: Record<string, Article> = {
   "endogenous-vs-exogenous-glp1": {
     title: "Endogenous vs. Exogenous GLP-1: Two Approaches to the Same Pathway",
     description:
-      "Pharmaceutical GLP-1 drugs inject synthetic peptides. Endogenous activation amplifies hormones the gut already produces. Different mechanisms, different risk-benefit profiles, same biological target.",
+      "Pharmaceutical GLP-1 drugs inject synthetic peptides. Endogenous amplification amplifies hormones the gut already produces. Different mechanisms, different risk-benefit profiles, same biological target.",
     date: "2026-01-30",
     readTime: "9 min",
     relatedSlugs: ["natural-dpp4-inhibition", "nanoemulsion-vs-capsules"],
@@ -175,7 +175,7 @@ const articles: Record<string, Article> = {
         body: [
           "GLP-1 (glucagon-like peptide-1) is an incretin hormone that plays a central role in glucose homeostasis, appetite regulation, and metabolic function. It is produced by L-cells in the distal small intestine and colon in response to nutrient intake. Once secreted, GLP-1 acts on receptors in the pancreas (stimulating insulin secretion), the brain (reducing appetite and food intake), and the GI tract (slowing gastric emptying).",
           "The discovery that GLP-1 receptor activation could produce significant weight loss transformed the pharmaceutical landscape. Semaglutide (Ozempic, Wegovy) and tirzepatide (Mounjaro, Zepbound) have become among the most prescribed and discussed drugs in the world, generating tens of billions in annual revenue.",
-          "What is sometimes lost in the conversation is that GLP-1 is not a pharmaceutical invention. It is an endogenous hormone. The drugs work by introducing synthetic versions of it at supraphysiological concentrations. The alternative approach, endogenous activation, works by amplifying the body's own production.",
+          "What is sometimes lost in the conversation is that GLP-1 is not a pharmaceutical invention. It is an endogenous hormone. The drugs work by introducing synthetic versions of it at supraphysiological concentrations. The alternative approach, endogenous amplification, works by amplifying the body's own production.",
         ],
       },
       {
@@ -187,9 +187,9 @@ const articles: Record<string, Article> = {
         ],
       },
       {
-        heading: "How endogenous GLP-1 activation works",
+        heading: "How endogenous GLP-1 amplification works",
         body: [
-          "Endogenous activation takes a fundamentally different approach. Rather than introducing synthetic peptides from outside the body, it aims to increase the production and extend the half-life of the GLP-1 your gut already makes.",
+          "Endogenous amplification takes a fundamentally different approach. Rather than introducing synthetic peptides from outside the body, it aims to increase the production and extend the half-life of the GLP-1 your gut already makes.",
           "This involves two parallel strategies. First, stimulating L-cell secretion of GLP-1 through compounds that activate known production pathways, including AMPK activation, GPR120 receptor activation, and insulin receptor sensitization. Second, inhibiting DPP-4, the enzyme that degrades GLP-1, to extend the window each molecule of endogenous GLP-1 remains active.",
           "The endogenous approach works within the body's existing feedback mechanisms. Natural GLP-1 production is regulated by nutrient intake, hormonal feedback loops, and neural signaling. Amplifying this production increases the signal within the system's normal operating parameters, rather than overriding the system with external input.",
         ],
@@ -197,18 +197,18 @@ const articles: Record<string, Article> = {
       {
         heading: "Comparing the two approaches",
         body: [
-          "The key distinction is concentration and control. Exogenous GLP-1 drugs deliver the hormone at concentrations many times higher than the body produces naturally, and the effect persists for days due to engineered resistance to degradation. Endogenous activation increases production and extends half-life within a range closer to the body's natural capacity.",
+          "The key distinction is concentration and control. Exogenous GLP-1 drugs deliver the hormone at concentrations many times higher than the body produces naturally, and the effect persists for days due to engineered resistance to degradation. Endogenous amplification increases production and extends half-life within a range closer to the body's natural capacity.",
           "This means the exogenous approach is more powerful in absolute terms. The clinical data on semaglutide and tirzepatide show effects that no supplement can replicate. If maximizing weight loss is the sole objective and the risk-benefit analysis supports it, pharmaceutical GLP-1 drugs are the more potent tool.",
-          "The endogenous approach offers a different value proposition. It is non-prescription, non-injectable, and works within physiological ranges. For individuals who do not qualify for or do not want pharmaceutical GLP-1 therapy, or who are looking for metabolic support rather than maximum pharmacological intervention, endogenous activation provides a complementary option.",
-          "It is important to state clearly: endogenous GLP-1 activation is not a replacement for prescribed GLP-1 medication. The two approaches target the same pathway through different mechanisms with different magnitudes of effect. They occupy different positions on the intervention spectrum.",
+          "The endogenous approach offers a different value proposition. It is non-prescription, non-injectable, and works within physiological ranges. For individuals who do not qualify for or do not want pharmaceutical GLP-1 therapy, or who are looking for metabolic support rather than maximum pharmacological intervention, endogenous amplification provides a complementary option.",
+          "It is important to state clearly: endogenous GLP-1 amplification is not a replacement for prescribed GLP-1 medication. The two approaches target the same pathway through different mechanisms with different magnitudes of effect. They occupy different positions on the intervention spectrum.",
         ],
       },
       {
         heading: "The bioavailability variable",
         body: [
-          "One factor that has historically limited endogenous activation strategies is bioavailability. AMPK-activating compounds have strong clinical evidence for GLP-1 stimulation but poor oral absorption in standard formats. The gap between what the research shows and what consumers experience is largely a delivery problem.",
-          "Nanoemulsion technology addresses this by encapsulating active compounds in lipid-based nanoparticles that increase absorption across the intestinal epithelium. The effect is not to make endogenous activation equivalent to pharmaceutical intervention, but to ensure that the compounds known to stimulate GLP-1 production actually reach their target pathways at effective concentrations.",
-          "When delivery is optimized, the endogenous activation thesis becomes testable in a way it was not with standard supplement formats. The compounds have published evidence. The pathways are well-characterized. The remaining variable was whether they could be delivered effectively. That is the problem nanoemulsion solves.",
+          "One factor that has historically limited endogenous amplification strategies is bioavailability. AMPK-activating compounds have strong clinical evidence for GLP-1 stimulation but poor oral absorption in standard formats. The gap between what the research shows and what consumers experience is largely a delivery problem.",
+          "Nanoemulsion technology addresses this by encapsulating active compounds in lipid-based nanoparticles that increase absorption across the intestinal epithelium. The effect is not to make endogenous amplification equivalent to pharmaceutical intervention, but to ensure that the compounds known to stimulate GLP-1 production actually reach their target pathways at effective concentrations.",
+          "When delivery is optimized, the endogenous amplification thesis becomes testable in a way it was not with standard supplement formats. The compounds have published evidence. The pathways are well-characterized. The remaining variable was whether they could be delivered effectively. That is the problem nanoemulsion solves.",
         ],
       },
     ],

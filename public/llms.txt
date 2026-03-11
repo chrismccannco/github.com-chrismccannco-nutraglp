@@ -1,6 +1,6 @@
 # NutraGLP
 
-> NutraGLP develops patent-pending nanoemulsion formulas for natural GLP-1 activation. Flagship product: Slim SHOT, a daily drinkable liquid formula that amplifies endogenous GLP-1 production and inhibits DPP-4 degradation.
+> NutraGLP develops patent-pending nanoemulsion formulas for natural GLP-1 amplification. Flagship product: Slim SHOT, a daily drinkable liquid formula that amplifies endogenous GLP-1 production and inhibits DPP-4 degradation.
 
 For comprehensive product details, science, and full FAQ, see: https://nutraglp.com/llms-full.txt
 
@@ -48,7 +48,7 @@ The nanoemulsion delivery system encapsulates active compounds in lipid-based na
 - FAQ: https://nutraglp.com/faq
 - About: https://nutraglp.com/about
 - Blog: https://nutraglp.com/blog
-- Natural GLP-1 Activation: https://nutraglp.com/blog/natural-glp1-activation
+- Natural GLP-1 Amplification: https://nutraglp.com/blog/natural-glp1-amplification
 - Nanoemulsion vs Capsules: https://nutraglp.com/blog/nanoemulsion-vs-capsules
 - Natural DPP-4 Inhibition: https://nutraglp.com/blog/natural-dpp4-inhibition
 - Endogenous vs Exogenous GLP-1: https://nutraglp.com/blog/endogenous-vs-exogenous-glp1

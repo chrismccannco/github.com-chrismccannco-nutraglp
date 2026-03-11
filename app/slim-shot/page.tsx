@@ -5,9 +5,9 @@ import WaitlistForm from "../components/WaitlistForm";
 import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
-  title: "Slim SHOT — Daily GLP-1 Activation",
+  title: "Slim SHOT — Daily GLP-1 Amplification",
   description:
-    "A daily liquid formula that activates your body's own GLP-1 production. Patent-pending nanoemulsion delivery, clinically studied compounds. $155/mo.",
+    "A daily liquid formula that amplifies your body's own GLP-1 production. Patent-pending nanoemulsion delivery, clinically studied compounds. $155/mo.",
   alternates: {
     canonical: "https://nutraglp.com/slim-shot",
   },
@@ -86,7 +86,7 @@ const productSchema = {
   "@type": "Product",
   name: "Slim SHOT",
   description:
-    "A daily drinkable liquid nanoemulsion that activates your body's natural GLP-1 production and inhibits DPP-4. Patent-pending formula with four GRAS-certified active systems targeting AMPK activation, GPR120 signaling, insulin receptor sensitization, and DPP-4 inhibition.",
+    "A daily drinkable liquid nanoemulsion that amplifies your body's natural GLP-1 production and inhibits DPP-4. Patent-pending formula with four GRAS-certified active systems targeting AMPK activation, GPR120 signaling, insulin receptor sensitization, and DPP-4 inhibition.",
   brand: {
     "@type": "Brand",
     name: "NutraGLP",
@@ -139,7 +139,7 @@ export default function SlimShotPage() {
               className="text-3xl md:text-[44px] font-normal text-white leading-[1.1] tracking-tight mb-6 font-heading"
              
             >
-              Daily GLP-1 activation.
+              Daily GLP-1 amplification.
               <br />
               <span className="text-gold italic">Drink it. No needle. No syringe. Ever.</span>
             </h1>

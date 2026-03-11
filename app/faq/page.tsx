@@ -5,7 +5,7 @@ import Footer from "../components/Footer";
 export const metadata: Metadata = {
   title: "Frequently Asked Questions",
   description:
-    "Common questions about natural GLP-1 activation, nanoemulsion delivery, DPP-4 inhibition, and how NutraGLP's Slim SHOT works.",
+    "Common questions about natural GLP-1 amplification, nanoemulsion delivery, DPP-4 inhibition, and how NutraGLP's Slim SHOT works.",
   alternates: {
     canonical: "https://nutraglp.com/faq",
   },
@@ -29,7 +29,7 @@ const faqCategories = [
       },
       {
         q: "What is the difference between endogenous and exogenous GLP-1?",
-        a: "Endogenous GLP-1 is what your body produces on its own, primarily from L-cells in the small intestine. Exogenous GLP-1 is introduced from outside the body, like the synthetic semaglutide in Ozempic. Endogenous activation works with your body's existing feedback loops and dose-response mechanisms. Exogenous injection overrides those loops with pharmaceutical-grade concentrations, which is why it's more powerful but also carries more side effects.",
+        a: "Endogenous GLP-1 is what your body produces on its own, primarily from L-cells in the small intestine. Exogenous GLP-1 is introduced from outside the body, like the synthetic semaglutide in Ozempic. Endogenous amplification works with your body's existing feedback loops and dose-response mechanisms. Exogenous injection overrides those loops with pharmaceutical-grade concentrations, which is why it's more powerful but also carries more side effects.",
       },
     ],
   },
@@ -63,7 +63,7 @@ const faqCategories = [
       },
       {
         q: "How does insulin receptor sensitization contribute to the formula?",
-        a: "Insulin receptor sensitization enhances the binding of insulin to its receptor, facilitating glucose uptake into cells via GLUT4 translocation. This complements direct GLP-1 activation through AMPK and GPR120 pathways by improving the downstream metabolic response. The compounds used for this mechanism hold GRAS status and have extensive clinical literature supporting their role in glucose metabolism.",
+        a: "Insulin receptor sensitization enhances the binding of insulin to its receptor, facilitating glucose uptake into cells via GLUT4 translocation. This complements direct GLP-1 amplification through AMPK and GPR120 pathways by improving the downstream metabolic response. The compounds used for this mechanism hold GRAS status and have extensive clinical literature supporting their role in glucose metabolism.",
       },
       {
         q: "How many metabolic pathways does the formula target?",
@@ -139,7 +139,7 @@ export default function FAQPage() {
           className="text-3xl md:text-[48px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6 font-heading"
          
         >
-          Common questions about natural GLP-1 activation
+          Common questions about natural GLP-1 amplification
         </h1>
         <p className="text-lg text-white/50 max-w-[560px] mx-auto leading-relaxed">
           The science, the technology, and how it all fits together.

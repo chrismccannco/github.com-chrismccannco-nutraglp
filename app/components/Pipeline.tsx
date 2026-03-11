@@ -23,7 +23,7 @@ const products = [
     status: "In Development",
     statusColor: "bg-forest-mid/20 text-forest-mid",
     description:
-      "Protein powder with integrated GLP-1 activation. Appetite control, muscle preservation, and metabolic support in a single serving. Built for the post-GLP-1-drug consumer.",
+      "Protein powder with integrated GLP-1 amplification. Appetite control, muscle preservation, and metabolic support in a single serving. Built for the post-GLP-1-drug consumer.",
     price: null,
   },
   {
@@ -32,7 +32,7 @@ const products = [
     status: "In Development",
     statusColor: "bg-forest-mid/20 text-forest-mid",
     description:
-      "Thermogenic energy products with embedded incretin signaling. Clean energy plus metabolic activation in ready-to-drink and portable gel formats.",
+      "Thermogenic energy products with embedded incretin signaling. Clean energy plus metabolic amplification in ready-to-drink and portable gel formats.",
     price: null,
   },
 ];
@@ -52,7 +52,7 @@ export default function Pipeline() {
         </h2>
         <p className="text-[17px] leading-relaxed text-mist max-w-[640px] mb-14">
           Every product in the NutraGLP Sync ecosystem is built on the same
-          patent-pending incretin activation and nanoemulsion delivery
+          patent-pending incretin amplification and nanoemulsion delivery
           technology. Slim SHOT is first. It won&apos;t be the last.
         </p>
 

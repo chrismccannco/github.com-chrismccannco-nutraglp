@@ -16,7 +16,7 @@ export default function Hero() {
             <span className="text-gold italic">No catch.</span>
           </h1>
           <p className="text-lg md:text-xl text-white/50 max-w-[580px] mx-auto md:mx-0 mb-12 leading-relaxed">
-            Slim SHOT is a daily liquid formula that activates your body&apos;s
+            Slim SHOT is a daily liquid formula that amplifies your body&apos;s
             own GLP-1 production. Clinically studied compounds. Patent-pending
             nanoemulsion delivery. $155/mo.
           </p>
