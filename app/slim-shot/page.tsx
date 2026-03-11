@@ -265,7 +265,7 @@ export default function SlimShotPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {timeline.map((t, i) => (
-              <div key={t.week} className="relative">
+              <div key={t.week} className="relative flex flex-col">
                 {/* Step dot */}
                 <div className="flex justify-center mb-4">
                   <div className={`w-14 h-14 rounded-full flex items-center justify-center border-2 ${
@@ -277,7 +277,7 @@ export default function SlimShotPage() {
                     </span>
                   </div>
                 </div>
-                <div className="p-8 bg-white border border-rule rounded-xl">
+                <div className="p-8 bg-white border border-rule rounded-xl flex-1">
                   <p className="text-[10px] font-bold uppercase tracking-wider text-forest-mid mb-3">
                     {t.week}
                   </p>
