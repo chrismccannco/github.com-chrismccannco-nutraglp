@@ -8,7 +8,7 @@ export default function Hero() {
       <div className="max-w-[1100px] mx-auto md:flex md:items-center md:gap-16">
         <div className="flex-1 text-center md:text-left">
           <p className="text-xs font-semibold uppercase tracking-[3px] text-gold/70 mb-6">
-            Natural GLP-1 Activation
+            Natural GLP-1 Amplification
           </p>
           <h1 className="text-4xl md:text-[56px] font-normal text-white leading-[1.08] tracking-tight max-w-[800px] md:max-w-none mb-6 font-heading">
             No needle. No prescription.
