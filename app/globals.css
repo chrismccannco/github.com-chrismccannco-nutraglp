@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  /* Forest family */
-  --color-forest-deep: #0f2d20;
-  --color-forest: #1a4a35;
-  --color-forest-mid: #2d6b4a;
-  --color-forest-light: #3d8a62;
+  /* Navy family */
+  --color-forest-deep: #0D1B2A;
+  --color-forest: #1B3A5C;
+  --color-forest-mid: #2B5EA7;
+  --color-forest-light: #4A90C4;
 
   /* Gold accent */
   --color-gold: #b8955a;
@@ -34,7 +34,7 @@
 
 /* Subtle dot grid pattern for cream sections */
 .bg-dot-grid {
-  background-image: radial-gradient(circle, #c8c3b8 0.5px, transparent 0.5px);
+  background-image: radial-gradient(circle, #c0c5cc 0.5px, transparent 0.5px);
   background-size: 24px 24px;
 }
 
