@@ -4,7 +4,7 @@ import Header from "./components/Header";
 
 export const metadata: Metadata = {
   title: {
-    default: "NutraGLP — Natural GLP-1 Activation",
+    default: "NutraGLP — Natural GLP-1 Amplification",
     template: "%s | NutraGLP",
   },
   description:
@@ -16,13 +16,13 @@ export const metadata: Metadata = {
     "nanoemulsion GLP-1",
     "DPP-4 inhibitor supplement",
     "natural weight management",
-    "natural GLP-1 activation",
+    "natural GLP-1 amplification",
   ],
   alternates: {
     canonical: "https://nutraglp.com",
   },
   openGraph: {
-    title: "NutraGLP — Natural GLP-1 Activation",
+    title: "NutraGLP — Natural GLP-1 Amplification",
     description:
       "A patent-pending drinkable nanoemulsion that activates your body's natural GLP-1 and GIP production. No prescription. No injection. 13 metabolic pathways.",
     url: "https://nutraglp.com",
@@ -34,13 +34,13 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "NutraGLP — Natural GLP-1 Activation",
+        alt: "NutraGLP — Natural GLP-1 Amplification",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "NutraGLP — Natural GLP-1 Activation",
+    title: "NutraGLP — Natural GLP-1 Amplification",
     description:
       "A patent-pending drinkable nanoemulsion that activates your body's natural GLP-1 and GIP production.",
   },
@@ -77,7 +77,7 @@ export default function RootLayout({
               url: "https://nutraglp.com",
               logo: "https://nutraglp.com/apple-touch-icon.png",
               description:
-                "NutraGLP develops patent-pending nanoemulsion supplements for natural GLP-1 activation. Flagship product: Slim SHOT, a daily drinkable liquid formula.",
+                "NutraGLP develops patent-pending nanoemulsion supplements for natural GLP-1 amplification. Flagship product: Slim SHOT, a daily drinkable liquid formula.",
               brand: {
                 "@type": "Brand",
                 name: "NutraGLP",
