@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   description:
     "Slim SHOT is a daily liquid formula that amplifies your body's own GLP-1 production. No needle. No prescription. No catch. $155/mo.",
-  keywords: 
+  keywords:  [
     "natural GLP-1 supplement",
     "GLP-1 without prescription",
     "natural GLP-1 agonist",
