@@ -10,11 +10,12 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-forest-deep/95 backdrop-blur-sm border-b border-white/[0.06]">
       <div className="max-w-[1200px] mx-auto flex items-center justify-between px-6 md:px-12 py-4">
         <Link href="/" className="flex items-center gap-2.5 no-underline">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none" className="w-6 h-6 flex-shrink-0" aria-hidden="true">
-                <path d="M 245 50 A 170 170 0 1 0 245 350" fill="none" stroke="#FFFFFF" strokeWidth="30" strokeLinecap="round"/>
-              <circle cx="200" cy="200" r="45" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="16"/>
-              <circle cx="200" cy="200" r="12" fill="#D4B87A"/>
-              </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none" className="w-6 h-6 flex-shrink-0" aria-hidden="true">
+            <path d="M 66 60 L 96 60 L 96 85" fill="none" stroke="#FFFFFF" strokeWidth="6" strokeLinejoin="miter" />
+            <circle cx="66" cy="60" r="5" fill="#FFFFFF" />
+            <circle cx="66" cy="60" r="16" fill="none" stroke="#FFFFFF" strokeWidth="4" />
+            <path d="M 66 20 A 40 40 0 0 0 66 100" fill="none" stroke="#FFFFFF" strokeWidth="8" strokeLinecap="butt" />
+          </svg>
           <span className="flex items-baseline gap-2">
             <span className="text-xl font-bold tracking-tight text-cream font-heading">NutraGLP</span>
             <span className="text-[10px] font-semibold uppercase tracking-[2.5px] text-gold/80">Biosciences</span>
