@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   },
   description:
     "Slim SHOT is a daily liquid formula that amplifies your body's own GLP-1 production. No needle. No prescription. No catch. $155/mo.",
-  keywords: [
+  keywords: 
     "natural GLP-1 supplement",
     "GLP-1 without prescription",
     "natural GLP-1 agonist",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-  },
+  }
   metadataBase: new URL("https://nutraglp.com"),
 };
 
@@ -63,8 +63,8 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
           rel="stylesheet"
         />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
       </head>
       <body className="bg-cream text-ink">
         <script
