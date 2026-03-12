@@ -17,7 +17,7 @@ const posts = [
     slug: "endogenous-vs-exogenous-glp1",
     title: "Endogenous vs. Exogenous GLP-1: Two Approaches",
     excerpt:
-      "Pharmaceutical GLP-1 drugs inject synthetic peptides. Endogenous amplification amplifies what the gut already produces.",
+      "Pharmaceutical GLP-1 drugs inject synthetic peptides. Endogenous amplification enhances what the gut already produces.",
   },
 ];
 

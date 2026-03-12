@@ -165,7 +165,7 @@ const articles: Record<string, Article> = {
   "endogenous-vs-exogenous-glp1": {
     title: "Endogenous vs. Exogenous GLP-1: Two Approaches to the Same Pathway",
     description:
-      "Pharmaceutical GLP-1 drugs inject synthetic peptides. Endogenous amplification amplifies hormones the gut already produces. Different mechanisms, different risk-benefit profiles, same biological target.",
+      "Pharmaceutical GLP-1 drugs inject synthetic peptides. Endogenous amplification enhances hormones the gut already produces. Different mechanisms, different risk-benefit profiles, same biological target.",
     date: "2026-01-30",
     readTime: "9 min",
     relatedSlugs: ["natural-dpp4-inhibition", "nanoemulsion-vs-capsules"],
