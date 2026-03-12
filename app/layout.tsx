@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-  }
+  },
   metadataBase: new URL("https://nutraglp.com"),
 };
 
