@@ -10,7 +10,7 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-forest-deep/95 backdrop-blur-sm border-b border-white/[0.06]">
       <div className="max-w-[1200px] mx-auto flex items-center justify-between px-6 md:px-12 py-4">
         <Link href="/" className="flex items-center gap-2.5 no-underline">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none" className="w-8 h-8 flex-shrink-0" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none" className="w-6 h-6 flex-shrink-0" aria-hidden="true">
                 <path d="M 245 50 A 170 170 0 1 0 245 350" fill="none" stroke="#FFFFFF" strokeWidth="30" strokeLinecap="round"/>
               <circle cx="200" cy="200" r="45" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="16"/>
               <circle cx="200" cy="200" r="12" fill="#D4B87A"/>
