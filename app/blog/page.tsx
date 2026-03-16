@@ -75,7 +75,7 @@ export default async function BlogIndex() {
               className="block bg-white border border-rule rounded-xl hover:border-forest-mid/40 transition no-underline group overflow-hidden"
             >
               {/* Visual header */}
-              <div className={`h-32 bg-gradient-to-br ${post.gradient} relative flex items-end p-6`}>
+              <div className="h-32 relative flex items-end p-6" style={{ background: `linear-gradient(to bottom right, #0D1B2A, #1B3A5C)` }}>
                 <span className="text-[10px] font-bold uppercase tracking-[2px] text-white/60">
                   {post.tag as string}
                 </span>

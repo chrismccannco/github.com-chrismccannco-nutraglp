@@ -52,7 +52,7 @@ export function formSubmissionEmail(submission: {
     subject: `New ${submission.form_name} submission from ${submission.name || submission.email}`,
     html: `
       <div style="font-family:-apple-system,system-ui,sans-serif;max-width:480px">
-        <h2 style="color:#2D5F2B;font-size:18px;margin-bottom:16px">New Form Submission</h2>
+        <h2 style="color:#1B3A5C;font-size:18px;margin-bottom:16px">New Form Submission</h2>
         <table style="width:100%;border-collapse:collapse">
           <tr><td style="padding:4px 12px 4px 0;color:#666;font-size:13px">Form</td><td style="padding:4px 0;font-size:13px;font-weight:600">${submission.form_name}</td></tr>
           <tr><td style="padding:4px 12px 4px 0;color:#666;font-size:13px">Email</td><td style="padding:4px 0;font-size:13px">${submission.email}</td></tr>

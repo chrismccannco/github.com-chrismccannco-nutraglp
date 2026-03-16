@@ -22,7 +22,7 @@ PRODUCT CONTEXT:
 - Positioned between pharmaceutical GLP-1 drugs (Ozempic, Wegovy) and typical supplements
 - Key differentiators: natural ingredients, no injection, no prescription, patent-pending delivery system
 - Founded by Richard Kaufman PhD (nanoemulsion expert) and Chris McCann (enterprise sales)
-- Brand colors: forest green (#2D5F2B), cream (#F5F0E8), sage (#A8C5A0), ink (#1A1A1A)
+- Brand colors: deep navy (#0D1B2A), forest blue (#1B3A5C), sky blue (#4A90C4), cream (#F5F0E8)
 - Fonts: Fraunces (headings), DM Sans (body)
 
 IMPORTANT RULES:
@@ -59,7 +59,7 @@ ${req.brief ? `Brief: ${req.brief}` : ""}
 Return ONLY valid JSON matching this block's data schema. No markdown, no explanation.
 
 Block schemas:
-- hero: { "headline": string, "subheadline": string, "ctaText": string, "ctaUrl": string, "bgColor": "#2D5F2B", "textAlign": "center" }
+- hero: { "headline": string, "subheadline": string, "ctaText": string, "ctaUrl": string, "bgColor": "#1B3A5C", "textAlign": "center" }
 - rich_text: { "html": string (HTML content with <h2>, <p>, <ul>, <strong> tags) }
 - image_text: { "heading": string, "html": string, "imagePosition": "left"|"right", "bgColor": "" }
 - cta_button: { "text": string, "url": string, "style": "primary"|"secondary"|"outline", "centered": true }

@@ -54,8 +54,8 @@ export interface SiteContent {
 
 /** Default theme (NutraGLP brand) */
 export const DEFAULT_THEME: SiteTheme = {
-  primaryColor: "#2D5F2B",
-  secondaryColor: "#A8C5A0",
+  primaryColor: "#1B3A5C",
+  secondaryColor: "#4A90C4",
   accentColor: "#D4A843",
   backgroundColor: "#F5F0E8",
   textColor: "#1A1A1A",

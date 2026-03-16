@@ -354,7 +354,7 @@ export default function LocalizationPage() {
                       key={item.id}
                       onClick={() => setSelectedItem(item.id)}
                       className={`w-full flex items-center justify-between px-3 py-2.5 text-sm border-b last:border-0 text-left ${
-                        selectedItem === item.id ? "bg-[#2D5F2B]/5 text-[#2D5F2B]" : "hover:bg-gray-50"
+                        selectedItem === item.id ? "bg-[#1B3A5C]/5 text-[#1B3A5C]" : "hover:bg-gray-50"
                       }`}
                     >
                       <span className="truncate">{item.title}</span>

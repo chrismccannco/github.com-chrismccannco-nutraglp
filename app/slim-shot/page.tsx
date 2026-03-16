@@ -13,7 +13,6 @@ export async function generateMetadata(): Promise<Metadata> {
   const seoTitle = page.meta_title || page.title;
   const seoDescription = page.meta_description || "";
 
-<<<<<<< HEAD
   return {
     title: seoTitle,
     description: seoDescription,

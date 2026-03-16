@@ -110,7 +110,7 @@ export default function SitesPage() {
               type="checkbox"
               checked={editingSite.enabled}
               onChange={(e) => setEditingSite({ ...editingSite, enabled: e.target.checked })}
-              className="accent-[#2D5F2B]"
+              className="accent-[#1B3A5C]"
             />
             Enabled
           </label>
@@ -294,7 +294,7 @@ export default function SitesPage() {
                 <p className="text-sm mb-3">This is how text will appear on the site.</p>
                 <button
                   className="px-4 py-2 text-white text-sm rounded"
-                  style={{ backgroundColor: editingSite.theme.primaryColor || "#2D5F2B" }}
+                  style={{ backgroundColor: editingSite.theme.primaryColor || "#1B3A5C" }}
                 >
                   Primary Button
                 </button>
@@ -324,7 +324,7 @@ export default function SitesPage() {
                       features: { ...editingSite.settings?.features, [feature]: e.target.checked },
                     },
                   })}
-                  className="accent-[#2D5F2B] w-4 h-4"
+                  className="accent-[#1B3A5C] w-4 h-4"
                 />
                 <span className="text-sm font-medium text-gray-700 capitalize">{feature}</span>
               </label>
@@ -389,7 +389,7 @@ export default function SitesPage() {
             <button
               onClick={createSite}
               disabled={!newSlug || !newName}
-              className="px-4 py-2 bg-[#2D5F2B] text-white rounded-lg text-sm hover:bg-[#244D23] disabled:opacity-50"
+              className="px-4 py-2 bg-[#1B3A5C] text-white rounded-lg text-sm hover:bg-[#132D4A] disabled:opacity-50"
             >
               Create Site
             </button>

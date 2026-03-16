@@ -52,7 +52,7 @@ export const STARTER_TEMPLATES: Omit<Template, "id" | "created_at" | "updated_at
     category: "landing",
     thumbnail_url: null,
     blocks: [
-      { id: "t1-hero", type: "hero", order: 0, data: { headline: "Your Product, Reimagined", subheadline: "A compelling tagline that makes visitors want to learn more.", ctaText: "Get Started", ctaUrl: "#", bgColor: "#2D5F2B", textAlign: "center" } },
+      { id: "t1-hero", type: "hero", order: 0, data: { headline: "Your Product, Reimagined", subheadline: "A compelling tagline that makes visitors want to learn more.", ctaText: "Get Started", ctaUrl: "#", bgColor: "#1B3A5C", textAlign: "center" } },
       { id: "t1-stats", type: "stats_grid", order: 1, data: { stats: [{ label: "Active Users", value: "10,000+" }, { label: "Satisfaction", value: "98%" }, { label: "Uptime", value: "99.9%" }], columns: 3, bgColor: "#F5F0E8" } },
       { id: "t1-text", type: "rich_text", order: 2, data: { html: "<h2>Why Choose Us</h2><p>Share the story behind your product. What problem does it solve? Why should customers care?</p>" } },
       { id: "t1-testimonials", type: "testimonials", order: 3, data: { style: "cards", columns: 3 } },
@@ -73,7 +73,7 @@ export const STARTER_TEMPLATES: Omit<Template, "id" | "created_at" | "updated_at
     category: "page",
     thumbnail_url: null,
     blocks: [
-      { id: "t2-hero", type: "hero", order: 0, data: { headline: "About Us", subheadline: "Our mission and the people behind the product.", bgColor: "#2D5F2B", textAlign: "center" } },
+      { id: "t2-hero", type: "hero", order: 0, data: { headline: "About Us", subheadline: "Our mission and the people behind the product.", bgColor: "#1B3A5C", textAlign: "center" } },
       { id: "t2-imgtext", type: "image_text", order: 1, data: { imageUrl: "", imageAlt: "Team photo", imagePosition: "left", text: "<p>Share the founding story. What motivated the team? What values drive the company?</p>", heading: "Our Story" } },
       { id: "t2-stats", type: "stats_grid", order: 2, data: { stats: [{ label: "Founded", value: "2024" }, { label: "Team Members", value: "25" }, { label: "Customers", value: "1,000+" }, { label: "Countries", value: "12" }], columns: 4, bgColor: "#F5F0E8" } },
       { id: "t2-text", type: "rich_text", order: 3, data: { html: "<h2>Our Values</h2><p>Describe the principles that guide your organization.</p>" } },
@@ -137,7 +137,7 @@ export const STARTER_TEMPLATES: Omit<Template, "id" | "created_at" | "updated_at
     category: "page",
     thumbnail_url: null,
     blocks: [
-      { id: "t5-hero", type: "hero", order: 0, data: { headline: "Frequently Asked Questions", subheadline: "Find answers to common questions below.", bgColor: "#2D5F2B", textAlign: "center" } },
+      { id: "t5-hero", type: "hero", order: 0, data: { headline: "Frequently Asked Questions", subheadline: "Find answers to common questions below.", bgColor: "#1B3A5C", textAlign: "center" } },
       { id: "t5-faq", type: "faq_accordion", order: 1, data: {} },
       { id: "t5-spacer", type: "spacer", order: 2, data: { height: "lg" } },
       { id: "t5-text", type: "rich_text", order: 3, data: { html: "<h3>Still have questions?</h3><p>Our support team is here to help.</p>" } },

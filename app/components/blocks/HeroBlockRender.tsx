@@ -39,7 +39,7 @@ export default function HeroBlockRender({ data }: { data: HeroBlockData }) {
         {data.ctaText && data.ctaUrl && (
           <Link
             href={data.ctaUrl}
-            className="inline-block mt-2 px-8 py-3 bg-white text-[#1B3A5C] font-semibold rounded-full hover:bg-neutral-100 transition-colors"
+            className="inline-block mt-4 px-10 py-4 bg-[#b8955a] text-white font-semibold rounded-full hover:bg-[#a07e47] transition-colors shadow-lg text-lg"
           >
             {data.ctaText}
           </Link>
