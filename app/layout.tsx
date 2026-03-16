@@ -6,27 +6,32 @@ import AnalyticsScripts from "./components/AnalyticsScripts";
 
 export const metadata: Metadata = {
   title: {
-    default: "NutraGLP — Natural GLP-1 Activation",
+    default: "NutraGLP — Natural GLP-1 Amplification",
     template: "%s | NutraGLP",
   },
   description:
+<<<<<<< HEAD
     "Slim SHOT is a daily liquid formula that activates your body's own GLP-1 production. No needle. No prescription. No catch. $155/mo.",
   keywords: [
+=======
+    "Slim SHOT is a daily liquid formula that amplifies your body's own GLP-1 production. No needle. No prescription. No catch. $155/mo.",
+  keywords:  [
+>>>>>>> origin/main
     "natural GLP-1 supplement",
     "GLP-1 without prescription",
     "natural GLP-1 agonist",
     "nanoemulsion GLP-1",
     "DPP-4 inhibitor supplement",
     "natural weight management",
-    "natural GLP-1 activation",
+    "natural GLP-1 amplification",
   ],
   alternates: {
     canonical: "https://nutraglp.com",
   },
   openGraph: {
-    title: "NutraGLP — Natural GLP-1 Activation",
+    title: "NutraGLP — Natural GLP-1 Amplification",
     description:
-      "A patent-pending drinkable nanoemulsion that activates your body's natural GLP-1 and GIP production. No prescription. No injection. 13 metabolic pathways.",
+      "A patent-pending drinkable nanoemulsion that amplifies your body's natural GLP-1 and GIP production. No prescription. No injection. 13 metabolic pathways.",
     url: "https://nutraglp.com",
     siteName: "NutraGLP",
     type: "website",
@@ -36,15 +41,15 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "NutraGLP — Natural GLP-1 Activation",
+        alt: "NutraGLP — Natural GLP-1 Amplification",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "NutraGLP — Natural GLP-1 Activation",
+    title: "NutraGLP — Natural GLP-1 Amplification",
     description:
-      "A patent-pending drinkable nanoemulsion that activates your body's natural GLP-1 and GIP production.",
+      "A patent-pending drinkable nanoemulsion that amplifies your body's natural GLP-1 and GIP production.",
   },
   robots: {
     index: true,
@@ -66,8 +71,8 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
           rel="stylesheet"
         />
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
       </head>
       <body className="bg-cream text-ink">
         <script
@@ -80,7 +85,7 @@ export default function RootLayout({
               url: "https://nutraglp.com",
               logo: "https://nutraglp.com/apple-touch-icon.png",
               description:
-                "NutraGLP develops patent-pending nanoemulsion supplements for natural GLP-1 activation. Flagship product: Slim SHOT, a daily drinkable liquid formula.",
+                "NutraGLP develops patent-pending nanoemulsion supplements for natural GLP-1 amplification. Flagship product: Slim SHOT, a daily drinkable liquid formula.",
               brand: {
                 "@type": "Brand",
                 name: "NutraGLP",

@@ -2,8 +2,8 @@ import Link from "next/link";
 
 const posts = [
   {
-    slug: "natural-glp1-activation",
-    title: "Natural GLP-1 Activation: What the Research Shows",
+    slug: "natural-glp1-amplification",
+    title: "Natural GLP-1 Amplification: What the Research Shows",
     excerpt:
       "AMPK activation in intestinal L-cells stimulates endogenous GLP-1 secretion. The clinical evidence behind natural incretin production.",
   },
@@ -17,7 +17,7 @@ const posts = [
     slug: "endogenous-vs-exogenous-glp1",
     title: "Endogenous vs. Exogenous GLP-1: Two Approaches",
     excerpt:
-      "Pharmaceutical GLP-1 drugs inject synthetic peptides. Endogenous activation amplifies what the gut already produces.",
+      "Pharmaceutical GLP-1 drugs inject synthetic peptides. Endogenous amplification enhances what the gut already produces.",
   },
 ];
 

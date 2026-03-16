@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Frequently Asked Questions",
   description:
-    "Common questions about natural GLP-1 activation, nanoemulsion delivery, DPP-4 inhibition, and how NutraGLP's Slim SHOT works.",
+    "Common questions about natural GLP-1 amplification, nanoemulsion delivery, DPP-4 inhibition, and how NutraGLP's Slim SHOT works.",
   alternates: {
     canonical: "https://nutraglp.com/faq",
   },
@@ -56,7 +56,7 @@ export default async function FAQPage() {
         <h1
           className="text-3xl md:text-[48px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6 font-display"
         >
-          Common questions about natural GLP-1 activation
+          Common questions about natural GLP-1 amplification
         </h1>
         <p className="text-lg text-white/50 max-w-[560px] mx-auto leading-relaxed">
           The science, the technology, and how it all fits together.

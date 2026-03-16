@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title: "Research & Insights",
   description:
-    "Evidence-based articles on natural GLP-1 activation, nanoemulsion bioavailability, DPP-4 inhibition, and the science behind metabolic health supplements.",
+    "Evidence-based articles on natural GLP-1 amplification, nanoemulsion bioavailability, DPP-4 inhibition, and the science behind metabolic health supplements.",
   alternates: {
     canonical: "https://nutraglp.com/blog",
   },
@@ -57,7 +57,7 @@ export default async function BlogIndex() {
         <h1
           className="text-3xl md:text-[48px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6 font-display"
         >
-          The science behind natural GLP-1 activation
+          The science behind natural GLP-1 amplification
         </h1>
         <p className="text-lg text-white/50 max-w-[560px] mx-auto leading-relaxed">
           Evidence-based articles on the compounds, delivery systems, and

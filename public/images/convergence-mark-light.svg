@@ -1,10 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none">
-  <!-- Left arc (white for dark bg) -->
-  <path d="M20 5.5 C12 5.5 5.5 12 5.5 20 C5.5 28 12 34.5 20 34.5" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-  <!-- Right arc (gold-light for dark bg) -->
-  <path d="M20 5.5 C28 5.5 34.5 12 34.5 20 C34.5 28 28 34.5 20 34.5" stroke="#d4ad72" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-  <!-- Top convergence dot -->
-  <circle cx="20" cy="5.5" r="2.5" fill="#d4ad72"/>
-  <!-- Bottom convergence dot -->
-  <circle cx="20" cy="34.5" r="2.5" fill="#d4ad72"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none">
+<path d="M 206.44 324.74 A 140 140 0 0 1 206.44 75.26" fill="none" stroke="#D4B87A" stroke-width="3" stroke-linecap="round"/>
+<path d="M 193.56 75.26 A 140 140 0 0 1 193.56 324.74" fill="none" stroke="#F5F2EB" stroke-width="3" stroke-linecap="round"/>
+<circle cx="200.0" cy="75.3" r="2.4" fill="#D4B87A"/>
+<circle cx="200.0" cy="324.7" r="2.4" fill="#F5F2EB"/>
 </svg>
