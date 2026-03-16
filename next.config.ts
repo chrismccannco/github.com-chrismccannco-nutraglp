@@ -4,7 +4,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  serverExternalPackages: ["@libsql/client", "libsql", "@libsql/linux-arm64-gnu"],
+  serverExternalPackages: ["@libsql/client", "libsql"],
 };
 
 export default nextConfig;
