@@ -269,7 +269,7 @@ export default function VersionHistory({
                   <div key={entry.key} className="text-xs">
                     <span className="font-medium text-neutral-600">{entry.key}</span>
                     {entry.type === "added" && (
-                      <div className="mt-1 px-2 py-1 bg-green-50 border border-green-200 rounded text-green-800">
+                      <div className="mt-1 px-2 py-1 bg-blue-50 border border-blue-200 rounded text-blue-800">
                         + {truncate(entry.newValue || "")}
                       </div>
                     )}
@@ -283,7 +283,7 @@ export default function VersionHistory({
                         <div className="px-2 py-1 bg-red-50 border border-red-200 rounded text-red-700">
                           - {truncate(entry.oldValue || "")}
                         </div>
-                        <div className="px-2 py-1 bg-green-50 border border-green-200 rounded text-green-700">
+                        <div className="px-2 py-1 bg-blue-50 border border-blue-200 rounded text-blue-700">
                           + {truncate(entry.newValue || "")}
                         </div>
                       </div>

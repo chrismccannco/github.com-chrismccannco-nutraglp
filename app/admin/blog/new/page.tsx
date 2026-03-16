@@ -38,7 +38,7 @@ export default function NewBlogPost() {
           og_image: ogImage || undefined,
           date: new Date().toISOString().split("T")[0],
           read_time: "5 min",
-          gradient: "from-emerald-900 to-green-800",
+          gradient: "from-blue-900 to-blue-800",
           sections: [{ heading: "", body: [""] }],
         }),
       });
@@ -76,7 +76,7 @@ export default function NewBlogPost() {
             <input
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div className="mb-4">
@@ -89,7 +89,7 @@ export default function NewBlogPost() {
                 setSlug(e.target.value.replace(/[^a-z0-9-]/g, ""))
               }
               placeholder="my-article-slug"
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div className="mb-4">
@@ -100,7 +100,7 @@ export default function NewBlogPost() {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={2}
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div>
@@ -110,7 +110,7 @@ export default function NewBlogPost() {
             <input
               value={tag}
               onChange={(e) => setTag(e.target.value)}
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
         </FormSection>
@@ -124,7 +124,7 @@ export default function NewBlogPost() {
               value={metaTitle}
               onChange={(e) => setMetaTitle(e.target.value)}
               placeholder="Override post title for search engines"
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div className="mb-4">
@@ -136,7 +136,7 @@ export default function NewBlogPost() {
               onChange={(e) => setMetaDescription(e.target.value)}
               rows={2}
               placeholder="Override post description for search engines"
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div>
@@ -147,7 +147,7 @@ export default function NewBlogPost() {
               value={ogImage}
               onChange={(e) => setOgImage(e.target.value)}
               placeholder="https://..."
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
         </FormSection>
@@ -157,7 +157,7 @@ export default function NewBlogPost() {
         <button
           type="submit"
           disabled={saving}
-          className="px-4 py-2 bg-emerald-600 text-white text-sm rounded-lg hover:bg-emerald-700 transition disabled:opacity-50"
+          className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
         >
           {saving ? "Creating\u2026" : "Create post"}
         </button>

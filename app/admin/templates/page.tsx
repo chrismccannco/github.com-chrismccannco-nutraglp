@@ -25,7 +25,7 @@ function categoryColor(cat: string): string {
   const colors: Record<string, string> = {
     page: "bg-blue-100 text-blue-700",
     landing: "bg-purple-100 text-purple-700",
-    blog: "bg-green-100 text-green-700",
+    blog: "bg-blue-100 text-blue-700",
     product: "bg-amber-100 text-amber-700",
     email: "bg-pink-100 text-pink-700",
     form: "bg-cyan-100 text-cyan-700",
@@ -170,7 +170,7 @@ export default function TemplatesPage() {
           )}
           <button
             onClick={() => setShowCreate(true)}
-            className="px-4 py-2 text-sm bg-[#2D5F2B] text-white rounded-lg hover:bg-[#244D23] transition"
+            className="px-4 py-2 text-sm bg-[#1B3A5C] text-white rounded-lg hover:bg-[#132D4A] transition"
           >
             + Create Template
           </button>
@@ -184,7 +184,7 @@ export default function TemplatesPage() {
           placeholder="Search templates…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="px-3 py-2 border rounded-lg text-sm w-64 focus:ring-2 focus:ring-[#2D5F2B]/20 focus:border-[#2D5F2B] outline-none"
+          className="px-3 py-2 border rounded-lg text-sm w-64 focus:ring-2 focus:ring-[#1B3A5C]/20 focus:border-[#1B3A5C] outline-none"
         />
         <select
           value={category}
@@ -211,11 +211,11 @@ export default function TemplatesPage() {
 
       {/* Install success banner */}
       {installResult && (
-        <div className="bg-green-50 border border-green-200 rounded-lg p-4 flex items-center justify-between">
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 flex items-center justify-between">
           <div>
-            <p className="text-sm font-medium text-green-800">Template installed successfully.</p>
+            <p className="text-sm font-medium text-blue-800">Template installed successfully.</p>
             {installResult.slug && (
-              <p className="text-xs text-green-600 mt-0.5">
+              <p className="text-xs text-blue-600 mt-0.5">
                 New {installResult.target_type === "blog_post" ? "blog post" : "page"} created with slug: {installResult.slug}
               </p>
             )}
@@ -224,12 +224,12 @@ export default function TemplatesPage() {
             {installResult.slug && (
               <a
                 href={`/admin/pages/${installResult.slug}`}
-                className="text-xs text-green-700 underline"
+                className="text-xs text-blue-700 underline"
               >
                 Edit Page
               </a>
             )}
-            <button onClick={() => setInstallResult(null)} className="text-xs text-green-600 hover:text-green-800">
+            <button onClick={() => setInstallResult(null)} className="text-xs text-blue-600 hover:text-blue-800">
               Dismiss
             </button>
           </div>
@@ -312,7 +312,7 @@ export default function TemplatesPage() {
                   <button
                     onClick={() => handleInstall(tpl)}
                     disabled={installing === tpl.id}
-                    className="flex-1 text-xs py-2 bg-[#2D5F2B] text-white rounded-lg hover:bg-[#244D23] transition disabled:opacity-50"
+                    className="flex-1 text-xs py-2 bg-[#1B3A5C] text-white rounded-lg hover:bg-[#132D4A] transition disabled:opacity-50"
                   >
                     {installing === tpl.id ? "Installing…" : "Install"}
                   </button>
@@ -348,7 +348,7 @@ export default function TemplatesPage() {
                     handleInstall(preview);
                     setPreview(null);
                   }}
-                  className="px-4 py-2 text-sm bg-[#2D5F2B] text-white rounded-lg hover:bg-[#244D23] transition"
+                  className="px-4 py-2 text-sm bg-[#1B3A5C] text-white rounded-lg hover:bg-[#132D4A] transition"
                 >
                   Install as New Page
                 </button>
@@ -457,7 +457,7 @@ export default function TemplatesPage() {
                   }
                 }}
                 placeholder="My Custom Template"
-                className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-[#2D5F2B]/20 focus:border-[#2D5F2B] outline-none"
+                className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-[#1B3A5C]/20 focus:border-[#1B3A5C] outline-none"
               />
             </div>
 
@@ -468,7 +468,7 @@ export default function TemplatesPage() {
                 value={newSlug}
                 onChange={(e) => setNewSlug(e.target.value)}
                 placeholder="auto-generated-from-name"
-                className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-[#2D5F2B]/20 focus:border-[#2D5F2B] outline-none"
+                className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-[#1B3A5C]/20 focus:border-[#1B3A5C] outline-none"
               />
             </div>
 
@@ -494,7 +494,7 @@ export default function TemplatesPage() {
                 onChange={(e) => setNewDescription(e.target.value)}
                 placeholder="A brief description of the template…"
                 rows={2}
-                className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-[#2D5F2B]/20 focus:border-[#2D5F2B] outline-none"
+                className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-[#1B3A5C]/20 focus:border-[#1B3A5C] outline-none"
               />
             </div>
 
@@ -505,7 +505,7 @@ export default function TemplatesPage() {
                 value={newTags}
                 onChange={(e) => setNewTags(e.target.value)}
                 placeholder="landing, hero, conversion"
-                className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-[#2D5F2B]/20 focus:border-[#2D5F2B] outline-none"
+                className="w-full px-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-[#1B3A5C]/20 focus:border-[#1B3A5C] outline-none"
               />
             </div>
 
@@ -515,7 +515,7 @@ export default function TemplatesPage() {
                   type="checkbox"
                   checked={newPremium}
                   onChange={(e) => setNewPremium(e.target.checked)}
-                  className="accent-[#2D5F2B]"
+                  className="accent-[#1B3A5C]"
                 />
                 Premium template
               </label>
@@ -543,7 +543,7 @@ export default function TemplatesPage() {
               <button
                 onClick={handleCreate}
                 disabled={!newName.trim()}
-                className="px-4 py-2 text-sm bg-[#2D5F2B] text-white rounded-lg hover:bg-[#244D23] transition disabled:opacity-50"
+                className="px-4 py-2 text-sm bg-[#1B3A5C] text-white rounded-lg hover:bg-[#132D4A] transition disabled:opacity-50"
               >
                 Create Template
               </button>

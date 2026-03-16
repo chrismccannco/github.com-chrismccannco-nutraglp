@@ -56,7 +56,7 @@ function FieldInput({
   error?: string;
 }) {
   const base =
-    "w-full px-3 py-2.5 border rounded-lg text-sm focus:ring-2 focus:ring-[#2D5F2B]/20 focus:border-[#2D5F2B] outline-none transition";
+    "w-full px-3 py-2.5 border rounded-lg text-sm focus:ring-2 focus:ring-[#1B3A5C]/20 focus:border-[#1B3A5C] outline-none transition";
   const errClass = error ? "border-red-400" : "border-gray-300";
 
   if (field.type === "heading") {
@@ -106,7 +106,7 @@ function FieldInput({
                 value={o.value}
                 checked={value === o.value}
                 onChange={() => onChange(o.value)}
-                className="accent-[#2D5F2B]"
+                className="accent-[#1B3A5C]"
               />
               {o.label}
             </label>
@@ -129,7 +129,7 @@ function FieldInput({
                         : [...vals, o.value];
                       onChange(next.join(","));
                     }}
-                    className="accent-[#2D5F2B]"
+                    className="accent-[#1B3A5C]"
                   />
                   {o.label}
                 </label>
@@ -141,7 +141,7 @@ function FieldInput({
                 type="checkbox"
                 checked={value === "true"}
                 onChange={(e) => onChange(e.target.checked ? "true" : "")}
-                className="accent-[#2D5F2B]"
+                className="accent-[#1B3A5C]"
               />
               {field.placeholder || field.label}
             </label>
@@ -285,8 +285,8 @@ export default function PublicFormPage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-[#F5F0E8]">
         <div className="bg-white rounded-2xl shadow-sm p-8 max-w-md w-full text-center">
-          <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg className="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg className="w-6 h-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
@@ -341,7 +341,7 @@ export default function PublicFormPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full py-3 bg-[#2D5F2B] text-white rounded-lg font-medium hover:bg-[#244D23] transition disabled:opacity-50"
+              className="w-full py-3 bg-[#1B3A5C] text-white rounded-lg font-medium hover:bg-[#132D4A] transition disabled:opacity-50"
             >
               {submitting ? "Submitting…" : settings.submitLabel || "Submit"}
             </button>

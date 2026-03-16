@@ -117,7 +117,7 @@ export default function SitesPage() {
           <button
             onClick={saveSite}
             disabled={saving}
-            className="flex items-center gap-2 px-4 py-2 bg-[#2D5F2B] text-white rounded-lg text-sm hover:bg-[#244D23] disabled:opacity-50"
+            className="flex items-center gap-2 px-4 py-2 bg-[#1B3A5C] text-white rounded-lg text-sm hover:bg-[#132D4A] disabled:opacity-50"
           >
             {saved ? <Check size={14} /> : <Save size={14} />}
             {saved ? "Saved" : saving ? "Saving…" : "Save"}
@@ -130,7 +130,7 @@ export default function SitesPage() {
               key={t}
               onClick={() => setTab(t)}
               className={`px-4 py-2.5 text-sm font-medium border-b-2 transition capitalize ${
-                tab === t ? "border-[#2D5F2B] text-[#2D5F2B]" : "border-transparent text-gray-500 hover:text-gray-700"
+                tab === t ? "border-[#1B3A5C] text-[#1B3A5C]" : "border-transparent text-gray-500 hover:text-gray-700"
               }`}
             >
               {t}
@@ -344,7 +344,7 @@ export default function SitesPage() {
         </div>
         <button
           onClick={() => setShowCreate(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-[#2D5F2B] text-white rounded-lg text-sm hover:bg-[#244D23]"
+          className="flex items-center gap-2 px-4 py-2 bg-[#1B3A5C] text-white rounded-lg text-sm hover:bg-[#132D4A]"
         >
           <Plus size={16} />
           New Site
@@ -422,7 +422,7 @@ export default function SitesPage() {
               <div className="flex items-center gap-4">
                 <div
                   className="w-10 h-10 rounded-lg flex items-center justify-center text-white font-bold text-sm"
-                  style={{ backgroundColor: site.theme?.primaryColor || "#2D5F2B" }}
+                  style={{ backgroundColor: site.theme?.primaryColor || "#1B3A5C" }}
                 >
                   {site.name.charAt(0)}
                 </div>
@@ -430,7 +430,7 @@ export default function SitesPage() {
                   <div className="font-medium text-gray-900 flex items-center gap-2">
                     {site.name}
                     <span className={`px-1.5 py-0.5 text-xs rounded ${
-                      site.enabled ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-500"
+                      site.enabled ? "bg-blue-100 text-blue-700" : "bg-gray-100 text-gray-500"
                     }`}>
                       {site.enabled ? "Active" : "Inactive"}
                     </span>

@@ -204,7 +204,7 @@ export default function LocalizationPage() {
             onClick={() => setTab(t)}
             className={`px-4 py-2.5 text-sm font-medium border-b-2 transition ${
               tab === t
-                ? "border-[#2D5F2B] text-[#2D5F2B]"
+                ? "border-[#1B3A5C] text-[#1B3A5C]"
                 : "border-transparent text-gray-500 hover:text-gray-700"
             }`}
           >
@@ -219,7 +219,7 @@ export default function LocalizationPage() {
           <div className="flex justify-end mb-4">
             <button
               onClick={() => setShowAdd(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-[#2D5F2B] text-white rounded-lg text-sm hover:bg-[#244D23]"
+              className="flex items-center gap-2 px-4 py-2 bg-[#1B3A5C] text-white rounded-lg text-sm hover:bg-[#132D4A]"
             >
               <Plus size={16} />
               Add Language
@@ -248,7 +248,7 @@ export default function LocalizationPage() {
               <button
                 onClick={addLocale}
                 disabled={!addCode}
-                className="px-4 py-2 bg-[#2D5F2B] text-white rounded-lg text-sm hover:bg-[#244D23] disabled:opacity-50"
+                className="px-4 py-2 bg-[#1B3A5C] text-white rounded-lg text-sm hover:bg-[#132D4A] disabled:opacity-50"
               >
                 Add
               </button>
@@ -393,7 +393,7 @@ export default function LocalizationPage() {
                         <button
                           onClick={saveTranslations}
                           disabled={saving}
-                          className="flex items-center gap-2 px-4 py-2 bg-[#2D5F2B] text-white rounded-lg text-sm hover:bg-[#244D23] disabled:opacity-50"
+                          className="flex items-center gap-2 px-4 py-2 bg-[#1B3A5C] text-white rounded-lg text-sm hover:bg-[#132D4A] disabled:opacity-50"
                         >
                           {saved ? <Check size={14} /> : <Save size={14} />}
                           {saved ? "Saved" : saving ? "Saving…" : "Save"}
@@ -511,7 +511,7 @@ export default function LocalizationPage() {
                           <button
                             onClick={addUiString}
                             disabled={!newKey || !newValue}
-                            className="px-3 py-1 bg-[#2D5F2B] text-white rounded text-xs hover:bg-[#244D23] disabled:opacity-50"
+                            className="px-3 py-1 bg-[#1B3A5C] text-white rounded text-xs hover:bg-[#132D4A] disabled:opacity-50"
                           >
                             Add
                           </button>

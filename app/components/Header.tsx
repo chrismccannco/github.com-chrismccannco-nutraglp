@@ -14,17 +14,8 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-forest-deep/95 backdrop-blur-sm border-b border-white/[0.06]">
       <div className="max-w-[1200px] mx-auto flex items-center justify-between px-6 md:px-12 py-4">
-        <Link href="/" className="flex items-center gap-2.5 no-underline">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none" className="w-8 h-8 flex-shrink-0" aria-hidden="true">
-            <path d="M20 5.5 C12 5.5 5.5 12 5.5 20 C5.5 28 12 34.5 20 34.5" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-            <path d="M20 5.5 C28 5.5 34.5 12 34.5 20 C34.5 28 28 34.5 20 34.5" stroke="#d4ad72" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-            <circle cx="20" cy="5.5" r="2.5" fill="#d4ad72"/>
-            <circle cx="20" cy="34.5" r="2.5" fill="#d4ad72"/>
-          </svg>
-          <span className="flex items-baseline gap-2">
-            <span className="text-xl font-bold tracking-tight text-cream font-heading">NutraGLP</span>
-            <span className="text-[9px] font-medium uppercase tracking-[2.5px] text-gold/60">Biosciences</span>
-          </span>
+        <Link href="/" className="flex items-center no-underline">
+          <img src="/nutraglp-logo.svg" alt="NutraGLP Biosciences" className="h-10 w-auto" />
         </Link>
 
         {/* Desktop nav */}
