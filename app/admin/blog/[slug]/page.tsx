@@ -9,7 +9,11 @@ import MetadataPanel from "../../components/MetadataPanel";
 import FormSection from "../../components/FormSection";
 import FormActions from "../../components/FormActions";
 import AutosaveIndicator from "../../components/AutosaveIndicator";
+import WorkflowPanel from "../../components/WorkflowPanel";
 import { useAutosave } from "../../hooks/useAutosave";
+import { useAuth } from "../../layout";
+import BlockEditor from "../../components/blocks/BlockEditor";
+import type { Block } from "@/lib/types/blocks";
 import { Plus, Trash2 } from "lucide-react";
 
 interface Section {
@@ -28,6 +32,7 @@ function migrateBody(body: unknown): string {
 export default function EditBlogPost() {
   const params = useParams();
   const router = useRouter();
+  const { user } = useAuth();
   const slug = params.slug as string;
 
   const [postId, setPostId] = useState<number | null>(null);
@@ -44,6 +49,9 @@ export default function EditBlogPost() {
   const [ogImage, setOgImage] = useState("");
   const [published, setPublished] = useState(true);
   const [sections, setSections] = useState<Section[]>([]);
+  const [blocks, setBlocks] = useState<Block[]>([]);
+  const [editorMode, setEditorMode] = useState<"sections" | "blocks">("sections");
+  const [publishAt, setPublishAt] = useState("");
   const [relatedSlugs, setRelatedSlugs] = useState("");
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -66,6 +74,7 @@ export default function EditBlogPost() {
         setMetaDescription(data.meta_description || "");
         setOgImage(data.og_image || "");
         setPublished(!!data.published);
+        setPublishAt(data.publish_at || "");
         setUpdatedAt(data.updated_at || "");
         const rawSections = data.sections || [];
         setSections(
@@ -75,6 +84,9 @@ export default function EditBlogPost() {
           }))
         );
         setRelatedSlugs((data.related_slugs || []).join(", "));
+        const loadedBlocks = data.blocks || [];
+        setBlocks(loadedBlocks);
+        if (loadedBlocks.length > 0) setEditorMode("blocks");
         setLoaded(true);
       });
   }, [slug]);
@@ -91,7 +103,9 @@ export default function EditBlogPost() {
     meta_description: metaDescription,
     og_image: ogImage,
     published: pub,
+    publish_at: publishAt || null,
     sections,
+    blocks,
     related_slugs: relatedSlugs
       .split(",")
       .map((s) => s.trim())
@@ -108,9 +122,9 @@ export default function EditBlogPost() {
     if (!res.ok) throw new Error("Autosave failed");
     const data = await res.json();
     if (data.updated_at) setUpdatedAt(data.updated_at);
-  }, [slug, title, description, date, readTime, tag, gradient, featuredImage, metaTitle, metaDescription, ogImage, published, sections, relatedSlugs, loaded]);
+  }, [slug, title, description, date, readTime, tag, gradient, featuredImage, metaTitle, metaDescription, ogImage, published, publishAt, sections, blocks, relatedSlugs, loaded]);
 
-  const autosaveStatus = useAutosave(autoSaveFn, [title, description, date, readTime, tag, gradient, featuredImage, metaTitle, metaDescription, ogImage, sections, relatedSlugs]);
+  const autosaveStatus = useAutosave(autoSaveFn, [title, description, date, readTime, tag, gradient, featuredImage, metaTitle, metaDescription, ogImage, publishAt, sections, blocks, relatedSlugs]);
 
   const handleSaveDraft = async () => {
     setSaving(true);
@@ -177,6 +191,8 @@ export default function EditBlogPost() {
     if (data.meta_description !== undefined) setMetaDescription(data.meta_description as string);
     if (data.og_image !== undefined) setOgImage(data.og_image as string);
     if (data.sections !== undefined) setSections(data.sections as Section[]);
+    if (data.blocks !== undefined) setBlocks(data.blocks as Block[]);
+    if (data.publish_at !== undefined) setPublishAt(data.publish_at as string);
     if (data.related_slugs !== undefined) setRelatedSlugs((data.related_slugs as string[]).join(", "));
   };
 
@@ -213,6 +229,37 @@ export default function EditBlogPost() {
       title={title || "Untitled post"}
       actions={
         <div className="flex items-center gap-3">
+          <button
+            onClick={() => {
+              if (published) handleSaveDraft();
+              else handlePublish();
+            }}
+            className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-full transition ${
+              publishAt && new Date(publishAt) > new Date()
+                ? "bg-blue-50 text-blue-700 hover:bg-blue-100"
+                : published
+                  ? "bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
+                  : "bg-amber-50 text-amber-700 hover:bg-amber-100"
+            }`}
+            title={published ? "Click to unpublish" : "Click to publish"}
+          >
+            <span className={`w-1.5 h-1.5 rounded-full ${
+              publishAt && new Date(publishAt) > new Date()
+                ? "bg-blue-500"
+                : published ? "bg-emerald-500" : "bg-amber-500"
+            }`} />
+            {publishAt && new Date(publishAt) > new Date()
+              ? "Scheduled"
+              : published ? "Live" : "Draft"}
+          </button>
+          <a
+            href={`/preview/blog/${slug}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-3 py-1.5 text-xs border border-neutral-300 rounded-lg text-neutral-600 hover:bg-neutral-50 transition"
+          >
+            Preview
+          </a>
           <AutosaveIndicator status={autosaveStatus} />
           <FormActions
             onSaveDraft={handleSaveDraft}
@@ -224,21 +271,31 @@ export default function EditBlogPost() {
         </div>
       }
       sidebar={
-        <MetadataPanel
-          status={published ? "published" : "draft"}
-          slug={slug}
-          updatedAt={updatedAt}
-          contentType="blog_post"
-          contentId={postId}
-          onRestore={handleRestore}
-        >
-          {readTime && (
-            <div className="bg-white border border-neutral-200 rounded-lg shadow-sm p-4">
-              <span className="text-xs text-neutral-400">Read time</span>{" "}
-              <span className="text-xs text-neutral-700 font-medium">{readTime}</span>
-            </div>
-          )}
-        </MetadataPanel>
+        <>
+          <WorkflowPanel
+            contentType="blog_post"
+            contentId={postId}
+            currentUserName={user?.name || user?.email || "Unknown"}
+            currentUserRole={user?.role || "viewer"}
+            published={published}
+            onPublish={handlePublish}
+          />
+          <MetadataPanel
+            status={published ? "published" : "draft"}
+            slug={slug}
+            updatedAt={updatedAt}
+            contentType="blog_post"
+            contentId={postId}
+            onRestore={handleRestore}
+          >
+            {readTime && (
+              <div className="bg-white border border-neutral-200 rounded-lg shadow-sm p-4">
+                <span className="text-xs text-neutral-400">Read time</span>{" "}
+                <span className="text-xs text-neutral-700 font-medium">{readTime}</span>
+              </div>
+            )}
+          </MetadataPanel>
+        </>
       }
     >
       <FormSection title="Post Details">
@@ -306,6 +363,34 @@ export default function EditBlogPost() {
               className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
           </div>
+        </div>
+      </FormSection>
+
+      <FormSection title="Scheduling" collapsible defaultOpen={!!publishAt}>
+        <div>
+          <label className="block text-xs font-medium text-neutral-500 mb-1">
+            Publish at
+          </label>
+          <input
+            type="datetime-local"
+            value={publishAt ? publishAt.slice(0, 16) : ""}
+            onChange={(e) => setPublishAt(e.target.value ? new Date(e.target.value).toISOString() : "")}
+            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          />
+          <p className="text-xs text-neutral-400 mt-1">
+            {publishAt
+              ? `Scheduled for ${new Date(publishAt).toLocaleString()}`
+              : "Leave empty to publish immediately when status is Live"}
+          </p>
+          {publishAt && (
+            <button
+              type="button"
+              onClick={() => setPublishAt("")}
+              className="mt-2 text-xs text-red-500 hover:text-red-600"
+            >
+              Clear schedule
+            </button>
+          )}
         </div>
       </FormSection>
 
@@ -395,47 +480,78 @@ export default function EditBlogPost() {
         </div>
       </FormSection>
 
-      <div className="flex items-center justify-between mt-2 mb-1">
+      <div className="flex items-center justify-between mt-2 mb-3">
         <h2 className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
-          Content Sections
+          Content
         </h2>
-        <button
-          onClick={addSection}
-          className="flex items-center gap-1 text-xs text-emerald-600 hover:text-emerald-700 font-medium"
-        >
-          <Plus className="w-3.5 h-3.5" />
-          Add section
-        </button>
+        <div className="flex items-center gap-1 bg-neutral-100 rounded-md p-0.5">
+          <button
+            onClick={() => setEditorMode("sections")}
+            className={`px-3 py-1 text-xs font-medium rounded transition ${
+              editorMode === "sections"
+                ? "bg-white text-neutral-900 shadow-sm"
+                : "text-neutral-500 hover:text-neutral-700"
+            }`}
+          >
+            Sections
+          </button>
+          <button
+            onClick={() => setEditorMode("blocks")}
+            className={`px-3 py-1 text-xs font-medium rounded transition ${
+              editorMode === "blocks"
+                ? "bg-white text-neutral-900 shadow-sm"
+                : "text-neutral-500 hover:text-neutral-700"
+            }`}
+          >
+            Blocks
+          </button>
+        </div>
       </div>
 
-      {sections.map((section, i) => (
-        <FormSection key={i} title={`Section ${i + 1}`} collapsible>
-          <div className="flex items-center justify-between mb-3">
-            <label className="block text-xs font-medium text-neutral-500">
-              Heading
-            </label>
+      {editorMode === "blocks" ? (
+        <BlockEditor blocks={blocks} onChange={setBlocks} pageTitle={title} />
+      ) : (
+        <>
+          <div className="flex items-center justify-end mb-1">
             <button
-              onClick={() => removeSection(i)}
-              className="p-1 text-neutral-400 hover:text-red-600 rounded hover:bg-neutral-50 transition"
-              title="Remove section"
+              onClick={addSection}
+              className="flex items-center gap-1 text-xs text-emerald-600 hover:text-emerald-700 font-medium"
             >
-              <Trash2 className="w-3.5 h-3.5" />
+              <Plus className="w-3.5 h-3.5" />
+              Add section
             </button>
           </div>
-          <input
-            value={section.heading}
-            onChange={(e) => updateSectionHeading(i, e.target.value)}
-            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 mb-3"
-          />
-          <label className="block text-xs font-medium text-neutral-500 mb-1">
-            Body
-          </label>
-          <RichTextEditor
-            content={section.body}
-            onChange={(html) => updateSectionBody(i, html)}
-          />
-        </FormSection>
-      ))}
+
+          {sections.map((section, i) => (
+            <FormSection key={i} title={`Section ${i + 1}`} collapsible>
+              <div className="flex items-center justify-between mb-3">
+                <label className="block text-xs font-medium text-neutral-500">
+                  Heading
+                </label>
+                <button
+                  onClick={() => removeSection(i)}
+                  className="p-1 text-neutral-400 hover:text-red-600 rounded hover:bg-neutral-50 transition"
+                  title="Remove section"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                </button>
+              </div>
+              <input
+                value={section.heading}
+                onChange={(e) => updateSectionHeading(i, e.target.value)}
+                className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 mb-3"
+              />
+              <label className="block text-xs font-medium text-neutral-500 mb-1">
+                Body
+              </label>
+              <RichTextEditor
+                content={section.body}
+                onChange={(html) => updateSectionBody(i, html)}
+              />
+            </FormSection>
+          ))}
+        </>
+      )}
 
       {showFeaturedImageModal && (
         <ImageUploadModal

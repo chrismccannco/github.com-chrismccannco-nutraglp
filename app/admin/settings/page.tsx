@@ -23,8 +23,22 @@ const socialFields = [
   { key: "social_linkedin", label: "LinkedIn URL" },
 ];
 
+const analyticsFields = [
+  { key: "ga_measurement_id", label: "GA4 Measurement ID", placeholder: "G-XXXXXXXXXX" },
+  { key: "plausible_domain", label: "Plausible domain", placeholder: "nutraglp.com" },
+];
+
 const securityFields = [
   { key: "admin_password", label: "Admin password", password: true },
+];
+
+const aiFields = [
+  {
+    key: "anthropic_api_key",
+    label: "Anthropic API key",
+    password: true,
+    placeholder: "sk-ant-api03-…",
+  },
 ];
 
 export default function SettingsAdmin() {
@@ -56,7 +70,7 @@ export default function SettingsAdmin() {
     setSettings((prev) => ({ ...prev, [key]: value }));
   };
 
-  const renderField = (f: { key: string; label: string; multiline?: boolean; password?: boolean }) => (
+  const renderField = (f: { key: string; label: string; multiline?: boolean; password?: boolean; placeholder?: string }) => (
     <div key={f.key} className="mb-4 last:mb-0">
       <label className="block text-xs font-medium text-neutral-500 mb-1">
         {f.label}
@@ -66,6 +80,7 @@ export default function SettingsAdmin() {
           value={settings[f.key] || ""}
           onChange={(e) => update(f.key, e.target.value)}
           rows={3}
+          placeholder={f.placeholder}
           className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
         />
       ) : (
@@ -73,6 +88,7 @@ export default function SettingsAdmin() {
           type={f.password ? "password" : "text"}
           value={settings[f.key] || ""}
           onChange={(e) => update(f.key, e.target.value)}
+          placeholder={f.placeholder}
           className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
         />
       )}
@@ -105,6 +121,13 @@ export default function SettingsAdmin() {
 
         <FormSection title="Social Links">
           {socialFields.map(renderField)}
+        </FormSection>
+
+        <FormSection title="Analytics Tracking">
+          {analyticsFields.map(renderField)}
+          <p className="text-xs text-neutral-400 mt-2">
+            Add a GA4 measurement ID or Plausible domain to inject tracking scripts site-wide. Leave blank to disable.
+          </p>
         </FormSection>
 
         <FormSection title="Popup / Email Capture">
@@ -198,6 +221,13 @@ export default function SettingsAdmin() {
 
         <FormSection title="Security">
           {securityFields.map(renderField)}
+        </FormSection>
+
+        <FormSection title="AI Integration">
+          {aiFields.map(renderField)}
+          <p className="text-xs text-neutral-400 mt-2">
+            Used by AI Assist and AI Brand Scorer. Get your key at console.anthropic.com.
+          </p>
         </FormSection>
       </div>
     </div>

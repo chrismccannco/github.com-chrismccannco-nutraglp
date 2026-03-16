@@ -12,7 +12,8 @@ export type BlockType =
   | "video_embed"
   | "stats_grid"
   | "card_grid"
-  | "divider";
+  | "divider"
+  | "form";
 
 export interface BlockBase {
   id: string;
@@ -51,11 +52,19 @@ export interface ImageTextBlockData {
   bgColor: string;
 }
 
+export interface CTAButtonVariant {
+  text: string;
+  url: string;
+  style: "primary" | "secondary" | "outline";
+}
+
 export interface CTAButtonBlockData {
   text: string;
   url: string;
   style: "primary" | "secondary" | "outline";
   centered: boolean;
+  abEnabled?: boolean;
+  variantB?: CTAButtonVariant;
 }
 
 export interface TestimonialsBlockData {
@@ -64,7 +73,8 @@ export interface TestimonialsBlockData {
 }
 
 export interface FAQBlockData {
-  /* pulls all published FAQs — no config needed */
+  display: "accordion" | "open";
+  heading: string;
 }
 
 export interface SpacerBlockData {
@@ -98,6 +108,15 @@ export interface CardGridBlockData {
 export interface DividerBlockData {
   style: "solid" | "dashed" | "dotted";
   spacing: "sm" | "md" | "lg";
+}
+
+export interface FormBlockData {
+  heading: string;
+  description: string;
+  buttonText: string;
+  successMessage: string;
+  formName: string;
+  bgColor: string;
 }
 
 /* ── Typed block variants ── */
@@ -150,6 +169,10 @@ export interface DividerBlock extends BlockBase {
   type: "divider";
   data: DividerBlockData;
 }
+export interface FormBlock extends BlockBase {
+  type: "form";
+  data: FormBlockData;
+}
 
 export type Block =
   | HeroBlock
@@ -163,7 +186,8 @@ export type Block =
   | VideoEmbedBlock
   | StatsGridBlock
   | CardGridBlock
-  | DividerBlock;
+  | DividerBlock
+  | FormBlock;
 
 /* ── Block metadata (labels, icons) ── */
 
@@ -187,4 +211,5 @@ export const BLOCK_CATALOG: BlockMeta[] = [
   { type: "stats_grid", label: "Stats", icon: "BarChart3", description: "Metrics or stats in a grid" },
   { type: "card_grid", label: "Cards", icon: "LayoutGrid", description: "Grid of content cards" },
   { type: "divider", label: "Divider", icon: "Minus", description: "Horizontal rule" },
+  { type: "form", label: "Form", icon: "Mail", description: "Email capture / waitlist form" },
 ];

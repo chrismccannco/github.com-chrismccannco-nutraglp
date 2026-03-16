@@ -2,17 +2,21 @@
 
 import { useEffect, useState, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
-import RichTextEditor from "../../components/RichTextEditor";
 import EditorLayout from "../../components/EditorLayout";
 import MetadataPanel from "../../components/MetadataPanel";
 import FormSection from "../../components/FormSection";
 import FormActions from "../../components/FormActions";
 import AutosaveIndicator from "../../components/AutosaveIndicator";
+import WorkflowPanel from "../../components/WorkflowPanel";
 import { useAutosave } from "../../hooks/useAutosave";
+import { useAuth } from "../../layout";
+import BlockEditor from "../../components/blocks/BlockEditor";
+import type { Block } from "@/lib/types/blocks";
 
 export default function EditPage() {
   const params = useParams();
   const router = useRouter();
+  const { user } = useAuth();
   const slug = params.slug as string;
 
   const [pageId, setPageId] = useState<number | null>(null);
@@ -21,6 +25,7 @@ export default function EditPage() {
   const [metaDesc, setMetaDesc] = useState("");
   const [metaTitle, setMetaTitle] = useState("");
   const [ogImage, setOgImage] = useState("");
+  const [blocks, setBlocks] = useState<Block[]>([]);
   const [content, setContent] = useState<Record<string, unknown>>({});
   const [published, setPublished] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -41,6 +46,7 @@ export default function EditPage() {
         setMetaDesc(data.meta_description || "");
         setMetaTitle(data.meta_title || "");
         setOgImage(data.og_image || "");
+        setBlocks(data.blocks || []);
         setContent(data.content || {});
         setPublished(data.published !== 0);
         setUpdatedAt(data.updated_at || "");
@@ -53,6 +59,7 @@ export default function EditPage() {
     meta_description: metaDesc,
     meta_title: metaTitle,
     og_image: ogImage,
+    blocks,
     content,
     published: pub,
   });
@@ -67,9 +74,9 @@ export default function EditPage() {
     if (!res.ok) throw new Error("Autosave failed");
     const data = await res.json();
     setUpdatedAt(data.updated_at || "");
-  }, [slug, title, metaDesc, metaTitle, ogImage, content, published, page]);
+  }, [slug, title, metaDesc, metaTitle, ogImage, blocks, content, published, page]);
 
-  const autosaveStatus = useAutosave(autoSaveFn, [title, metaDesc, metaTitle, ogImage, content]);
+  const autosaveStatus = useAutosave(autoSaveFn, [title, metaDesc, metaTitle, ogImage, blocks]);
 
   const handleSaveDraft = async () => {
     setSaving(true);
@@ -111,7 +118,7 @@ export default function EditPage() {
           body: JSON.stringify({
             content_type: "page",
             content_id: pageId,
-            version_data: { title, meta_description: metaDesc, meta_title: metaTitle, og_image: ogImage, content },
+            version_data: { title, meta_description: metaDesc, meta_title: metaTitle, og_image: ogImage, blocks },
           }),
         });
       }
@@ -126,24 +133,11 @@ export default function EditPage() {
 
   const handleRestore = (data: Record<string, unknown>) => {
     if (data.title !== undefined) setTitle(data.title as string);
-    if (data.meta_description !== undefined)
-      setMetaDesc(data.meta_description as string);
-    if (data.meta_title !== undefined)
-      setMetaTitle(data.meta_title as string);
-    if (data.og_image !== undefined)
-      setOgImage(data.og_image as string);
-    if (data.content !== undefined)
-      setContent(data.content as Record<string, unknown>);
-  };
-
-  const updateSection = (sectionKey: string, field: string, value: unknown) => {
-    setContent((prev) => ({
-      ...prev,
-      [sectionKey]: {
-        ...((prev[sectionKey] as Record<string, unknown>) || {}),
-        [field]: value,
-      },
-    }));
+    if (data.meta_description !== undefined) setMetaDesc(data.meta_description as string);
+    if (data.meta_title !== undefined) setMetaTitle(data.meta_title as string);
+    if (data.og_image !== undefined) setOgImage(data.og_image as string);
+    if (data.blocks !== undefined) setBlocks(data.blocks as Block[]);
+    if (data.content !== undefined) setContent(data.content as Record<string, unknown>);
   };
 
   if (error && !page) {
@@ -160,8 +154,7 @@ export default function EditPage() {
     );
   }
 
-  if (!page)
-    return <p className="text-sm text-neutral-400">Loading\u2026</p>;
+  if (!page) return <p className="text-sm text-neutral-400">Loading&hellip;</p>;
 
   return (
     <EditorLayout
@@ -173,6 +166,29 @@ export default function EditPage() {
       title={title || "Untitled page"}
       actions={
         <div className="flex items-center gap-3">
+          <button
+            onClick={() => {
+              if (published) handleSaveDraft();
+              else handlePublish();
+            }}
+            className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-full transition ${
+              published
+                ? "bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
+                : "bg-amber-50 text-amber-700 hover:bg-amber-100"
+            }`}
+            title={published ? "Click to unpublish" : "Click to publish"}
+          >
+            <span className={`w-1.5 h-1.5 rounded-full ${published ? "bg-emerald-500" : "bg-amber-500"}`} />
+            {published ? "Live" : "Draft"}
+          </button>
+          <a
+            href={`/preview/${slug}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-3 py-1.5 text-xs border border-neutral-300 rounded-lg text-neutral-600 hover:bg-neutral-50 transition"
+          >
+            Preview
+          </a>
           <AutosaveIndicator status={autosaveStatus} />
           <FormActions
             onSaveDraft={handleSaveDraft}
@@ -184,14 +200,24 @@ export default function EditPage() {
         </div>
       }
       sidebar={
-        <MetadataPanel
-          status={published ? "published" : "draft"}
-          slug={slug}
-          updatedAt={updatedAt}
-          contentType="page"
-          contentId={pageId}
-          onRestore={handleRestore}
-        />
+        <>
+          <WorkflowPanel
+            contentType="page"
+            contentId={pageId}
+            currentUserName={user?.name || user?.email || "Unknown"}
+            currentUserRole={user?.role || "viewer"}
+            published={published}
+            onPublish={handlePublish}
+          />
+          <MetadataPanel
+            status={published ? "published" : "draft"}
+            slug={slug}
+            updatedAt={updatedAt}
+            contentType="page"
+            contentId={pageId}
+            onRestore={handleRestore}
+          />
+        </>
       }
     >
       {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
@@ -204,115 +230,48 @@ export default function EditPage() {
         />
       </FormSection>
 
-      <FormSection title="Meta Description">
-        <textarea
-          value={metaDesc}
-          onChange={(e) => setMetaDesc(e.target.value)}
-          rows={2}
-          className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
-        />
-      </FormSection>
-
-      <FormSection title="SEO" collapsible>
-        <div className="mb-4">
-          <label className="block text-xs font-medium text-neutral-500 mb-1">
-            Meta Title
-          </label>
-          <input
-            value={metaTitle}
-            onChange={(e) => setMetaTitle(e.target.value)}
-            placeholder="Override page title for search engines"
-            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
-          />
-          <p className="text-xs text-neutral-400 mt-1">
-            {metaTitle.length}/60 characters
-          </p>
-        </div>
-        <div>
-          <label className="block text-xs font-medium text-neutral-500 mb-1">
-            OG Image URL
-          </label>
-          <input
-            value={ogImage}
-            onChange={(e) => setOgImage(e.target.value)}
-            placeholder="https://..."
-            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
-          />
-          {ogImage && (
-            <img
-              src={ogImage}
-              alt="OG preview"
-              className="mt-2 rounded-lg max-h-32 object-cover border border-neutral-200"
+      <FormSection title="SEO" collapsible defaultOpen={false}>
+        <div className="space-y-4">
+          <div>
+            <label className="block text-xs font-medium text-neutral-500 mb-1">Meta Description</label>
+            <textarea
+              value={metaDesc}
+              onChange={(e) => setMetaDesc(e.target.value)}
+              rows={2}
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
-          )}
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-neutral-500 mb-1">Meta Title</label>
+            <input
+              value={metaTitle}
+              onChange={(e) => setMetaTitle(e.target.value)}
+              placeholder="Override page title for search engines"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            />
+            <p className="text-xs text-neutral-400 mt-1">{metaTitle.length}/60 characters</p>
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-neutral-500 mb-1">OG Image URL</label>
+            <input
+              value={ogImage}
+              onChange={(e) => setOgImage(e.target.value)}
+              placeholder="https://..."
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            />
+            {ogImage && (
+              <img src={ogImage} alt="OG preview" className="mt-2 rounded-lg max-h-32 object-cover border border-neutral-200" />
+            )}
+          </div>
         </div>
       </FormSection>
 
-      {Object.entries(content).map(([sectionKey, sectionData]) => {
-        const section = sectionData as Record<string, unknown>;
-        return (
-          <FormSection
-            key={sectionKey}
-            title={sectionKey.replace(/([A-Z])/g, " $1").trim()}
-            collapsible
-          >
-            {Object.entries(section).map(([field, value]) => {
-              if (typeof value === "string") {
-                const isLong = value.length > 120;
-                return (
-                  <div key={field} className="mb-4 last:mb-0">
-                    <label className="block text-xs font-medium text-neutral-500 mb-1">
-                      {field.replace(/([A-Z])/g, " $1").trim()}
-                    </label>
-                    {isLong ? (
-                      <RichTextEditor
-                        content={value}
-                        onChange={(html) =>
-                          updateSection(sectionKey, field, html)
-                        }
-                      />
-                    ) : (
-                      <input
-                        value={value}
-                        onChange={(e) =>
-                          updateSection(sectionKey, field, e.target.value)
-                        }
-                        className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                      />
-                    )}
-                  </div>
-                );
-              }
-              if (Array.isArray(value)) {
-                return (
-                  <div key={field} className="mb-4 last:mb-0">
-                    <label className="block text-xs font-medium text-neutral-500 mb-1">
-                      {field.replace(/([A-Z])/g, " $1").trim()} (JSON)
-                    </label>
-                    <textarea
-                      value={JSON.stringify(value, null, 2)}
-                      onChange={(e) => {
-                        try {
-                          updateSection(
-                            sectionKey,
-                            field,
-                            JSON.parse(e.target.value)
-                          );
-                        } catch {
-                          /* ignore parse errors while typing */
-                        }
-                      }}
-                      rows={6}
-                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                    />
-                  </div>
-                );
-              }
-              return null;
-            })}
-          </FormSection>
-        );
-      })}
+      <div className="mt-6">
+        <h2 className="text-xs font-semibold uppercase tracking-wider text-neutral-500 mb-3">
+          Page Content
+        </h2>
+        <BlockEditor blocks={blocks} onChange={setBlocks} pageTitle={title} />
+      </div>
     </EditorLayout>
   );
 }

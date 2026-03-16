@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Footer from "../../components/Footer";
 import WaitlistForm from "../../components/WaitlistForm";
+import BlockRenderer from "../../components/blocks/BlockRenderer";
 import { getBlogPost, getBlogPosts } from "@/lib/cms";
 
 export const dynamic = "force-dynamic";
@@ -15,7 +16,9 @@ export async function generateMetadata({
   const { slug } = await params;
   const article = await getBlogPost(slug);
   if (!article) return {};
-  const seoTitle = (article.meta_title as string) || (article.title as string);
+  // Strip trailing "| NutraGLP" if present — the root layout template already appends it
+  const rawTitle = (article.meta_title as string) || (article.title as string);
+  const seoTitle = rawTitle.replace(/\s*\|\s*NutraGLP\s*$/, "");
   const seoDescription = (article.meta_description as string) || (article.description as string);
   const ogImage = article.og_image as string | undefined;
 
@@ -118,23 +121,27 @@ export default async function BlogPost({
       </section>
 
       {/* Article body */}
-      <article className="py-16 px-6 md:px-12">
-        <div className="max-w-[720px] mx-auto space-y-12">
-          {sections.map((section) => (
-            <div key={section.heading}>
-              <h2
-                className="text-xl md:text-2xl font-normal tracking-tight leading-tight mb-5 text-ink font-display"
-              >
-                {section.heading}
-              </h2>
-              <div
-                className="prose prose-lg max-w-none text-mist prose-p:text-[16px] prose-p:leading-[1.75] prose-headings:text-ink prose-headings:font-display prose-a:text-emerald-700"
-                dangerouslySetInnerHTML={{ __html: section.bodyHtml }}
-              />
-            </div>
-          ))}
-        </div>
-      </article>
+      {article.blocks && article.blocks.length > 0 ? (
+        <BlockRenderer blocks={article.blocks} />
+      ) : (
+        <article className="py-16 px-6 md:px-12">
+          <div className="max-w-[720px] mx-auto space-y-12">
+            {sections.map((section) => (
+              <div key={section.heading}>
+                <h2
+                  className="text-xl md:text-2xl font-normal tracking-tight leading-tight mb-5 text-ink font-display"
+                >
+                  {section.heading}
+                </h2>
+                <div
+                  className="prose prose-lg max-w-none text-mist prose-p:text-[16px] prose-p:leading-[1.75] prose-headings:text-ink prose-headings:font-display prose-a:text-emerald-700"
+                  dangerouslySetInnerHTML={{ __html: section.bodyHtml }}
+                />
+              </div>
+            ))}
+          </div>
+        </article>
+      )}
 
       {/* Related reading */}
       {relatedSlugs.length > 0 && (

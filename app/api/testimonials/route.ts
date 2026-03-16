@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
 
     const result = await db.execute({
       sql: "SELECT * FROM testimonials WHERE id = ?",
-      args: [insertResult.lastInsertRowid!],
+      args: [Number(insertResult.lastInsertRowid)],
     });
     return NextResponse.json(result.rows[0], { status: 201 });
   } catch (e: unknown) {

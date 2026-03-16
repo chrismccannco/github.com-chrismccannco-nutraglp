@@ -13,7 +13,11 @@ if (!process.env.TURSO_DATABASE_URL) {
       const eq = trimmed.indexOf("=");
       if (eq > 0) {
         const key = trimmed.slice(0, eq).trim();
-        const val = trimmed.slice(eq + 1).trim();
+        let val = trimmed.slice(eq + 1).trim();
+        // Strip surrounding quotes added by Vercel CLI
+        if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+          val = val.slice(1, -1);
+        }
         if (!process.env[key]) process.env[key] = val;
       }
     }
@@ -126,6 +130,214 @@ export async function initDb(): Promise<Client> {
       user_agent TEXT,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
+
+    CREATE TABLE IF NOT EXISTS form_submissions (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      form_name TEXT NOT NULL DEFAULT 'waitlist',
+      email TEXT NOT NULL,
+      name TEXT,
+      data TEXT DEFAULT '{}',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS ab_events (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      block_id TEXT NOT NULL,
+      variant TEXT NOT NULL,
+      event_type TEXT NOT NULL DEFAULT 'impression',
+      page_path TEXT,
+      session_id TEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS content_workflows (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      content_type TEXT NOT NULL,
+      content_id INTEGER NOT NULL,
+      status TEXT NOT NULL DEFAULT 'draft',
+      submitted_by TEXT,
+      reviewed_by TEXT,
+      review_note TEXT,
+      submitted_at DATETIME,
+      reviewed_at DATETIME,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS api_keys (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      key_prefix TEXT NOT NULL,
+      key_hash TEXT NOT NULL,
+      permissions TEXT NOT NULL DEFAULT '["read"]',
+      rate_limit INTEGER DEFAULT 1000,
+      last_used_at DATETIME,
+      requests_today INTEGER DEFAULT 0,
+      requests_total INTEGER DEFAULT 0,
+      created_by INTEGER,
+      revoked INTEGER DEFAULT 0,
+      revoked_at DATETIME,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS performance_metrics (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      url TEXT NOT NULL,
+      path TEXT NOT NULL,
+      device_type TEXT DEFAULT 'desktop',
+      connection_type TEXT,
+      lcp REAL,
+      fid REAL,
+      cls REAL,
+      fcp REAL,
+      ttfb REAL,
+      inp REAL,
+      dom_load REAL,
+      page_load REAL,
+      transfer_size INTEGER,
+      dom_elements INTEGER,
+      user_agent TEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS forms (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      slug TEXT UNIQUE NOT NULL,
+      name TEXT NOT NULL,
+      description TEXT,
+      fields TEXT NOT NULL DEFAULT '[]',
+      settings TEXT NOT NULL DEFAULT '{}',
+      published INTEGER DEFAULT 0,
+      submission_count INTEGER DEFAULT 0,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS form_submissions (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      form_id INTEGER NOT NULL,
+      data TEXT NOT NULL DEFAULT '{}',
+      metadata TEXT DEFAULT '{}',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS admin_users (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      email TEXT UNIQUE NOT NULL,
+      name TEXT NOT NULL,
+      password_hash TEXT NOT NULL,
+      role TEXT NOT NULL DEFAULT 'editor',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS admin_sessions (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      user_id INTEGER NOT NULL,
+      token TEXT UNIQUE NOT NULL,
+      expires_at DATETIME NOT NULL,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS locales (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      code TEXT UNIQUE NOT NULL,
+      name TEXT NOT NULL,
+      native_name TEXT NOT NULL,
+      direction TEXT DEFAULT 'ltr',
+      is_default INTEGER DEFAULT 0,
+      enabled INTEGER DEFAULT 1,
+      sort_order INTEGER DEFAULT 0,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS translations (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      content_type TEXT NOT NULL,
+      content_id INTEGER NOT NULL,
+      locale TEXT NOT NULL,
+      field_name TEXT NOT NULL,
+      value TEXT NOT NULL,
+      auto_translated INTEGER DEFAULT 0,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      UNIQUE(content_type, content_id, locale, field_name)
+    );
+
+    CREATE TABLE IF NOT EXISTS ui_translations (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      locale TEXT NOT NULL,
+      key TEXT NOT NULL,
+      value TEXT NOT NULL,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      UNIQUE(locale, key)
+    );
+
+    CREATE TABLE IF NOT EXISTS sites (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      slug TEXT UNIQUE NOT NULL,
+      name TEXT NOT NULL,
+      domain TEXT,
+      logo_url TEXT,
+      favicon_url TEXT,
+      theme TEXT NOT NULL DEFAULT '{}',
+      settings TEXT NOT NULL DEFAULT '{}',
+      enabled INTEGER DEFAULT 1,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS site_content (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      site_id INTEGER NOT NULL,
+      content_type TEXT NOT NULL,
+      content_id INTEGER NOT NULL,
+      overrides TEXT DEFAULT '{}',
+      hidden INTEGER DEFAULT 0,
+      sort_order INTEGER DEFAULT 0,
+      UNIQUE(site_id, content_type, content_id)
+    );
+
+    CREATE TABLE IF NOT EXISTS templates (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      slug TEXT UNIQUE NOT NULL,
+      name TEXT NOT NULL,
+      description TEXT,
+      category TEXT NOT NULL DEFAULT 'page',
+      thumbnail_url TEXT,
+      blocks TEXT NOT NULL DEFAULT '[]',
+      theme TEXT DEFAULT '{}',
+      author TEXT DEFAULT 'NutraGLP',
+      version TEXT DEFAULT '1.0.0',
+      downloads INTEGER DEFAULT 0,
+      rating REAL DEFAULT 0,
+      rating_count INTEGER DEFAULT 0,
+      tags TEXT DEFAULT '[]',
+      is_premium INTEGER DEFAULT 0,
+      price REAL DEFAULT 0,
+      published INTEGER DEFAULT 1,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS template_installs (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      template_id INTEGER NOT NULL,
+      site_id INTEGER,
+      target_type TEXT NOT NULL DEFAULT 'page',
+      target_id INTEGER,
+      installed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      UNIQUE(template_id, site_id, target_type, target_id)
+    );
+
+    CREATE TABLE IF NOT EXISTS media_files (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      filename TEXT NOT NULL,
+      mime_type TEXT NOT NULL,
+      size INTEGER NOT NULL,
+      width INTEGER DEFAULT 0,
+      height INTEGER DEFAULT 0,
+      data TEXT NOT NULL,
+      thumb_data TEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
   `);
 
   // Add columns that may not exist on older databases
@@ -147,6 +359,12 @@ export async function initDb(): Promise<Client> {
     "ALTER TABLE pages ADD COLUMN blocks_draft TEXT DEFAULT '[]'",
     "ALTER TABLE blog_posts ADD COLUMN blocks TEXT DEFAULT '[]'",
     "ALTER TABLE blog_posts ADD COLUMN blocks_draft TEXT DEFAULT '[]'",
+    // Blog scheduling
+    "ALTER TABLE blog_posts ADD COLUMN publish_at TEXT",
+    // Media enhancements
+    "ALTER TABLE media_files ADD COLUMN width INTEGER DEFAULT 0",
+    "ALTER TABLE media_files ADD COLUMN height INTEGER DEFAULT 0",
+    "ALTER TABLE media_files ADD COLUMN thumb_data TEXT",
   ];
 
   for (const sql of migrations) {
@@ -160,6 +378,17 @@ export async function initDb(): Promise<Client> {
   // Indexes
   try {
     await db.execute("CREATE INDEX IF NOT EXISTS idx_page_views_path_date ON page_views (path, created_at)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_ab_events_block ON ab_events (block_id, variant, event_type)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_admin_sessions_token ON admin_sessions (token)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_workflows_content ON content_workflows (content_type, content_id, status)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_api_keys_prefix ON api_keys (key_prefix)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_perf_metrics_path_date ON performance_metrics (path, created_at)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_form_submissions_form ON form_submissions (form_id, created_at)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_translations_lookup ON translations (content_type, content_id, locale)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_ui_translations_locale ON ui_translations (locale)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_site_content_site ON site_content (site_id, content_type)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_templates_category ON templates (category, published)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_template_installs_template ON template_installs (template_id)");
   } catch {
     // Index may already exist
   }

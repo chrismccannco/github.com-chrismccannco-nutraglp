@@ -49,7 +49,7 @@ export async function POST(req: NextRequest) {
 
     const result = await db.execute({
       sql: "SELECT * FROM products WHERE id = ?",
-      args: [insertResult.lastInsertRowid!],
+      args: [Number(insertResult.lastInsertRowid)],
     });
     const r = result.rows[0];
     return NextResponse.json(

@@ -22,6 +22,7 @@ export async function GET() {
       meta_description: r.meta_description,
       og_image: r.og_image,
       published: r.published,
+      publish_at: r.publish_at || null,
       created_at: r.created_at,
       updated_at: r.updated_at,
     }));
@@ -37,8 +38,8 @@ export async function POST(req: NextRequest) {
     const db = getDb();
 
     const insertResult = await db.execute({
-      sql: `INSERT INTO blog_posts (slug, title, description, date, read_time, tag, gradient, sections, related_slugs, published, meta_title, meta_description, og_image)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      sql: `INSERT INTO blog_posts (slug, title, description, date, read_time, tag, gradient, sections, related_slugs, published, meta_title, meta_description, og_image, publish_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       args: [
         body.slug,
         body.title,
@@ -53,12 +54,13 @@ export async function POST(req: NextRequest) {
         body.meta_title || null,
         body.meta_description || null,
         body.og_image || null,
+        body.publish_at || null,
       ],
     });
 
     const result = await db.execute({
       sql: "SELECT * FROM blog_posts WHERE id = ?",
-      args: [insertResult.lastInsertRowid!],
+      args: [Number(insertResult.lastInsertRowid)],
     });
     const r = result.rows[0];
     return NextResponse.json(
@@ -68,7 +70,8 @@ export async function POST(req: NextRequest) {
         meta_title: r.meta_title, meta_description: r.meta_description, og_image: r.og_image,
         sections: JSON.parse(r.sections as string),
         related_slugs: JSON.parse(r.related_slugs as string),
-        published: r.published, created_at: r.created_at, updated_at: r.updated_at,
+        published: r.published, publish_at: r.publish_at || null,
+        created_at: r.created_at, updated_at: r.updated_at,
       },
       { status: 201 }
     );

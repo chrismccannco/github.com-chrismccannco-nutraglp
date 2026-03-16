@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Breadcrumbs from "../components/Breadcrumbs";
+import { ExternalLink } from "lucide-react";
 
 interface AnalyticsData {
   days: number;
@@ -17,6 +18,8 @@ export default function AnalyticsPage() {
   const [days, setDays] = useState(7);
   const [data, setData] = useState<AnalyticsData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [gaId, setGaId] = useState("");
+  const [plausibleDomain, setPlausibleDomain] = useState("");
 
   useEffect(() => {
     setLoading(true);
@@ -28,6 +31,16 @@ export default function AnalyticsPage() {
       })
       .catch(() => setLoading(false));
   }, [days]);
+
+  useEffect(() => {
+    fetch("/api/settings")
+      .then((r) => r.json())
+      .then((s) => {
+        setGaId(s.ga_measurement_id || "");
+        setPlausibleDomain(s.plausible_domain || "");
+      })
+      .catch(() => {});
+  }, []);
 
   const maxViews = data ? Math.max(...data.per_day.map((d) => Number(d.views)), 1) : 1;
 
@@ -58,6 +71,33 @@ export default function AnalyticsPage() {
           ))}
         </div>
       </div>
+
+      {(gaId || plausibleDomain) && (
+        <div className="flex gap-3 mb-6">
+          {gaId && (
+            <a
+              href={`https://analytics.google.com/analytics/web/#/?measurementId=${gaId}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs border border-neutral-200 rounded-lg text-neutral-600 hover:bg-neutral-50 transition"
+            >
+              <ExternalLink className="w-3 h-3" />
+              Google Analytics
+            </a>
+          )}
+          {plausibleDomain && (
+            <a
+              href={`https://plausible.io/${plausibleDomain}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs border border-neutral-200 rounded-lg text-neutral-600 hover:bg-neutral-50 transition"
+            >
+              <ExternalLink className="w-3 h-3" />
+              Plausible
+            </a>
+          )}
+        </div>
+      )}
 
       {loading ? (
         <p className="text-sm text-neutral-400">Loading&hellip;</p>

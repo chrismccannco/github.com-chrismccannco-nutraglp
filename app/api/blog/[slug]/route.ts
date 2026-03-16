@@ -22,7 +22,10 @@ export async function GET(
       meta_title: r.meta_title, meta_description: r.meta_description, og_image: r.og_image,
       sections: JSON.parse(r.sections as string),
       related_slugs: JSON.parse(r.related_slugs as string),
-      published: r.published, created_at: r.created_at, updated_at: r.updated_at,
+      blocks: JSON.parse((r.blocks as string) || "[]"),
+      blocks_draft: JSON.parse((r.blocks_draft as string) || "[]"),
+      published: r.published, publish_at: r.publish_at || null,
+      created_at: r.created_at, updated_at: r.updated_at,
     });
   } catch (e: unknown) {
     return NextResponse.json({ error: String(e) }, { status: 500 });
@@ -48,7 +51,7 @@ export async function PUT(
     const allowed = [
       "title", "description", "date", "read_time", "tag",
       "gradient", "featured_image", "published",
-      "meta_title", "meta_description", "og_image",
+      "meta_title", "meta_description", "og_image", "publish_at",
     ];
     for (const key of allowed) {
       if (body[key] !== undefined) {
@@ -58,6 +61,8 @@ export async function PUT(
     }
     if (body.sections !== undefined) fields.sections = JSON.stringify(body.sections);
     if (body.related_slugs !== undefined) fields.related_slugs = JSON.stringify(body.related_slugs);
+    if (body.blocks !== undefined) fields.blocks = JSON.stringify(body.blocks);
+    if (body.blocks_draft !== undefined) fields.blocks_draft = JSON.stringify(body.blocks_draft);
     if (body.slug !== undefined && body.slug !== slug) fields.slug = body.slug;
 
     if (Object.keys(fields).length === 0)
@@ -86,7 +91,10 @@ export async function PUT(
       meta_title: r.meta_title, meta_description: r.meta_description, og_image: r.og_image,
       sections: JSON.parse(r.sections as string),
       related_slugs: JSON.parse(r.related_slugs as string),
-      published: r.published, created_at: r.created_at, updated_at: r.updated_at,
+      blocks: JSON.parse((r.blocks as string) || "[]"),
+      blocks_draft: JSON.parse((r.blocks_draft as string) || "[]"),
+      published: r.published, publish_at: r.publish_at || null,
+      created_at: r.created_at, updated_at: r.updated_at,
     });
   } catch (e: unknown) {
     return NextResponse.json({ error: String(e) }, { status: 500 });

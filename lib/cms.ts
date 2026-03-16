@@ -26,6 +26,7 @@ export interface BlogPost {
   blocks: import("./types/blocks").Block[];
   blocks_draft: import("./types/blocks").Block[];
   published: number;
+  publish_at: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -107,10 +108,28 @@ export async function getPage(slug: string): Promise<Page | null> {
   };
 }
 
+export async function getPagePreview(slug: string): Promise<Page | null> {
+  const db = getDb();
+  const result = await db.execute({
+    sql: "SELECT * FROM pages WHERE slug = ?",
+    args: [slug],
+  });
+  if (result.rows.length === 0) return null;
+  const row = rowToObject(result.rows[0]);
+  const blocksDraft = JSON.parse((row.blocks_draft as string) || "[]");
+  const blocks = JSON.parse((row.blocks as string) || "[]");
+  return {
+    ...(row as unknown as Page),
+    content: JSON.parse(row.content as string),
+    blocks: blocksDraft.length > 0 ? blocksDraft : blocks,
+    blocks_draft: blocksDraft,
+  };
+}
+
 export async function getBlogPosts(): Promise<BlogPost[]> {
   const db = getDb();
   const result = await db.execute(
-    "SELECT * FROM blog_posts WHERE published = 1 ORDER BY date DESC"
+    "SELECT * FROM blog_posts WHERE published = 1 AND (publish_at IS NULL OR publish_at <= datetime('now')) ORDER BY date DESC"
   );
   return result.rows.map((r) => {
     const row = rowToObject(r);
@@ -127,7 +146,7 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
 export async function getBlogPost(slug: string): Promise<BlogPost | null> {
   const db = getDb();
   const result = await db.execute({
-    sql: "SELECT * FROM blog_posts WHERE slug = ? AND published = 1",
+    sql: "SELECT * FROM blog_posts WHERE slug = ? AND published = 1 AND (publish_at IS NULL OR publish_at <= datetime('now'))",
     args: [slug],
   });
   if (result.rows.length === 0) return null;

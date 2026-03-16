@@ -14,6 +14,7 @@ import type {
   StatsGridBlockData,
   CardGridBlockData,
   DividerBlockData,
+  FormBlockData,
 } from "../types/blocks";
 
 const defaults: Record<BlockType, unknown> = {
@@ -52,6 +53,7 @@ const defaults: Record<BlockType, unknown> = {
     url: "",
     style: "primary",
     centered: true,
+    abEnabled: false,
   } satisfies CTAButtonBlockData,
 
   testimonials: {
@@ -59,7 +61,10 @@ const defaults: Record<BlockType, unknown> = {
     columns: 3,
   } satisfies TestimonialsBlockData,
 
-  faq_accordion: {} satisfies FAQBlockData,
+  faq_accordion: {
+    display: "open",
+    heading: "Frequently Asked Questions",
+  } satisfies FAQBlockData,
 
   spacer: {
     height: "md",
@@ -88,6 +93,15 @@ const defaults: Record<BlockType, unknown> = {
     style: "solid",
     spacing: "md",
   } satisfies DividerBlockData,
+
+  form: {
+    heading: "Join the Waitlist",
+    description: "",
+    buttonText: "Join the Waitlist",
+    successMessage: "You're on the list. We'll be in touch.",
+    formName: "waitlist",
+    bgColor: "",
+  } satisfies FormBlockData,
 };
 
 export function getBlockDefault<T>(type: BlockType): T {

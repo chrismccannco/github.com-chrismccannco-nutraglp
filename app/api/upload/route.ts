@@ -1,4 +1,5 @@
-import { put, list, del } from "@vercel/blob";
+import { getDb } from "@/lib/db";
+import { getImageDimensions } from "@/lib/image";
 import { NextRequest, NextResponse } from "next/server";
 
 const ALLOWED_TYPES = [
@@ -33,14 +34,44 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const blob = await put(file.name, file, {
-      access: "public",
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    const base64 = buffer.toString("base64");
+
+    // Extract dimensions from binary header
+    const { width, height } = getImageDimensions(buffer, file.type);
+
+    const db = getDb();
+
+    // Ensure table exists
+    await db.execute(`
+      CREATE TABLE IF NOT EXISTS media_files (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        filename TEXT NOT NULL,
+        mime_type TEXT NOT NULL,
+        size INTEGER NOT NULL,
+        width INTEGER DEFAULT 0,
+        height INTEGER DEFAULT 0,
+        data TEXT NOT NULL,
+        thumb_data TEXT,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    const result = await db.execute({
+      sql: "INSERT INTO media_files (filename, mime_type, size, width, height, data) VALUES (?, ?, ?, ?, ?, ?)",
+      args: [file.name, file.type, file.size, width, height, base64],
     });
 
+    const id = Number(result.lastInsertRowid);
+
     return NextResponse.json({
-      url: blob.url,
-      pathname: blob.pathname,
+      id,
+      url: `/api/upload/${id}`,
+      pathname: file.name,
       size: file.size,
+      width,
+      height,
       type: file.type,
     });
   } catch (error) {
@@ -54,7 +85,37 @@ export async function POST(request: NextRequest) {
 
 export async function GET() {
   try {
-    const { blobs } = await list();
+    const db = getDb();
+
+    // Ensure table exists
+    await db.execute(`
+      CREATE TABLE IF NOT EXISTS media_files (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        filename TEXT NOT NULL,
+        mime_type TEXT NOT NULL,
+        size INTEGER NOT NULL,
+        width INTEGER DEFAULT 0,
+        height INTEGER DEFAULT 0,
+        data TEXT NOT NULL,
+        thumb_data TEXT,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    const result = await db.execute(
+      "SELECT id, filename, mime_type, size, width, height, created_at FROM media_files ORDER BY created_at DESC"
+    );
+
+    const blobs = result.rows.map((r) => ({
+      url: `/api/upload/${r.id}`,
+      pathname: r.filename as string,
+      size: r.size as number,
+      width: (r.width as number) || 0,
+      height: (r.height as number) || 0,
+      mimeType: r.mime_type as string,
+      uploadedAt: r.created_at as string,
+    }));
+
     return NextResponse.json(blobs);
   } catch (error) {
     console.error("List error:", error);
@@ -71,7 +132,16 @@ export async function DELETE(request: NextRequest) {
     if (!url) {
       return NextResponse.json({ error: "No URL provided" }, { status: 400 });
     }
-    await del(url);
+
+    // Extract ID from /api/upload/123
+    const id = url.split("/").pop();
+    if (!id) {
+      return NextResponse.json({ error: "Invalid URL" }, { status: 400 });
+    }
+
+    const db = getDb();
+    await db.execute({ sql: "DELETE FROM media_files WHERE id = ?", args: [Number(id)] });
+
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Delete error:", error);

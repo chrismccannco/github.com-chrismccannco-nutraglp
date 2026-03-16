@@ -14,7 +14,19 @@ import {
   X,
   Star,
   BarChart3,
+  Inbox,
+  Users,
+  ClipboardCheck,
+  Key,
+  FileCode2,
+  Gauge,
+  FormInput,
+  Languages,
+  Globe,
+  LayoutTemplate,
+  BookMarked,
 } from "lucide-react";
+import { useAuth } from "../layout";
 
 const contentNav = [
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
@@ -22,13 +34,24 @@ const contentNav = [
   { label: "Blog", href: "/admin/blog", icon: BookOpen },
   { label: "Products", href: "/admin/products", icon: Package },
   { label: "Testimonials", href: "/admin/testimonials", icon: Star },
+  { label: "Reviews", href: "/admin/reviews", icon: ClipboardCheck },
+  { label: "Submissions", href: "/admin/submissions", icon: Inbox },
   { label: "Media", href: "/admin/media", icon: Image },
   { label: "Analytics", href: "/admin/analytics", icon: BarChart3 },
+  { label: "Performance", href: "/admin/performance", icon: Gauge },
+  { label: "FAQ", href: "/admin/faq", icon: HelpCircle },
+  { label: "Form Builder", href: "/admin/form-builder", icon: FormInput },
+  { label: "Templates", href: "/admin/templates", icon: LayoutTemplate },
 ];
 
 const settingsNav = [
-  { label: "FAQ", href: "/admin/faq", icon: HelpCircle },
-  { label: "Settings", href: "/admin/settings", icon: Settings },
+  { label: "API Keys", href: "/admin/api-keys", icon: Key, adminOnly: true },
+  { label: "API Docs", href: "/admin/api-docs", icon: FileCode2, adminOnly: true },
+  { label: "Sites", href: "/admin/sites", icon: Globe, adminOnly: true },
+  { label: "Localization", href: "/admin/localization", icon: Languages, adminOnly: true },
+  { label: "Documentation", href: "/admin/docs", icon: BookMarked },
+  { label: "Settings", href: "/admin/settings", icon: Settings, adminOnly: true },
+  { label: "Users", href: "/admin/users", icon: Users, adminOnly: true },
 ];
 
 interface SidebarProps {
@@ -38,11 +61,19 @@ interface SidebarProps {
 
 export default function Sidebar({ open, onClose }: SidebarProps) {
   const pathname = usePathname();
+  const { user } = useAuth();
+  const isAdmin = user?.role === "admin";
 
   const isActive = (href: string) =>
     href === "/admin" ? pathname === "/admin" : pathname.startsWith(href);
 
-  const renderLink = (item: { label: string; href: string; icon: typeof LayoutDashboard }) => {
+  const renderLink = (item: {
+    label: string;
+    href: string;
+    icon: typeof LayoutDashboard;
+    adminOnly?: boolean;
+  }) => {
+    if (item.adminOnly && !isAdmin) return null;
     const active = isActive(item.href);
     const Icon = item.icon;
     return (

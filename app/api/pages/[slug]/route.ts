@@ -23,6 +23,8 @@ export async function GET(
       meta_description: row.meta_description,
       og_image: row.og_image,
       content: JSON.parse(row.content as string),
+      blocks: JSON.parse((row.blocks as string) || "[]"),
+      blocks_draft: JSON.parse((row.blocks_draft as string) || "[]"),
       published: row.published,
       updated_at: row.updated_at,
     });
@@ -69,6 +71,14 @@ export async function PUT(
       updates.push("og_image = ?");
       values.push(body.og_image);
     }
+    if (body.blocks !== undefined) {
+      updates.push("blocks = ?");
+      values.push(JSON.stringify(body.blocks));
+    }
+    if (body.blocks_draft !== undefined) {
+      updates.push("blocks_draft = ?");
+      values.push(JSON.stringify(body.blocks_draft));
+    }
     if (body.published !== undefined) {
       updates.push("published = ?");
       values.push(String(body.published ? 1 : 0));
@@ -98,6 +108,8 @@ export async function PUT(
       meta_description: row.meta_description,
       og_image: row.og_image,
       content: JSON.parse(row.content as string),
+      blocks: JSON.parse((row.blocks as string) || "[]"),
+      blocks_draft: JSON.parse((row.blocks_draft as string) || "[]"),
       published: row.published,
       updated_at: row.updated_at,
     });

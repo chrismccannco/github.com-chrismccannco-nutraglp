@@ -9,12 +9,14 @@ import Breadcrumbs from "../components/Breadcrumbs";
 import { Plus } from "lucide-react";
 
 interface Post {
+  [key: string]: unknown;
   id: number;
   slug: string;
   title: string;
   date: string;
   tag: string;
   published: number;
+  publish_at: string | null;
 }
 
 export default function BlogAdmin() {
@@ -61,9 +63,12 @@ export default function BlogAdmin() {
     {
       key: "published",
       label: "Status",
-      render: (row) => (
-        <StatusBadge status={row.published ? "published" : "draft"} />
-      ),
+      render: (row) => {
+        const isScheduled = row.publish_at && new Date(row.publish_at) > new Date();
+        return isScheduled
+          ? <span className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-full bg-blue-50 text-blue-700"><span className="w-1.5 h-1.5 rounded-full bg-blue-500" />Scheduled</span>
+          : <StatusBadge status={row.published ? "published" : "draft"} />;
+      },
       className: "w-28",
     },
     {
