@@ -128,11 +128,26 @@ export default function SubscribePopup() {
     const formData = new FormData(form);
 
     try {
+      // Submit to Netlify Forms
       await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(formData as unknown as Record<string, string>).toString(),
       });
+
+      // Also relay to Google Sheets (fire and forget)
+      fetch("/api/sheets", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          form: "subscribe",
+          email: formData.get("email") || "",
+          phone: formData.get("phone") || "",
+          sms_opt_in: formData.get("sms_opt_in") === "on",
+          source: "popup",
+        }),
+      }).catch(() => {});
+
       window.location.href = "/thank-you";
     } catch {
       form.submit();
