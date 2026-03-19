@@ -10,6 +10,9 @@ import {
   Image as ImageIcon,
   Download,
   Maximize2,
+  Wand2,
+  Eraser,
+  Loader2,
 } from "lucide-react";
 
 interface MediaItem {
@@ -29,6 +32,9 @@ export default function MediaLibrary() {
   const [dragOver, setDragOver] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
   const [selected, setSelected] = useState<MediaItem | null>(null);
+  const [generatingAlt, setGeneratingAlt] = useState(false);
+  const [altText, setAltText] = useState<string | null>(null);
+  const [removingBg, setRemovingBg] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
   const load = () => {
@@ -101,6 +107,62 @@ export default function MediaLibrary() {
     return `${window.location.origin}${path}`;
   };
 
+  const getImageId = (url: string) => url.split("/").pop();
+
+  const generateAltText = async () => {
+    if (!selected) return;
+    setGeneratingAlt(true);
+    setAltText(null);
+    try {
+      const res = await fetch("/api/media-tools/alt-text", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ imageId: Number(getImageId(selected.url)) }),
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setAltText(data.alt_text);
+      } else {
+        const err = await res.json();
+        alert(err.error || "Failed to generate alt text");
+      }
+    } catch {
+      alert("Failed to generate alt text");
+    }
+    setGeneratingAlt(false);
+  };
+
+  const removeBackground = async () => {
+    if (!selected) return;
+    setRemovingBg(true);
+    try {
+      const res = await fetch("/api/media-tools/remove-bg", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ imageId: Number(getImageId(selected.url)) }),
+      });
+      if (res.ok) {
+        load();
+        const data = await res.json();
+        setSelected({
+          url: data.url,
+          pathname: data.filename,
+          size: data.size,
+          width: data.width,
+          height: data.height,
+          mimeType: "image/png",
+          uploadedAt: new Date().toISOString(),
+        });
+      } else {
+        const err = await res.json();
+        alert(err.error || "Failed to remove background");
+      }
+    } catch {
+      alert("Failed to remove background");
+    }
+    setRemovingBg(false);
+  };
+
   return (
     <div className="flex gap-6 max-w-6xl">
       {/* Main column */}
@@ -166,7 +228,7 @@ export default function MediaLibrary() {
             {items.map((item) => (
               <div
                 key={item.url}
-                onClick={() => setSelected(item)}
+                onClick={() => { setSelected(item); setAltText(null); }}
                 className={`bg-white border rounded-xl overflow-hidden cursor-pointer group transition ${
                   selected?.url === item.url
                     ? "border-emerald-500 ring-2 ring-emerald-100"
@@ -338,6 +400,58 @@ export default function MediaLibrary() {
                     </button>
                   )}
               </div>
+
+              {/* AI Tools */}
+              {selected.mimeType !== "image/svg+xml" && (
+                <div className="space-y-2 pt-2 border-t border-neutral-100">
+                  <p className="text-[11px] font-medium text-neutral-500 uppercase tracking-wider">
+                    AI Tools
+                  </p>
+
+                  <button
+                    onClick={generateAltText}
+                    disabled={generatingAlt}
+                    className="w-full flex items-center justify-between px-3 py-2 text-xs bg-violet-50 rounded-lg hover:bg-violet-100 transition disabled:opacity-50"
+                  >
+                    <span className="flex items-center gap-1.5 text-violet-700 font-medium">
+                      {generatingAlt ? (
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      ) : (
+                        <Wand2 className="w-3.5 h-3.5" />
+                      )}
+                      {generatingAlt ? "Generating..." : "Generate alt text"}
+                    </span>
+                  </button>
+
+                  {altText && (
+                    <div className="px-3 py-2 bg-neutral-50 rounded-lg">
+                      <p className="text-xs text-neutral-700 leading-relaxed">{altText}</p>
+                      <button
+                        onClick={() => copyToClipboard(altText, "alt")}
+                        className="flex items-center gap-1 mt-1.5 text-[10px] text-neutral-400 hover:text-neutral-600 transition"
+                      >
+                        {copied === "alt" ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                        {copied === "alt" ? "Copied" : "Copy"}
+                      </button>
+                    </div>
+                  )}
+
+                  <button
+                    onClick={removeBackground}
+                    disabled={removingBg}
+                    className="w-full flex items-center justify-between px-3 py-2 text-xs bg-amber-50 rounded-lg hover:bg-amber-100 transition disabled:opacity-50"
+                  >
+                    <span className="flex items-center gap-1.5 text-amber-700 font-medium">
+                      {removingBg ? (
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      ) : (
+                        <Eraser className="w-3.5 h-3.5" />
+                      )}
+                      {removingBg ? "Processing..." : "Remove background"}
+                    </span>
+                  </button>
+                </div>
+              )}
 
               {/* Actions */}
               <div className="flex gap-2 pt-2 border-t border-neutral-100">
