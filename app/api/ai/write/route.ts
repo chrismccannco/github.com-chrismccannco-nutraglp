@@ -7,7 +7,7 @@ async function getAnthropicKey(): Promise<string | null> {
   try {
     const db = getDb();
     const result = await db.execute(
-      "SELECT value FROM settings WHERE key = 'anthropic_api_key'"
+      "SELECT value FROM site_settings WHERE key = 'anthropic_api_key'"
     );
     if (result.rows.length > 0 && result.rows[0].value) {
       return result.rows[0].value as string;
@@ -72,7 +72,7 @@ async function getBrandVoice(voiceId?: number): Promise<Record<string, string>> 
   // Legacy: read from site_settings
   try {
     const result = await db.execute(
-      "SELECT key, value FROM settings WHERE key LIKE 'brand_voice_%'"
+      "SELECT key, value FROM site_settings WHERE key LIKE 'brand_voice_%'"
     );
     const s: Record<string, string> = {};
     for (const r of result.rows) {

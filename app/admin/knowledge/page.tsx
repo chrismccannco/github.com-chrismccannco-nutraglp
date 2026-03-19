@@ -42,7 +42,7 @@ export default function KnowledgePage() {
       params.set('enabled', '0'); // show all, including disabled
       const res = await fetch(`/api/knowledge?${params}`);
       if (res.ok) setDocs(await res.json());
-    } catch { /* ignore */ }
+    } catch (e) { console.error(e); }
     setLoading(false);
   }
 
@@ -63,28 +63,39 @@ export default function KnowledgePage() {
       if (res.ok) {
         const doc = await res.json();
         window.location.href = `/admin/knowledge/${doc.id}`;
+      } else {
+        const err = await res.json().catch(() => ({ error: 'Creation failed' }));
+        alert(err.error || 'Failed to create document');
       }
-    } catch { /* ignore */ }
+    } catch {
+      alert('Failed to create document');
+    }
     setCreating(false);
   }
 
   async function toggleEnabled(id: number, currentState: number) {
     try {
-      await fetch(`/api/knowledge/${id}`, {
+      const res = await fetch(`/api/knowledge/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ enabled: currentState !== 1 }),
       });
+      if (!res.ok) alert('Failed to update document status');
       await load();
-    } catch { /* ignore */ }
+    } catch {
+      alert('Failed to update document status');
+    }
   }
 
   async function deleteDoc(id: number, title: string) {
     if (!confirm(`Delete "${title}"? This cannot be undone.`)) return;
     try {
-      await fetch(`/api/knowledge/${id}`, { method: 'DELETE' });
+      const res = await fetch(`/api/knowledge/${id}`, { method: 'DELETE' });
+      if (!res.ok) alert('Failed to delete document');
       await load();
-    } catch { /* ignore */ }
+    } catch {
+      alert('Failed to delete document');
+    }
   }
 
   return (

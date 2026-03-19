@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 export async function GET(_req: NextRequest) {
   try {
     const db = getDb();
-    const result = await db.execute("SELECT key, value FROM settings WHERE key LIKE 'brand_%'");
+    const result = await db.execute("SELECT key, value FROM site_settings WHERE key LIKE 'brand_%'");
 
     const s: Record<string, string> = {};
     for (const row of result.rows) {

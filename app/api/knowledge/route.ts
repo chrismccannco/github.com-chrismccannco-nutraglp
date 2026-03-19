@@ -57,9 +57,9 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const db = getDb();
 
-    if (!body.title || !body.content) {
+    if (!body.title) {
       return NextResponse.json(
-        { error: "title and content are required" },
+        { error: "title is required" },
         { status: 400 }
       );
     }

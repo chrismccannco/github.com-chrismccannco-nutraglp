@@ -49,8 +49,8 @@ export async function POST(req: NextRequest) {
     const knowledgeDocIds = body.knowledge_doc_ids ? JSON.stringify(body.knowledge_doc_ids) : "[]";
 
     const insertResult = await db.execute({
-      sql: `INSERT INTO content_templates (name, slug, description, category, prompt_template, voice_id, knowledge_doc_ids, output_format, max_tokens, variables, sort_order)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      sql: `INSERT INTO content_templates (name, slug, description, category, prompt_template, voice_id, persona_id, knowledge_doc_ids, output_format, max_tokens, variables, sort_order)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       args: [
         body.name,
         slug,
@@ -58,6 +58,7 @@ export async function POST(req: NextRequest) {
         body.category || "general",
         body.prompt_template,
         body.voice_id || null,
+        body.persona_id || null,
         knowledgeDocIds,
         body.output_format || "prose",
         body.max_tokens || 1024,

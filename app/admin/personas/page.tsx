@@ -26,7 +26,7 @@ export default function PersonasPage() {
     try {
       const res = await fetch('/api/personas');
       if (res.ok) setPersonas(await res.json());
-    } catch { /* ignore */ }
+    } catch (e) { console.error(e); }
     setLoading(false);
   }
 
@@ -47,7 +47,7 @@ export default function PersonasPage() {
         const p = await res.json();
         window.location.href = `/admin/personas/${p.id}`;
       }
-    } catch { /* ignore */ }
+    } catch (e) { console.error(e); }
     setCreating(false);
   }
 
@@ -56,7 +56,7 @@ export default function PersonasPage() {
     try {
       await fetch(`/api/personas/${id}`, { method: 'DELETE' });
       await load();
-    } catch { /* ignore */ }
+    } catch (e) { console.error(e); }
   }
 
   async function setDefault(id: number) {
@@ -67,7 +67,7 @@ export default function PersonasPage() {
         body: JSON.stringify({ is_default: true }),
       });
       await load();
-    } catch { /* ignore */ }
+    } catch (e) { console.error(e); }
   }
 
   return (

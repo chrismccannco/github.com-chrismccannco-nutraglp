@@ -35,7 +35,7 @@ export async function PUT(
     const fields: Record<string, unknown> = {};
     const allowed = [
       "name", "slug", "description", "category", "prompt_template",
-      "voice_id", "output_format", "max_tokens", "sort_order",
+      "voice_id", "persona_id", "output_format", "max_tokens", "sort_order",
     ];
     for (const key of allowed) {
       if (body[key] !== undefined) fields[key] = body[key];

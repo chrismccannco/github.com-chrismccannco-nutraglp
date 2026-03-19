@@ -41,7 +41,7 @@ export default function RepurposePage() {
 
   // Load blog posts for the selector
   useEffect(() => {
-    fetch('/api/posts')
+    fetch('/api/blog')
       .then(r => r.json())
       .then(data => {
         const list = (Array.isArray(data) ? data : data.posts || []).map(
@@ -60,7 +60,7 @@ export default function RepurposePage() {
   async function loadPost(slug: string) {
     setLoadingPost(true);
     try {
-      const res = await fetch(`/api/posts/${slug}`);
+      const res = await fetch(`/api/blog/${slug}`);
       if (res.ok) {
         const post = await res.json();
         setTitle(post.title || '');
@@ -75,7 +75,7 @@ export default function RepurposePage() {
           .join('\n\n');
         setContent(post.description ? post.description + '\n\n' + text : text);
       }
-    } catch { /* ignore */ }
+    } catch (e) { console.error(e); }
     setLoadingPost(false);
   }
 

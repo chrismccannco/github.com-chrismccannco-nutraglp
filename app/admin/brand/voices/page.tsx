@@ -26,7 +26,7 @@ export default function VoicesPage() {
     try {
       const res = await fetch('/api/brand-voices');
       if (res.ok) setVoices(await res.json());
-    } catch { /* ignore */ }
+    } catch (e) { console.error(e); }
     setLoading(false);
   }
 
@@ -47,7 +47,7 @@ export default function VoicesPage() {
         const voice = await res.json();
         window.location.href = `/admin/brand/voices/${voice.id}`;
       }
-    } catch { /* ignore */ }
+    } catch (e) { console.error(e); }
     setCreating(false);
   }
 
@@ -57,7 +57,7 @@ export default function VoicesPage() {
         method: 'POST',
       });
       if (res.ok) await load();
-    } catch { /* ignore */ }
+    } catch (e) { console.error(e); }
   }
 
   async function deleteVoice(id: number, name: string) {
@@ -65,7 +65,7 @@ export default function VoicesPage() {
     try {
       await fetch(`/api/brand-voices/${id}`, { method: 'DELETE' });
       await load();
-    } catch { /* ignore */ }
+    } catch (e) { console.error(e); }
   }
 
   async function setDefault(id: number) {
@@ -76,7 +76,7 @@ export default function VoicesPage() {
         body: JSON.stringify({ is_default: true }),
       });
       await load();
-    } catch { /* ignore */ }
+    } catch (e) { console.error(e); }
   }
 
   if (loading) {

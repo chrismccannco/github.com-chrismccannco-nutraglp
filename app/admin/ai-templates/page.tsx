@@ -37,7 +37,7 @@ export default function AITemplatesPage() {
     try {
       const res = await fetch('/api/content-templates');
       if (res.ok) setTemplates(await res.json());
-    } catch { /* ignore */ }
+    } catch (e) { console.error(e); }
     setLoading(false);
   }
 
@@ -62,7 +62,7 @@ export default function AITemplatesPage() {
         const tmpl = await res.json();
         window.location.href = `/admin/ai-templates/${tmpl.id}`;
       }
-    } catch { /* ignore */ }
+    } catch (e) { console.error(e); }
     setCreating(false);
   }
 
@@ -71,7 +71,7 @@ export default function AITemplatesPage() {
     try {
       await fetch(`/api/content-templates/${id}`, { method: 'DELETE' });
       await load();
-    } catch { /* ignore */ }
+    } catch (e) { console.error(e); }
   }
 
   return (

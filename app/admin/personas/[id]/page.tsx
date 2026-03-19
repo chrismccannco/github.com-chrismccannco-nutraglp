@@ -102,7 +102,7 @@ export default function PersonaEditPage() {
         setSaved(true);
         setTimeout(() => setSaved(false), 2000);
       }
-    } catch { /* ignore */ }
+    } catch (e) { console.error(e); }
     setSaving(false);
   }, [id, persona]);
 
@@ -124,7 +124,7 @@ export default function PersonaEditPage() {
         body: JSON.stringify({ is_default: persona.is_default === 1 ? 0 : 1 }),
       });
       if (res.ok) setPersona(await res.json());
-    } catch { /* ignore */ }
+    } catch (e) { console.error(e); }
   }
 
   if (loading) {

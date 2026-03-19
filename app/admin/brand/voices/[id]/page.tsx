@@ -111,7 +111,7 @@ export default function VoiceEditPage() {
         setSaved(true);
         setTimeout(() => setSaved(false), 2000);
       }
-    } catch { /* ignore */ }
+    } catch (e) { console.error(e); }
     setSaving(false);
   }, [id, voice]);
 
@@ -134,7 +134,7 @@ export default function VoiceEditPage() {
         body: JSON.stringify({ is_default: newVal }),
       });
       if (res.ok) setVoice(await res.json());
-    } catch { /* ignore */ }
+    } catch (e) { console.error(e); }
   }
 
   if (loading) {

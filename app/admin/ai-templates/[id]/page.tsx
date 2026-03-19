@@ -58,7 +58,7 @@ export default function TemplateEditPage() {
             const defaults: Record<string, string> = {};
             vars.forEach(v => { defaults[v.key] = v.default || ''; });
             setVarValues(defaults);
-          } catch { /* ignore */ }
+          } catch (e) { console.error(e); }
         }
       })
       .finally(() => setLoading(false));
@@ -80,7 +80,7 @@ export default function TemplateEditPage() {
         setSaved(true);
         setTimeout(() => setSaved(false), 2000);
       }
-    } catch { /* ignore */ }
+    } catch (e) { console.error(e); }
     setSaving(false);
   }, [id, template]);
 

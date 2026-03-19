@@ -68,7 +68,7 @@ export default function KnowledgeEditPage() {
         setSaved(true);
         setTimeout(() => setSaved(false), 2000);
       }
-    } catch { /* ignore */ }
+    } catch (e) { console.error(e); }
     setSaving(false);
   }, [id, doc]);
 
