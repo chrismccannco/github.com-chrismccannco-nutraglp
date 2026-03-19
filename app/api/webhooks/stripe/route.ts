@@ -1,14 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || "", {
-  apiVersion: "2026-02-25.clover",
-});
-
-const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || "";
+let _stripe: Stripe | null = null;
+function getStripe(): Stripe | null {
+  if (!process.env.STRIPE_SECRET_KEY) return null;
+  if (!_stripe) {
+    _stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: "2026-02-25.clover",
+    });
+  }
+  return _stripe;
+}
 
 export async function POST(req: NextRequest) {
-  if (!process.env.STRIPE_SECRET_KEY || !webhookSecret) {
+  const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET || "";
+  const stripe = getStripe();
+  if (!stripe || !webhookSecret) {
     return NextResponse.json({ error: "Stripe not configured" }, { status: 503 });
   }
 
