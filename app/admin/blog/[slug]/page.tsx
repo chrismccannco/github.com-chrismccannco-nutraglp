@@ -14,7 +14,8 @@ import { useAutosave } from "../../hooks/useAutosave";
 import { useAuth } from "../../layout";
 import BlockEditor from "../../components/blocks/BlockEditor";
 import type { Block } from "@/lib/types/blocks";
-import { Plus, Trash2 } from "lucide-react";
+import { Plus, Trash2, RefreshCw } from "lucide-react";
+import Link from "next/link";
 
 interface Section {
   heading: string;
@@ -260,6 +261,13 @@ export default function EditBlogPost() {
           >
             Preview
           </a>
+          <Link
+            href={`/admin/repurpose?from=${slug}`}
+            className="px-3 py-1.5 text-xs font-medium text-neutral-600 bg-neutral-100 rounded-lg hover:bg-neutral-200 transition-colors no-underline flex items-center gap-1.5"
+          >
+            <RefreshCw size={12} />
+            Repurpose
+          </Link>
           <AutosaveIndicator status={autosaveStatus} />
           <FormActions
             onSaveDraft={handleSaveDraft}
