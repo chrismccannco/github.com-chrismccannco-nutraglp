@@ -34,6 +34,7 @@ interface WriteRequest {
   keywords?: string;
   tone?: string;
   voiceId?: number;
+  knowledgeDocIds?: number[];
 }
 
 async function getBrandVoice(voiceId?: number): Promise<Record<string, string>> {
@@ -82,7 +83,22 @@ async function getBrandVoice(voiceId?: number): Promise<Record<string, string>> 
   }
 }
 
-function buildSystemPrompt(voice: Record<string, string>): string {
+async function getKnowledgeDocs(docIds?: number[]): Promise<string[]> {
+  if (!docIds || docIds.length === 0) return [];
+  const db = getDb();
+  try {
+    const placeholders = docIds.map(() => '?').join(',');
+    const result = await db.execute({
+      sql: `SELECT title, content FROM knowledge_docs WHERE id IN (${placeholders}) AND enabled = 1`,
+      args: docIds.map(Number),
+    });
+    return result.rows.map(r => `[${r.title}]\n${r.content}`);
+  } catch {
+    return [];
+  }
+}
+
+function buildSystemPrompt(voice: Record<string, string>, knowledgeDocs: string[]): string {
   const parts = [
     'You are a skilled content writer embedded in a headless CMS.',
     'Write content that is publication-ready — not a draft, not an outline unless asked.',
@@ -94,6 +110,11 @@ function buildSystemPrompt(voice: Record<string, string>): string {
   if (voice.brand_voice_dos)      parts.push(`Do:\n${voice.brand_voice_dos}`);
   if (voice.brand_voice_donts)    parts.push(`Don't:\n${voice.brand_voice_donts}`);
   if (voice.brand_voice_example)  parts.push(`Style anchor — write like this:\n"${voice.brand_voice_example}"`);
+
+  if (knowledgeDocs.length > 0) {
+    parts.push('KNOWLEDGE BASE — use the following reference documents as your source of truth. Cite facts from them. Do not invent information that contradicts them.');
+    parts.push(knowledgeDocs.join('\n\n---\n\n'));
+  }
 
   parts.push('Return only the content itself. No preamble, no "Here is your post:", no markdown headers unless the content calls for them.');
 
@@ -150,8 +171,9 @@ export async function POST(req: NextRequest) {
 
     const body = (await req.json()) as WriteRequest;
     const voice = await getBrandVoice(body.voiceId);
+    const knowledgeDocs = await getKnowledgeDocs(body.knowledgeDocIds);
 
-    const systemPrompt = buildSystemPrompt(voice);
+    const systemPrompt = buildSystemPrompt(voice, knowledgeDocs);
     const userPrompt = buildUserPrompt(body);
 
     // Stream the response

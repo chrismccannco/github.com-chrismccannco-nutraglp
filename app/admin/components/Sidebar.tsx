@@ -26,6 +26,8 @@ import {
   LayoutTemplate,
   BookMarked,
   Palette,
+  LibraryBig,
+  Wand2,
 } from "lucide-react";
 import { useAuth } from "../layout";
 import { useCmsBranding } from "../hooks/useCmsBranding";
@@ -45,6 +47,8 @@ const contentNav = [
   { label: "Form Builder", href: "/admin/form-builder", icon: FormInput },
   { label: "Templates", href: "/admin/templates", icon: LayoutTemplate },
   { label: "Brand Hub", href: "/admin/brand", icon: Palette },
+  { label: "Knowledge Base", href: "/admin/knowledge", icon: LibraryBig },
+  { label: "AI Templates", href: "/admin/ai-templates", icon: Wand2 },
 ];
 
 const settingsNav = [

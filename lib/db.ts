@@ -354,6 +354,38 @@ export async function initDb(): Promise<Client> {
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
+
+    CREATE TABLE IF NOT EXISTS knowledge_docs (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      title TEXT NOT NULL,
+      slug TEXT UNIQUE NOT NULL,
+      doc_type TEXT NOT NULL DEFAULT 'general',
+      content TEXT NOT NULL,
+      summary TEXT,
+      tags TEXT DEFAULT '[]',
+      word_count INTEGER DEFAULT 0,
+      enabled INTEGER DEFAULT 1,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS content_templates (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      slug TEXT UNIQUE NOT NULL,
+      description TEXT,
+      category TEXT NOT NULL DEFAULT 'general',
+      prompt_template TEXT NOT NULL,
+      voice_id INTEGER,
+      knowledge_doc_ids TEXT DEFAULT '[]',
+      output_format TEXT DEFAULT 'prose',
+      max_tokens INTEGER DEFAULT 1024,
+      variables TEXT DEFAULT '[]',
+      is_system INTEGER DEFAULT 0,
+      sort_order INTEGER DEFAULT 0,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
   `);
 
   // Add columns that may not exist on older databases
@@ -406,6 +438,9 @@ export async function initDb(): Promise<Client> {
     await db.execute("CREATE INDEX IF NOT EXISTS idx_templates_category ON templates (category, published)");
     await db.execute("CREATE INDEX IF NOT EXISTS idx_template_installs_template ON template_installs (template_id)");
     await db.execute("CREATE INDEX IF NOT EXISTS idx_brand_voices_slug ON brand_voices (slug)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_knowledge_docs_type ON knowledge_docs (doc_type, enabled)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_knowledge_docs_slug ON knowledge_docs (slug)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_content_templates_category ON content_templates (category, sort_order)");
   } catch {
     // Index may already exist
   }
