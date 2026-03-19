@@ -35,7 +35,8 @@ export default function RepurposePage() {
       .then(r => r.json())
       .then(data => {
         setFormats(data.formats || []);
-        setSelectedFormats((data.formats || []).map((f: Format) => f.key));
+        // Don't pre-select all — let user pick what they need
+        setSelectedFormats([]);
       });
   }, []);
 
@@ -181,7 +182,7 @@ export default function RepurposePage() {
             <button onClick={generate} disabled={loading || !content || selectedFormats.length === 0}
               className="flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white text-sm font-medium rounded-lg hover:bg-emerald-500 disabled:opacity-50 transition-colors w-full justify-center">
               {loading ? <Loader2 size={14} className="animate-spin" /> : <RefreshCw size={14} />}
-              {loading ? 'Generating all formats...' : `Generate ${selectedFormats.length} format${selectedFormats.length !== 1 ? 's' : ''}`}
+              {loading ? 'Generating...' : selectedFormats.length === 0 ? 'Select formats above' : `Generate ${selectedFormats.length} format${selectedFormats.length !== 1 ? 's' : ''}`}
             </button>
           </div>
 

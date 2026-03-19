@@ -166,7 +166,7 @@ export async function POST(
         "anthropic-beta": "messages-2023-12-15",
       },
       body: JSON.stringify({
-        model: "claude-sonnet-4-5-20250514",
+        model: "claude-sonnet-4-6",
         max_tokens: (template.max_tokens as number) || 1024,
         system: systemParts.join("\n\n"),
         stream: true,
