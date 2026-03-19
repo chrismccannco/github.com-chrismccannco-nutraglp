@@ -35,6 +35,7 @@ interface WriteRequest {
   tone?: string;
   voiceId?: number;
   knowledgeDocIds?: number[];
+  personaId?: number;
 }
 
 async function getBrandVoice(voiceId?: number): Promise<Record<string, string>> {
@@ -83,6 +84,30 @@ async function getBrandVoice(voiceId?: number): Promise<Record<string, string>> 
   }
 }
 
+async function getPersona(personaId?: number): Promise<Record<string, string> | null> {
+  if (!personaId) return null;
+  const db = getDb();
+  try {
+    const result = await db.execute({
+      sql: "SELECT * FROM audience_personas WHERE id = ?",
+      args: [personaId],
+    });
+    const row = result.rows[0];
+    if (!row) return null;
+    const p: Record<string, string> = {};
+    if (row.name) p.name = row.name as string;
+    if (row.description) p.description = row.description as string;
+    if (row.demographics) p.demographics = row.demographics as string;
+    if (row.goals) p.goals = row.goals as string;
+    if (row.pain_points) p.pain_points = row.pain_points as string;
+    if (row.communication_style) p.communication_style = row.communication_style as string;
+    if (row.objections) p.objections = row.objections as string;
+    return p;
+  } catch {
+    return null;
+  }
+}
+
 async function getKnowledgeDocs(docIds?: number[]): Promise<string[]> {
   if (!docIds || docIds.length === 0) return [];
   const db = getDb();
@@ -98,7 +123,7 @@ async function getKnowledgeDocs(docIds?: number[]): Promise<string[]> {
   }
 }
 
-function buildSystemPrompt(voice: Record<string, string>, knowledgeDocs: string[]): string {
+function buildSystemPrompt(voice: Record<string, string>, knowledgeDocs: string[], persona: Record<string, string> | null): string {
   const parts = [
     'You are a skilled content writer embedded in a headless CMS.',
     'Write content that is publication-ready — not a draft, not an outline unless asked.',
@@ -110,6 +135,18 @@ function buildSystemPrompt(voice: Record<string, string>, knowledgeDocs: string[
   if (voice.brand_voice_dos)      parts.push(`Do:\n${voice.brand_voice_dos}`);
   if (voice.brand_voice_donts)    parts.push(`Don't:\n${voice.brand_voice_donts}`);
   if (voice.brand_voice_example)  parts.push(`Style anchor — write like this:\n"${voice.brand_voice_example}"`);
+
+  if (persona) {
+    const personaParts = [`TARGET AUDIENCE PERSONA: ${persona.name}`];
+    if (persona.description) personaParts.push(`Profile: ${persona.description}`);
+    if (persona.demographics) personaParts.push(`Demographics: ${persona.demographics}`);
+    if (persona.goals) personaParts.push(`Goals: ${persona.goals}`);
+    if (persona.pain_points) personaParts.push(`Pain points: ${persona.pain_points}`);
+    if (persona.communication_style) personaParts.push(`Communication preferences: ${persona.communication_style}`);
+    if (persona.objections) personaParts.push(`Common objections: ${persona.objections}`);
+    personaParts.push('Tailor the content to speak directly to this persona. Address their goals and pain points. Anticipate their objections.');
+    parts.push(personaParts.join('\n'));
+  }
 
   if (knowledgeDocs.length > 0) {
     parts.push('KNOWLEDGE BASE — use the following reference documents as your source of truth. Cite facts from them. Do not invent information that contradicts them.');
@@ -172,8 +209,9 @@ export async function POST(req: NextRequest) {
     const body = (await req.json()) as WriteRequest;
     const voice = await getBrandVoice(body.voiceId);
     const knowledgeDocs = await getKnowledgeDocs(body.knowledgeDocIds);
+    const persona = await getPersona(body.personaId);
 
-    const systemPrompt = buildSystemPrompt(voice, knowledgeDocs);
+    const systemPrompt = buildSystemPrompt(voice, knowledgeDocs, persona);
     const userPrompt = buildUserPrompt(body);
 
     // Stream the response

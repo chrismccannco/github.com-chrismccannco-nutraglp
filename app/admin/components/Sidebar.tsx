@@ -28,6 +28,8 @@ import {
   Palette,
   LibraryBig,
   Wand2,
+  UserCircle,
+  RefreshCw,
 } from "lucide-react";
 import { useAuth } from "../layout";
 import { useCmsBranding } from "../hooks/useCmsBranding";
@@ -49,6 +51,8 @@ const contentNav = [
   { label: "Brand Hub", href: "/admin/brand", icon: Palette },
   { label: "Knowledge Base", href: "/admin/knowledge", icon: LibraryBig },
   { label: "AI Templates", href: "/admin/ai-templates", icon: Wand2 },
+  { label: "Personas", href: "/admin/personas", icon: UserCircle },
+  { label: "Repurpose", href: "/admin/repurpose", icon: RefreshCw },
 ];
 
 const settingsNav = [

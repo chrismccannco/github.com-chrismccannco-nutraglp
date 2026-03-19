@@ -369,6 +369,22 @@ export async function initDb(): Promise<Client> {
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
 
+    CREATE TABLE IF NOT EXISTS audience_personas (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      slug TEXT UNIQUE NOT NULL,
+      description TEXT,
+      demographics TEXT,
+      goals TEXT,
+      pain_points TEXT,
+      communication_style TEXT,
+      objections TEXT,
+      channels TEXT DEFAULT '[]',
+      is_default INTEGER DEFAULT 0,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
     CREATE TABLE IF NOT EXISTS content_templates (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       name TEXT NOT NULL,
@@ -377,6 +393,7 @@ export async function initDb(): Promise<Client> {
       category TEXT NOT NULL DEFAULT 'general',
       prompt_template TEXT NOT NULL,
       voice_id INTEGER,
+      persona_id INTEGER,
       knowledge_doc_ids TEXT DEFAULT '[]',
       output_format TEXT DEFAULT 'prose',
       max_tokens INTEGER DEFAULT 1024,
@@ -413,6 +430,8 @@ export async function initDb(): Promise<Client> {
     "ALTER TABLE media_files ADD COLUMN width INTEGER DEFAULT 0",
     "ALTER TABLE media_files ADD COLUMN height INTEGER DEFAULT 0",
     "ALTER TABLE media_files ADD COLUMN thumb_data TEXT",
+    // Content templates persona support
+    "ALTER TABLE content_templates ADD COLUMN persona_id INTEGER",
   ];
 
   for (const sql of migrations) {
@@ -441,6 +460,7 @@ export async function initDb(): Promise<Client> {
     await db.execute("CREATE INDEX IF NOT EXISTS idx_knowledge_docs_type ON knowledge_docs (doc_type, enabled)");
     await db.execute("CREATE INDEX IF NOT EXISTS idx_knowledge_docs_slug ON knowledge_docs (slug)");
     await db.execute("CREATE INDEX IF NOT EXISTS idx_content_templates_category ON content_templates (category, sort_order)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_audience_personas_slug ON audience_personas (slug)");
   } catch {
     // Index may already exist
   }

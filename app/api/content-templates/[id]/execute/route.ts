@@ -91,10 +91,33 @@ export async function POST(
       prompt = prompt.replace(new RegExp(`\\{\\{${key}\\}\\}`, "g"), value);
     }
 
-    // Build system prompt with voice + knowledge
+    // Build system prompt with voice + persona + knowledge
     const voice = await getBrandVoice(template.voice_id as number | null);
     const knowledgeDocIds = JSON.parse((template.knowledge_doc_ids as string) || "[]");
     const knowledgeDocs = await getKnowledgeDocs(knowledgeDocIds);
+
+    // Load persona if set on template or passed in request
+    const personaId = (body.personaId as number | undefined) || (template.persona_id as number | null);
+    let persona: Record<string, string> | null = null;
+    if (personaId) {
+      try {
+        const pResult = await db.execute({
+          sql: "SELECT * FROM audience_personas WHERE id = ?",
+          args: [Number(personaId)],
+        });
+        const pRow = pResult.rows[0];
+        if (pRow) {
+          persona = {};
+          if (pRow.name) persona.name = pRow.name as string;
+          if (pRow.description) persona.description = pRow.description as string;
+          if (pRow.demographics) persona.demographics = pRow.demographics as string;
+          if (pRow.goals) persona.goals = pRow.goals as string;
+          if (pRow.pain_points) persona.pain_points = pRow.pain_points as string;
+          if (pRow.communication_style) persona.communication_style = pRow.communication_style as string;
+          if (pRow.objections) persona.objections = pRow.objections as string;
+        }
+      } catch { /* ignore */ }
+    }
 
     const systemParts = [
       "You are a skilled content writer embedded in a headless CMS.",
@@ -106,6 +129,17 @@ export async function POST(
     if (voice.dos) systemParts.push(`Do:\n${voice.dos}`);
     if (voice.donts) systemParts.push(`Don't:\n${voice.donts}`);
     if (voice.exemplar) systemParts.push(`Style anchor:\n"${voice.exemplar}"`);
+    if (persona) {
+      const pp = [`TARGET AUDIENCE PERSONA: ${persona.name}`];
+      if (persona.description) pp.push(`Profile: ${persona.description}`);
+      if (persona.demographics) pp.push(`Demographics: ${persona.demographics}`);
+      if (persona.goals) pp.push(`Goals: ${persona.goals}`);
+      if (persona.pain_points) pp.push(`Pain points: ${persona.pain_points}`);
+      if (persona.communication_style) pp.push(`Communication preferences: ${persona.communication_style}`);
+      if (persona.objections) pp.push(`Common objections: ${persona.objections}`);
+      pp.push("Tailor the content to speak directly to this persona.");
+      systemParts.push(pp.join("\n"));
+    }
     if (knowledgeDocs.length > 0) {
       systemParts.push(
         "KNOWLEDGE BASE — use these as source of truth:",
