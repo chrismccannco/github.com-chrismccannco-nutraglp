@@ -30,6 +30,7 @@ import {
   Wand2,
   UserCircle,
   RefreshCw,
+  Video,
 } from "lucide-react";
 import { useAuth } from "../layout";
 import { useCmsBranding } from "../hooks/useCmsBranding";
@@ -53,6 +54,7 @@ const contentNav = [
   { label: "AI Templates", href: "/admin/ai-templates", icon: Wand2 },
   { label: "Personas", href: "/admin/personas", icon: UserCircle },
   { label: "Repurpose", href: "/admin/repurpose", icon: RefreshCw },
+  { label: "Video Studio", href: "/admin/video-studio", icon: Video },
 ];
 
 const settingsNav = [

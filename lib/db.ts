@@ -403,6 +403,34 @@ export async function initDb(): Promise<Client> {
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
+
+    CREATE TABLE IF NOT EXISTS videos (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      title TEXT NOT NULL,
+      slug TEXT UNIQUE NOT NULL,
+      source_url TEXT,
+      duration_seconds INTEGER DEFAULT 0,
+      transcript TEXT,
+      transcript_status TEXT DEFAULT 'pending',
+      voice_id INTEGER,
+      persona_id INTEGER,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS video_clips (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      video_id INTEGER NOT NULL,
+      title TEXT,
+      start_time REAL NOT NULL,
+      end_time REAL NOT NULL,
+      transcript_segment TEXT NOT NULL,
+      platform TEXT NOT NULL DEFAULT 'linkedin',
+      caption TEXT,
+      status TEXT DEFAULT 'draft',
+      sort_order INTEGER DEFAULT 0,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
   `);
 
   // Add columns that may not exist on older databases
@@ -461,6 +489,8 @@ export async function initDb(): Promise<Client> {
     await db.execute("CREATE INDEX IF NOT EXISTS idx_knowledge_docs_slug ON knowledge_docs (slug)");
     await db.execute("CREATE INDEX IF NOT EXISTS idx_content_templates_category ON content_templates (category, sort_order)");
     await db.execute("CREATE INDEX IF NOT EXISTS idx_audience_personas_slug ON audience_personas (slug)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_videos_slug ON videos (slug)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_video_clips_video ON video_clips (video_id, sort_order)");
   } catch {
     // Index may already exist
   }
