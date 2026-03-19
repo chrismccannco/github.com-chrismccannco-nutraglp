@@ -605,7 +605,7 @@ export default function DocsPage() {
           </h1>
         </div>
         <p className="text-sm text-neutral-500">
-          How to use every feature in NutraGLP CMS.
+          How to use every feature in Content Studio.
         </p>
       </div>
 

@@ -33,17 +33,48 @@ interface WriteRequest {
   existing?: string;
   keywords?: string;
   tone?: string;
+  voiceId?: number;
 }
 
-async function getBrandVoice() {
+async function getBrandVoice(voiceId?: number): Promise<Record<string, string>> {
+  const db = getDb();
   try {
-    const db = getDb();
+    // Try brand_voices table first
+    let row;
+    if (voiceId) {
+      const result = await db.execute({
+        sql: "SELECT * FROM brand_voices WHERE id = ?",
+        args: [voiceId],
+      });
+      row = result.rows[0];
+    } else {
+      const result = await db.execute(
+        "SELECT * FROM brand_voices WHERE is_default = 1 LIMIT 1"
+      );
+      row = result.rows[0];
+    }
+    if (row) {
+      const mapped: Record<string, string> = {};
+      if (row.mission) mapped.brand_voice_mission = row.mission as string;
+      if (row.audience) mapped.brand_voice_audience = row.audience as string;
+      if (row.tone) mapped.brand_voice_tone = row.tone as string;
+      if (row.dos) mapped.brand_voice_dos = row.dos as string;
+      if (row.donts) mapped.brand_voice_donts = row.donts as string;
+      if (row.exemplar) mapped.brand_voice_example = row.exemplar as string;
+      return mapped;
+    }
+  } catch {
+    /* fall through to legacy */
+  }
+
+  // Legacy: read from site_settings
+  try {
     const result = await db.execute(
       "SELECT key, value FROM settings WHERE key LIKE 'brand_voice_%'"
     );
     const s: Record<string, string> = {};
-    for (const row of result.rows) {
-      if (row.key && row.value) s[row.key as string] = row.value as string;
+    for (const r of result.rows) {
+      if (r.key && r.value) s[r.key as string] = r.value as string;
     }
     return s;
   } catch {
@@ -118,7 +149,7 @@ export async function POST(req: NextRequest) {
     }
 
     const body = (await req.json()) as WriteRequest;
-    const voice = await getBrandVoice();
+    const voice = await getBrandVoice(body.voiceId);
 
     const systemPrompt = buildSystemPrompt(voice);
     const userPrompt = buildUserPrompt(body);

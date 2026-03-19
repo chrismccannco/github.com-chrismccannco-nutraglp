@@ -150,7 +150,7 @@ const ENDPOINTS: { section: string; endpoints: Endpoint[] }[] = [
     {
       "id": 1,
       "category": "General",
-      "question": "What is NutraGLP?",
+      "question": "What is your product?",
       "answer": "..."
     }
   ],

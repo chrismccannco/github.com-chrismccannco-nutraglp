@@ -71,7 +71,7 @@ export async function POST(req: NextRequest) {
     });
     const adminPw = settingResult.rows.length > 0
       ? String(settingResult.rows[0].value)
-      : "nutraglp2025";
+      : (process.env.CMS_DEFAULT_PASSWORD || "admin");
 
     if (password !== adminPw) {
       return NextResponse.json({ error: "Wrong password" }, { status: 401 });
@@ -83,7 +83,7 @@ export async function POST(req: NextRequest) {
       const hash = await hashPassword(adminPw);
       await db.execute({
         sql: "INSERT INTO admin_users (email, name, password_hash, role) VALUES (?, ?, ?, ?)",
-        args: ["admin@nutraglp.com", "Admin", hash, "admin"],
+        args: [process.env.CMS_DEFAULT_ADMIN_EMAIL || "admin@admin.com", "Admin", hash, "admin"],
       });
     }
 

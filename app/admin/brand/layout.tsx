@@ -1,13 +1,14 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Palette, Type, ImageIcon, MessageSquare, Zap, Code2 } from 'lucide-react';
+import { Palette, Type, ImageIcon, MessageSquare, Zap, Code2, AudioLines } from 'lucide-react';
 
 const TABS = [
   { href: '/admin/brand/colors',     label: 'Colors',       icon: Palette },
   { href: '/admin/brand/typography', label: 'Typography',   icon: Type },
   { href: '/admin/brand/logos',      label: 'Logos',        icon: ImageIcon },
   { href: '/admin/brand/voice',      label: 'Voice & Tone', icon: MessageSquare },
+  { href: '/admin/brand/voices',     label: 'Voices',       icon: AudioLines },
   { href: '/admin/brand/score',      label: 'AI Score',     icon: Zap },
   { href: '/admin/brand/export',     label: 'Export',       icon: Code2 },
 ];

@@ -12,6 +12,12 @@ const generalFields = [
   { key: "copyright", label: "Copyright" },
 ];
 
+const cmsBrandingFields = [
+  { key: "cms_name", label: "Admin display name", placeholder: "Content Studio" },
+  { key: "cms_logo_letter", label: "Logo letter (single character)", placeholder: "C" },
+  { key: "cms_accent_color", label: "Accent color (hex)", placeholder: "#0f2d20" },
+];
+
 const disclaimerFields = [
   { key: "fda_disclaimer", label: "FDA disclaimer", multiline: true },
   { key: "supplement_disclaimer", label: "Supplement disclaimer", multiline: true },
@@ -25,7 +31,7 @@ const socialFields = [
 
 const analyticsFields = [
   { key: "ga_measurement_id", label: "GA4 Measurement ID", placeholder: "G-XXXXXXXXXX" },
-  { key: "plausible_domain", label: "Plausible domain", placeholder: "nutraglp.com" },
+  { key: "plausible_domain", label: "Plausible domain", placeholder: "yourdomain.com" },
 ];
 
 const securityFields = [
@@ -111,6 +117,13 @@ export default function SettingsAdmin() {
       </div>
 
       <div className="space-y-4">
+        <FormSection title="CMS Branding">
+          {cmsBrandingFields.map(renderField)}
+          <p className="text-xs text-neutral-400 mt-2">
+            Customize how the admin panel looks. Changes appear on next page load.
+          </p>
+        </FormSection>
+
         <FormSection title="General">
           {generalFields.map(renderField)}
         </FormSection>

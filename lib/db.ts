@@ -338,6 +338,22 @@ export async function initDb(): Promise<Client> {
       thumb_data TEXT,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
+
+    CREATE TABLE IF NOT EXISTS brand_voices (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      slug TEXT UNIQUE NOT NULL,
+      is_default INTEGER DEFAULT 0,
+      tagline TEXT,
+      mission TEXT,
+      audience TEXT,
+      tone TEXT,
+      dos TEXT,
+      donts TEXT,
+      exemplar TEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
   `);
 
   // Add columns that may not exist on older databases
@@ -389,6 +405,7 @@ export async function initDb(): Promise<Client> {
     await db.execute("CREATE INDEX IF NOT EXISTS idx_site_content_site ON site_content (site_id, content_type)");
     await db.execute("CREATE INDEX IF NOT EXISTS idx_templates_category ON templates (category, published)");
     await db.execute("CREATE INDEX IF NOT EXISTS idx_template_installs_template ON template_installs (template_id)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_brand_voices_slug ON brand_voices (slug)");
   } catch {
     // Index may already exist
   }

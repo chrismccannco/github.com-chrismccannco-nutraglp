@@ -25,8 +25,10 @@ import {
   Globe,
   LayoutTemplate,
   BookMarked,
+  Palette,
 } from "lucide-react";
 import { useAuth } from "../layout";
+import { useCmsBranding } from "../hooks/useCmsBranding";
 
 const contentNav = [
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
@@ -42,6 +44,7 @@ const contentNav = [
   { label: "FAQ", href: "/admin/faq", icon: HelpCircle },
   { label: "Form Builder", href: "/admin/form-builder", icon: FormInput },
   { label: "Templates", href: "/admin/templates", icon: LayoutTemplate },
+  { label: "Brand Hub", href: "/admin/brand", icon: Palette },
 ];
 
 const settingsNav = [
@@ -63,6 +66,7 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
   const pathname = usePathname();
   const { user } = useAuth();
   const isAdmin = user?.role === "admin";
+  const branding = useCmsBranding();
 
   const isActive = (href: string) =>
     href === "/admin" ? pathname === "/admin" : pathname.startsWith(href);
@@ -99,12 +103,12 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
       <div className="px-5 py-5 border-b border-neutral-100">
         <Link href="/admin" className="no-underline" onClick={onClose}>
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-[#0f2d20] flex items-center justify-center">
-              <span className="text-white text-xs font-bold">N</span>
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: branding.accentColor }}>
+              <span className="text-white text-xs font-bold">{branding.logoLetter}</span>
             </div>
             <div>
               <p className="text-sm font-semibold text-neutral-900 leading-tight">
-                NutraGLP
+                {branding.name}
               </p>
               <p className="text-[10px] uppercase tracking-widest text-neutral-400">
                 CMS

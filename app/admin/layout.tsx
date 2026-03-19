@@ -3,6 +3,7 @@
 import { useState, useEffect, createContext, useContext } from "react";
 import { Menu, LogOut } from "lucide-react";
 import Sidebar from "./components/Sidebar";
+import { useCmsBranding } from "./hooks/useCmsBranding";
 
 interface CurrentUser {
   id: number;
@@ -25,6 +26,7 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const branding = useCmsBranding();
   const [authed, setAuthed] = useState(false);
   const [user, setUser] = useState<CurrentUser | null>(null);
   const [loading, setLoading] = useState(true);
@@ -120,12 +122,12 @@ export default function AdminLayout({
           className="bg-white p-8 rounded-xl shadow-sm border border-neutral-200 w-80"
         >
           <div className="flex items-center gap-2.5 mb-6">
-            <div className="w-8 h-8 rounded-lg bg-[#0f2d20] flex items-center justify-center">
-              <span className="text-white text-xs font-bold">N</span>
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: branding.accentColor }}>
+              <span className="text-white text-xs font-bold">{branding.logoLetter}</span>
             </div>
             <div>
               <h1 className="text-lg font-semibold text-neutral-900 leading-tight">
-                NutraGLP
+                {branding.name}
               </h1>
               <p className="text-[10px] uppercase tracking-widest text-neutral-400">
                 CMS
@@ -192,7 +194,7 @@ export default function AdminLayout({
                 <Menu className="w-5 h-5" />
               </button>
               <span className="md:hidden text-sm font-semibold text-neutral-900">
-                NutraGLP
+                {branding.name}
               </span>
             </div>
 
