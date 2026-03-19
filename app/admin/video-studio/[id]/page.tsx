@@ -98,6 +98,10 @@ export default function VideoEditorPage() {
 
   async function suggestClips() {
     if (!video?.transcript) return;
+    // Force save transcript before analyzing
+    if (Object.keys(pendingRef.current).length > 0) {
+      await doSave();
+    }
     setSuggesting(true);
     setSuggestions([]);
     try {

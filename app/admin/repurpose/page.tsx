@@ -7,6 +7,7 @@ import { Loader2, Copy, Check, RefreshCw, ChevronDown } from 'lucide-react';
 interface Format {
   key: string;
   label: string;
+  category: string;
 }
 
 interface RepurposeResult {

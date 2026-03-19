@@ -44,9 +44,14 @@ export async function POST(
     }
 
     const video = videoResult.rows[0];
-    const transcript = video.transcript as string;
-    if (!transcript) {
-      return NextResponse.json({ error: "No transcript available. Paste the transcript first." }, { status: 400 });
+    let transcript = video.transcript as string;
+    if (!transcript || transcript.trim().length === 0) {
+      return NextResponse.json({ error: "No transcript available. Paste the transcript first, then click Save before analyzing." }, { status: 400 });
+    }
+
+    // Truncate very long transcripts to stay within token limits (~100k chars ~ 25k tokens)
+    if (transcript.length > 100000) {
+      transcript = transcript.slice(0, 100000) + "\n\n[TRANSCRIPT TRUNCATED — full video is longer]";
     }
 
     const body = await req.json();

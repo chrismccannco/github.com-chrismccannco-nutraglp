@@ -44,30 +44,152 @@ async function getBrandVoicePrompt(voiceId?: number): Promise<string> {
   }
 }
 
+const FORMAT_CATEGORIES: Record<string, string> = {
+  linkedin: "LinkedIn",
+  twitter: "Twitter/X",
+  instagram: "Instagram",
+  tiktok: "TikTok",
+  youtube: "YouTube",
+  facebook: "Facebook",
+  email: "Email",
+  seo: "SEO & Blog",
+};
+
 const FORMATS = {
-  linkedin: {
+  // LinkedIn
+  linkedin_post: {
     label: "LinkedIn Post",
-    instruction: "Write a LinkedIn post based on this article. 150-250 words. Professional but not stiff. Hook in the first line. End with a thought-provoking question or observation. No hashtags unless they add real value. No emojis.",
+    category: "linkedin",
+    instruction: "Write a LinkedIn post. 150-250 words. Professional but not stiff. Hook in the first line. End with a thought-provoking observation. No hashtags unless they add real value. No emojis.",
   },
+  linkedin_article: {
+    label: "LinkedIn Article",
+    category: "linkedin",
+    instruction: "Write a LinkedIn article (600-1000 words). Professional tone. Strong headline. Subheadings for scannability. Personal angle — first person, draws from the source material but adds perspective. End with a clear takeaway.",
+  },
+  linkedin_carousel: {
+    label: "LinkedIn Carousel (Slides)",
+    category: "linkedin",
+    instruction: "Write content for a 8-10 slide LinkedIn carousel. Slide 1 is the hook/title. Each subsequent slide has a short heading and 1-2 sentences. Last slide is CTA. Format as: [Slide 1] heading // body, [Slide 2] heading // body, etc. Keep each slide under 40 words.",
+  },
+
+  // Twitter/X
   twitter_thread: {
     label: "Twitter/X Thread",
-    instruction: "Write a 4-6 tweet thread based on this article. Each tweet under 280 characters. First tweet is the hook. Number them (1/). Make each tweet stand alone but build momentum. No hashtags.",
+    category: "twitter",
+    instruction: "Write a 5-8 tweet thread. Each tweet under 280 characters. First tweet is the hook. Number them (1/). Each tweet stands alone but builds momentum. No hashtags. Last tweet has a takeaway or CTA.",
   },
+  twitter_standalone: {
+    label: "Twitter/X Standalone Tweets (5)",
+    category: "twitter",
+    instruction: "Write 5 standalone tweets, each under 280 characters. Each should work independently — not a thread. Vary the formats: one hot take, one data point, one question, one contrarian angle, one quotable line. No hashtags.",
+  },
+
+  // Instagram
+  instagram_caption: {
+    label: "Instagram Post Caption",
+    category: "instagram",
+    instruction: "Write an Instagram post caption. 150-200 words. Break into short paragraphs for readability. Conversational but substantive. End with a call to action (comment, save, share). Add 15-20 relevant hashtags at the very end, separated by a line break.",
+  },
+  instagram_carousel: {
+    label: "Instagram Carousel (Slides)",
+    category: "instagram",
+    instruction: "Write content for a 7-10 slide Instagram carousel. Slide 1 is an attention-grabbing title. Slides 2-9 deliver one key point each with a bold heading and 1-2 sentences. Slide 10 is a CTA. Format as: [Slide 1] text, [Slide 2] text, etc. Each slide under 30 words. More visual, less text than LinkedIn.",
+  },
+  instagram_reel_caption: {
+    label: "Instagram Reel Caption",
+    category: "instagram",
+    instruction: "Write a caption for an Instagram Reel. Under 125 characters for the hook line (shown before 'more'). Total caption 50-100 words. Include 10-15 hashtags. Casual, direct tone. CTA to follow or save.",
+  },
+  instagram_stories: {
+    label: "Instagram Stories Sequence",
+    category: "instagram",
+    instruction: "Write a 5-7 story sequence. Each story is a single screen with minimal text (under 20 words). Story 1: hook/question. Stories 2-5: key points. Story 6: poll or question sticker prompt. Story 7: CTA (swipe up, link in bio). Format as [Story 1], [Story 2], etc.",
+  },
+
+  // TikTok
+  tiktok_caption: {
+    label: "TikTok Video Caption",
+    category: "tiktok",
+    instruction: "Write a TikTok video caption. Hook in the first 3 words. Under 150 characters for the main text. Include 3-5 relevant hashtags including one trending format hashtag. Casual, direct, slightly provocative tone.",
+  },
+  tiktok_hook_variations: {
+    label: "TikTok Hook Variations (5)",
+    category: "tiktok",
+    instruction: "Write 5 different TikTok hook lines (the first thing said or shown in the video). Each under 10 words. Vary the formats: controversial take, 'nobody talks about', 'the reason why', direct challenge, pattern interrupt. These need to stop the scroll in under 2 seconds.",
+  },
+
+  // YouTube
+  youtube_title_description: {
+    label: "YouTube Title + Description",
+    category: "youtube",
+    instruction: "Write a YouTube video title (under 60 characters, compelling, slightly curiosity-driven) and full description. Description should be 200-300 words with: 2-3 sentence hook, key topics covered with timestamps placeholder (00:00 format), relevant links section placeholder, and 10-15 SEO tags. Format clearly with TITLE: and DESCRIPTION: sections.",
+  },
+  youtube_shorts_caption: {
+    label: "YouTube Shorts Caption",
+    category: "youtube",
+    instruction: "Write a YouTube Shorts title (under 60 characters, hooks immediately) and a 1-2 sentence description. Include 5 hashtags. The title should work as both a search result and a scroll-stopper.",
+  },
+  youtube_timestamps: {
+    label: "YouTube Timestamps/Chapters",
+    category: "youtube",
+    instruction: "Create YouTube chapter timestamps from this content. Format as 00:00 - Chapter Title. Identify 8-12 natural section breaks. First chapter must start at 00:00. Each chapter title under 50 characters, descriptive and search-friendly.",
+  },
+  youtube_community_post: {
+    label: "YouTube Community Post",
+    category: "youtube",
+    instruction: "Write a YouTube community post (under 500 characters) teasing or summarizing this content. Include a question to drive comments. Casual tone that matches a creator talking to their audience.",
+  },
+
+  // Facebook
+  facebook_post: {
+    label: "Facebook Post",
+    category: "facebook",
+    instruction: "Write a Facebook post. 100-200 words. Conversational, warm tone. Hook in the first line (Facebook truncates after ~3 lines). Can be slightly longer and more narrative than other platforms. End with a question to encourage comments.",
+  },
+  facebook_reel_caption: {
+    label: "Facebook Reel Caption",
+    category: "facebook",
+    instruction: "Write a caption for a Facebook Reel. Under 100 words. Direct hook. Include 3-5 hashtags. Slightly warmer tone than TikTok — Facebook skews older.",
+  },
+
+  // Email
   email_subject: {
-    label: "Email Subject Lines",
-    instruction: "Write 5 email subject line options for a newsletter featuring this article. Under 60 characters each. Vary the approaches: curiosity, specificity, urgency, benefit. No clickbait. Return as a numbered list.",
+    label: "Email Subject Lines (5)",
+    category: "email",
+    instruction: "Write 5 email subject line options. Under 60 characters each. Vary the approaches: curiosity, specificity, urgency, benefit, personal. No clickbait. Return as a numbered list.",
   },
+  email_newsletter: {
+    label: "Newsletter Feature Block",
+    category: "email",
+    instruction: "Write a newsletter feature block (100-150 words). Includes: bold headline, 2-3 sentence hook, key takeaway or stat, and CTA button text. Format with clear [HEADLINE], [BODY], [CTA] sections.",
+  },
+  email_nurture: {
+    label: "Nurture Email (Full)",
+    category: "email",
+    instruction: "Write a full nurture email based on this content. Subject line + preview text + body (200-300 words). Personal tone, value-first, soft CTA. The reader should feel smarter after reading it, not sold to.",
+  },
+
+  // SEO & Blog
   meta_description: {
     label: "Meta Description",
-    instruction: "Write a meta description for this article. 150-160 characters. Accurate and compelling. No filler words. Return only the description text.",
+    category: "seo",
+    instruction: "Write a meta description. 150-160 characters. Accurate, compelling, includes primary keyword naturally. Return only the description text.",
+  },
+  blog_derivative: {
+    label: "Derivative Blog Post Titles (5)",
+    category: "seo",
+    instruction: "Generate 5 derivative blog post ideas that could be spun off from this content. Each with a title and 1-sentence description of what the post would cover. These should target different search intents — informational, comparison, how-to, listicle, opinion.",
+  },
+  seo_faq: {
+    label: "FAQ Schema Content (5 Q&As)",
+    category: "seo",
+    instruction: "Write 5 FAQ-style question and answer pairs derived from this content. Format as Q: and A: pairs. Questions should match how people actually search (natural language). Answers should be concise (2-3 sentences) and factual. These will be used in FAQ schema markup for SEO.",
   },
   summary: {
     label: "Executive Summary",
-    instruction: "Write a 2-3 sentence executive summary of this article. Direct, factual, no marketing language. Suitable for a busy reader who needs the core takeaway in 10 seconds.",
-  },
-  newsletter_blurb: {
-    label: "Newsletter Blurb",
-    instruction: "Write a short blurb (50-80 words) to introduce this article in an email newsletter. Make the reader want to click through. Casual but substantive.",
+    category: "seo",
+    instruction: "Write a 2-3 sentence executive summary. Direct, factual, no marketing language. Suitable for a busy reader who needs the core takeaway in 10 seconds.",
   },
 };
 
@@ -174,12 +296,16 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// GET /api/repurpose — returns available formats
+// GET /api/repurpose — returns available formats grouped by category
 export async function GET() {
+  const formats = Object.entries(FORMATS).map(([key, val]) => ({
+    key,
+    label: val.label,
+    category: val.category,
+  }));
+
   return NextResponse.json({
-    formats: Object.entries(FORMATS).map(([key, val]) => ({
-      key,
-      label: val.label,
-    })),
+    formats,
+    categories: FORMAT_CATEGORIES,
   });
 }
