@@ -27,6 +27,12 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const branding = useCmsBranding();
+
+  // Override browser tab title for admin
+  useEffect(() => {
+    document.title = `${branding.name} — Admin`;
+  }, [branding.name]);
+
   const [authed, setAuthed] = useState(false);
   const [user, setUser] = useState<CurrentUser | null>(null);
   const [loading, setLoading] = useState(true);
@@ -126,7 +132,7 @@ export default function AdminLayout({
               <span className="text-white text-xs font-bold">{branding.logoLetter}</span>
             </div>
             <div>
-              <h1 className="text-lg font-semibold text-neutral-900 leading-tight">
+              <h1 className="text-lg font-semibold text-neutral-900 leading-tight truncate max-w-[200px]">
                 {branding.name}
               </h1>
               <p className="text-[10px] uppercase tracking-widest text-neutral-400">
