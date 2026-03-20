@@ -13,7 +13,7 @@ const generalFields = [
 ];
 
 const cmsBrandingFields = [
-  { key: "cms_name", label: "Admin display name", placeholder: "Content Studio" },
+  { key: "cms_name", label: "Admin display name", placeholder: "ContentFoundry" },
   { key: "cms_logo_letter", label: "Logo letter (single character)", placeholder: "C" },
   { key: "cms_accent_color", label: "Accent color (hex)", placeholder: "#0f2d20" },
 ];
@@ -87,7 +87,7 @@ export default function SettingsAdmin() {
           onChange={(e) => update(f.key, e.target.value)}
           rows={3}
           placeholder={f.placeholder}
-          className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
         />
       ) : (
         <input
@@ -95,7 +95,7 @@ export default function SettingsAdmin() {
           value={settings[f.key] || ""}
           onChange={(e) => update(f.key, e.target.value)}
           placeholder={f.placeholder}
-          className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
         />
       )}
     </div>
@@ -164,7 +164,7 @@ export default function SettingsAdmin() {
                 type="number"
                 value={settings.popup_delay_seconds || ""}
                 onChange={(e) => update("popup_delay_seconds", e.target.value)}
-                className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
               />
             </div>
             <div>
@@ -175,7 +175,7 @@ export default function SettingsAdmin() {
                 type="number"
                 value={settings.popup_scroll_threshold || ""}
                 onChange={(e) => update("popup_scroll_threshold", e.target.value)}
-                className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
               />
             </div>
           </div>
@@ -186,7 +186,7 @@ export default function SettingsAdmin() {
             <input
               value={settings.popup_heading || ""}
               onChange={(e) => update("popup_heading", e.target.value)}
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
           <div className="mb-4">
@@ -197,7 +197,7 @@ export default function SettingsAdmin() {
               value={settings.popup_subheading || ""}
               onChange={(e) => update("popup_subheading", e.target.value)}
               rows={2}
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
           <div className="mb-4">
@@ -207,7 +207,7 @@ export default function SettingsAdmin() {
             <input
               value={settings.popup_cta_text || ""}
               onChange={(e) => update("popup_cta_text", e.target.value)}
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
           <div className="flex gap-6">

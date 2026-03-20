@@ -197,7 +197,7 @@ export default function VersionHistory({
                     key={v.id}
                     className={`px-5 py-3 cursor-pointer transition ${
                       isSelected
-                        ? "bg-indigo-50 border-l-2 border-indigo-600"
+                        ? "bg-teal-50 border-l-2 border-teal-600"
                         : isCompare
                           ? "bg-blue-50 border-l-2 border-blue-600"
                           : "hover:bg-neutral-50 border-l-2 border-transparent"
@@ -256,7 +256,7 @@ export default function VersionHistory({
               </p>
               <button
                 onClick={() => handleRestore(selectedVersion)}
-                className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 text-white text-xs font-medium rounded-lg hover:bg-indigo-700 transition"
+                className="flex items-center gap-1.5 px-3 py-1.5 bg-teal-600 text-white text-xs font-medium rounded-lg hover:bg-teal-700 transition"
               >
                 <RotateCcw className="w-3 h-3" />
                 Restore

@@ -9,9 +9,9 @@ export interface CmsBranding {
 }
 
 const DEFAULTS: CmsBranding = {
-  name: "Content Studio",
-  logoLetter: "C",
-  accentColor: "#0f2d20",
+  name: "ContentFoundry",
+  logoLetter: "CF",
+  accentColor: "#0d9488",
 };
 
 let cachedBranding: CmsBranding | null = null;

@@ -43,7 +43,7 @@ export default function FormActions({
         <button
           onClick={onPublish}
           disabled={saving}
-          className="px-4 py-2 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
+          className="px-4 py-2 bg-teal-600 text-white text-sm rounded-lg hover:bg-teal-700 transition disabled:opacity-50"
         >
           {saving ? "Publishing\u2026" : saved ? "Published!" : published ? "Update" : "Publish"}
         </button>

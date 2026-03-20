@@ -41,7 +41,7 @@ export default function AdminLogin() {
       <div className="w-full max-w-sm">
         <div className="bg-white border border-neutral-200 rounded-xl shadow-sm p-8">
           <div className="text-center mb-8">
-            <p className="text-xs font-bold uppercase tracking-[3px] text-indigo-700 mb-2">
+            <p className="text-xs font-bold uppercase tracking-[3px] text-teal-700 mb-2">
               NUTRAGLP
             </p>
             <h1 className="text-lg font-semibold text-neutral-900">Admin</h1>
@@ -55,7 +55,7 @@ export default function AdminLogin() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 border border-neutral-200 rounded-lg text-sm text-neutral-900 focus:outline-none focus:border-indigo-500 transition"
+              className="w-full px-4 py-3 border border-neutral-200 rounded-lg text-sm text-neutral-900 focus:outline-none focus:border-teal-500 transition"
               placeholder="Enter admin password"
               autoFocus
               required
@@ -68,7 +68,7 @@ export default function AdminLogin() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full mt-4 px-4 py-3 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
+              className="w-full mt-4 px-4 py-3 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-700 transition disabled:opacity-50"
             >
               {loading ? "Signing in..." : "Sign in"}
             </button>

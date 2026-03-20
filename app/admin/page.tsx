@@ -73,8 +73,8 @@ export default function AdminDashboard() {
       count: stats?.pages ?? "\u2014",
       href: "/admin/pages",
       icon: FileText,
-      accent: "text-indigo-600",
-      bg: "bg-indigo-50",
+      accent: "text-teal-600",
+      bg: "bg-teal-50",
     },
     {
       label: "Blog Posts",
@@ -128,14 +128,14 @@ export default function AdminDashboard() {
       </div>
 
       {showGuide && (
-        <div className="relative bg-gradient-to-br from-indigo-50 to-violet-50 border border-indigo-200 rounded-xl p-6 mb-8">
+        <div className="relative bg-gradient-to-br from-teal-50 to-violet-50 border border-teal-200 rounded-xl p-6 mb-8">
           <button
             onClick={dismissGuide}
             className="absolute top-3 right-3 p-1 text-neutral-400 hover:text-neutral-600 transition"
           >
             <X className="w-4 h-4" />
           </button>
-          <h2 className="text-sm font-semibold text-neutral-900 mb-1">Welcome to Content Studio</h2>
+          <h2 className="text-sm font-semibold text-neutral-900 mb-1">Welcome to ContentFoundry</h2>
           <p className="text-xs text-neutral-500 mb-4">Try these to see what the platform can do.</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             <Link
@@ -146,7 +146,7 @@ export default function AdminDashboard() {
                 <Wand2 className="w-4 h-4 text-violet-600" />
               </div>
               <div>
-                <p className="text-sm font-medium text-neutral-900 group-hover:text-indigo-700 transition">Write a blog post with AI</p>
+                <p className="text-sm font-medium text-neutral-900 group-hover:text-teal-700 transition">Write a blog post with AI</p>
                 <p className="text-[11px] text-neutral-500 mt-0.5">Type a topic, hit Draft. The AI writes the whole post.</p>
               </div>
             </Link>
@@ -154,11 +154,11 @@ export default function AdminDashboard() {
               href="/admin/repurpose"
               className="flex items-start gap-3 bg-white/80 rounded-lg p-4 no-underline hover:bg-white transition group"
             >
-              <div className="w-8 h-8 rounded-lg bg-indigo-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <RefreshCw className="w-4 h-4 text-indigo-600" />
+              <div className="w-8 h-8 rounded-lg bg-teal-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <RefreshCw className="w-4 h-4 text-teal-600" />
               </div>
               <div>
-                <p className="text-sm font-medium text-neutral-900 group-hover:text-indigo-700 transition">Repurpose into 25+ formats</p>
+                <p className="text-sm font-medium text-neutral-900 group-hover:text-teal-700 transition">Repurpose into 25+ formats</p>
                 <p className="text-[11px] text-neutral-500 mt-0.5">Turn a blog post into tweets, LinkedIn, email, and more.</p>
               </div>
             </Link>
@@ -170,7 +170,7 @@ export default function AdminDashboard() {
                 <Palette className="w-4 h-4 text-amber-600" />
               </div>
               <div>
-                <p className="text-sm font-medium text-neutral-900 group-hover:text-indigo-700 transition">Set your brand voice</p>
+                <p className="text-sm font-medium text-neutral-900 group-hover:text-teal-700 transition">Set your brand voice</p>
                 <p className="text-[11px] text-neutral-500 mt-0.5">Define tone, audience, and style. AI follows your guidelines.</p>
               </div>
             </Link>
@@ -207,7 +207,7 @@ export default function AdminDashboard() {
         <div className="flex flex-wrap gap-3">
           <Link
             href="/admin/blog/new"
-            className="flex items-center gap-1.5 px-4 py-2 bg-indigo-600 text-white text-sm rounded-lg no-underline hover:bg-indigo-700 transition"
+            className="flex items-center gap-1.5 px-4 py-2 bg-teal-600 text-white text-sm rounded-lg no-underline hover:bg-teal-700 transition"
           >
             <Plus className="w-3.5 h-3.5" />
             New blog post

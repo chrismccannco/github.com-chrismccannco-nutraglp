@@ -151,7 +151,7 @@ export default function AiAssistPanel({
   };
 
   return (
-    <div className={`bg-gradient-to-br from-violet-50 to-indigo-50 border border-violet-200 rounded-xl ${compact ? "p-3" : "p-5"}`}>
+    <div className={`bg-gradient-to-br from-violet-50 to-teal-50 border border-violet-200 rounded-xl ${compact ? "p-3" : "p-5"}`}>
       <div className="flex items-center gap-2 mb-3">
         <div className={`${compact ? "w-6 h-6" : "w-7 h-7"} rounded-lg bg-violet-600 flex items-center justify-center`}>
           <Wand2 className={`${compact ? "w-3 h-3" : "w-3.5 h-3.5"} text-white`} />
@@ -228,7 +228,7 @@ export default function AiAssistPanel({
       {error && <p className="mt-2 text-xs text-red-600">{error}</p>}
       {success && (
         <div className="mt-2 px-3 py-1.5 bg-white/80 rounded-lg border border-violet-100">
-          <p className="text-xs text-indigo-700 font-medium">{success}</p>
+          <p className="text-xs text-teal-700 font-medium">{success}</p>
         </div>
       )}
     </div>

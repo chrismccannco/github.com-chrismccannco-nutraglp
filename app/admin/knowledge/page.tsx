@@ -202,7 +202,7 @@ export default function KnowledgePage() {
                       title={doc.enabled === 1 ? 'Disable (exclude from AI)' : 'Enable (include in AI)'}
                       className="p-2 text-neutral-400 hover:text-neutral-600 rounded-lg hover:bg-neutral-50 transition-colors"
                     >
-                      {doc.enabled === 1 ? <ToggleRight size={16} className="text-indigo-500" /> : <ToggleLeft size={16} />}
+                      {doc.enabled === 1 ? <ToggleRight size={16} className="text-teal-500" /> : <ToggleLeft size={16} />}
                     </button>
                     <button
                       onClick={() => deleteDoc(doc.id, doc.title)}

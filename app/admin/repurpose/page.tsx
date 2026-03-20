@@ -281,7 +281,7 @@ export default function RepurposePage() {
             </div>
 
             <button onClick={generate} disabled={loading || !content || selectedFormats.length === 0}
-              className="flex items-center gap-2 px-5 py-2.5 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-500 disabled:opacity-50 transition-colors w-full justify-center">
+              className="flex items-center gap-2 px-5 py-2.5 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-500 disabled:opacity-50 transition-colors w-full justify-center">
               {loading ? <Loader2 size={14} className="animate-spin" /> : <RefreshCw size={14} />}
               {loading ? 'Generating...' : selectedFormats.length === 0 ? 'Select formats above' : `Generate ${selectedFormats.length} format${selectedFormats.length !== 1 ? 's' : ''}`}
             </button>

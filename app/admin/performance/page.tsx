@@ -86,13 +86,13 @@ function rateMetric(value: number | null, good: number, poor: number): CWVRating
 }
 
 const ratingColors: Record<CWVRating, string> = {
-  good: "text-indigo-700 bg-indigo-50",
+  good: "text-teal-700 bg-teal-50",
   "needs-improvement": "text-amber-700 bg-amber-50",
   poor: "text-red-700 bg-red-50",
 };
 
 const ratingDots: Record<CWVRating, string> = {
-  good: "bg-indigo-500",
+  good: "bg-teal-500",
   "needs-improvement": "bg-amber-500",
   poor: "bg-red-500",
 };
@@ -111,7 +111,7 @@ function DistBar({ good, needs, poor }: { good: number; needs: number; poor: num
   const pPct = (poor / total) * 100;
   return (
     <div className="flex h-2 rounded-full overflow-hidden">
-      {gPct > 0 && <div className="bg-indigo-500" style={{ width: `${gPct}%` }} />}
+      {gPct > 0 && <div className="bg-teal-500" style={{ width: `${gPct}%` }} />}
       {nPct > 0 && <div className="bg-amber-400" style={{ width: `${nPct}%` }} />}
       {pPct > 0 && <div className="bg-red-500" style={{ width: `${pPct}%` }} />}
     </div>
@@ -138,7 +138,7 @@ function SparkLine({ data, maxVal }: { data: (number | null)[]; maxVal: number }
 
   return (
     <div className="flex items-center gap-1.5">
-      <svg width={width} height={height} className="text-indigo-500">
+      <svg width={width} height={height} className="text-teal-500">
         <polyline
           points={points}
           fill="none"
@@ -148,7 +148,7 @@ function SparkLine({ data, maxVal }: { data: (number | null)[]; maxVal: number }
           strokeLinejoin="round"
         />
       </svg>
-      {trending === "down" && <TrendingDown className="w-3 h-3 text-indigo-600" />}
+      {trending === "down" && <TrendingDown className="w-3 h-3 text-teal-600" />}
       {trending === "up" && <TrendingUp className="w-3 h-3 text-red-500" />}
       {trending === "flat" && <Minus className="w-3 h-3 text-neutral-400" />}
     </div>
@@ -185,7 +185,7 @@ export default function PerformanceDashboard() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-xl font-semibold text-neutral-900 flex items-center gap-2">
-            <Activity className="w-5 h-5 text-indigo-600" />
+            <Activity className="w-5 h-5 text-teal-600" />
             Performance
           </h1>
           <p className="text-sm text-neutral-500 mt-1">
@@ -196,7 +196,7 @@ export default function PerformanceDashboard() {
           <select
             value={days}
             onChange={(e) => setDays(Number(e.target.value))}
-            className="text-xs border border-neutral-300 rounded-lg px-2.5 py-1.5 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="text-xs border border-neutral-300 rounded-lg px-2.5 py-1.5 bg-white focus:outline-none focus:ring-2 focus:ring-teal-500"
           >
             <option value={1}>Last 24 hours</option>
             <option value={7}>Last 7 days</option>
@@ -298,7 +298,7 @@ export default function PerformanceDashboard() {
             </div>
             <div className="flex items-center gap-4 mt-4 pt-3 border-t border-neutral-100">
               <span className="flex items-center gap-1.5 text-[10px] text-neutral-500">
-                <span className="w-2 h-2 rounded-full bg-indigo-500" /> Good
+                <span className="w-2 h-2 rounded-full bg-teal-500" /> Good
               </span>
               <span className="flex items-center gap-1.5 text-[10px] text-neutral-500">
                 <span className="w-2 h-2 rounded-full bg-amber-400" /> Needs improvement
@@ -325,7 +325,7 @@ export default function PerformanceDashboard() {
                       key={p.path}
                       onClick={() => setPathFilter(pathFilter === p.path ? "" : p.path)}
                       className={`w-full text-left px-5 py-3 flex items-center gap-3 hover:bg-neutral-50 transition ${
-                        pathFilter === p.path ? "bg-indigo-50" : ""
+                        pathFilter === p.path ? "bg-teal-50" : ""
                       }`}
                     >
                       <div className="flex-1 min-w-0">
@@ -394,7 +394,7 @@ export default function PerformanceDashboard() {
             {s!.total_samples.toLocaleString()} samples collected over the last {days} day{days > 1 ? "s" : ""}
             {pathFilter && ` for ${pathFilter}`}
             {pathFilter && (
-              <button onClick={() => setPathFilter("")} className="text-indigo-600 ml-2 underline">
+              <button onClick={() => setPathFilter("")} className="text-teal-600 ml-2 underline">
                 Clear filter
               </button>
             )}

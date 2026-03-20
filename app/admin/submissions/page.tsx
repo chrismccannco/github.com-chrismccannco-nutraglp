@@ -130,7 +130,7 @@ export default function SubmissionsPage() {
                   <td className="px-4 py-3 text-neutral-900 font-medium">{r.email}</td>
                   <td className="px-4 py-3 text-neutral-600">{r.name || "\u2014"}</td>
                   <td className="px-4 py-3">
-                    <span className="inline-block px-2 py-0.5 bg-indigo-50 text-indigo-700 text-xs rounded-full">
+                    <span className="inline-block px-2 py-0.5 bg-teal-50 text-teal-700 text-xs rounded-full">
                       {r.form_name}
                     </span>
                   </td>

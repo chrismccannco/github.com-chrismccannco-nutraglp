@@ -120,7 +120,7 @@ export default function TestimonialsAdmin() {
           {row.avatar_url ? (
             <img src={row.avatar_url} alt="" className="w-8 h-8 rounded-full object-cover" />
           ) : (
-            <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-xs font-semibold text-indigo-700">
+            <div className="w-8 h-8 rounded-full bg-teal-100 flex items-center justify-center text-xs font-semibold text-teal-700">
               {row.name.charAt(0).toUpperCase()}
             </div>
           )}
@@ -182,7 +182,7 @@ export default function TestimonialsAdmin() {
         </div>
         <button
           onClick={startNew}
-          className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition"
+          className="flex items-center gap-2 px-4 py-2 bg-teal-600 text-white text-sm rounded-lg hover:bg-teal-700 transition"
         >
           <Plus className="w-4 h-4" /> Add
         </button>
@@ -235,7 +235,7 @@ export default function TestimonialsAdmin() {
                     <input
                       value={form.name || ""}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
                     />
                   </div>
                   <div>
@@ -246,7 +246,7 @@ export default function TestimonialsAdmin() {
                       value={form.title || ""}
                       onChange={(e) => setForm({ ...form, title: e.target.value })}
                       placeholder="e.g. Lost 30 lbs in 3 months"
-                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
                     />
                   </div>
                 </div>
@@ -258,7 +258,7 @@ export default function TestimonialsAdmin() {
                     value={form.quote || ""}
                     onChange={(e) => setForm({ ...form, quote: e.target.value })}
                     rows={3}
-                    className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
@@ -269,7 +269,7 @@ export default function TestimonialsAdmin() {
                     <select
                       value={form.rating ?? 5}
                       onChange={(e) => setForm({ ...form, rating: parseInt(e.target.value) })}
-                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
                     >
                       {[5, 4, 3, 2, 1].map((n) => (
                         <option key={n} value={n}>
@@ -286,7 +286,7 @@ export default function TestimonialsAdmin() {
                       value={form.avatar_url || ""}
                       onChange={(e) => setForm({ ...form, avatar_url: e.target.value })}
                       placeholder="https://..."
-                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
                     />
                   </div>
                 </div>
@@ -301,7 +301,7 @@ export default function TestimonialsAdmin() {
                       type="number"
                       value={form.sort_order ?? 0}
                       onChange={(e) => setForm({ ...form, sort_order: parseInt(e.target.value) || 0 })}
-                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
                     />
                   </div>
                   <div className="flex items-center gap-2 pt-5">
@@ -309,7 +309,7 @@ export default function TestimonialsAdmin() {
                       type="checkbox"
                       checked={!!form.featured}
                       onChange={(e) => setForm({ ...form, featured: e.target.checked ? 1 : 0 })}
-                      className="rounded border-neutral-300 text-indigo-600 focus:ring-indigo-500"
+                      className="rounded border-neutral-300 text-teal-600 focus:ring-teal-500"
                     />
                     <label className="text-xs text-neutral-600">Featured</label>
                   </div>
@@ -318,7 +318,7 @@ export default function TestimonialsAdmin() {
                       type="checkbox"
                       checked={!!form.published}
                       onChange={(e) => setForm({ ...form, published: e.target.checked ? 1 : 0 })}
-                      className="rounded border-neutral-300 text-indigo-600 focus:ring-indigo-500"
+                      className="rounded border-neutral-300 text-teal-600 focus:ring-teal-500"
                     />
                     <label className="text-xs text-neutral-600">Published</label>
                   </div>
@@ -346,7 +346,7 @@ export default function TestimonialsAdmin() {
                 <button
                   onClick={saveEdit}
                   disabled={saving || !form.name || !form.quote}
-                  className="px-4 py-2 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
+                  className="px-4 py-2 bg-teal-600 text-white text-sm rounded-lg hover:bg-teal-700 transition disabled:opacity-50"
                 >
                   {saving ? "Saving…" : isNew ? "Create" : "Save"}
                 </button>

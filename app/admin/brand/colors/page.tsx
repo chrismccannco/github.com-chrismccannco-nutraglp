@@ -69,7 +69,7 @@ export default function ColorsPage() {
                     title="Copy hex"
                   >
                     {copied === key
-                      ? <Check size={11} className="text-indigo-600" />
+                      ? <Check size={11} className="text-teal-600" />
                       : <Copy size={11} className="text-neutral-600" />}
                   </button>
                 </div>
@@ -124,7 +124,7 @@ export default function ColorsPage() {
                           className="opacity-40 hover:opacity-100 transition-opacity"
                         >
                           {copied === `${key}-${shade}`
-                            ? <Check size={9} className="text-indigo-500" />
+                            ? <Check size={9} className="text-teal-500" />
                             : <Copy size={9} />}
                         </button>
                       </div>
@@ -164,7 +164,7 @@ export default function ColorsPage() {
                   <div className="flex items-center justify-between mt-1">
                     <span className="text-sm font-mono font-semibold text-neutral-900">{ratio}:1</span>
                     <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${
-                      pass ? 'bg-indigo-100 text-indigo-700' : 'bg-red-100 text-red-600'
+                      pass ? 'bg-teal-100 text-teal-700' : 'bg-red-100 text-red-600'
                     }`}>
                       {level}
                     </span>

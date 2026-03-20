@@ -109,7 +109,7 @@ export default function WebhooksAdmin() {
         </div>
         <button
           onClick={() => { setShowNew(true); setError(""); }}
-          className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors"
+          className="px-4 py-2 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-700 transition-colors"
         >
           + New Webhook
         </button>
@@ -127,7 +127,7 @@ export default function WebhooksAdmin() {
                   value={newUrl}
                   onChange={(e) => setNewUrl(e.target.value)}
                   placeholder="https://example.com/webhook"
-                  className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
                 />
               </div>
               <div>
@@ -136,7 +136,7 @@ export default function WebhooksAdmin() {
                   value={newSecret}
                   onChange={(e) => setNewSecret(e.target.value)}
                   placeholder="Shared secret for request verification"
-                  className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
                 />
               </div>
               <div>
@@ -148,7 +148,7 @@ export default function WebhooksAdmin() {
                         type="checkbox"
                         checked={newEvents.includes(evt)}
                         onChange={() => toggleEvent(evt)}
-                        className="rounded border-neutral-300 text-indigo-600 focus:ring-indigo-500"
+                        className="rounded border-neutral-300 text-teal-600 focus:ring-teal-500"
                       />
                       {evt}
                     </label>
@@ -164,7 +164,7 @@ export default function WebhooksAdmin() {
               <button
                 onClick={handleCreate}
                 disabled={creating || !newUrl.trim()}
-                className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50"
+                className="px-4 py-2 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-700 transition-colors disabled:opacity-50"
               >
                 {creating ? "Creating\u2026" : "Create Webhook"}
               </button>
@@ -187,7 +187,7 @@ export default function WebhooksAdmin() {
             <div key={wh.id} className="bg-white rounded-xl border border-neutral-200 p-4 flex items-center justify-between">
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
-                  <span className={`w-2 h-2 rounded-full ${wh.enabled ? "bg-indigo-500" : "bg-neutral-300"}`} />
+                  <span className={`w-2 h-2 rounded-full ${wh.enabled ? "bg-teal-500" : "bg-neutral-300"}`} />
                   <p className="text-sm font-medium text-neutral-900 truncate">{wh.url}</p>
                 </div>
                 <div className="flex items-center gap-3 mt-1.5">
@@ -211,7 +211,7 @@ export default function WebhooksAdmin() {
                   className={`px-3 py-1 text-xs rounded-lg transition ${
                     wh.enabled
                       ? "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
-                      : "bg-indigo-50 text-indigo-700 hover:bg-indigo-100"
+                      : "bg-teal-50 text-teal-700 hover:bg-teal-100"
                   }`}
                 >
                   {wh.enabled ? "Disable" : "Enable"}

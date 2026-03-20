@@ -177,7 +177,7 @@ export default function MediaLibrary() {
           <button
             onClick={() => fileRef.current?.click()}
             disabled={uploading}
-            className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
+            className="flex items-center gap-2 px-4 py-2 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-700 transition disabled:opacity-50"
           >
             <Upload className="w-4 h-4" />
             {uploading ? "Uploading..." : "Upload"}
@@ -194,7 +194,7 @@ export default function MediaLibrary() {
           onDrop={handleDrop}
           className={`border-2 border-dashed rounded-xl p-6 text-center mb-6 transition cursor-pointer ${
             dragOver
-              ? "border-indigo-500 bg-indigo-50"
+              ? "border-teal-500 bg-teal-50"
               : "border-neutral-200 bg-neutral-50 hover:border-neutral-300"
           }`}
           onClick={() => fileRef.current?.click()}
@@ -231,7 +231,7 @@ export default function MediaLibrary() {
                 onClick={() => { setSelected(item); setAltText(null); }}
                 className={`bg-white border rounded-xl overflow-hidden cursor-pointer group transition ${
                   selected?.url === item.url
-                    ? "border-indigo-500 ring-2 ring-indigo-100"
+                    ? "border-teal-500 ring-2 ring-teal-100"
                     : "border-neutral-200 hover:border-neutral-300"
                 }`}
               >
@@ -316,7 +316,7 @@ export default function MediaLibrary() {
                 >
                   <span className="text-neutral-700">Original</span>
                   {copied === "original" ? (
-                    <Check className="w-3.5 h-3.5 text-indigo-600" />
+                    <Check className="w-3.5 h-3.5 text-teal-600" />
                   ) : (
                     <Copy className="w-3.5 h-3.5 text-neutral-400" />
                   )}
@@ -335,7 +335,7 @@ export default function MediaLibrary() {
                   >
                     <span className="text-neutral-700">WebP</span>
                     {copied === "webp" ? (
-                      <Check className="w-3.5 h-3.5 text-indigo-600" />
+                      <Check className="w-3.5 h-3.5 text-teal-600" />
                     ) : (
                       <Copy className="w-3.5 h-3.5 text-neutral-400" />
                     )}
@@ -361,7 +361,7 @@ export default function MediaLibrary() {
                           >
                             <span className="text-neutral-700">{w}px wide</span>
                             {copied === `w${w}` ? (
-                              <Check className="w-3.5 h-3.5 text-indigo-600" />
+                              <Check className="w-3.5 h-3.5 text-teal-600" />
                             ) : (
                               <Copy className="w-3.5 h-3.5 text-neutral-400" />
                             )}
@@ -387,15 +387,15 @@ export default function MediaLibrary() {
                         );
                         copyToClipboard(entries.join(", "), "srcset");
                       }}
-                      className="w-full flex items-center justify-between px-3 py-2 text-xs bg-indigo-50 rounded-lg hover:bg-indigo-100 transition"
+                      className="w-full flex items-center justify-between px-3 py-2 text-xs bg-teal-50 rounded-lg hover:bg-teal-100 transition"
                     >
-                      <span className="text-indigo-700 font-medium">
+                      <span className="text-teal-700 font-medium">
                         Copy srcset
                       </span>
                       {copied === "srcset" ? (
-                        <Check className="w-3.5 h-3.5 text-indigo-600" />
+                        <Check className="w-3.5 h-3.5 text-teal-600" />
                       ) : (
-                        <Copy className="w-3.5 h-3.5 text-indigo-600" />
+                        <Copy className="w-3.5 h-3.5 text-teal-600" />
                       )}
                     </button>
                   )}

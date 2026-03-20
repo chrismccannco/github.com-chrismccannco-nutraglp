@@ -209,7 +209,7 @@ export default function TemplateEditPage() {
           </div>
           <div className="flex items-center gap-3">
             {saving && <span className="flex items-center gap-1.5 text-xs text-neutral-400"><Loader2 size={12} className="animate-spin" /> Saving...</span>}
-            {saved && <span className="flex items-center gap-1.5 text-xs text-indigo-600"><Check size={12} /> Saved</span>}
+            {saved && <span className="flex items-center gap-1.5 text-xs text-teal-600"><Check size={12} /> Saved</span>}
             <button onClick={doSave} disabled={saving} className="flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-sm font-medium rounded-lg hover:bg-neutral-700 disabled:opacity-50 transition-colors">
               <Check size={13} /> Save
             </button>
@@ -338,7 +338,7 @@ export default function TemplateEditPage() {
               <button
                 onClick={executeTemplate}
                 disabled={running}
-                className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-500 disabled:opacity-50 transition-colors w-full justify-center"
+                className="flex items-center gap-2 px-4 py-2 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-500 disabled:opacity-50 transition-colors w-full justify-center"
               >
                 {running ? <Loader2 size={13} className="animate-spin" /> : <Play size={13} />}
                 {running ? 'Generating...' : 'Generate'}

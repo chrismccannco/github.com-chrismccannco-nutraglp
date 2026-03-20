@@ -93,7 +93,7 @@ export default function StatsGridBlockForm({ data, onChange }: Props) {
         <button
           type="button"
           onClick={addStat}
-          className="flex items-center gap-1 text-xs text-indigo-600 hover:text-indigo-700 mt-1"
+          className="flex items-center gap-1 text-xs text-teal-600 hover:text-teal-700 mt-1"
         >
           <Plus className="w-3.5 h-3.5" /> Add stat
         </button>

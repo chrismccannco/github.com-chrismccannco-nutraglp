@@ -13,7 +13,7 @@ function CodeBlock({ code, id, label, copied, onCopy }: {
       <div className="flex items-center justify-between px-4 py-2.5 bg-neutral-800 text-neutral-300">
         <span className="text-xs font-mono">{label}</span>
         <button onClick={() => onCopy(code, id)} className="text-xs flex items-center gap-1.5 hover:text-white transition-colors">
-          {copied === id ? <><Check size={11} className="text-indigo-400" /> Copied</> : <><Copy size={11} /> Copy</>}
+          {copied === id ? <><Check size={11} className="text-teal-400" /> Copied</> : <><Copy size={11} /> Copy</>}
         </button>
       </div>
       <pre className="bg-neutral-900 text-neutral-200 text-xs p-5 overflow-x-auto font-mono leading-relaxed whitespace-pre">{code}</pre>
@@ -98,9 +98,9 @@ module.exports = {
       />
 
       {/* Live endpoint callout */}
-      <div className="flex items-center gap-3 bg-indigo-50 border border-indigo-200 rounded-xl px-4 py-3">
-        <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
-        <p className="text-sm text-indigo-800">
+      <div className="flex items-center gap-3 bg-teal-50 border border-teal-200 rounded-xl px-4 py-3">
+        <div className="w-2 h-2 rounded-full bg-teal-500 animate-pulse" />
+        <p className="text-sm text-teal-800">
           Live endpoint:{' '}
           <a
             href="/api/brand-css"

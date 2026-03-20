@@ -192,7 +192,7 @@ export default function VoiceEditPage() {
             </span>
           )}
           {saved && (
-            <span className="flex items-center gap-1.5 text-xs text-indigo-600">
+            <span className="flex items-center gap-1.5 text-xs text-teal-600">
               <Check size={12} /> Saved
             </span>
           )}

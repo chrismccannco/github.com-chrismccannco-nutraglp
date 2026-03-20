@@ -128,7 +128,7 @@ export default function KnowledgeEditPage() {
               />
               <div className="flex items-center gap-3 mt-1">
                 <span className="text-xs text-neutral-400">{doc.word_count.toLocaleString()} words</span>
-                <span className={`text-xs ${doc.enabled === 1 ? 'text-indigo-600' : 'text-neutral-400'}`}>
+                <span className={`text-xs ${doc.enabled === 1 ? 'text-teal-600' : 'text-neutral-400'}`}>
                   {doc.enabled === 1 ? 'Active in AI' : 'Disabled'}
                 </span>
               </div>
@@ -141,7 +141,7 @@ export default function KnowledgeEditPage() {
               </span>
             )}
             {saved && (
-              <span className="flex items-center gap-1.5 text-xs text-indigo-600">
+              <span className="flex items-center gap-1.5 text-xs text-teal-600">
                 <Check size={12} /> Saved
               </span>
             )}
@@ -188,7 +188,7 @@ export default function KnowledgeEditPage() {
               onClick={() => update('enabled', doc.enabled === 1 ? 0 : 1)}
               className={`w-full px-3 py-2 border rounded-lg text-sm font-medium transition-colors ${
                 doc.enabled === 1
-                  ? 'bg-indigo-50 border-indigo-200 text-indigo-700'
+                  ? 'bg-teal-50 border-teal-200 text-teal-700'
                   : 'bg-neutral-50 border-neutral-200 text-neutral-500'
               }`}
             >

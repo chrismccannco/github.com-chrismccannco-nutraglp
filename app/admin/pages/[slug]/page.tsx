@@ -175,12 +175,12 @@ export default function EditPage() {
             }}
             className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-full transition ${
               published
-                ? "bg-indigo-50 text-indigo-700 hover:bg-indigo-100"
+                ? "bg-teal-50 text-teal-700 hover:bg-teal-100"
                 : "bg-amber-50 text-amber-700 hover:bg-amber-100"
             }`}
             title={published ? "Click to unpublish" : "Click to publish"}
           >
-            <span className={`w-1.5 h-1.5 rounded-full ${published ? "bg-indigo-500" : "bg-amber-500"}`} />
+            <span className={`w-1.5 h-1.5 rounded-full ${published ? "bg-teal-500" : "bg-amber-500"}`} />
             {published ? "Live" : "Draft"}
           </button>
           <a
@@ -228,7 +228,7 @@ export default function EditPage() {
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
         />
       </FormSection>
 
@@ -240,7 +240,7 @@ export default function EditPage() {
               value={metaDesc}
               onChange={(e) => setMetaDesc(e.target.value)}
               rows={2}
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
           <div>
@@ -249,7 +249,7 @@ export default function EditPage() {
               value={metaTitle}
               onChange={(e) => setMetaTitle(e.target.value)}
               placeholder="Override page title for search engines"
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
             <p className="text-xs text-neutral-400 mt-1">{metaTitle.length}/60 characters</p>
           </div>
@@ -259,7 +259,7 @@ export default function EditPage() {
               value={ogImage}
               onChange={(e) => setOgImage(e.target.value)}
               placeholder="https://..."
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
             {ogImage && (
               <img src={ogImage} alt="OG preview" className="mt-2 rounded-lg max-h-32 object-cover border border-neutral-200" />

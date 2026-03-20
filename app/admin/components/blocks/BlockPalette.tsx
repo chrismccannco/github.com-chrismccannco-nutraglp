@@ -23,10 +23,10 @@ export default function BlockPalette({ onAdd }: BlockPaletteProps) {
               key={meta.type}
               type="button"
               onClick={() => onAdd(meta.type)}
-              className="flex flex-col items-center gap-1.5 p-3 rounded-md border border-neutral-100 hover:border-indigo-300 hover:bg-indigo-50/40 transition-colors text-center group"
+              className="flex flex-col items-center gap-1.5 p-3 rounded-md border border-neutral-100 hover:border-teal-300 hover:bg-teal-50/40 transition-colors text-center group"
             >
-              <Icon className="w-5 h-5 text-neutral-400 group-hover:text-indigo-600 transition-colors" />
-              <span className="text-[11px] font-medium text-neutral-600 group-hover:text-indigo-700 leading-tight">
+              <Icon className="w-5 h-5 text-neutral-400 group-hover:text-teal-600 transition-colors" />
+              <span className="text-[11px] font-medium text-neutral-600 group-hover:text-teal-700 leading-tight">
                 {meta.label}
               </span>
             </button>

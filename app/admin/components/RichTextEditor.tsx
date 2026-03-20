@@ -31,7 +31,7 @@ function ToolbarButton({
       title={title}
       className={`px-2 py-1 text-xs rounded transition ${
         active
-          ? "bg-indigo-100 text-indigo-800 font-semibold"
+          ? "bg-teal-100 text-teal-800 font-semibold"
           : "text-neutral-600 hover:bg-neutral-100"
       }`}
     >
@@ -54,7 +54,7 @@ export default function RichTextEditor({
       }),
       Link.configure({
         openOnClick: false,
-        HTMLAttributes: { class: "text-indigo-700 underline" },
+        HTMLAttributes: { class: "text-teal-700 underline" },
       }),
       Image.configure({
         HTMLAttributes: { class: "rounded-lg max-w-full" },
@@ -96,7 +96,7 @@ export default function RichTextEditor({
 
   return (
     <>
-      <div className="border border-neutral-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-indigo-500 focus-within:border-indigo-500">
+      <div className="border border-neutral-300 rounded-lg overflow-hidden focus-within:ring-2 focus-within:ring-teal-500 focus-within:border-teal-500">
         {/* Toolbar */}
         <div className="flex flex-wrap gap-0.5 px-2 py-1.5 border-b border-neutral-200 bg-neutral-50">
           <ToolbarButton
