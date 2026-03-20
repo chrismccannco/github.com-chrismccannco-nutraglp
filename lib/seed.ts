@@ -571,7 +571,7 @@ export async function seed() {
   await db.execute({ sql: settingSql, args: ["instagram", "https://www.instagram.com/nutraglp"] });
   await db.execute({ sql: settingSql, args: ["twitter", "https://x.com/nutraglp"] });
   await db.execute({ sql: settingSql, args: ["copyright", "\u00a9 {year} NutraGLP. All rights reserved."] });
-  await db.execute({ sql: settingSql, args: ["admin_password", "nutraglp-admin-2026"] });
+  await db.execute({ sql: settingSql, args: ["admin_password", "get-content-foundry-2026"] });
 
   // Popup / Email Capture defaults
   await db.execute({ sql: settingSql, args: ["popup_enabled", "true"] });

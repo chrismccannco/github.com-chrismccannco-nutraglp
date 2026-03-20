@@ -77,6 +77,31 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Wrong password" }, { status: 401 });
     }
 
+    // Check trial expiration (skip if no trial_signups table yet)
+    try {
+      const trialCheck = await db.execute(
+        "SELECT COUNT(*) as count FROM trial_signups"
+      );
+      const hasTrials = Number(trialCheck.rows[0].count) > 0;
+      if (hasTrials) {
+        // Find the most recent active trial
+        const activeTrial = await db.execute(
+          "SELECT * FROM trial_signups WHERE active = 1 ORDER BY started_at DESC LIMIT 1"
+        );
+        if (activeTrial.rows.length > 0) {
+          const expiresAt = new Date(String(activeTrial.rows[0].expires_at));
+          if (new Date() > expiresAt) {
+            return NextResponse.json(
+              { error: "Trial expired. Visit getcontentfoundry.com to learn about paid plans." },
+              { status: 403 }
+            );
+          }
+        }
+      }
+    } catch {
+      // trial_signups table doesn't exist yet — skip check
+    }
+
     // Bootstrap: create default admin user if none exist
     const usersResult = await db.execute("SELECT COUNT(*) as count FROM admin_users");
     if (Number(usersResult.rows[0].count) === 0) {
