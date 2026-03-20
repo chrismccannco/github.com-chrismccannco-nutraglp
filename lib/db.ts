@@ -459,6 +459,14 @@ export async function initDb(): Promise<Client> {
       last_triggered_at DATETIME,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
+
+    CREATE TABLE IF NOT EXISTS trial_signups (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      email TEXT UNIQUE NOT NULL,
+      started_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      expires_at DATETIME NOT NULL,
+      active INTEGER DEFAULT 1
+    );
   `);
 
   // Add columns that may not exist on older databases
