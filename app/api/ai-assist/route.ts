@@ -145,7 +145,7 @@ Use heading and paragraph fields to create logical sections. Use half-width for 
 
 /**
  * POST /api/ai-assist
- * Universal AI content generation endpoint.
+ * Universal AI content generation endpoint — streams the response to avoid timeouts.
  * Body: { contentType, prompt, voiceId?, personaId?, existingContent? }
  */
 export async function POST(req: NextRequest) {
@@ -186,6 +186,8 @@ export async function POST(req: NextRequest) {
       : prompt;
 
     const startTime = Date.now();
+
+    // Use streaming to keep the connection alive (avoids Netlify 10s timeout)
     const anthropicResp = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
@@ -197,6 +199,7 @@ export async function POST(req: NextRequest) {
         model: "claude-sonnet-4-6",
         max_tokens: 4096,
         system: systemPrompt,
+        stream: true,
         messages: [{ role: "user", content: userPrompt }],
       }),
     });
@@ -206,38 +209,108 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: err }, { status: 500 });
     }
 
-    const data = await anthropicResp.json();
-    const rawText = data.content?.[0]?.text || "{}";
+    // Read the Anthropic SSE stream, accumulate text, then send our own SSE events
+    // to the client. This keeps the connection alive and avoids serverless timeouts.
+    const reader = anthropicResp.body!.getReader();
+    const encoder = new TextEncoder();
 
-    let result;
-    try {
-      result = JSON.parse(rawText);
-    } catch {
-      const jsonMatch = rawText.match(/[\[{][\s\S]*[\]}]/);
-      result = jsonMatch ? JSON.parse(jsonMatch[0]) : null;
-    }
+    const stream = new ReadableStream({
+      async start(controller) {
+        const decoder = new TextDecoder();
+        let fullText = "";
+        let inputTokens = 0;
+        let outputTokens = 0;
 
-    if (!result) {
-      return NextResponse.json({ error: "AI returned invalid JSON" }, { status: 500 });
-    }
+        try {
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
 
-    // Log usage
-    try {
-      const db = getDb();
-      await db.execute({
-        sql: `INSERT INTO ai_usage_log (action, model, input_tokens, output_tokens, duration_ms, metadata) VALUES (?, ?, ?, ?, ?, ?)`,
-        args: [
-          `ai_assist_${contentType}`,
-          "claude-sonnet-4-6",
-          data.usage?.input_tokens || 0,
-          data.usage?.output_tokens || 0,
-          Date.now() - startTime,
-          JSON.stringify({ contentType, prompt: prompt.slice(0, 200) }),
-        ],
-      });
-    } catch { /* non-critical */ }
+            const chunk = decoder.decode(value, { stream: true });
+            const lines = chunk.split("\n");
 
-    return NextResponse.json(result);
+            for (const line of lines) {
+              if (!line.startsWith("data: ")) continue;
+              const payload = line.slice(6).trim();
+              if (payload === "[DONE]") continue;
+
+              try {
+                const evt = JSON.parse(payload);
+
+                if (evt.type === "message_start" && evt.message?.usage) {
+                  inputTokens = evt.message.usage.input_tokens || 0;
+                }
+
+                if (evt.type === "content_block_delta" && evt.delta?.text) {
+                  fullText += evt.delta.text;
+                  // Send a progress ping to keep connection alive
+                  controller.enqueue(
+                    encoder.encode(`data: {"type":"progress","len":${fullText.length}}\n\n`)
+                  );
+                }
+
+                if (evt.type === "message_delta" && evt.usage) {
+                  outputTokens = evt.usage.output_tokens || 0;
+                }
+              } catch {
+                // not valid JSON line, skip
+              }
+            }
+          }
+
+          // Parse the accumulated text as JSON
+          let result;
+          try {
+            result = JSON.parse(fullText);
+          } catch {
+            const jsonMatch = fullText.match(/[\[{][\s\S]*[\]}]/);
+            result = jsonMatch ? JSON.parse(jsonMatch[0]) : null;
+          }
+
+          if (!result) {
+            controller.enqueue(
+              encoder.encode(`data: {"type":"error","error":"AI returned invalid JSON"}\n\n`)
+            );
+          } else {
+            // Send the final result
+            controller.enqueue(
+              encoder.encode(`data: ${JSON.stringify({ type: "result", data: result })}\n\n`)
+            );
+          }
+        } catch (e) {
+          controller.enqueue(
+            encoder.encode(`data: ${JSON.stringify({ type: "error", error: e instanceof Error ? e.message : "Stream error" })}\n\n`)
+          );
+        } finally {
+          controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+          controller.close();
+
+          // Log AI usage (fire and forget)
+          try {
+            const db = getDb();
+            await db.execute({
+              sql: `INSERT INTO ai_usage_log (action, model, input_tokens, output_tokens, duration_ms, metadata) VALUES (?, ?, ?, ?, ?, ?)`,
+              args: [
+                `ai_assist_${contentType}`,
+                "claude-sonnet-4-6",
+                inputTokens,
+                outputTokens,
+                Date.now() - startTime,
+                JSON.stringify({ contentType, prompt: prompt.slice(0, 200) }),
+              ],
+            });
+          } catch { /* non-critical */ }
+        }
+      },
+    });
+
+    return new NextResponse(stream, {
+      headers: {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        Connection: "keep-alive",
+      },
+    });
   } catch (err: unknown) {
     return NextResponse.json(
       { error: err instanceof Error ? err.message : "Unknown error" },

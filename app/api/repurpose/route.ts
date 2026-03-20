@@ -225,7 +225,7 @@ async function getPersonaPrompt(personaId?: number): Promise<string> {
 /**
  * POST /api/repurpose
  * Body: { content: string, title: string, formats: string[], voiceId?: number, personaId?: number }
- * Returns: { results: { format: string, label: string, output: string }[] }
+ * Returns SSE stream with final JSON result
  */
 export async function POST(req: NextRequest) {
   try {
@@ -250,7 +250,6 @@ export async function POST(req: NextRequest) {
     const voicePrompt = await getBrandVoicePrompt(voiceId);
     const personaPrompt = await getPersonaPrompt(personaId);
 
-    // Build a single prompt that generates all formats at once
     const formatInstructions = (formats as FormatKey[])
       .filter((f) => FORMATS[f])
       .map((f) => `## ${FORMATS[f].label}\n${FORMATS[f].instruction}`)
@@ -269,6 +268,9 @@ export async function POST(req: NextRequest) {
 
     const userPrompt = `ARTICLE TITLE: ${title || "Untitled"}\n\nARTICLE CONTENT:\n${content}\n\n---\n\nGenerate the following formats:\n\n${formatInstructions}\n\nReturn as JSON array: [{ "format": "format_key", "output": "..." }, ...]`;
 
+    const startTime = Date.now();
+
+    // Use streaming to avoid Netlify timeout
     const anthropicResp = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
@@ -280,6 +282,7 @@ export async function POST(req: NextRequest) {
         model: "claude-sonnet-4-6",
         max_tokens: 4096,
         system: systemPrompt,
+        stream: true,
         messages: [{ role: "user", content: userPrompt }],
       }),
     });
@@ -289,50 +292,108 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: err }, { status: 500 });
     }
 
-    const data = await anthropicResp.json();
-    const rawText = data.content?.[0]?.text || "[]";
+    const reader = anthropicResp.body!.getReader();
+    const encoder = new TextEncoder();
 
-    // Parse the JSON response
-    let results;
-    try {
-      results = JSON.parse(rawText);
-    } catch {
-      // If JSON parsing fails, try to extract JSON from the text
-      const jsonMatch = rawText.match(/\[[\s\S]*\]/);
-      results = jsonMatch ? JSON.parse(jsonMatch[0]) : [];
-    }
+    const stream = new ReadableStream({
+      async start(controller) {
+        const decoder = new TextDecoder();
+        let fullText = "";
+        let inputTokens = 0;
+        let outputTokens = 0;
 
-    // Enrich with labels
-    const enriched = (results as { format: string; output: string }[]).map(
-      (r: { format: string; output: string }) => ({
-        ...r,
-        label: FORMATS[r.format as FormatKey]?.label || r.format,
-      })
-    );
+        try {
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
 
-    // Log AI usage
-    try {
-      const inputTokens = data.usage?.input_tokens || 0;
-      const outputTokens = data.usage?.output_tokens || 0;
-      const db = getDb();
-      await db.execute({
-        sql: `INSERT INTO ai_usage_log (action, model, input_tokens, output_tokens, metadata) VALUES (?, ?, ?, ?, ?)`,
-        args: [
-          "content_repurpose",
-          "claude-sonnet-4-6",
-          inputTokens,
-          outputTokens,
-          JSON.stringify({ formats: formats, voice_id: voiceId || null, persona_id: personaId || null }),
-        ],
-      });
-    } catch { /* non-critical */ }
+            const chunk = decoder.decode(value, { stream: true });
+            const lines = chunk.split("\n");
 
-    return NextResponse.json({
-      results: enriched,
-      available_formats: Object.entries(FORMATS).map(([key, val]) => ({
-        key,
-        label: val.label,
-      })),
+            for (const line of lines) {
+              if (!line.startsWith("data: ")) continue;
+              const payload = line.slice(6).trim();
+              if (payload === "[DONE]") continue;
+
+              try {
+                const evt = JSON.parse(payload);
+                if (evt.type === "message_start" && evt.message?.usage) {
+                  inputTokens = evt.message.usage.input_tokens || 0;
+                }
+                if (evt.type === "content_block_delta" && evt.delta?.text) {
+                  fullText += evt.delta.text;
+                  controller.enqueue(
+                    encoder.encode(`data: {"type":"progress","len":${fullText.length}}\n\n`)
+                  );
+                }
+                if (evt.type === "message_delta" && evt.usage) {
+                  outputTokens = evt.usage.output_tokens || 0;
+                }
+              } catch { /* skip */ }
+            }
+          }
+
+          // Parse accumulated text
+          let results;
+          try {
+            results = JSON.parse(fullText);
+          } catch {
+            const jsonMatch = fullText.match(/\[[\s\S]*\]/);
+            results = jsonMatch ? JSON.parse(jsonMatch[0]) : [];
+          }
+
+          // Enrich with labels
+          const enriched = (results as { format: string; output: string }[]).map(
+            (r: { format: string; output: string }) => ({
+              ...r,
+              label: FORMATS[r.format as FormatKey]?.label || r.format,
+            })
+          );
+
+          controller.enqueue(
+            encoder.encode(`data: ${JSON.stringify({
+              type: "result",
+              data: {
+                results: enriched,
+                available_formats: Object.entries(FORMATS).map(([key, val]) => ({
+                  key,
+                  label: val.label,
+                })),
+              },
+            })}\n\n`)
+          );
+        } catch (e) {
+          controller.enqueue(
+            encoder.encode(`data: ${JSON.stringify({ type: "error", error: e instanceof Error ? e.message : "Stream error" })}\n\n`)
+          );
+        } finally {
+          controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+          controller.close();
+
+          // Log AI usage
+          try {
+            const db = getDb();
+            await db.execute({
+              sql: `INSERT INTO ai_usage_log (action, model, input_tokens, output_tokens, metadata) VALUES (?, ?, ?, ?, ?)`,
+              args: [
+                "content_repurpose",
+                "claude-sonnet-4-6",
+                inputTokens,
+                outputTokens,
+                JSON.stringify({ formats, voice_id: voiceId || null, persona_id: personaId || null, duration_ms: Date.now() - startTime }),
+              ],
+            });
+          } catch { /* non-critical */ }
+        }
+      },
+    });
+
+    return new NextResponse(stream, {
+      headers: {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        Connection: "keep-alive",
+      },
     });
   } catch (err: unknown) {
     return NextResponse.json(

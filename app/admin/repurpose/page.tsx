@@ -105,12 +105,38 @@ export default function RepurposePage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ content, title, formats: selectedFormats, ...(selectedPersonaId ? { personaId: selectedPersonaId } : {}) }),
       });
-      if (res.ok) {
-        const data = await res.json();
-        setResults(data.results || []);
-      } else {
-        const err = await res.json();
-        alert(err.error || 'Generation failed');
+
+      if (!res.ok) {
+        let errMsg = 'Generation failed';
+        try { const err = await res.json(); errMsg = err.error || errMsg; } catch { /* use default */ }
+        alert(errMsg);
+        setLoading(false);
+        return;
+      }
+
+      // Read SSE stream
+      const reader = res.body!.getReader();
+      const decoder = new TextDecoder();
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const text = decoder.decode(value, { stream: true });
+        const lines = text.split('\n');
+        for (const line of lines) {
+          if (!line.startsWith('data: ')) continue;
+          const payload = line.slice(6).trim();
+          if (payload === '[DONE]') continue;
+          try {
+            const evt = JSON.parse(payload);
+            if (evt.type === 'result' && evt.data) {
+              setResults(evt.data.results || []);
+            } else if (evt.type === 'error') {
+              alert(evt.error || 'Generation failed');
+            }
+          } catch { /* skip */ }
+        }
       }
     } catch {
       alert('Generation failed');

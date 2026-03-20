@@ -53,6 +53,7 @@ export default function AiAssistPanel({
   const [voiceId, setVoiceId] = useState<number | null>(null);
   const [personaId, setPersonaId] = useState<number | null>(null);
   const [success, setSuccess] = useState("");
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     if (!showSelectors) return;
@@ -65,6 +66,7 @@ export default function AiAssistPanel({
     setGenerating(true);
     setError("");
     setSuccess("");
+    setProgress(0);
     try {
       const res = await fetch("/api/ai-assist", {
         method: "POST",
@@ -77,15 +79,67 @@ export default function AiAssistPanel({
           existingContent: existingContent || undefined,
         }),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Generation failed");
-      onResult(data);
+
+      if (!res.ok) {
+        // Non-streaming error (validation, missing key, etc.)
+        let errMsg = "Generation failed";
+        try {
+          const errData = await res.json();
+          errMsg = errData.error || errMsg;
+        } catch {
+          errMsg = `Server error (${res.status})`;
+        }
+        throw new Error(errMsg);
+      }
+
+      // Read the SSE stream
+      const reader = res.body!.getReader();
+      const decoder = new TextDecoder();
+      let resultData: AiAssistResult | null = null;
+      let streamError = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        const text = decoder.decode(value, { stream: true });
+        const lines = text.split("\n");
+
+        for (const line of lines) {
+          if (!line.startsWith("data: ")) continue;
+          const payload = line.slice(6).trim();
+          if (payload === "[DONE]") continue;
+
+          try {
+            const evt = JSON.parse(payload);
+            if (evt.type === "progress") {
+              setProgress(evt.len || 0);
+            } else if (evt.type === "result") {
+              resultData = evt.data;
+            } else if (evt.type === "error") {
+              streamError = evt.error || "Generation failed";
+            }
+          } catch {
+            // skip non-JSON lines
+          }
+        }
+      }
+
+      if (streamError) {
+        throw new Error(streamError);
+      }
+      if (!resultData) {
+        throw new Error("No result received from AI");
+      }
+
+      onResult(resultData);
       setSuccess("Done. Fields populated below.");
       setTimeout(() => setSuccess(""), 4000);
     } catch (e: unknown) {
       setError(e instanceof Error ? e.message : String(e));
     } finally {
       setGenerating(false);
+      setProgress(0);
     }
   };
 
@@ -153,7 +207,7 @@ export default function AiAssistPanel({
           {generating ? (
             <>
               <span className="w-3.5 h-3.5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              Working&hellip;
+              {progress > 0 ? "Generating\u2026" : "Working\u2026"}
             </>
           ) : (
             <>
