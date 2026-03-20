@@ -6,6 +6,8 @@ import DataTable, { Column } from "../components/DataTable";
 import StatusBadge from "../components/StatusBadge";
 import FormSection from "../components/FormSection";
 import { X, Plus, Star } from "lucide-react";
+import AiAssistPanel from "../components/AiAssistPanel";
+import type { AiAssistResult } from "../components/AiAssistPanel";
 
 interface Testimonial {
   id: number;
@@ -211,6 +213,19 @@ export default function TestimonialsAdmin() {
               </button>
             </div>
             <div className="p-6 space-y-4">
+              <AiAssistPanel
+                contentType="testimonial"
+                compact
+                placeholder="e.g. Someone who lost 20 lbs and finally feels normal around food, or A busy mom who tried everything before Nutra"
+                buttonLabel="Generate"
+                showSelectors={false}
+                onResult={(data: AiAssistResult) => {
+                  if (data.name) setForm((f) => ({ ...f, name: data.name as string }));
+                  if (data.title) setForm((f) => ({ ...f, title: data.title as string }));
+                  if (data.quote) setForm((f) => ({ ...f, quote: data.quote as string }));
+                  if (data.rating) setForm((f) => ({ ...f, rating: data.rating as number }));
+                }}
+              />
               <FormSection title="Details">
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div>

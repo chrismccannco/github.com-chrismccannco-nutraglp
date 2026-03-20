@@ -16,6 +16,8 @@ import {
   Zap,
 } from "lucide-react";
 import type { FormField, FieldType, FormSettings, ConditionOperator } from "@/lib/types/forms";
+import AiAssistPanel from "../../components/AiAssistPanel";
+import type { AiAssistResult } from "../../components/AiAssistPanel";
 
 const fieldTypes: { type: FieldType; label: string; icon: string }[] = [
   { type: "text", label: "Text", icon: "Aa" },
@@ -279,6 +281,27 @@ export default function FormEditorPage() {
           </div>
         </div>
       )}
+
+      {/* AI Assist */}
+      <div className="mb-6">
+        <AiAssistPanel
+          contentType="form"
+          placeholder="e.g. Contact form with name, email, and message, or Lead capture form for free supplement guide download"
+          buttonLabel="Generate Fields"
+          showSelectors={false}
+          onResult={(data: AiAssistResult) => {
+            if (data.name && !name) setName(data.name as string);
+            if (data.description && !description) setDescription(data.description as string);
+            if (data.fields && Array.isArray(data.fields)) {
+              setFields(data.fields as FormField[]);
+            }
+            if (data.settings) {
+              const s = data.settings as Partial<FormSettings>;
+              setSettings((prev) => ({ ...prev, ...s }));
+            }
+          }}
+        />
+      </div>
 
       {/* Field list */}
       <div className="space-y-2 mb-4">

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { Loader2, Copy, Check, RefreshCw, ChevronDown } from 'lucide-react';
+import { Loader2, Copy, Check, RefreshCw, ChevronDown, UserCircle } from 'lucide-react';
 
 interface Format {
   key: string;
@@ -16,6 +16,13 @@ interface RepurposeResult {
   output: string;
 }
 
+interface Persona {
+  id: number;
+  name: string;
+  description: string | null;
+  is_default: number;
+}
+
 export default function RepurposePage() {
   const searchParams = useSearchParams();
   const fromSlug = searchParams.get('from');
@@ -23,22 +30,29 @@ export default function RepurposePage() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [formats, setFormats] = useState<Format[]>([]);
+  const [categories, setCategories] = useState<Record<string, string>>({});
   const [selectedFormats, setSelectedFormats] = useState<string[]>([]);
   const [results, setResults] = useState<RepurposeResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [loadingPost, setLoadingPost] = useState(false);
   const [copied, setCopied] = useState<string | null>(null);
   const [posts, setPosts] = useState<{ slug: string; title: string }[]>([]);
+  const [personas, setPersonas] = useState<Persona[]>([]);
+  const [selectedPersonaId, setSelectedPersonaId] = useState<number | null>(null);
 
-  // Load available formats
+  // Load available formats and personas
   useEffect(() => {
     fetch('/api/repurpose')
       .then(r => r.json())
       .then(data => {
         setFormats(data.formats || []);
-        // Don't pre-select all — let user pick what they need
+        setCategories(data.categories || {});
         setSelectedFormats([]);
       });
+    fetch('/api/personas')
+      .then(r => r.ok ? r.json() : [])
+      .then(setPersonas)
+      .catch(() => {});
   }, []);
 
   // Load blog posts for the selector
@@ -89,7 +103,7 @@ export default function RepurposePage() {
       const res = await fetch('/api/repurpose', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content, title, formats: selectedFormats }),
+        body: JSON.stringify({ content, title, formats: selectedFormats, ...(selectedPersonaId ? { personaId: selectedPersonaId } : {}) }),
       });
       if (res.ok) {
         const data = await res.json();
@@ -163,20 +177,72 @@ export default function RepurposePage() {
                 className="w-full px-3 py-2.5 border border-neutral-200 rounded-lg text-sm text-neutral-800 font-mono resize-y leading-relaxed" />
             </div>
 
-            {/* Format selector */}
+            {/* Persona selector */}
+            {personas.length > 0 && (
+              <div>
+                <label className="block text-xs font-semibold text-neutral-500 mb-1.5">
+                  <span className="flex items-center gap-1.5"><UserCircle size={12} /> Target persona</span>
+                </label>
+                <select
+                  value={selectedPersonaId ?? ''}
+                  onChange={e => setSelectedPersonaId(e.target.value ? Number(e.target.value) : null)}
+                  className="w-full px-3 py-2 border border-neutral-200 rounded-lg text-sm bg-white text-neutral-700"
+                >
+                  <option value="">No persona (generic output)</option>
+                  {personas.map(p => (
+                    <option key={p.id} value={p.id}>
+                      {p.name}{p.is_default === 1 ? ' (default)' : ''}
+                    </option>
+                  ))}
+                </select>
+                <p className="text-[11px] text-neutral-400 mt-1">AI adapts tone, vocabulary, and emphasis to this audience.</p>
+              </div>
+            )}
+
+            {/* Format selector — grouped by platform */}
             <div>
-              <label className="block text-xs font-semibold text-neutral-500 mb-2">Output formats</label>
-              <div className="flex flex-wrap gap-2">
-                {formats.map(f => (
-                  <button key={f.key} onClick={() => toggleFormat(f.key)}
-                    className={`px-3 py-1.5 text-xs font-medium rounded-lg border transition-colors ${
-                      selectedFormats.includes(f.key)
-                        ? 'bg-neutral-900 border-neutral-900 text-white'
-                        : 'bg-white border-neutral-200 text-neutral-500 hover:border-neutral-300'
-                    }`}>
-                    {f.label}
+              <div className="flex items-center justify-between mb-2">
+                <label className="block text-xs font-semibold text-neutral-500">Output formats</label>
+                {selectedFormats.length > 0 && (
+                  <button onClick={() => setSelectedFormats([])} className="text-[11px] text-neutral-400 hover:text-neutral-600 transition-colors">
+                    Clear all
                   </button>
-                ))}
+                )}
+              </div>
+              <div className="space-y-3">
+                {Object.entries(categories).map(([catKey, catLabel]) => {
+                  const catFormats = formats.filter(f => f.category === catKey);
+                  if (catFormats.length === 0) return null;
+                  const allSelected = catFormats.every(f => selectedFormats.includes(f.key));
+                  return (
+                    <div key={catKey}>
+                      <button
+                        onClick={() => {
+                          if (allSelected) {
+                            setSelectedFormats(prev => prev.filter(k => !catFormats.some(f => f.key === k)));
+                          } else {
+                            setSelectedFormats(prev => [...new Set([...prev, ...catFormats.map(f => f.key)])]);
+                          }
+                        }}
+                        className={`text-[11px] font-semibold uppercase tracking-wider mb-1.5 transition-colors ${allSelected ? 'text-neutral-900' : 'text-neutral-400 hover:text-neutral-600'}`}
+                      >
+                        {catLabel} {allSelected ? '✓' : ''}
+                      </button>
+                      <div className="flex flex-wrap gap-1.5">
+                        {catFormats.map(f => (
+                          <button key={f.key} onClick={() => toggleFormat(f.key)}
+                            className={`px-2.5 py-1 text-[11px] font-medium rounded-md border transition-colors ${
+                              selectedFormats.includes(f.key)
+                                ? 'bg-neutral-900 border-neutral-900 text-white'
+                                : 'bg-white border-neutral-200 text-neutral-500 hover:border-neutral-300'
+                            }`}>
+                            {f.label}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
 

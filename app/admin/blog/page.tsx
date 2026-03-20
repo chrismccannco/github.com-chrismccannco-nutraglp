@@ -17,6 +17,9 @@ interface Post {
   tag: string;
   published: number;
   publish_at: string | null;
+  brand_score: number | null;
+  voice_score: number | null;
+  clarity_score: number | null;
 }
 
 export default function BlogAdmin() {
@@ -70,6 +73,22 @@ export default function BlogAdmin() {
           : <StatusBadge status={row.published ? "published" : "draft"} />;
       },
       className: "w-28",
+    },
+    {
+      key: "brand_score",
+      label: "Score",
+      sortable: true,
+      render: (row) => {
+        if (row.brand_score == null) return <span className="text-[11px] text-neutral-300">—</span>;
+        const s = row.brand_score;
+        const color = s >= 80 ? "bg-emerald-100 text-emerald-700" : s >= 60 ? "bg-amber-100 text-amber-700" : "bg-red-100 text-red-700";
+        return (
+          <span className={`inline-flex items-center px-2 py-0.5 text-[11px] font-semibold rounded-full ${color}`}>
+            {s}
+          </span>
+        );
+      },
+      className: "w-20",
     },
     {
       key: "date",

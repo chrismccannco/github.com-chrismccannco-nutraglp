@@ -11,6 +11,8 @@ import WorkflowPanel from "../../components/WorkflowPanel";
 import { useAutosave } from "../../hooks/useAutosave";
 import { useAuth } from "../../layout";
 import BlockEditor from "../../components/blocks/BlockEditor";
+import AiAssistPanel from "../../components/AiAssistPanel";
+import type { AiAssistResult } from "../../components/AiAssistPanel";
 import type { Block } from "@/lib/types/blocks";
 
 export default function EditPage() {
@@ -265,6 +267,29 @@ export default function EditPage() {
           </div>
         </div>
       </FormSection>
+
+      <div className="mb-4">
+        <AiAssistPanel
+          contentType="page"
+          placeholder="e.g. Create a landing page for our new GLP-1 supplement bundle, or Write an FAQ page about dosage and timing"
+          buttonLabel="Generate"
+          onResult={(data: AiAssistResult) => {
+            if (data.title) setTitle(data.title as string);
+            if (data.meta_description) setMetaDesc(data.meta_description as string);
+            if (data.meta_title) setMetaTitle(data.meta_title as string);
+            if (data.sections && Array.isArray(data.sections)) {
+              // Convert AI sections to rich_text blocks
+              const newBlocks: Block[] = (data.sections as { heading: string; body: string }[]).map((s, i) => ({
+                id: `rt_${Math.random().toString(36).slice(2, 8)}`,
+                type: "rich_text" as const,
+                order: i,
+                data: { html: `<h2>${s.heading}</h2>${s.body}` },
+              }));
+              setBlocks(newBlocks);
+            }
+          }}
+        />
+      </div>
 
       <div className="mt-6">
         <h2 className="text-xs font-semibold uppercase tracking-wider text-neutral-500 mb-3">

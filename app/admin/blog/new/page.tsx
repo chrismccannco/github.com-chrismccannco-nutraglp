@@ -4,6 +4,19 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import FormSection from "../../components/FormSection";
+import AiAssistPanel from "../../components/AiAssistPanel";
+import type { AiAssistResult } from "../../components/AiAssistPanel";
+
+interface AIDraft {
+  title: string;
+  slug: string;
+  description: string;
+  tag: string;
+  meta_title: string;
+  meta_description: string;
+  read_time: string;
+  sections: { heading: string; body: string }[];
+}
 
 export default function NewBlogPost() {
   const router = useRouter();
@@ -16,6 +29,18 @@ export default function NewBlogPost() {
   const [ogImage, setOgImage] = useState("");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [aiDraft, setAiDraft] = useState<AIDraft | null>(null);
+
+  const handleAiResult = (data: AiAssistResult) => {
+    const draft = data as unknown as AIDraft;
+    setAiDraft(draft);
+    if (draft.title) setTitle(draft.title);
+    if (draft.slug) setSlug(draft.slug);
+    if (draft.description) setDescription(draft.description);
+    if (draft.tag) setTag(draft.tag);
+    if (draft.meta_title) setMetaTitle(draft.meta_title);
+    if (draft.meta_description) setMetaDescription(draft.meta_description);
+  };
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,9 +62,9 @@ export default function NewBlogPost() {
           meta_description: metaDescription || undefined,
           og_image: ogImage || undefined,
           date: new Date().toISOString().split("T")[0],
-          read_time: "5 min",
+          read_time: aiDraft?.read_time || "5 min",
           gradient: "from-blue-900 to-blue-800",
-          sections: [{ heading: "", body: [""] }],
+          sections: aiDraft?.sections || [{ heading: "", body: [""] }],
         }),
       });
       if (!res.ok) {
@@ -55,7 +80,7 @@ export default function NewBlogPost() {
   };
 
   return (
-    <div className="max-w-xl">
+    <div className="max-w-2xl">
       <Breadcrumbs
         items={[
           { label: "Admin", href: "/admin" },
@@ -66,6 +91,16 @@ export default function NewBlogPost() {
       <h1 className="text-xl font-semibold text-neutral-900 mb-6">
         New blog post
       </h1>
+
+      {/* AI Assist Panel */}
+      <div className="mb-6">
+        <AiAssistPanel
+          contentType="blog"
+          placeholder="e.g. How GLP-1 affects gut health and digestion, or The science behind appetite regulation with natural compounds"
+          buttonLabel="Draft with AI"
+          onResult={handleAiResult}
+        />
+      </div>
 
       <form onSubmit={handleCreate} className="space-y-4">
         <FormSection title="Details">
@@ -151,6 +186,26 @@ export default function NewBlogPost() {
             />
           </div>
         </FormSection>
+
+        {/* Preview AI-generated sections */}
+        {aiDraft?.sections && aiDraft.sections.length > 0 && (
+          <FormSection title={`Content Preview (${aiDraft.sections.length} sections)`} collapsible>
+            <div className="space-y-4">
+              {aiDraft.sections.map((s, i) => (
+                <div key={i} className="border-l-2 border-violet-300 pl-3">
+                  <p className="text-xs font-semibold text-neutral-700">{s.heading}</p>
+                  <div
+                    className="text-xs text-neutral-500 mt-1 line-clamp-3 prose prose-xs"
+                    dangerouslySetInnerHTML={{ __html: s.body }}
+                  />
+                </div>
+              ))}
+            </div>
+            <p className="text-[10px] text-neutral-400 mt-3">
+              Full content will be editable after creation.
+            </p>
+          </FormSection>
+        )}
 
         {error && <p className="text-xs text-red-600">{error}</p>}
 

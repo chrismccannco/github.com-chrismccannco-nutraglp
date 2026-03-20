@@ -431,6 +431,34 @@ export async function initDb(): Promise<Client> {
       sort_order INTEGER DEFAULT 0,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
+
+    CREATE TABLE IF NOT EXISTS ai_usage_log (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      action TEXT NOT NULL,
+      template_id INTEGER,
+      template_name TEXT,
+      voice_id INTEGER,
+      voice_name TEXT,
+      persona_id INTEGER,
+      persona_name TEXT,
+      model TEXT DEFAULT 'claude-sonnet-4-6',
+      input_tokens INTEGER DEFAULT 0,
+      output_tokens INTEGER DEFAULT 0,
+      duration_ms INTEGER DEFAULT 0,
+      user_email TEXT,
+      metadata TEXT DEFAULT '{}',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS webhook_endpoints (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      url TEXT NOT NULL,
+      events TEXT NOT NULL DEFAULT '[]',
+      secret TEXT,
+      enabled INTEGER DEFAULT 1,
+      last_triggered_at DATETIME,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
   `);
 
   // Add columns that may not exist on older databases
@@ -460,6 +488,19 @@ export async function initDb(): Promise<Client> {
     "ALTER TABLE media_files ADD COLUMN thumb_data TEXT",
     // Content templates persona support
     "ALTER TABLE content_templates ADD COLUMN persona_id INTEGER",
+    // Content scoring columns
+    "ALTER TABLE blog_posts ADD COLUMN brand_score INTEGER",
+    "ALTER TABLE blog_posts ADD COLUMN voice_score INTEGER",
+    "ALTER TABLE blog_posts ADD COLUMN clarity_score INTEGER",
+    "ALTER TABLE blog_posts ADD COLUMN score_summary TEXT",
+    "ALTER TABLE blog_posts ADD COLUMN scored_at DATETIME",
+    "ALTER TABLE pages ADD COLUMN brand_score INTEGER",
+    "ALTER TABLE pages ADD COLUMN voice_score INTEGER",
+    "ALTER TABLE pages ADD COLUMN clarity_score INTEGER",
+    "ALTER TABLE pages ADD COLUMN score_summary TEXT",
+    "ALTER TABLE pages ADD COLUMN scored_at DATETIME",
+    // Workflow webhook URLs
+    "ALTER TABLE content_workflows ADD COLUMN webhook_sent INTEGER DEFAULT 0",
   ];
 
   for (const sql of migrations) {
@@ -491,6 +532,8 @@ export async function initDb(): Promise<Client> {
     await db.execute("CREATE INDEX IF NOT EXISTS idx_audience_personas_slug ON audience_personas (slug)");
     await db.execute("CREATE INDEX IF NOT EXISTS idx_videos_slug ON videos (slug)");
     await db.execute("CREATE INDEX IF NOT EXISTS idx_video_clips_video ON video_clips (video_id, sort_order)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_ai_usage_log_action ON ai_usage_log (action, created_at)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_ai_usage_log_template ON ai_usage_log (template_id, created_at)");
   } catch {
     // Index may already exist
   }

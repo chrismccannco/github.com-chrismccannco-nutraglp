@@ -195,9 +195,35 @@ const FORMATS = {
 
 type FormatKey = keyof typeof FORMATS;
 
+async function getPersonaPrompt(personaId?: number): Promise<string> {
+  const db = getDb();
+  try {
+    let row;
+    if (personaId) {
+      const result = await db.execute({
+        sql: "SELECT * FROM audience_personas WHERE id = ?",
+        args: [personaId],
+      });
+      row = result.rows[0];
+    }
+    if (!row) return "";
+    const parts: string[] = [`TARGET AUDIENCE PERSONA: ${row.name}`];
+    if (row.description) parts.push(`Profile: ${row.description}`);
+    if (row.demographics) parts.push(`Demographics: ${row.demographics}`);
+    if (row.goals) parts.push(`Goals: ${row.goals}`);
+    if (row.pain_points) parts.push(`Pain points: ${row.pain_points}`);
+    if (row.communication_style) parts.push(`Communication preferences: ${row.communication_style}`);
+    if (row.objections) parts.push(`Common objections: ${row.objections}`);
+    parts.push("Tailor ALL outputs to speak directly to this persona. Adapt tone, vocabulary, specificity, and emphasis to match their communication preferences and address their goals and pain points.");
+    return parts.join("\n");
+  } catch {
+    return "";
+  }
+}
+
 /**
  * POST /api/repurpose
- * Body: { content: string, title: string, formats: string[], voiceId?: number }
+ * Body: { content: string, title: string, formats: string[], voiceId?: number, personaId?: number }
  * Returns: { results: { format: string, label: string, output: string }[] }
  */
 export async function POST(req: NextRequest) {
@@ -211,7 +237,7 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { content, title, formats, voiceId } = body;
+    const { content, title, formats, voiceId, personaId } = body;
 
     if (!content || !formats || formats.length === 0) {
       return NextResponse.json(
@@ -221,6 +247,7 @@ export async function POST(req: NextRequest) {
     }
 
     const voicePrompt = await getBrandVoicePrompt(voiceId);
+    const personaPrompt = await getPersonaPrompt(personaId);
 
     // Build a single prompt that generates all formats at once
     const formatInstructions = (formats as FormatKey[])
@@ -233,6 +260,7 @@ export async function POST(req: NextRequest) {
       "You take a long-form article and produce multiple output formats from it.",
       "Each output should be independently excellent — not just a summary, but adapted for its specific channel and audience.",
       voicePrompt,
+      personaPrompt,
       "Return your response as valid JSON: an array of objects with { format: string, output: string }. The format field should match the section headers exactly. No markdown wrapping around the JSON.",
     ]
       .filter(Boolean)
@@ -280,6 +308,23 @@ export async function POST(req: NextRequest) {
         label: FORMATS[r.format as FormatKey]?.label || r.format,
       })
     );
+
+    // Log AI usage
+    try {
+      const inputTokens = data.usage?.input_tokens || 0;
+      const outputTokens = data.usage?.output_tokens || 0;
+      const db = getDb();
+      await db.execute({
+        sql: `INSERT INTO ai_usage_log (action, model, input_tokens, output_tokens, metadata) VALUES (?, ?, ?, ?, ?)`,
+        args: [
+          "content_repurpose",
+          "claude-sonnet-4-6",
+          inputTokens,
+          outputTokens,
+          JSON.stringify({ formats: formats, voice_id: voiceId || null, persona_id: personaId || null }),
+        ],
+      });
+    } catch { /* non-critical */ }
 
     return NextResponse.json({
       results: enriched,

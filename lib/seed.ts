@@ -463,6 +463,90 @@ export async function seed() {
     ],
   });
 
+  // ── Audience Personas ────────────────────────────────────────
+
+  const personaSql = `INSERT INTO audience_personas (name, slug, description, demographics, goals, pain_points, communication_style, objections, channels, is_default) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+  await db.execute({
+    sql: personaSql,
+    args: [
+      "The Needle-Averse Consumer",
+      "needle-averse-consumer",
+      "Interested in GLP-1 results but unwilling to self-inject. Has researched Ozempic and Wegovy. Wants a non-pharmaceutical alternative that works through the same biological pathway.",
+      "Age 35-55. Predominantly female. Household income $75K-$150K. Health-conscious but not biohacker-level. Gets information from social media, podcasts, and their primary care doctor. Has tried at least two weight management approaches in the past three years.",
+      "Lose 15-30 lbs without injections or harsh side effects. Feel in control of the process. Find something backed by real science, not supplement-aisle noise. Avoid the medical system for weight management if possible.",
+      "Overwhelmed by conflicting information about GLP-1 drugs. Skeptical of supplements after past disappointments. Worried about side effects reported with prescription GLP-1 drugs (nausea, gastroparesis). Frustrated by the cost of Ozempic without insurance. Doesn't trust 'miracle cure' marketing.",
+      "Plain language over clinical terminology. Lead with mechanism of action, not promises. She responds to specificity and honesty about what the product is and isn't. Testimonials and before/after narratives carry weight. Prefers paragraph-form content over bullet-point marketing. Distrusts urgency tactics.",
+      "How is this different from every other supplement that doesn't work? If it really worked, wouldn't it need a prescription? What about long-term safety? Why should I trust a company I've never heard of?",
+      JSON.stringify(["instagram", "facebook", "email", "podcast-ads"]),
+      1,
+    ],
+  });
+
+  await db.execute({
+    sql: personaSql,
+    args: [
+      "The Cost-Conscious Buyer",
+      "cost-conscious-buyer",
+      "Wants GLP-1 pathway support but can't justify $800-$1,600/month for prescription drugs. Price is the primary decision driver. Needs to feel the value proposition is real before committing.",
+      "Age 30-50. Mixed gender. Household income $50K-$100K. May or may not have insurance that covers GLP-1 drugs. Has priced out Ozempic or been told by their doctor it's not covered. Comparison shops aggressively.",
+      "Find an affordable alternative to prescription GLP-1 drugs. Understand exactly what they're paying for and why. Feel confident the money is well spent. See results within the first 30-60 days to justify continued purchase.",
+      "Sticker shock from prescription GLP-1 drug pricing. Insurance denials or high copays. Skepticism that anything at $155/mo can work if the 'real' drugs cost 10x more. Has been burned by subscription traps and auto-ship programs. Worries about ongoing cost commitment.",
+      "Lead with price comparison and value framing. Be transparent about what $155/mo includes. Data and mechanism of action matter but cost-per-result is the deciding factor. Wants to see the math. Responds to money-back guarantees and flexible subscription terms. Short, direct copy. No fluff.",
+      "If it's this much cheaper, it probably doesn't work as well. What's the catch with the subscription? Can I cancel anytime? Why can't I just buy the individual ingredients for less?",
+      JSON.stringify(["google-search", "email", "comparison-sites", "facebook"]),
+      0,
+    ],
+  });
+
+  await db.execute({
+    sql: personaSql,
+    args: [
+      "The Performance Optimizer",
+      "performance-optimizer",
+      "Not trying to lose weight. Interested in metabolic efficiency, body composition, and longevity. Already trains and eats well. Sees GLP-1 modulation as a performance input, not a medical intervention.",
+      "Age 28-45. Predominantly male. Household income $100K+. Reads Huberman, Attia, Rhonda Patrick. Uses a CGM or has considered one. Tracks macros, sleep, and HRV. Supplements strategically, not impulsively. Works in tech, finance, or a knowledge-work field.",
+      "Optimize metabolic flexibility and insulin sensitivity. Maintain or improve body composition without muscle loss. Add a scientifically grounded tool to an existing optimization stack. Understand the mechanism at a deeper level than marketing copy provides.",
+      "Concerned about muscle wasting reported with high-dose synthetic GLP-1 agonists. Wants to know the specific compounds and their published research. Frustrated by supplement marketing that talks down to him. Skeptical of anything that doesn't disclose its full ingredient profile and dosing.",
+      "Technical language is expected and preferred. Cite specific studies or at least name the compounds and pathways. He'll verify claims independently. Long-form scientific content performs better than short social copy. Respects intellectual honesty about limitations. Wants to understand the formula architecture, not just the benefits.",
+      "Where's the peer-reviewed data? What are the specific compounds and doses? How does this interact with my existing stack? Is the effect magnitude even worth it if I'm already metabolically healthy? Why nanoemulsion over other delivery methods?",
+      JSON.stringify(["twitter-x", "podcasts", "linkedin", "longevity-forums", "email"]),
+      0,
+    ],
+  });
+
+  await db.execute({
+    sql: personaSql,
+    args: [
+      "The Side Effects Refugee",
+      "side-effects-refugee",
+      "Started a prescription GLP-1 drug and quit because the side effects were unbearable. Still wants the metabolic benefits. Looking for something that works through the same pathway without the nausea, vomiting, or gastroparesis risk.",
+      "Age 30-55. Skews female but not exclusively. Household income varies widely. Has an existing relationship with a prescribing doctor. Tried Ozempic, Wegovy, or Mounjaro for 2-12 weeks before discontinuing. May have lost some weight before quitting. Active on Reddit GLP-1 communities and Facebook groups where side effect stories circulate.",
+      "Find a way to keep the appetite regulation and metabolic benefits without the GI distress. Avoid going back to the injection. Feel normal after meals again. Lose weight at a sustainable pace even if it's slower than the drugs. Not get talked into trying the injection 'one more time' at a lower dose.",
+      "Traumatized by the nausea, vomiting, or stomach paralysis they experienced on Rx GLP-1 drugs. Feels dismissed by doctors who say side effects are 'manageable' or 'temporary.' Frustrated that they spent hundreds of dollars on something they couldn't tolerate. Worried that anything targeting GLP-1 will trigger the same reaction. Trust in the pharmaceutical approach is broken.",
+      "Empathy first, science second. She needs to feel understood before she'll read the mechanism of action. Personal stories from others who switched carry more weight than clinical data. Be explicit about what Slim SHOT is NOT: it is not a lower dose of the same thing. Explain the endogenous vs. exogenous distinction in plain language. Avoid anything that sounds like minimizing her experience.",
+      "Won't this just give me the same nausea? My doctor says nothing else works as well as semaglutide. How can something that targets the same pathway not have the same side effects? I already spent money on something that didn't work out. Why would this be different?",
+      JSON.stringify(["facebook-groups", "reddit", "instagram", "email", "google-search"]),
+      0,
+    ],
+  });
+
+  await db.execute({
+    sql: personaSql,
+    args: [
+      "The In-Between",
+      "the-in-between",
+      "BMI 26-29. Not diabetic. Not clinically obese. Metabolically at risk but locked out of the prescription GLP-1 pathway because they don't meet diagnostic thresholds. Their doctor says they're fine. They know they're not.",
+      "Age 35-50. Mixed gender, slight female skew. Household income $60K-$120K. Has had bloodwork that showed borderline fasting glucose, elevated triglycerides, or early insulin resistance markers. BMI doesn't qualify for GLP-1 drug coverage. Doctor may have mentioned 'lifestyle changes' without specifics. Educated enough to read their own lab results and know the trajectory.",
+      "Get ahead of a metabolic problem before it becomes a diagnosis. Find a tool that takes their situation seriously instead of telling them to eat less and exercise more. Feel proactive about their health without needing to be sick first. Access GLP-1 pathway support without gaming the insurance system or paying cash prices for off-label prescriptions.",
+      "Feels invisible to the healthcare system. Too healthy for medication, too at-risk to do nothing. Frustrated by the BMI gatekeeping around GLP-1 prescriptions. Knows that waiting for a diabetes or obesity diagnosis means waiting for the problem to get worse. Has researched compounded semaglutide and telehealth prescribers but feels uneasy about the gray market. Tired of generic 'eat better, move more' advice.",
+      "Validate the frustration without being anti-medical-establishment. This person respects their doctor but feels underserved by the current diagnostic framework. Lead with the metabolic science: insulin resistance, fasting glucose trends, the continuum between healthy and diagnosable. Position Slim SHOT as the proactive intervention the system doesn't offer yet. Data-forward but accessible. No condescension.",
+      "If I'm not diabetic or obese, do I even need this? My doctor says my numbers are 'borderline normal.' Is this just for people who want to lose weight? How do I know this is doing anything if I don't have dramatic weight to lose? Am I just being anxious about nothing?",
+      JSON.stringify(["google-search", "health-podcasts", "email", "instagram", "linkedin"]),
+      0,
+    ],
+  });
+
   // ── Site Settings ─────────────────────────────────────────────
 
   const settingSql = "INSERT INTO site_settings (key, value) VALUES (?, ?)";

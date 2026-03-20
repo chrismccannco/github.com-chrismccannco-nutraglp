@@ -31,6 +31,8 @@ import {
   UserCircle,
   RefreshCw,
   Video,
+  Cpu,
+  Webhook,
 } from "lucide-react";
 import { useAuth } from "../layout";
 import { useCmsBranding } from "../hooks/useCmsBranding";
@@ -55,6 +57,8 @@ const contentNav = [
   { label: "Personas", href: "/admin/personas", icon: UserCircle },
   { label: "Repurpose", href: "/admin/repurpose", icon: RefreshCw },
   { label: "Video Studio", href: "/admin/video-studio", icon: Video },
+  { label: "AI Usage", href: "/admin/analytics/ai", icon: Cpu },
+  { label: "Webhooks", href: "/admin/webhooks", icon: Webhook },
 ];
 
 const settingsNav = [

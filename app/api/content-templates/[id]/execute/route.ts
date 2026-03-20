@@ -179,7 +179,62 @@ export async function POST(
       return NextResponse.json({ error: err }, { status: 500 });
     }
 
-    return new NextResponse(anthropicResp.body, {
+    // Wrap the stream to capture usage from the final SSE event
+    const startTime = Date.now();
+    const reader = anthropicResp.body!.getReader();
+    const stream = new ReadableStream({
+      async start(controller) {
+        const decoder = new TextDecoder();
+        let usageData: { input_tokens?: number; output_tokens?: number } = {};
+        try {
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            controller.enqueue(value);
+            // Parse SSE chunks to extract usage from message_delta or message_stop
+            const text = decoder.decode(value, { stream: true });
+            const lines = text.split("\n");
+            for (const line of lines) {
+              if (line.startsWith("data: ")) {
+                try {
+                  const data = JSON.parse(line.slice(6));
+                  if (data.type === "message_start" && data.message?.usage) {
+                    usageData.input_tokens = data.message.usage.input_tokens;
+                  }
+                  if (data.type === "message_delta" && data.usage) {
+                    usageData.output_tokens = data.usage.output_tokens;
+                  }
+                } catch { /* not valid JSON line */ }
+              }
+            }
+          }
+        } finally {
+          controller.close();
+          // Log AI usage after stream completes
+          try {
+            const duration = Date.now() - startTime;
+            const db = getDb();
+            await db.execute({
+              sql: `INSERT INTO ai_usage_log (action, template_id, template_name, voice_id, persona_id, model, input_tokens, output_tokens, duration_ms, metadata) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+              args: [
+                "template_execute",
+                Number(id),
+                (template.name as string) || null,
+                (template.voice_id as number) || null,
+                personaId || null,
+                "claude-sonnet-4-6",
+                usageData.input_tokens || 0,
+                usageData.output_tokens || 0,
+                duration,
+                JSON.stringify({ max_tokens: (template.max_tokens as number) || 1024 }),
+              ],
+            });
+          } catch { /* non-critical */ }
+        }
+      },
+    });
+
+    return new NextResponse(stream, {
       headers: {
         "Content-Type": "text/event-stream",
         "Cache-Control": "no-cache",

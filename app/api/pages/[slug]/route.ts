@@ -100,6 +100,35 @@ export async function PUT(
       args: [slug],
     });
     const row = result.rows[0];
+
+    // Auto-score in the background (non-blocking)
+    if (body.content || body.title || body.meta_description) {
+      try {
+        const content = JSON.parse(row.content as string);
+        const textParts: string[] = [row.title as string];
+        if (row.meta_description) textParts.push(row.meta_description as string);
+        if (Array.isArray(content)) {
+          for (const section of content) {
+            if (section.heading) textParts.push(section.heading);
+            if (section.body) textParts.push(Array.isArray(section.body) ? section.body.join("\n") : section.body);
+          }
+        }
+        const textContent = textParts.filter(Boolean).join("\n\n");
+        if (textContent.length > 100) {
+          const baseUrl = req.nextUrl.origin;
+          fetch(`${baseUrl}/api/score`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              content_type: "page",
+              content_id: row.id,
+              content: textContent,
+            }),
+          }).catch(() => { /* fire and forget */ });
+        }
+      } catch { /* non-critical */ }
+    }
+
     return NextResponse.json({
       id: row.id,
       slug: row.slug,
@@ -111,6 +140,8 @@ export async function PUT(
       blocks: JSON.parse((row.blocks as string) || "[]"),
       blocks_draft: JSON.parse((row.blocks_draft as string) || "[]"),
       published: row.published,
+      brand_score: row.brand_score, voice_score: row.voice_score, clarity_score: row.clarity_score,
+      score_summary: row.score_summary, scored_at: row.scored_at,
       updated_at: row.updated_at,
     });
   } catch (e: unknown) {

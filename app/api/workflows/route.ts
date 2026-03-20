@@ -151,6 +151,52 @@ export async function POST(req: NextRequest) {
       args: [Number(result.lastInsertRowid)],
     });
 
+    // Fire webhooks for this event (non-blocking)
+    try {
+      const eventName = `workflow.${status}`;
+      const endpoints = await db.execute({
+        sql: "SELECT * FROM webhook_endpoints WHERE enabled = 1",
+        args: [],
+      });
+      for (const ep of endpoints.rows) {
+        const events = JSON.parse((ep.events as string) || "[]");
+        if (events.includes(eventName) || events.includes("workflow.*")) {
+          const payload = {
+            event: eventName,
+            timestamp: now,
+            data: {
+              workflow_id: Number(result.lastInsertRowid),
+              content_type,
+              content_id,
+              status,
+              submitted_by: submitted_by || null,
+              reviewed_by: reviewed_by || null,
+              review_note: review_note || null,
+            },
+          };
+          const secret = ep.secret as string | null;
+          const headers: Record<string, string> = { "Content-Type": "application/json" };
+          if (secret) headers["x-webhook-secret"] = secret;
+          fetch(ep.url as string, {
+            method: "POST",
+            headers,
+            body: JSON.stringify(payload),
+          })
+            .then(() => {
+              db.execute({
+                sql: "UPDATE webhook_endpoints SET last_triggered_at = ? WHERE id = ?",
+                args: [now, ep.id as number],
+              }).catch(() => {});
+              db.execute({
+                sql: "UPDATE content_workflows SET webhook_sent = 1 WHERE id = ?",
+                args: [Number(result.lastInsertRowid)],
+              }).catch(() => {});
+            })
+            .catch(() => { /* fire and forget */ });
+        }
+      }
+    } catch { /* non-critical */ }
+
     return NextResponse.json(created.rows[0], { status: 201 });
   } catch (e) {
     return NextResponse.json({ error: String(e) }, { status: 500 });

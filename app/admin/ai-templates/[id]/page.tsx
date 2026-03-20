@@ -19,10 +19,26 @@ interface ContentTemplate {
   category: string;
   prompt_template: string;
   voice_id: number | null;
+  persona_id: number | null;
   knowledge_doc_ids: string;
   output_format: string;
   max_tokens: number;
   variables: string;
+}
+
+interface BrandVoice {
+  id: number;
+  name: string;
+  slug: string;
+  is_default: number;
+}
+
+interface Persona {
+  id: number;
+  name: string;
+  slug: string;
+  description: string | null;
+  is_default: number;
 }
 
 const CATEGORIES: Record<string, string> = {
@@ -44,6 +60,9 @@ export default function TemplateEditPage() {
   const [running, setRunning] = useState(false);
   const [output, setOutput] = useState('');
   const [varValues, setVarValues] = useState<Record<string, string>>({});
+  const [voices, setVoices] = useState<BrandVoice[]>([]);
+  const [personas, setPersonas] = useState<Persona[]>([]);
+  const [runPersonaId, setRunPersonaId] = useState<number | null>(null);
   const pendingRef = useRef<Record<string, unknown>>({});
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -62,6 +81,10 @@ export default function TemplateEditPage() {
         }
       })
       .finally(() => setLoading(false));
+
+    // Load voices and personas for selectors
+    fetch('/api/brand-voices').then(r => r.ok ? r.json() : []).then(setVoices).catch(() => {});
+    fetch('/api/personas').then(r => r.ok ? r.json() : []).then(setPersonas).catch(() => {});
   }, [id]);
 
   const doSave = useCallback(async () => {
@@ -103,7 +126,7 @@ export default function TemplateEditPage() {
       const res = await fetch(`/api/content-templates/${id}/execute`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ variables: varValues }),
+        body: JSON.stringify({ variables: varValues, ...(runPersonaId ? { personaId: runPersonaId } : {}) }),
       });
       if (!res.ok) {
         const err = await res.json();
@@ -222,6 +245,41 @@ export default function TemplateEditPage() {
               </div>
             </div>
 
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-semibold text-neutral-500 mb-1.5">Brand voice</label>
+                <select
+                  value={template.voice_id ?? ''}
+                  onChange={e => update('voice_id', e.target.value ? Number(e.target.value) : null)}
+                  className="w-full px-3 py-2 border border-neutral-200 rounded-lg text-sm bg-white text-neutral-700"
+                >
+                  <option value="">No voice</option>
+                  {voices.map(v => (
+                    <option key={v.id} value={v.id}>
+                      {v.name}{v.is_default === 1 ? ' (default)' : ''}
+                    </option>
+                  ))}
+                </select>
+                <p className="text-[11px] text-neutral-400 mt-1">Tone, dos/donts, and style anchor injected into the AI prompt.</p>
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-neutral-500 mb-1.5">Default persona</label>
+                <select
+                  value={template.persona_id ?? ''}
+                  onChange={e => update('persona_id', e.target.value ? Number(e.target.value) : null)}
+                  className="w-full px-3 py-2 border border-neutral-200 rounded-lg text-sm bg-white text-neutral-700"
+                >
+                  <option value="">No persona</option>
+                  {personas.map(p => (
+                    <option key={p.id} value={p.id}>
+                      {p.name}{p.is_default === 1 ? ' (default)' : ''}
+                    </option>
+                  ))}
+                </select>
+                <p className="text-[11px] text-neutral-400 mt-1">AI adapts output to this audience. Can be overridden per run.</p>
+              </div>
+            </div>
+
             <div>
               <label className="block text-xs font-semibold text-neutral-500 mb-1.5">Prompt template</label>
               <p className="text-xs text-neutral-400 mb-2">Use {'{{variable_name}}'} for dynamic values. These become input fields when running the template.</p>
@@ -258,6 +316,23 @@ export default function TemplateEditPage() {
                 </div>
               ) : (
                 <p className="text-xs text-neutral-400 mb-4">No variables defined. Add {'{{variable}}'} placeholders in the prompt template.</p>
+              )}
+
+              {personas.length > 0 && (
+                <div className="mb-4">
+                  <label className="block text-xs font-medium text-neutral-600 mb-1">Persona override</label>
+                  <select
+                    value={runPersonaId ?? ''}
+                    onChange={e => setRunPersonaId(e.target.value ? Number(e.target.value) : null)}
+                    className="w-full px-3 py-2 border border-neutral-200 rounded-lg text-sm bg-white text-neutral-700"
+                  >
+                    <option value="">{template.persona_id ? 'Use template default' : 'No persona'}</option>
+                    {personas.map(p => (
+                      <option key={p.id} value={p.id}>{p.name}</option>
+                    ))}
+                  </select>
+                  <p className="text-[11px] text-neutral-400 mt-1">Override the template's default persona for this run.</p>
+                </div>
               )}
 
               <button

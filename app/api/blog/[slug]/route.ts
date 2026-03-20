@@ -84,6 +84,36 @@ export async function PUT(
       args: [newSlug],
     });
     const r = result.rows[0];
+
+    // Auto-score in the background (non-blocking)
+    if (body.sections || body.description) {
+      try {
+        const sections = JSON.parse(r.sections as string);
+        const textContent = [
+          r.title,
+          r.description,
+          ...sections.flatMap((s: { heading?: string; body?: string | string[] }) => {
+            const h = s.heading || "";
+            const b = Array.isArray(s.body) ? s.body.join("\n") : s.body || "";
+            return [h, b];
+          }),
+        ].filter(Boolean).join("\n\n");
+
+        if (textContent.length > 100) {
+          const baseUrl = req.nextUrl.origin;
+          fetch(`${baseUrl}/api/score`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              content_type: "blog_post",
+              content_id: r.id,
+              content: textContent,
+            }),
+          }).catch(() => { /* fire and forget */ });
+        }
+      } catch { /* non-critical */ }
+    }
+
     return NextResponse.json({
       id: r.id, slug: r.slug, title: r.title, description: r.description,
       date: r.date, read_time: r.read_time, tag: r.tag, gradient: r.gradient,
@@ -94,6 +124,8 @@ export async function PUT(
       blocks: JSON.parse((r.blocks as string) || "[]"),
       blocks_draft: JSON.parse((r.blocks_draft as string) || "[]"),
       published: r.published, publish_at: r.publish_at || null,
+      brand_score: r.brand_score, voice_score: r.voice_score, clarity_score: r.clarity_score,
+      score_summary: r.score_summary, scored_at: r.scored_at,
       created_at: r.created_at, updated_at: r.updated_at,
     });
   } catch (e: unknown) {

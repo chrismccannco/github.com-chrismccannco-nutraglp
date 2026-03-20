@@ -16,6 +16,8 @@ import BlockEditor from "../../components/blocks/BlockEditor";
 import type { Block } from "@/lib/types/blocks";
 import { Plus, Trash2, RefreshCw } from "lucide-react";
 import Link from "next/link";
+import AiAssistPanel from "../../components/AiAssistPanel";
+import type { AiAssistResult } from "../../components/AiAssistPanel";
 
 interface Section {
   heading: string;
@@ -487,6 +489,27 @@ export default function EditBlogPost() {
           )}
         </div>
       </FormSection>
+
+      <div className="mb-4">
+        <AiAssistPanel
+          contentType="blog_rewrite"
+          placeholder="e.g. Make the tone more conversational, add a section about side effects, rewrite for the cost-conscious buyer"
+          buttonLabel="Rewrite"
+          existingContent={sections.map((s) => `## ${s.heading}\n${s.body}`).join("\n\n")}
+          onResult={(data: AiAssistResult) => {
+            if (data.title) setTitle(data.title as string);
+            if (data.description) setDescription(data.description as string);
+            if (data.sections && Array.isArray(data.sections)) {
+              setSections(
+                (data.sections as { heading: string; body: string }[]).map((s) => ({
+                  heading: s.heading,
+                  body: s.body,
+                }))
+              );
+            }
+          }}
+        />
+      </div>
 
       <div className="flex items-center justify-between mt-2 mb-3">
         <h2 className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
