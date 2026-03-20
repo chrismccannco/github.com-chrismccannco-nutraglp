@@ -46,7 +46,7 @@ const columns: Column<PageRow>[] = [
     render: (row: PageRow) => {
       if (row.brand_score == null) return <span className="text-[11px] text-neutral-300">—</span>;
       const s = row.brand_score;
-      const color = s >= 80 ? "bg-emerald-100 text-emerald-700" : s >= 60 ? "bg-amber-100 text-amber-700" : "bg-red-100 text-red-700";
+      const color = s >= 80 ? "bg-indigo-100 text-indigo-700" : s >= 60 ? "bg-amber-100 text-amber-700" : "bg-red-100 text-red-700";
       return (
         <span className={`inline-flex items-center px-2 py-0.5 text-[11px] font-semibold rounded-full ${color}`}>
           {s}
@@ -141,7 +141,7 @@ export default function PagesAdmin() {
         </div>
         <button
           onClick={() => { setShowNew(true); setNewTitle(""); setNewSlug(""); setCreateError(""); }}
-          className="px-4 py-2 bg-emerald-600 text-white text-sm font-medium rounded-lg hover:bg-emerald-700 transition-colors"
+          className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors"
         >
           + New Page
         </button>
@@ -160,7 +160,7 @@ export default function PagesAdmin() {
                   onChange={(e) => handleTitleChange(e.target.value)}
                   placeholder="e.g. About Us"
                   autoFocus
-                  className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   onKeyDown={(e) => e.key === "Enter" && handleCreate()}
                 />
               </div>
@@ -172,7 +172,7 @@ export default function PagesAdmin() {
                     value={newSlug}
                     onChange={(e) => setNewSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, "-"))}
                     placeholder="about-us"
-                    className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     onKeyDown={(e) => e.key === "Enter" && handleCreate()}
                   />
                 </div>
@@ -191,7 +191,7 @@ export default function PagesAdmin() {
               <button
                 onClick={handleCreate}
                 disabled={creating || !newTitle.trim() || !newSlug.trim()}
-                className="px-4 py-2 bg-emerald-600 text-white text-sm font-medium rounded-lg hover:bg-emerald-700 transition-colors disabled:opacity-50"
+                className="px-4 py-2 bg-indigo-600 text-white text-sm font-medium rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50"
               >
                 {creating ? "Creating\u2026" : "Create Page"}
               </button>

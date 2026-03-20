@@ -89,7 +89,7 @@ export default function ProductsAdmin() {
         <span
           className={`text-xs ${
             row.status === "available"
-              ? "text-emerald-600"
+              ? "text-indigo-600"
               : "text-neutral-400"
           }`}
         >
@@ -159,7 +159,7 @@ export default function ProductsAdmin() {
                     <input
                       value={form.name || ""}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     />
                   </div>
                   <div>
@@ -169,7 +169,7 @@ export default function ProductsAdmin() {
                     <select
                       value={form.status || ""}
                       onChange={(e) => setForm({ ...form, status: e.target.value })}
-                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     >
                       <option value="available">Available</option>
                       <option value="coming-soon">Coming Soon</option>
@@ -183,7 +183,7 @@ export default function ProductsAdmin() {
                   <input
                     value={form.tagline || ""}
                     onChange={(e) => setForm({ ...form, tagline: e.target.value })}
-                    className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
@@ -194,7 +194,7 @@ export default function ProductsAdmin() {
                     <input
                       value={form.price || ""}
                       onChange={(e) => setForm({ ...form, price: e.target.value })}
-                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     />
                   </div>
                   <div>
@@ -204,7 +204,7 @@ export default function ProductsAdmin() {
                     <input
                       value={form.launch_date || ""}
                       onChange={(e) => setForm({ ...form, launch_date: e.target.value })}
-                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     />
                   </div>
                 </div>
@@ -233,7 +233,7 @@ export default function ProductsAdmin() {
               <button
                 onClick={() => saveEdit(true)}
                 disabled={saving}
-                className="px-4 py-2 bg-emerald-600 text-white text-sm rounded-lg hover:bg-emerald-700 transition disabled:opacity-50"
+                className="px-4 py-2 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
               >
                 {saving ? "Saving\u2026" : "Publish"}
               </button>

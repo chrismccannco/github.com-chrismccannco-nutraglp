@@ -63,7 +63,7 @@ export default function FormListPage() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-xl font-semibold text-neutral-900 flex items-center gap-2">
-            <FileInput className="w-5 h-5 text-emerald-600" />
+            <FileInput className="w-5 h-5 text-indigo-600" />
             Form Builder
           </h1>
           <p className="text-sm text-neutral-500 mt-1">
@@ -78,13 +78,13 @@ export default function FormListPage() {
           value={newName}
           onChange={(e) => setNewName(e.target.value)}
           placeholder="New form name..."
-          className="flex-1 px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="flex-1 px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
           onKeyDown={(e) => e.key === "Enter" && handleCreate()}
         />
         <button
           onClick={handleCreate}
           disabled={creating || !newName.trim()}
-          className="flex items-center gap-1.5 px-4 py-2 text-sm font-medium bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition disabled:opacity-50"
+          className="flex items-center gap-1.5 px-4 py-2 text-sm font-medium bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
         >
           <Plus className="w-4 h-4" />
           Create Form
@@ -107,14 +107,14 @@ export default function FormListPage() {
                 <div className="flex items-center gap-2">
                   <Link
                     href={`/admin/form-builder/${form.slug}`}
-                    className="text-sm font-medium text-neutral-900 hover:text-emerald-700 no-underline truncate"
+                    className="text-sm font-medium text-neutral-900 hover:text-indigo-700 no-underline truncate"
                   >
                     {form.name}
                   </Link>
                   <span
                     className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${
                       form.published
-                        ? "bg-emerald-50 text-emerald-700"
+                        ? "bg-indigo-50 text-indigo-700"
                         : "bg-neutral-100 text-neutral-500"
                     }`}
                   >

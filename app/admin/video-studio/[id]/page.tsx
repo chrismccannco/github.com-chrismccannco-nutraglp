@@ -208,7 +208,7 @@ export default function VideoEditorPage() {
           </div>
           <div className="flex items-center gap-3">
             {saving && <span className="flex items-center gap-1.5 text-xs text-neutral-400"><Loader2 size={12} className="animate-spin" /> Saving...</span>}
-            {saved && <span className="flex items-center gap-1.5 text-xs text-emerald-600"><Check size={12} /> Saved</span>}
+            {saved && <span className="flex items-center gap-1.5 text-xs text-indigo-600"><Check size={12} /> Saved</span>}
             <button onClick={doSave} disabled={saving}
               className="flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-sm font-medium rounded-lg hover:bg-neutral-700 disabled:opacity-50 transition-colors">
               <Check size={13} /> Save
@@ -279,7 +279,7 @@ export default function VideoEditorPage() {
                 <h3 className="text-sm font-semibold text-neutral-900">Clips ({video.clips?.length || 0})</h3>
                 {(video.clips?.length || 0) > 0 && (
                   <button onClick={generateCaptions} disabled={generatingCaptions}
-                    className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 text-white text-xs font-medium rounded-lg hover:bg-emerald-500 disabled:opacity-50 transition-colors">
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600 text-white text-xs font-medium rounded-lg hover:bg-indigo-500 disabled:opacity-50 transition-colors">
                     {generatingCaptions ? <Loader2 size={11} className="animate-spin" /> : <Wand2 size={11} />}
                     {generatingCaptions ? 'Generating...' : 'Generate all captions'}
                   </button>

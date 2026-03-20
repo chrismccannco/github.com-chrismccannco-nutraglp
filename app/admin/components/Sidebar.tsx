@@ -101,7 +101,7 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
         onClick={onClose}
         className={`flex items-center gap-3 px-4 py-2 text-sm rounded-lg no-underline transition ${
           active
-            ? "bg-emerald-50 text-emerald-700 font-medium border-l-2 border-emerald-600 -ml-px"
+            ? "bg-indigo-50 text-indigo-700 font-medium border-l-2 border-indigo-600 -ml-px"
             : "text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900"
         }`}
       >

@@ -63,7 +63,7 @@ export default function ImageUploadModal({
             onClick={() => setTab("upload")}
             className={`flex-1 px-4 py-2.5 text-xs font-medium transition ${
               tab === "upload"
-                ? "text-emerald-700 border-b-2 border-emerald-600"
+                ? "text-indigo-700 border-b-2 border-indigo-600"
                 : "text-neutral-500 hover:text-neutral-700"
             }`}
           >
@@ -73,7 +73,7 @@ export default function ImageUploadModal({
             onClick={() => setTab("url")}
             className={`flex-1 px-4 py-2.5 text-xs font-medium transition ${
               tab === "url"
-                ? "text-emerald-700 border-b-2 border-emerald-600"
+                ? "text-indigo-700 border-b-2 border-indigo-600"
                 : "text-neutral-500 hover:text-neutral-700"
             }`}
           >
@@ -92,7 +92,7 @@ export default function ImageUploadModal({
               onDrop={handleDrop}
               className={`border-2 border-dashed rounded-lg p-8 text-center transition ${
                 dragOver
-                  ? "border-emerald-500 bg-emerald-50"
+                  ? "border-indigo-500 bg-indigo-50"
                   : "border-neutral-300"
               }`}
             >
@@ -112,7 +112,7 @@ export default function ImageUploadModal({
               <button
                 onClick={() => fileRef.current?.click()}
                 disabled={uploading}
-                className="px-4 py-2 bg-emerald-600 text-white text-xs rounded-lg hover:bg-emerald-700 transition disabled:opacity-50"
+                className="px-4 py-2 bg-indigo-600 text-white text-xs rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
               >
                 {uploading ? "Uploading..." : "Choose file"}
               </button>
@@ -124,14 +124,14 @@ export default function ImageUploadModal({
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 placeholder="https://example.com/image.jpg"
-                className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
               />
               <button
                 onClick={() => {
                   if (url.trim()) onInsert(url.trim());
                 }}
                 disabled={!url.trim()}
-                className="w-full px-4 py-2 bg-emerald-600 text-white text-xs rounded-lg hover:bg-emerald-700 transition disabled:opacity-50"
+                className="w-full px-4 py-2 bg-indigo-600 text-white text-xs rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
               >
                 Insert
               </button>

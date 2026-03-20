@@ -599,7 +599,7 @@ export default function DocsPage() {
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-1">
-          <BookOpen className="w-6 h-6 text-emerald-600" />
+          <BookOpen className="w-6 h-6 text-indigo-600" />
           <h1 className="text-2xl font-bold text-neutral-900">
             CMS Documentation
           </h1>
@@ -620,7 +620,7 @@ export default function DocsPage() {
             setActiveDoc(null);
           }}
           placeholder="Search documentation..."
-          className="w-full pl-10 pr-4 py-3 bg-white border border-neutral-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent shadow-sm"
+          className="w-full pl-10 pr-4 py-3 bg-white border border-neutral-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent shadow-sm"
         />
         {query && (
           <button
@@ -648,7 +648,7 @@ export default function DocsPage() {
             Back to all topics
           </button>
 
-          <p className="text-[10px] uppercase tracking-widest text-emerald-600 font-semibold mb-1">
+          <p className="text-[10px] uppercase tracking-widest text-indigo-600 font-semibold mb-1">
             {activeDocData.category}
           </p>
           <h2 className="text-xl font-bold text-neutral-900 mb-4">
@@ -667,7 +667,7 @@ export default function DocsPage() {
               <ol className="space-y-2">
                 {activeDocData.steps.map((step, i) => (
                   <li key={i} className="flex gap-3 text-sm text-neutral-700">
-                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-emerald-50 text-emerald-700 text-xs font-semibold flex items-center justify-center">
+                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-indigo-50 text-indigo-700 text-xs font-semibold flex items-center justify-center">
                       {i + 1}
                     </span>
                     <span className="pt-0.5">{highlight(step)}</span>
@@ -738,7 +738,7 @@ export default function DocsPage() {
                       <button
                         key={doc.id}
                         onClick={() => setActiveDoc(doc.id)}
-                        className="w-full text-left px-5 py-3 hover:bg-emerald-50 transition border-b border-neutral-50 last:border-0"
+                        className="w-full text-left px-5 py-3 hover:bg-indigo-50 transition border-b border-neutral-50 last:border-0"
                       >
                         <p className="text-sm font-medium text-neutral-800">
                           {highlight(doc.title)}
@@ -764,31 +764,31 @@ export default function DocsPage() {
             Quick Reference
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
-            <Link href="/admin/pages" className="text-emerald-700 hover:text-emerald-900 no-underline">
+            <Link href="/admin/pages" className="text-indigo-700 hover:text-indigo-900 no-underline">
               Pages &rarr;
             </Link>
-            <Link href="/admin/blog" className="text-emerald-700 hover:text-emerald-900 no-underline">
+            <Link href="/admin/blog" className="text-indigo-700 hover:text-indigo-900 no-underline">
               Blog &rarr;
             </Link>
-            <Link href="/admin/products" className="text-emerald-700 hover:text-emerald-900 no-underline">
+            <Link href="/admin/products" className="text-indigo-700 hover:text-indigo-900 no-underline">
               Products &rarr;
             </Link>
-            <Link href="/admin/faq" className="text-emerald-700 hover:text-emerald-900 no-underline">
+            <Link href="/admin/faq" className="text-indigo-700 hover:text-indigo-900 no-underline">
               FAQ &rarr;
             </Link>
-            <Link href="/admin/form-builder" className="text-emerald-700 hover:text-emerald-900 no-underline">
+            <Link href="/admin/form-builder" className="text-indigo-700 hover:text-indigo-900 no-underline">
               Form Builder &rarr;
             </Link>
-            <Link href="/admin/templates" className="text-emerald-700 hover:text-emerald-900 no-underline">
+            <Link href="/admin/templates" className="text-indigo-700 hover:text-indigo-900 no-underline">
               Templates &rarr;
             </Link>
-            <Link href="/admin/sites" className="text-emerald-700 hover:text-emerald-900 no-underline">
+            <Link href="/admin/sites" className="text-indigo-700 hover:text-indigo-900 no-underline">
               Sites &rarr;
             </Link>
-            <Link href="/admin/localization" className="text-emerald-700 hover:text-emerald-900 no-underline">
+            <Link href="/admin/localization" className="text-indigo-700 hover:text-indigo-900 no-underline">
               Localization &rarr;
             </Link>
-            <Link href="/admin/api-docs" className="text-emerald-700 hover:text-emerald-900 no-underline">
+            <Link href="/admin/api-docs" className="text-indigo-700 hover:text-indigo-900 no-underline">
               API Docs &rarr;
             </Link>
           </div>

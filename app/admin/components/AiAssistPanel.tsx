@@ -221,7 +221,7 @@ export default function AiAssistPanel({
       {error && <p className="mt-2 text-xs text-red-600">{error}</p>}
       {success && (
         <div className="mt-2 px-3 py-1.5 bg-white/80 rounded-lg border border-violet-100">
-          <p className="text-xs text-emerald-700 font-medium">{success}</p>
+          <p className="text-xs text-indigo-700 font-medium">{success}</p>
         </div>
       )}
     </div>

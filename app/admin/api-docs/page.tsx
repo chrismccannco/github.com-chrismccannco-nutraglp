@@ -209,7 +209,7 @@ export default function ApiDocsPage() {
     <div className="max-w-4xl">
       <div className="mb-8">
         <div className="flex items-center gap-2 mb-1">
-          <BookOpen className="w-5 h-5 text-emerald-600" />
+          <BookOpen className="w-5 h-5 text-indigo-600" />
           <h1 className="text-xl font-semibold text-neutral-900">API Documentation</h1>
         </div>
         <p className="text-sm text-neutral-500 mt-1">
@@ -220,7 +220,7 @@ export default function ApiDocsPage() {
       {/* Auth section */}
       <div className="mb-8 p-5 bg-white border border-neutral-200 rounded-xl">
         <div className="flex items-center gap-2 mb-3">
-          <Lock className="w-4 h-4 text-emerald-600" />
+          <Lock className="w-4 h-4 text-indigo-600" />
           <h2 className="text-sm font-semibold text-neutral-900">Authentication</h2>
         </div>
         <p className="text-sm text-neutral-600 mb-3">
@@ -248,7 +248,7 @@ export default function ApiDocsPage() {
           </button>
         </div>
         <p className="text-xs text-neutral-400 mt-2">
-          Create API keys in <a href="/admin/api-keys" className="text-emerald-600 hover:text-emerald-700">Settings &rarr; API Keys</a>.
+          Create API keys in <a href="/admin/api-keys" className="text-indigo-600 hover:text-indigo-700">Settings &rarr; API Keys</a>.
         </p>
       </div>
 
@@ -394,7 +394,7 @@ function EndpointCard({
         onClick={() => setExpanded(!expanded)}
         className="w-full flex items-center gap-3 text-left"
       >
-        <span className="px-2 py-0.5 bg-emerald-50 text-emerald-700 text-[11px] font-bold rounded font-mono">
+        <span className="px-2 py-0.5 bg-indigo-50 text-indigo-700 text-[11px] font-bold rounded font-mono">
           {endpoint.method}
         </span>
         <code className="text-sm text-neutral-800 font-mono">{endpoint.path}</code>
@@ -416,7 +416,7 @@ function EndpointCard({
               <div className="space-y-1">
                 {endpoint.params.map((p) => (
                   <div key={p.name} className="flex items-baseline gap-2 text-xs">
-                    <code className="text-emerald-700 font-mono">{p.name}</code>
+                    <code className="text-indigo-700 font-mono">{p.name}</code>
                     <span className="text-neutral-400">{p.type}</span>
                     {p.required && (
                       <span className="text-[10px] text-red-500 font-medium">required</span>

@@ -58,8 +58,8 @@ export default function AdminDashboard() {
       count: stats?.pages ?? "\u2014",
       href: "/admin/pages",
       icon: FileText,
-      accent: "text-emerald-600",
-      bg: "bg-emerald-50",
+      accent: "text-indigo-600",
+      bg: "bg-indigo-50",
     },
     {
       label: "Blog Posts",
@@ -141,7 +141,7 @@ export default function AdminDashboard() {
         <div className="flex flex-wrap gap-3">
           <Link
             href="/admin/blog/new"
-            className="flex items-center gap-1.5 px-4 py-2 bg-emerald-600 text-white text-sm rounded-lg no-underline hover:bg-emerald-700 transition"
+            className="flex items-center gap-1.5 px-4 py-2 bg-indigo-600 text-white text-sm rounded-lg no-underline hover:bg-indigo-700 transition"
           >
             <Plus className="w-3.5 h-3.5" />
             New blog post

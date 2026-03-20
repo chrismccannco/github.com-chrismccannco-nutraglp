@@ -99,7 +99,7 @@ export default function FAQAdmin() {
         </div>
         <button
           onClick={() => setShowNew(!showNew)}
-          className="flex items-center gap-1.5 px-4 py-2 bg-emerald-600 text-white text-sm rounded-lg hover:bg-emerald-700 transition"
+          className="flex items-center gap-1.5 px-4 py-2 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition"
         >
           {showNew ? (
             "Cancel"
@@ -122,7 +122,7 @@ export default function FAQAdmin() {
               value={newCat}
               onChange={(e) => setNewCat(e.target.value)}
               placeholder="e.g. GLP-1 Basics"
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
           <div>
@@ -132,7 +132,7 @@ export default function FAQAdmin() {
             <input
               value={newQ}
               onChange={(e) => setNewQ(e.target.value)}
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
           <div>
@@ -147,7 +147,7 @@ export default function FAQAdmin() {
           </div>
           <button
             onClick={handleCreate}
-            className="px-4 py-2 bg-emerald-600 text-white text-sm rounded-lg hover:bg-emerald-700 transition"
+            className="px-4 py-2 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition"
           >
             Create FAQ
           </button>
@@ -166,19 +166,19 @@ export default function FAQAdmin() {
                 editing === faq.id ? (
                   <div
                     key={faq.id}
-                    className="bg-white border border-emerald-200 rounded-lg shadow-sm p-5 space-y-3"
+                    className="bg-white border border-indigo-200 rounded-lg shadow-sm p-5 space-y-3"
                   >
                     <input
                       value={editCat}
                       onChange={(e) => setEditCat(e.target.value)}
                       placeholder="Category"
-                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     />
                     <input
                       value={editQ}
                       onChange={(e) => setEditQ(e.target.value)}
                       placeholder="Question"
-                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
                     />
                     <RichTextEditor
                       content={editA}
@@ -196,7 +196,7 @@ export default function FAQAdmin() {
                     <div className="flex gap-2">
                       <button
                         onClick={() => saveEdit(faq.id)}
-                        className="px-3 py-1.5 bg-emerald-600 text-white text-xs rounded-lg hover:bg-emerald-700 transition"
+                        className="px-3 py-1.5 bg-indigo-600 text-white text-xs rounded-lg hover:bg-indigo-700 transition"
                       >
                         Save
                       </button>

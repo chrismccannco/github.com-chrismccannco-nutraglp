@@ -165,7 +165,7 @@ export default function ReviewsPage() {
                   <ContentIcon type={item.content_type} />
                   <Link
                     href={getEditUrl(item)}
-                    className="text-sm font-medium text-neutral-900 hover:text-emerald-700 no-underline truncate"
+                    className="text-sm font-medium text-neutral-900 hover:text-indigo-700 no-underline truncate"
                   >
                     {item.content_title || "Untitled"}
                   </Link>
@@ -210,7 +210,7 @@ export default function ReviewsPage() {
                   <button
                     onClick={() => submitAction(item, "approved")}
                     disabled={actionLoading === item.id}
-                    className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium bg-emerald-50 text-emerald-700 rounded-lg hover:bg-emerald-100 transition disabled:opacity-50"
+                    className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium bg-indigo-50 text-indigo-700 rounded-lg hover:bg-indigo-100 transition disabled:opacity-50"
                   >
                     <CheckCircle2 className="w-3.5 h-3.5" />
                     Approve
@@ -231,7 +231,7 @@ export default function ReviewsPage() {
                   <button
                     onClick={() => submitAction(item, "published")}
                     disabled={actionLoading === item.id}
-                    className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition disabled:opacity-50"
+                    className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition disabled:opacity-50"
                   >
                     <CheckCircle2 className="w-3.5 h-3.5" />
                     Publish

@@ -146,7 +146,7 @@ export default function AdminLayout({
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm mb-3 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm mb-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
               placeholder="Email"
               autoFocus
             />
@@ -156,7 +156,7 @@ export default function AdminLayout({
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm mb-3 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm mb-3 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
             placeholder="Password"
             autoFocus={loginMode === "legacy"}
           />
@@ -167,7 +167,7 @@ export default function AdminLayout({
 
           <button
             type="submit"
-            className="w-full bg-emerald-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-emerald-700 transition"
+            className="w-full bg-indigo-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition"
           >
             Sign in
           </button>

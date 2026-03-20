@@ -241,7 +241,7 @@ export default function EditBlogPost() {
               publishAt && new Date(publishAt) > new Date()
                 ? "bg-blue-50 text-blue-700 hover:bg-blue-100"
                 : published
-                  ? "bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
+                  ? "bg-indigo-50 text-indigo-700 hover:bg-indigo-100"
                   : "bg-amber-50 text-amber-700 hover:bg-amber-100"
             }`}
             title={published ? "Click to unpublish" : "Click to publish"}
@@ -249,7 +249,7 @@ export default function EditBlogPost() {
             <span className={`w-1.5 h-1.5 rounded-full ${
               publishAt && new Date(publishAt) > new Date()
                 ? "bg-blue-500"
-                : published ? "bg-emerald-500" : "bg-amber-500"
+                : published ? "bg-indigo-500" : "bg-amber-500"
             }`} />
             {publishAt && new Date(publishAt) > new Date()
               ? "Scheduled"
@@ -316,7 +316,7 @@ export default function EditBlogPost() {
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
         <div className="mb-4">
@@ -327,7 +327,7 @@ export default function EditBlogPost() {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             rows={2}
-            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
         <div className="grid grid-cols-2 gap-4 mb-4">
@@ -338,7 +338,7 @@ export default function EditBlogPost() {
             <input
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
           <div>
@@ -348,7 +348,7 @@ export default function EditBlogPost() {
             <input
               value={readTime}
               onChange={(e) => setReadTime(e.target.value)}
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
         </div>
@@ -360,7 +360,7 @@ export default function EditBlogPost() {
             <input
               value={tag}
               onChange={(e) => setTag(e.target.value)}
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
           <div>
@@ -370,7 +370,7 @@ export default function EditBlogPost() {
             <input
               value={gradient}
               onChange={(e) => setGradient(e.target.value)}
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
         </div>
@@ -385,7 +385,7 @@ export default function EditBlogPost() {
             type="datetime-local"
             value={publishAt ? publishAt.slice(0, 16) : ""}
             onChange={(e) => setPublishAt(e.target.value ? new Date(e.target.value).toISOString() : "")}
-            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
           <p className="text-xs text-neutral-400 mt-1">
             {publishAt
@@ -410,7 +410,7 @@ export default function EditBlogPost() {
             value={featuredImage}
             onChange={(e) => setFeaturedImage(e.target.value)}
             placeholder="Upload or paste URL"
-            className="flex-1 px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="flex-1 px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
           <button
             type="button"
@@ -436,7 +436,7 @@ export default function EditBlogPost() {
         <input
           value={relatedSlugs}
           onChange={(e) => setRelatedSlugs(e.target.value)}
-          className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
         />
       </FormSection>
 
@@ -449,7 +449,7 @@ export default function EditBlogPost() {
             value={metaTitle}
             onChange={(e) => setMetaTitle(e.target.value)}
             placeholder="Override post title for search engines"
-            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
           <p className="text-xs text-neutral-400 mt-1">
             {metaTitle.length}/60 characters
@@ -464,7 +464,7 @@ export default function EditBlogPost() {
             onChange={(e) => setMetaDescription(e.target.value)}
             rows={2}
             placeholder="Override post description for search engines"
-            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
           <p className="text-xs text-neutral-400 mt-1">
             {metaDescription.length}/160 characters
@@ -478,7 +478,7 @@ export default function EditBlogPost() {
             value={ogImage}
             onChange={(e) => setOgImage(e.target.value)}
             placeholder="https://..."
-            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
           {ogImage && (
             <img
@@ -546,7 +546,7 @@ export default function EditBlogPost() {
           <div className="flex items-center justify-end mb-1">
             <button
               onClick={addSection}
-              className="flex items-center gap-1 text-xs text-emerald-600 hover:text-emerald-700 font-medium"
+              className="flex items-center gap-1 text-xs text-indigo-600 hover:text-indigo-700 font-medium"
             >
               <Plus className="w-3.5 h-3.5" />
               Add section
@@ -570,7 +570,7 @@ export default function EditBlogPost() {
               <input
                 value={section.heading}
                 onChange={(e) => updateSectionHeading(i, e.target.value)}
-                className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 mb-3"
+                className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-3"
               />
               <label className="block text-xs font-medium text-neutral-500 mb-1">
                 Body

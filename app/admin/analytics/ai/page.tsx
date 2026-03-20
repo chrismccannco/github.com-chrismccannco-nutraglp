@@ -77,7 +77,7 @@ function MiniBar({ value, max }: { value: number; max: number }) {
   const pct = max > 0 ? Math.round((value / max) * 100) : 0;
   return (
     <div className="w-24 h-2 bg-neutral-100 rounded-full overflow-hidden">
-      <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${pct}%` }} />
+      <div className="h-full bg-indigo-500 rounded-full" style={{ width: `${pct}%` }} />
     </div>
   );
 }
@@ -126,7 +126,7 @@ export default function AIAnalytics() {
         <select
           value={days}
           onChange={(e) => setDays(Number(e.target.value))}
-          className="text-sm border border-neutral-300 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="text-sm border border-neutral-300 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-indigo-500"
         >
           <option value={7}>Last 7 days</option>
           <option value={14}>Last 14 days</option>
@@ -168,7 +168,7 @@ export default function AIAnalytics() {
                   title={`${d.date}: ${d.calls} calls`}
                 >
                   <div
-                    className="bg-emerald-500 rounded-t w-full min-h-[2px] transition-all hover:bg-emerald-600"
+                    className="bg-indigo-500 rounded-t w-full min-h-[2px] transition-all hover:bg-indigo-600"
                     style={{ height: `${pct}%` }}
                   />
                   <div className="absolute -top-8 left-1/2 -translate-x-1/2 hidden group-hover:block bg-neutral-800 text-white text-[10px] px-2 py-1 rounded whitespace-nowrap z-10">

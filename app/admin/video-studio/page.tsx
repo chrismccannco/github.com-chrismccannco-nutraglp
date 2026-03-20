@@ -105,7 +105,7 @@ export default function VideoStudioPage() {
                     <div className="flex items-center gap-4 text-[11px] text-neutral-400">
                       <span className={`px-2 py-0.5 rounded-full text-[10px] font-medium ${
                         v.transcript_status === 'complete'
-                          ? 'bg-emerald-50 text-emerald-600'
+                          ? 'bg-indigo-50 text-indigo-600'
                           : 'bg-amber-50 text-amber-600'
                       }`}>
                         {v.transcript_status === 'complete' ? 'Transcript ready' : 'Needs transcript'}

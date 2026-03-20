@@ -7,7 +7,7 @@ type SaveStatus = "idle" | "saving" | "saved" | "error";
 const config: Record<SaveStatus, { icon: typeof Cloud; text: string; className: string }> = {
   idle: { icon: Cloud, text: "", className: "text-neutral-300" },
   saving: { icon: Loader2, text: "Saving\u2026", className: "text-neutral-400" },
-  saved: { icon: Cloud, text: "Saved", className: "text-emerald-500" },
+  saved: { icon: Cloud, text: "Saved", className: "text-indigo-500" },
   error: { icon: CloudOff, text: "Error saving", className: "text-red-500" },
 };
 
