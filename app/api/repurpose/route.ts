@@ -1,11 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
-import { getAIConfig, streamText } from "@/lib/ai-provider";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
-
+async function getAnthropicKey(): Promise<string | null> {
+  try {
+    const db = getDb();
+    const result = await db.execute(
+      "SELECT value FROM site_settings WHERE key = 'anthropic_api_key'"
+    );
+    if (result.rows.length > 0 && result.rows[0].value) {
+      return result.rows[0].value as string;
+    }
+  } catch { /* fall through */ }
+  return process.env.ANTHROPIC_API_KEY || null;
+}
 
 async function getBrandVoicePrompt(voiceId?: number): Promise<string> {
   const db = getDb();
@@ -215,20 +225,20 @@ async function getPersonaPrompt(personaId?: number): Promise<string> {
 /**
  * POST /api/repurpose
  * Body: { content: string, title: string, formats: string[], voiceId?: number, personaId?: number }
- * Returns SSE stream with final JSON result
+ * Returns: { results: { format: string, label: string, output: string }[] }
  */
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-    const { content, title, formats, voiceId, personaId, providerOverride, modelOverride } = body;
-
-    const aiConfig = await getAIConfig({ providerOverride, modelOverride });
-    if (!aiConfig) {
+    const apiKey = await getAnthropicKey();
+    if (!apiKey) {
       return NextResponse.json(
-        { error: "AI provider not configured. Add an API key in Settings → AI Integration." },
+        { error: "Anthropic API key not configured." },
         { status: 500 }
       );
     }
+
+    const body = await req.json();
+    const { content, title, formats, voiceId, personaId } = body;
 
     if (!content || !formats || formats.length === 0) {
       return NextResponse.json(
@@ -240,6 +250,7 @@ export async function POST(req: NextRequest) {
     const voicePrompt = await getBrandVoicePrompt(voiceId);
     const personaPrompt = await getPersonaPrompt(personaId);
 
+    // Build a single prompt that generates all formats at once
     const formatInstructions = (formats as FormatKey[])
       .filter((f) => FORMATS[f])
       .map((f) => `## ${FORMATS[f].label}\n${FORMATS[f].instruction}`)
@@ -258,98 +269,70 @@ export async function POST(req: NextRequest) {
 
     const userPrompt = `ARTICLE TITLE: ${title || "Untitled"}\n\nARTICLE CONTENT:\n${content}\n\n---\n\nGenerate the following formats:\n\n${formatInstructions}\n\nReturn as JSON array: [{ "format": "format_key", "output": "..." }, ...]`;
 
-    const startTime = Date.now();
-
-    const encoder = new TextEncoder();
-
-    const stream = new ReadableStream({
-      async start(controller) {
-        let fullText = "";
-
-        try {
-          for await (const chunk of streamText(
-            aiConfig,
-            [
-              { role: "system", content: systemPrompt },
-              { role: "user", content: userPrompt },
-            ],
-            4096
-          )) {
-            fullText += chunk;
-            controller.enqueue(
-              encoder.encode(`data: {"type":"progress","len":${fullText.length}}\n\n`)
-            );
-          }
-
-          // Parse accumulated text
-          let cleaned = fullText.trim();
-          if (cleaned.startsWith("```")) {
-            cleaned = cleaned.replace(/^```(?:json)?\s*/, "").replace(/\s*```$/, "");
-          }
-          let results;
-          try {
-            results = JSON.parse(cleaned);
-          } catch {
-            const jsonMatch = cleaned.match(/\[[\s\S]*\]/);
-            if (jsonMatch) {
-              try { results = JSON.parse(jsonMatch[0]); } catch { results = []; }
-            } else {
-              results = [];
-            }
-          }
-
-          // Enrich with labels
-          const enriched = (results as { format: string; output: string }[]).map(
-            (r: { format: string; output: string }) => ({
-              ...r,
-              label: FORMATS[r.format as FormatKey]?.label || r.format,
-              category: FORMATS[r.format as FormatKey]?.category || "other",
-            })
-          );
-
-          const resultPayload = JSON.stringify({
-            results: enriched,
-            available_formats: Object.entries(FORMATS).map(([key, val]) => ({
-              key,
-              label: val.label,
-            })),
-          });
-          const b64 = Buffer.from(resultPayload).toString("base64");
-          controller.enqueue(
-            encoder.encode(`data: {"type":"result_b64","data":"${b64}"}\n\n`)
-          );
-        } catch (e) {
-          controller.enqueue(
-            encoder.encode(`data: ${JSON.stringify({ type: "error", error: e instanceof Error ? e.message : "Stream error" })}\n\n`)
-          );
-        } finally {
-          controller.enqueue(encoder.encode("data: [DONE]\n\n"));
-          controller.close();
-
-          // Log AI usage
-          try {
-            const db = getDb();
-            await db.execute({
-              sql: `INSERT INTO ai_usage_log (action, model, input_tokens, output_tokens, metadata) VALUES (?, ?, ?, ?, ?)`,
-              args: [
-                "content_repurpose",
-                `${aiConfig.provider}/${aiConfig.model}`,
-                0,
-                0,
-                JSON.stringify({ formats, voice_id: voiceId || null, persona_id: personaId || null, duration_ms: Date.now() - startTime }),
-              ],
-            });
-          } catch { /* non-critical */ }
-        }
+    const anthropicResp = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": apiKey,
+        "anthropic-version": "2023-06-01",
       },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-6",
+        max_tokens: 4096,
+        system: systemPrompt,
+        messages: [{ role: "user", content: userPrompt }],
+      }),
     });
 
-    return new NextResponse(stream, {
-      headers: {
-        "Content-Type": "text/event-stream",
-        "Cache-Control": "no-cache",
-        Connection: "keep-alive",
-      },
+    if (!anthropicResp.ok) {
+      const err = await anthropicResp.text();
+      return NextResponse.json({ error: err }, { status: 500 });
+    }
+
+    const data = await anthropicResp.json();
+    const rawText = data.content?.[0]?.text || "[]";
+
+    // Parse the JSON response
+    let results;
+    try {
+      results = JSON.parse(rawText);
+    } catch {
+      // If JSON parsing fails, try to extract JSON from the text
+      const jsonMatch = rawText.match(/\[[\s\S]*\]/);
+      results = jsonMatch ? JSON.parse(jsonMatch[0]) : [];
+    }
+
+    // Enrich with labels
+    const enriched = (results as { format: string; output: string }[]).map(
+      (r: { format: string; output: string }) => ({
+        ...r,
+        label: FORMATS[r.format as FormatKey]?.label || r.format,
+      })
+    );
+
+    // Log AI usage
+    try {
+      const inputTokens = data.usage?.input_tokens || 0;
+      const outputTokens = data.usage?.output_tokens || 0;
+      const db = getDb();
+      await db.execute({
+        sql: `INSERT INTO ai_usage_log (action, model, input_tokens, output_tokens, metadata) VALUES (?, ?, ?, ?, ?)`,
+        args: [
+          "content_repurpose",
+          "claude-sonnet-4-6",
+          inputTokens,
+          outputTokens,
+          JSON.stringify({ formats: formats, voice_id: voiceId || null, persona_id: personaId || null }),
+        ],
+      });
+    } catch { /* non-critical */ }
+
+    return NextResponse.json({
+      results: enriched,
+      available_formats: Object.entries(FORMATS).map(([key, val]) => ({
+        key,
+        label: val.label,
+      })),
     });
   } catch (err: unknown) {
     return NextResponse.json(

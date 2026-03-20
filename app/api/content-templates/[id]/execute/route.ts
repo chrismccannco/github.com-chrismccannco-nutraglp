@@ -1,11 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
-import { getAIConfig, streamText } from "@/lib/ai-provider";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
-
+async function getAnthropicKey(): Promise<string | null> {
+  try {
+    const db = getDb();
+    const result = await db.execute(
+      "SELECT value FROM site_settings WHERE key = 'anthropic_api_key'"
+    );
+    if (result.rows.length > 0 && result.rows[0].value) {
+      return result.rows[0].value as string;
+    }
+  } catch {
+    /* fall through */
+  }
+  return process.env.ANTHROPIC_API_KEY || null;
+}
 
 async function getBrandVoice(voiceId: number | null) {
   if (!voiceId) return {};
@@ -53,10 +65,10 @@ export async function POST(
 ) {
   try {
     const { id } = await params;
-    const aiConfig = await getAIConfig();
-    if (!aiConfig) {
+    const apiKey = await getAnthropicKey();
+    if (!apiKey) {
       return NextResponse.json(
-        { error: "AI provider not configured. Add an API key in Settings → AI Integration." },
+        { error: "Anthropic API key not configured." },
         { status: 500 }
       );
     }
@@ -145,26 +157,61 @@ export async function POST(
       'Return only the content itself. No preamble, no "Here is your content:".'
     );
 
-    const startTime = Date.now();
-    const maxTokens = (template.max_tokens as number) || 1024;
-    const encoder = new TextEncoder();
+    // Stream response
+    const anthropicResp = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": apiKey,
+        "anthropic-version": "2023-06-01",
+        "anthropic-beta": "messages-2023-12-15",
+      },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-6",
+        max_tokens: (template.max_tokens as number) || 1024,
+        system: systemParts.join("\n\n"),
+        stream: true,
+        messages: [{ role: "user", content: prompt }],
+      }),
+    });
 
+    if (!anthropicResp.ok) {
+      const err = await anthropicResp.text();
+      return NextResponse.json({ error: err }, { status: 500 });
+    }
+
+    // Wrap the stream to capture usage from the final SSE event
+    const startTime = Date.now();
+    const reader = anthropicResp.body!.getReader();
     const stream = new ReadableStream({
       async start(controller) {
+        const decoder = new TextDecoder();
+        let usageData: { input_tokens?: number; output_tokens?: number } = {};
         try {
-          for await (const chunk of streamText(
-            aiConfig,
-            [
-              { role: "system", content: systemParts.join("\n\n") },
-              { role: "user", content: prompt },
-            ],
-            maxTokens
-          )) {
-            // Forward as raw SSE text chunks — clients reading this stream get text/event-stream
-            controller.enqueue(encoder.encode(`data: ${JSON.stringify({ type: "text_delta", text: chunk })}\n\n`));
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            controller.enqueue(value);
+            // Parse SSE chunks to extract usage from message_delta or message_stop
+            const text = decoder.decode(value, { stream: true });
+            const lines = text.split("\n");
+            for (const line of lines) {
+              if (line.startsWith("data: ")) {
+                try {
+                  const data = JSON.parse(line.slice(6));
+                  if (data.type === "message_start" && data.message?.usage) {
+                    usageData.input_tokens = data.message.usage.input_tokens;
+                  }
+                  if (data.type === "message_delta" && data.usage) {
+                    usageData.output_tokens = data.usage.output_tokens;
+                  }
+                } catch { /* not valid JSON line */ }
+              }
+            }
           }
         } finally {
           controller.close();
+          // Log AI usage after stream completes
           try {
             const duration = Date.now() - startTime;
             const db = getDb();
@@ -176,11 +223,11 @@ export async function POST(
                 (template.name as string) || null,
                 (template.voice_id as number) || null,
                 personaId || null,
-                `${aiConfig.provider}/${aiConfig.model}`,
-                0,
-                0,
+                "claude-sonnet-4-6",
+                usageData.input_tokens || 0,
+                usageData.output_tokens || 0,
                 duration,
-                JSON.stringify({ max_tokens: maxTokens }),
+                JSON.stringify({ max_tokens: (template.max_tokens as number) || 1024 }),
               ],
             });
           } catch { /* non-critical */ }
@@ -201,5 +248,4 @@ export async function POST(
       { status: 500 }
     );
   }
-
 }

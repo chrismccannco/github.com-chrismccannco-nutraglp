@@ -336,8 +336,6 @@ export async function initDb(): Promise<Client> {
       height INTEGER DEFAULT 0,
       data TEXT NOT NULL,
       thumb_data TEXT,
-      parent_id INTEGER REFERENCES media_files(id) ON DELETE SET NULL,
-      deleted_at DATETIME,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
 
@@ -469,50 +467,6 @@ export async function initDb(): Promise<Client> {
       expires_at DATETIME NOT NULL,
       active INTEGER DEFAULT 1
     );
-
-    CREATE TABLE IF NOT EXISTS audit_log (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      action TEXT NOT NULL,
-      entity_type TEXT NOT NULL,
-      entity_id TEXT,
-      entity_label TEXT,
-      metadata TEXT DEFAULT '{}',
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    );
-
-    CREATE TABLE IF NOT EXISTS saved_prompts (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      title TEXT NOT NULL,
-      prompt TEXT NOT NULL,
-      category TEXT DEFAULT 'general',
-      created_by TEXT,
-      sort_order INTEGER DEFAULT 0,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    );
-
-    CREATE TABLE IF NOT EXISTS email_sequences (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      description TEXT,
-      trigger_event TEXT DEFAULT 'manual',
-      status TEXT NOT NULL DEFAULT 'draft',
-      created_by TEXT,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    );
-
-    CREATE TABLE IF NOT EXISTS email_sequence_steps (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      sequence_id INTEGER NOT NULL REFERENCES email_sequences(id) ON DELETE CASCADE,
-      step_number INTEGER NOT NULL DEFAULT 1,
-      delay_days INTEGER NOT NULL DEFAULT 0,
-      subject TEXT NOT NULL,
-      preheader TEXT,
-      body TEXT NOT NULL,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    );
   `);
 
   // Add columns that may not exist on older databases
@@ -555,9 +509,6 @@ export async function initDb(): Promise<Client> {
     "ALTER TABLE pages ADD COLUMN scored_at DATETIME",
     // Workflow webhook URLs
     "ALTER TABLE content_workflows ADD COLUMN webhook_sent INTEGER DEFAULT 0",
-    // Media soft delete + version history
-    "ALTER TABLE media_files ADD COLUMN parent_id INTEGER REFERENCES media_files(id) ON DELETE SET NULL",
-    "ALTER TABLE media_files ADD COLUMN deleted_at DATETIME",
   ];
 
   for (const sql of migrations) {
@@ -591,218 +542,8 @@ export async function initDb(): Promise<Client> {
     await db.execute("CREATE INDEX IF NOT EXISTS idx_video_clips_video ON video_clips (video_id, sort_order)");
     await db.execute("CREATE INDEX IF NOT EXISTS idx_ai_usage_log_action ON ai_usage_log (action, created_at)");
     await db.execute("CREATE INDEX IF NOT EXISTS idx_ai_usage_log_template ON ai_usage_log (template_id, created_at)");
-    await db.execute("CREATE INDEX IF NOT EXISTS idx_media_files_deleted ON media_files (deleted_at)");
-    await db.execute("CREATE INDEX IF NOT EXISTS idx_media_files_parent ON media_files (parent_id)");
-    await db.execute("CREATE INDEX IF NOT EXISTS idx_content_versions_lookup ON content_versions (content_type, content_id, created_at)");
-    await db.execute("CREATE INDEX IF NOT EXISTS idx_audit_log_entity ON audit_log (entity_type, entity_id, created_at)");
-    await db.execute("CREATE INDEX IF NOT EXISTS idx_audit_log_action ON audit_log (action, created_at)");
-    await db.execute("CREATE INDEX IF NOT EXISTS idx_saved_prompts_category ON saved_prompts (category, sort_order)");
-    await db.execute("CREATE INDEX IF NOT EXISTS idx_email_seq_steps ON email_sequence_steps (sequence_id, step_number)");
   } catch {
     // Index may already exist
-  }
-
-  // Seed starter AI templates (INSERT OR IGNORE — safe to run on every cold start)
-  const starterTemplates = [
-    {
-      slug: "blog-research-backed",
-      name: "Blog Post: Research-Backed Article",
-      description: "A full blog post with a scientific angle, structured sections, and SEO-ready headings.",
-      category: "blog",
-      output_format: "html",
-      max_tokens: 2000,
-      sort_order: 10,
-      variables: JSON.stringify([
-        { name: "topic", label: "Article topic", default: "" },
-        { name: "audience", label: "Target audience", default: "health-conscious adults" },
-      ]),
-      prompt_template: `Write a research-backed blog post about: {{topic}}
-
-Target audience: {{audience}}
-
-Structure:
-1. Compelling headline (use an <h1> tag)
-2. Hook introduction (2-3 sentences — lead with a surprising fact or observation)
-3. 3-4 sections, each with an <h2> heading and 2-3 paragraphs
-4. One "Key takeaway" callout block (wrap in a <blockquote>)
-5. Brief conclusion with a natural next step
-
-Tone: Confident but not salesy. Short declarative sentences. Earned authority.
-Format: Return full HTML body (no <html>/<body> wrappers). No markdown.`,
-    },
-    {
-      slug: "blog-product-education",
-      name: "Blog Post: Product Education",
-      description: "Educates readers on how/why a product works. Good for trust-building and SEO.",
-      category: "blog",
-      output_format: "html",
-      max_tokens: 1800,
-      sort_order: 11,
-      variables: JSON.stringify([
-        { name: "product", label: "Product name", default: "Slim SHOT" },
-        { name: "mechanism", label: "Core mechanism to explain", default: "GLP-1 activation" },
-      ]),
-      prompt_template: `Write an educational blog post explaining how {{product}} works, focused on {{mechanism}}.
-
-Structure:
-1. Headline (h1) — specific and curiosity-driven
-2. Opening: what problem this solves and why existing options fall short
-3. How it works: clear explanation of the science
-4. What makes this approach different (without being braggy)
-5. What readers should realistically expect
-6. Closing: honest, no hype
-
-Rules: No exclamation marks. Use "may support" not "will". Position as a dietary supplement.
-Format: Return full HTML. No markdown.`,
-    },
-    {
-      slug: "social-linkedin-thought-leadership",
-      name: "LinkedIn Post: Thought Leadership",
-      description: "First-person LinkedIn post that builds authority without sounding like a press release.",
-      category: "social",
-      output_format: "prose",
-      max_tokens: 400,
-      sort_order: 20,
-      variables: JSON.stringify([
-        { name: "insight", label: "Core insight or observation", default: "" },
-      ]),
-      prompt_template: `Write a LinkedIn post based on this insight: {{insight}}
-
-Voice: First person. Spare. Observational. Earned authority, never declared.
-Structure:
-- Hook: 1-2 short sentences (no rhetorical questions, no "I've been thinking about...")
-- Body: 3-5 short paragraphs, each one idea
-- Ending: a quiet observation or open question — not a CTA
-
-Rules: No bullet points. No bold headers. No "excited to share". Max 250 words.`,
-    },
-    {
-      slug: "social-twitter-thread",
-      name: "Twitter/X Thread",
-      description: "A 5-tweet thread. Each tweet is a standalone idea that earns the next.",
-      category: "social",
-      output_format: "prose",
-      max_tokens: 600,
-      sort_order: 21,
-      variables: JSON.stringify([
-        { name: "topic", label: "Thread topic", default: "" },
-      ]),
-      prompt_template: `Write a 5-tweet thread about: {{topic}}
-
-Format:
-Tweet 1/5: [hook — most counterintuitive or surprising angle, max 240 chars]
-Tweet 2/5: [establish the problem or tension]
-Tweet 3/5: [key insight or mechanism]
-Tweet 4/5: [concrete example or evidence]
-Tweet 5/5: [understated takeaway]
-
-Rules: Each tweet max 240 characters. No hashtags. No "Here's a thread 🧵".`,
-    },
-    {
-      slug: "email-welcome-nurture",
-      name: "Email: Welcome / Nurture",
-      description: "Onboarding email that builds trust without a hard sell.",
-      category: "email",
-      output_format: "prose",
-      max_tokens: 800,
-      sort_order: 30,
-      variables: JSON.stringify([
-        { name: "context", label: "What they signed up for / what you want to say", default: "" },
-      ]),
-      prompt_template: `Write a welcome email for: {{context}}
-
-Structure:
-- Subject line: personal, specific, no promotional language
-- Preheader: complements subject
-- Body (3 short paragraphs):
-  1. Acknowledge what they did — no fanfare
-  2. One concrete thing they can do or know right now
-  3. What comes next — set expectation, no promises
-- Sign-off: human, not corporate
-
-Rules: No exclamation marks. No "We're thrilled". Short sentences. Feels written, not templated.
-Output: Subject, Preheader, and Body as labeled sections.`,
-    },
-    {
-      slug: "email-reengagement",
-      name: "Email: Re-engagement",
-      description: "Brings back lapsed users. Honest, no guilt-trip.",
-      category: "email",
-      output_format: "prose",
-      max_tokens: 500,
-      sort_order: 31,
-      variables: JSON.stringify([
-        { name: "product_or_brand", label: "Product or brand name", default: "Slim SHOT" },
-        { name: "time_away", label: "How long they've been inactive", default: "a while" },
-      ]),
-      prompt_template: `Write a re-engagement email for someone who hasn't used {{product_or_brand}} in {{time_away}}.
-
-Tone: Honest. No guilt. No "We miss you!" Don't beg.
-- Subject: honest, not dramatic
-- Opening: acknowledge the gap plainly — one sentence
-- Body: remind them of the one most valuable thing
-- Nudge: something concrete, low friction
-- Out: let them opt out gracefully if this isn't for them
-
-Max 200 words body. Write like a person, not a marketing team.`,
-    },
-    {
-      slug: "seo-meta-description",
-      name: "SEO: Title Tag + Meta Description",
-      description: "Optimized title tag and meta description pair for any page or blog post.",
-      category: "seo",
-      output_format: "prose",
-      max_tokens: 200,
-      sort_order: 40,
-      variables: JSON.stringify([
-        { name: "page_topic", label: "Page topic or title", default: "" },
-        { name: "primary_keyword", label: "Primary keyword", default: "" },
-      ]),
-      prompt_template: `Write an SEO title tag and meta description for: {{page_topic}}
-Primary keyword: {{primary_keyword}}
-
-Output:
-Title: [50-60 chars, include keyword, compelling]
-Meta: [150-160 chars, include keyword naturally, subtle value prop]
-
-Rules: No clickbait. Title reads like a headline, not a keyword list.`,
-    },
-    {
-      slug: "ad-problem-solution",
-      name: "Ad Copy: Problem / Solution",
-      description: "Direct response ad — hook on the pain, introduce the solution cleanly.",
-      category: "advertising",
-      output_format: "prose",
-      max_tokens: 400,
-      sort_order: 50,
-      variables: JSON.stringify([
-        { name: "problem", label: "Problem the ad addresses", default: "" },
-        { name: "product", label: "Product name", default: "Slim SHOT" },
-        { name: "platform", label: "Ad platform", default: "Meta (Facebook/Instagram)" },
-      ]),
-      prompt_template: `Write {{platform}} ad copy that solves: {{problem}}
-Product: {{product}}
-
-Deliver:
-1. Primary text (125 words max): open on the pain, introduce product, one proof point, CTA
-2. Headline (40 chars): specific benefit, not a slogan
-3. Description (25 chars): secondary hook
-
-Rules: No before/after body language. No "miracle". No medical claims. Position as dietary supplement.`,
-    },
-  ];
-
-  for (const t of starterTemplates) {
-    try {
-      await db.execute({
-        sql: `INSERT OR IGNORE INTO content_templates
-                (name, slug, description, category, prompt_template, output_format, max_tokens, variables, sort_order, is_system)
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)`,
-        args: [t.name, t.slug, t.description, t.category, t.prompt_template, t.output_format, t.max_tokens, t.variables, t.sort_order],
-      });
-    } catch {
-      // Non-fatal
-    }
   }
 
   return db;
