@@ -44,8 +44,7 @@ export default function Mechanism() {
         How It Works
       </p>
       <h2
-        className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading"
-       
+        className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-display"
       >
         Your body already makes GLP-1.
         <br />Slim SHOT helps it make more.

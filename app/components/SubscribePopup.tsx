@@ -3,8 +3,24 @@
 import { useState, useEffect, useCallback, FormEvent } from "react";
 
 const STORAGE_KEY = "nutraglp_popup_dismissed";
-const DELAY_MS = 12000;        // 12 seconds
-const SCROLL_THRESHOLD = 0.55; // 55% of page
+
+// Defaults (used while config loads or if fetch fails)
+const DEFAULT_DELAY_MS = 12000;
+const DEFAULT_SCROLL_THRESHOLD = 0.55;
+const DEFAULT_HEADING = "Get on the list before we launch.";
+const DEFAULT_SUBHEADING = "Slim SHOT ships soon. Early subscribers get first access and launch pricing.";
+const DEFAULT_CTA = "Join Early Access";
+
+interface PopupConfig {
+  enabled: boolean;
+  delayMs: number;
+  scrollThreshold: number;
+  heading: string;
+  subheading: string;
+  ctaText: string;
+  showPhone: boolean;
+  showSmsOptin: boolean;
+}
 
 export default function SubscribePopup() {
   const [visible, setVisible] = useState(false);
@@ -12,6 +28,41 @@ export default function SubscribePopup() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [smsOptIn, setSmsOptIn] = useState(false);
+  const [config, setConfig] = useState<PopupConfig | null>(null);
+  const [configLoaded, setConfigLoaded] = useState(false);
+
+  // Fetch CMS config
+  useEffect(() => {
+    fetch("/api/settings/public")
+      .then((r) => r.json())
+      .then((settings: Record<string, string>) => {
+        setConfig({
+          enabled: settings.popup_enabled !== "false",
+          delayMs: (parseInt(settings.popup_delay_seconds || "12", 10) || 12) * 1000,
+          scrollThreshold: (parseInt(settings.popup_scroll_threshold || "55", 10) || 55) / 100,
+          heading: settings.popup_heading || DEFAULT_HEADING,
+          subheading: settings.popup_subheading || DEFAULT_SUBHEADING,
+          ctaText: settings.popup_cta_text || DEFAULT_CTA,
+          showPhone: settings.popup_show_phone !== "false",
+          showSmsOptin: settings.popup_show_sms_optin !== "false",
+        });
+        setConfigLoaded(true);
+      })
+      .catch(() => {
+        // Use defaults on error
+        setConfig({
+          enabled: true,
+          delayMs: DEFAULT_DELAY_MS,
+          scrollThreshold: DEFAULT_SCROLL_THRESHOLD,
+          heading: DEFAULT_HEADING,
+          subheading: DEFAULT_SUBHEADING,
+          ctaText: DEFAULT_CTA,
+          showPhone: true,
+          showSmsOptin: true,
+        });
+        setConfigLoaded(true);
+      });
+  }, []);
 
   const dismiss = useCallback(() => {
     setVisible(false);
@@ -29,26 +80,29 @@ export default function SubscribePopup() {
 
   // --- Trigger: timed delay ---
   useEffect(() => {
-    const timer = setTimeout(show, DELAY_MS);
+    if (!configLoaded || !config?.enabled) return;
+    const timer = setTimeout(show, config.delayMs);
     return () => clearTimeout(timer);
-  }, [show]);
+  }, [show, configLoaded, config]);
 
   // --- Trigger: scroll depth ---
   useEffect(() => {
+    if (!configLoaded || !config?.enabled) return;
     const onScroll = () => {
       const scrollPct =
         window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-      if (scrollPct >= SCROLL_THRESHOLD) {
+      if (scrollPct >= config.scrollThreshold) {
         show();
         window.removeEventListener("scroll", onScroll);
       }
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, [show]);
+  }, [show, configLoaded, config]);
 
   // --- Trigger: exit intent (desktop only) ---
   useEffect(() => {
+    if (!configLoaded || !config?.enabled) return;
     const onMouseLeave = (e: MouseEvent) => {
       if (e.clientY <= 0) {
         show();
@@ -57,7 +111,7 @@ export default function SubscribePopup() {
     };
     document.addEventListener("mouseout", onMouseLeave);
     return () => document.removeEventListener("mouseout", onMouseLeave);
-  }, [show]);
+  }, [show, configLoaded, config]);
 
   // --- Close on Escape ---
   useEffect(() => {
@@ -74,18 +128,33 @@ export default function SubscribePopup() {
     const formData = new FormData(form);
 
     try {
+      // Submit to Netlify Forms
       await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(formData as unknown as Record<string, string>).toString(),
       });
+
+      // Also relay to Google Sheets (fire and forget)
+      fetch("/api/sheets", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          form: "subscribe",
+          email: formData.get("email") || "",
+          phone: formData.get("phone") || "",
+          sms_opt_in: formData.get("sms_opt_in") === "on",
+          source: "popup",
+        }),
+      }).catch(() => {});
+
       window.location.href = "/thank-you";
     } catch {
       form.submit();
     }
   };
 
-  if (!visible) return null;
+  if (!visible || !config) return null;
 
   return (
     <div
@@ -114,8 +183,7 @@ export default function SubscribePopup() {
         {submitted ? (
           <div className="text-center py-4">
             <p
-              className="text-2xl font-normal text-forest mb-2 font-heading"
-             
+              className="text-2xl font-normal text-forest mb-2 font-display"
             >
               You&apos;re in.
             </p>
@@ -129,14 +197,12 @@ export default function SubscribePopup() {
               Early Access
             </p>
             <h3
-              className="text-2xl font-normal tracking-tight text-ink mb-2 leading-snug font-heading"
-             
+              className="text-2xl font-normal tracking-tight text-ink mb-2 leading-snug font-display"
             >
-              Get on the list before we launch.
+              {config.heading}
             </h3>
             <p className="text-[15px] text-mist leading-relaxed mb-6">
-              Slim SHOT ships soon. Early subscribers get first access
-              and launch pricing.
+              {config.subheading}
             </p>
 
             <form
@@ -166,37 +232,41 @@ export default function SubscribePopup() {
               />
 
               {/* Phone */}
-              <input
-                type="tel"
-                name="phone"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                placeholder="Phone number (optional)"
-                className="w-full px-4 py-3 rounded-lg text-[15px] bg-white border border-rule text-ink placeholder-mist-light outline-none focus:border-forest-mid transition"
-              />
+              {config.showPhone && (
+                <input
+                  type="tel"
+                  name="phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="Phone number (optional)"
+                  className="w-full px-4 py-3 rounded-lg text-[15px] bg-white border border-rule text-ink placeholder-mist-light outline-none focus:border-forest-mid transition"
+                />
+              )}
 
               {/* SMS opt-in checkbox */}
-              <label className="flex items-start gap-2.5 cursor-pointer">
-                <input
-                  type="checkbox"
-                  name="sms_opt_in"
-                  checked={smsOptIn}
-                  onChange={(e) => setSmsOptIn(e.target.checked)}
-                  className="mt-1 accent-forest w-4 h-4 cursor-pointer"
-                />
-                <span className="text-xs text-mist leading-relaxed">
-                  I agree to receive SMS updates about launch timing
-                  and availability. Msg &amp; data rates may apply. Reply STOP
-                  to unsubscribe.
-                </span>
-              </label>
+              {config.showSmsOptin && (
+                <label className="flex items-start gap-2.5 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    name="sms_opt_in"
+                    checked={smsOptIn}
+                    onChange={(e) => setSmsOptIn(e.target.checked)}
+                    className="mt-1 accent-forest w-4 h-4 cursor-pointer"
+                  />
+                  <span className="text-xs text-mist leading-relaxed">
+                    I agree to receive SMS updates about launch timing
+                    and availability. Msg &amp; data rates may apply. Reply STOP
+                    to unsubscribe.
+                  </span>
+                </label>
+              )}
 
               {/* Submit */}
               <button
                 type="submit"
-                className="w-full py-3.5 text-[15px] font-bold rounded-lg bg-gold text-white hover:bg-forest-mid transition cursor-pointer"
+                className="w-full py-3.5 text-[15px] font-bold rounded-lg bg-gold text-white hover:bg-gold-light transition cursor-pointer"
               >
-                Join Early Access
+                {config.ctaText}
               </button>
             </form>
 

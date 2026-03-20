@@ -29,8 +29,7 @@ export default function LatestResearch() {
           Research &amp; Insights
         </p>
         <h2
-          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-10 text-ink font-heading"
-         
+          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-10 text-ink font-display"
         >
           The evidence behind the formula
         </h2>
@@ -42,8 +41,7 @@ export default function LatestResearch() {
               className="block p-6 bg-white border border-rule rounded-xl hover:border-forest-mid/40 transition no-underline group"
             >
               <h3
-                className="text-[17px] font-normal tracking-tight text-ink mb-3 leading-snug group-hover:text-forest transition font-heading"
-               
+                className="text-[17px] font-normal tracking-tight text-ink mb-3 leading-snug group-hover:text-forest transition font-display"
               >
                 {post.title}
               </h3>

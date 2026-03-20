@@ -10,7 +10,7 @@ export default function ProofBar() {
     <section className="bg-forest px-6 md:px-12 py-5 flex justify-center gap-6 sm:gap-12 flex-wrap">
       {stats.map((s) => (
         <div key={s.label} className="text-center">
-          <div className="text-2xl font-normal tracking-tight text-gold font-heading">
+          <div className="text-2xl font-normal tracking-tight text-gold font-display">
             {s.value}
           </div>
           <div className="text-xs text-white/50 uppercase tracking-wider mt-0.5">

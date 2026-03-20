@@ -12,11 +12,24 @@ export default function WaitlistForm({ variant = "default" }: { variant?: "defau
     const formData = new FormData(form);
 
     try {
+      // Submit to Netlify Forms
       await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(formData as unknown as Record<string, string>).toString(),
       });
+
+      // Also relay to Google Sheets (fire and forget)
+      fetch("/api/sheets", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          form: "waitlist",
+          email: formData.get("email") || "",
+          source: window.location.pathname,
+        }),
+      }).catch(() => {});
+
       window.location.href = "/thank-you";
     } catch {
       // Fallback: let Netlify handle it

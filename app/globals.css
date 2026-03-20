@@ -32,6 +32,12 @@
   }
 }
 
+@layer utilities {
+  .font-display {
+    font-family: 'Fraunces', Georgia, serif;
+  }
+}
+
 /* Subtle dot grid pattern for cream sections */
 .bg-dot-grid {
   background-image: radial-gradient(circle, #c0c5cc 0.5px, transparent 0.5px);

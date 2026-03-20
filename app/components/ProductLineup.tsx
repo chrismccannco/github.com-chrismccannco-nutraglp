@@ -52,8 +52,7 @@ export default function ProductLineup() {
           Product Pipeline
         </p>
         <h2
-          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink font-heading"
-         
+          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink font-display"
         >
           One platform. Multiple formats.
         </h2>
@@ -81,8 +80,7 @@ export default function ProductLineup() {
                   />
                 </div>
                 <p
-                  className="text-[17px] font-normal tracking-tight text-ink mb-1.5 font-heading"
-                 
+                  className="text-[17px] font-normal tracking-tight text-ink mb-1.5 font-display"
                 >
                   {p.name}
                 </p>

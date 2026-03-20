@@ -2,12 +2,15 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import WaitlistForm from "../components/WaitlistForm";
+import BuyButton from "../components/BuyButton";
 import Footer from "../components/Footer";
+
+const CHECKOUT_ENABLED = process.env.NEXT_PUBLIC_STRIPE_ENABLED === "true";
 
 export const metadata: Metadata = {
   title: "Slim SHOT — Daily GLP-1 Amplification",
   description:
-    "A daily liquid formula that amplifies your body's own GLP-1 production. Patent-pending nanoemulsion delivery, clinically studied compounds. $155/mo.",
+    "A daily liquid formula that amplifies your body's own GLP-1 production. Patent-pending nanoemulsion delivery, clinically studied compounds. $149/mo.",
   alternates: {
     canonical: "https://nutraglp.com/slim-shot",
   },
@@ -95,7 +98,7 @@ const productSchema = {
   image: "https://nutraglp.com/og-image.png",
   offers: {
     "@type": "Offer",
-    price: "155.00",
+    price: "149.00",
     priceCurrency: "USD",
     availability: "https://schema.org/PreOrder",
     priceValidUntil: "2026-12-31",
@@ -154,11 +157,15 @@ export default function SlimShotPage() {
                 className="text-3xl text-gold font-normal font-heading"
                
               >
-                $155
+                $149
               </span>
               <span className="text-white/40 text-sm">/month &middot; Ships direct &middot; Cancel anytime</span>
             </div>
-            <WaitlistForm variant="hero" />
+            {CHECKOUT_ENABLED ? (
+              <BuyButton variant="hero" label="Subscribe — $149/mo" />
+            ) : (
+              <WaitlistForm variant="hero" />
+            )}
           </div>
 
           {/* Product image */}
@@ -340,10 +347,14 @@ export default function SlimShotPage() {
           Ready to try a different approach?
         </h2>
         <p className="text-[17px] text-white/50 max-w-[520px] mx-auto mb-8">
-          $155/mo. No prescription. No commitment. Join the waitlist for
+          $149/mo. No prescription. No commitment. Join the waitlist for
           early access and launch pricing.
         </p>
-        <WaitlistForm variant="cta" />
+        {CHECKOUT_ENABLED ? (
+          <BuyButton variant="cta" label="Start your subscription" />
+        ) : (
+          <WaitlistForm variant="cta" />
+        )}
       </section>
 
       <Footer />

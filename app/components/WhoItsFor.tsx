@@ -5,8 +5,7 @@ export default function WhoItsFor() {
         Who This Is For
       </p>
       <h2
-        className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading"
-       
+        className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-display"
       >
         The people between prescriptions and placebo.
       </h2>
