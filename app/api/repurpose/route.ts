@@ -301,14 +301,16 @@ export async function POST(req: NextRequest) {
         let fullText = "";
         let inputTokens = 0;
         let outputTokens = 0;
+        let sseBuffer = "";
 
         try {
           while (true) {
             const { done, value } = await reader.read();
             if (done) break;
 
-            const chunk = decoder.decode(value, { stream: true });
-            const lines = chunk.split("\n");
+            sseBuffer += decoder.decode(value, { stream: true });
+            const lines = sseBuffer.split("\n");
+            sseBuffer = lines.pop() || "";
 
             for (const line of lines) {
               if (!line.startsWith("data: ")) continue;
@@ -334,12 +336,20 @@ export async function POST(req: NextRequest) {
           }
 
           // Parse accumulated text
+          let cleaned = fullText.trim();
+          if (cleaned.startsWith("```")) {
+            cleaned = cleaned.replace(/^```(?:json)?\s*/, "").replace(/\s*```$/, "");
+          }
           let results;
           try {
-            results = JSON.parse(fullText);
+            results = JSON.parse(cleaned);
           } catch {
-            const jsonMatch = fullText.match(/\[[\s\S]*\]/);
-            results = jsonMatch ? JSON.parse(jsonMatch[0]) : [];
+            const jsonMatch = cleaned.match(/\[[\s\S]*\]/);
+            if (jsonMatch) {
+              try { results = JSON.parse(jsonMatch[0]); } catch { results = []; }
+            } else {
+              results = [];
+            }
           }
 
           // Enrich with labels
@@ -350,17 +360,16 @@ export async function POST(req: NextRequest) {
             })
           );
 
+          const resultPayload = JSON.stringify({
+            results: enriched,
+            available_formats: Object.entries(FORMATS).map(([key, val]) => ({
+              key,
+              label: val.label,
+            })),
+          });
+          const b64 = Buffer.from(resultPayload).toString("base64");
           controller.enqueue(
-            encoder.encode(`data: ${JSON.stringify({
-              type: "result",
-              data: {
-                results: enriched,
-                available_formats: Object.entries(FORMATS).map(([key, val]) => ({
-                  key,
-                  label: val.label,
-                })),
-              },
-            })}\n\n`)
+            encoder.encode(`data: {"type":"result_b64","data":"${b64}"}\n\n`)
           );
         } catch (e) {
           controller.enqueue(

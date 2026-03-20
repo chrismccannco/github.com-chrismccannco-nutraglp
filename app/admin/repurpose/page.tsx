@@ -114,23 +114,30 @@ export default function RepurposePage() {
         return;
       }
 
-      // Read SSE stream
+      // Read SSE stream with proper line buffering
       const reader = res.body!.getReader();
       const decoder = new TextDecoder();
+      let sseBuffer = '';
 
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
 
-        const text = decoder.decode(value, { stream: true });
-        const lines = text.split('\n');
+        sseBuffer += decoder.decode(value, { stream: true });
+        const lines = sseBuffer.split('\n');
+        sseBuffer = lines.pop() || '';
+
         for (const line of lines) {
           if (!line.startsWith('data: ')) continue;
           const payload = line.slice(6).trim();
           if (payload === '[DONE]') continue;
           try {
             const evt = JSON.parse(payload);
-            if (evt.type === 'result' && evt.data) {
+            if (evt.type === 'result_b64') {
+              const json = atob(evt.data);
+              const data = JSON.parse(json);
+              setResults(data.results || []);
+            } else if (evt.type === 'result' && evt.data) {
               setResults(evt.data.results || []);
             } else if (evt.type === 'error') {
               alert(evt.error || 'Generation failed');

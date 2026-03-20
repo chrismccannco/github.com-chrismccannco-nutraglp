@@ -220,14 +220,17 @@ export async function POST(req: NextRequest) {
         let fullText = "";
         let inputTokens = 0;
         let outputTokens = 0;
+        let sseBuffer = ""; // Buffer for incomplete SSE lines
 
         try {
           while (true) {
             const { done, value } = await reader.read();
             if (done) break;
 
-            const chunk = decoder.decode(value, { stream: true });
-            const lines = chunk.split("\n");
+            sseBuffer += decoder.decode(value, { stream: true });
+            const lines = sseBuffer.split("\n");
+            // Keep the last (potentially incomplete) line in the buffer
+            sseBuffer = lines.pop() || "";
 
             for (const line of lines) {
               if (!line.startsWith("data: ")) continue;
@@ -260,21 +263,35 @@ export async function POST(req: NextRequest) {
 
           // Parse the accumulated text as JSON
           let result;
+          // Strip markdown code fences if present
+          let cleaned = fullText.trim();
+          if (cleaned.startsWith("```")) {
+            cleaned = cleaned.replace(/^```(?:json)?\s*/, "").replace(/\s*```$/, "");
+          }
           try {
-            result = JSON.parse(fullText);
+            result = JSON.parse(cleaned);
           } catch {
-            const jsonMatch = fullText.match(/[\[{][\s\S]*[\]}]/);
-            result = jsonMatch ? JSON.parse(jsonMatch[0]) : null;
+            // Try to extract the outermost JSON object or array
+            const jsonMatch = cleaned.match(/[\[{][\s\S]*[\]}]/);
+            if (jsonMatch) {
+              try {
+                result = JSON.parse(jsonMatch[0]);
+              } catch {
+                result = null;
+              }
+            }
           }
 
           if (!result) {
             controller.enqueue(
-              encoder.encode(`data: {"type":"error","error":"AI returned invalid JSON"}\n\n`)
+              encoder.encode(`data: ${JSON.stringify({ type: "error", error: "AI returned invalid JSON. Try again with a simpler prompt." })}\n\n`)
             );
           } else {
-            // Send the final result
+            // Send the final result as a base64-encoded payload to avoid SSE line-splitting issues
+            const resultJson = JSON.stringify(result);
+            const b64 = Buffer.from(resultJson).toString("base64");
             controller.enqueue(
-              encoder.encode(`data: ${JSON.stringify({ type: "result", data: result })}\n\n`)
+              encoder.encode(`data: {"type":"result_b64","data":"${b64}"}\n\n`)
             );
           }
         } catch (e) {

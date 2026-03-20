@@ -92,18 +92,20 @@ export default function AiAssistPanel({
         throw new Error(errMsg);
       }
 
-      // Read the SSE stream
+      // Read the SSE stream with proper line buffering
       const reader = res.body!.getReader();
       const decoder = new TextDecoder();
       let resultData: AiAssistResult | null = null;
       let streamError = "";
+      let sseBuffer = "";
 
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
 
-        const text = decoder.decode(value, { stream: true });
-        const lines = text.split("\n");
+        sseBuffer += decoder.decode(value, { stream: true });
+        const lines = sseBuffer.split("\n");
+        sseBuffer = lines.pop() || "";
 
         for (const line of lines) {
           if (!line.startsWith("data: ")) continue;
@@ -114,6 +116,10 @@ export default function AiAssistPanel({
             const evt = JSON.parse(payload);
             if (evt.type === "progress") {
               setProgress(evt.len || 0);
+            } else if (evt.type === "result_b64") {
+              // Decode base64 result to avoid SSE line-splitting issues
+              const json = atob(evt.data);
+              resultData = JSON.parse(json);
             } else if (evt.type === "result") {
               resultData = evt.data;
             } else if (evt.type === "error") {
