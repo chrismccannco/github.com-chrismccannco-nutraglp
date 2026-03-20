@@ -134,7 +134,8 @@ export default function RepurposePage() {
           try {
             const evt = JSON.parse(payload);
             if (evt.type === 'result_b64') {
-              const json = atob(evt.data);
+              const bytes = Uint8Array.from(atob(evt.data), (c) => c.charCodeAt(0));
+              const json = new TextDecoder().decode(bytes);
               const data = JSON.parse(json);
               setResults(data.results || []);
             } else if (evt.type === 'result' && evt.data) {

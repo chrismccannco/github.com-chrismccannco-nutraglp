@@ -205,8 +205,19 @@ export async function POST(req: NextRequest) {
     });
 
     if (!anthropicResp.ok) {
-      const err = await anthropicResp.text();
-      return NextResponse.json({ error: err }, { status: 500 });
+      const errText = await anthropicResp.text();
+      let userMessage = "AI service is temporarily unavailable. Please try again in a moment.";
+      try {
+        const errJson = JSON.parse(errText);
+        if (errJson.error?.type === "authentication_error") {
+          userMessage = "AI service not configured. Ask your admin to check the API key in Settings.";
+        } else if (errJson.error?.type === "rate_limit_error") {
+          userMessage = "Too many requests. Please wait a moment and try again.";
+        } else if (errJson.error?.type === "overloaded_error") {
+          userMessage = "AI service is busy. Please try again in a few seconds.";
+        }
+      } catch { /* use default message */ }
+      return NextResponse.json({ error: userMessage }, { status: 500 });
     }
 
     // Read the Anthropic SSE stream, accumulate text, then send our own SSE events

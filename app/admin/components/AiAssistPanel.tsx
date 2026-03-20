@@ -117,8 +117,9 @@ export default function AiAssistPanel({
             if (evt.type === "progress") {
               setProgress(evt.len || 0);
             } else if (evt.type === "result_b64") {
-              // Decode base64 result to avoid SSE line-splitting issues
-              const json = atob(evt.data);
+              // Decode base64 with proper UTF-8 handling
+              const bytes = Uint8Array.from(atob(evt.data), (c) => c.charCodeAt(0));
+              const json = new TextDecoder().decode(bytes);
               resultData = JSON.parse(json);
             } else if (evt.type === "result") {
               resultData = evt.data;

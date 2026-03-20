@@ -12,6 +12,10 @@ import {
   ArrowRight,
   Star,
   BarChart3,
+  Wand2,
+  RefreshCw,
+  Palette,
+  X,
 } from "lucide-react";
 
 interface Stats {
@@ -25,6 +29,17 @@ interface Stats {
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState<Stats | null>(null);
+  const [showGuide, setShowGuide] = useState(true);
+
+  useEffect(() => {
+    const dismissed = localStorage.getItem("cs_guide_dismissed");
+    if (dismissed) setShowGuide(false);
+  }, []);
+
+  const dismissGuide = () => {
+    setShowGuide(false);
+    localStorage.setItem("cs_guide_dismissed", "1");
+  };
 
   useEffect(() => {
     async function load() {
@@ -111,6 +126,57 @@ export default function AdminDashboard() {
           Content management dashboard
         </p>
       </div>
+
+      {showGuide && (
+        <div className="relative bg-gradient-to-br from-indigo-50 to-violet-50 border border-indigo-200 rounded-xl p-6 mb-8">
+          <button
+            onClick={dismissGuide}
+            className="absolute top-3 right-3 p-1 text-neutral-400 hover:text-neutral-600 transition"
+          >
+            <X className="w-4 h-4" />
+          </button>
+          <h2 className="text-sm font-semibold text-neutral-900 mb-1">Welcome to Content Studio</h2>
+          <p className="text-xs text-neutral-500 mb-4">Try these to see what the platform can do.</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <Link
+              href="/admin/blog/new"
+              className="flex items-start gap-3 bg-white/80 rounded-lg p-4 no-underline hover:bg-white transition group"
+            >
+              <div className="w-8 h-8 rounded-lg bg-violet-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <Wand2 className="w-4 h-4 text-violet-600" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-neutral-900 group-hover:text-indigo-700 transition">Write a blog post with AI</p>
+                <p className="text-[11px] text-neutral-500 mt-0.5">Type a topic, hit Draft. The AI writes the whole post.</p>
+              </div>
+            </Link>
+            <Link
+              href="/admin/repurpose"
+              className="flex items-start gap-3 bg-white/80 rounded-lg p-4 no-underline hover:bg-white transition group"
+            >
+              <div className="w-8 h-8 rounded-lg bg-indigo-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <RefreshCw className="w-4 h-4 text-indigo-600" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-neutral-900 group-hover:text-indigo-700 transition">Repurpose into 25+ formats</p>
+                <p className="text-[11px] text-neutral-500 mt-0.5">Turn a blog post into tweets, LinkedIn, email, and more.</p>
+              </div>
+            </Link>
+            <Link
+              href="/admin/brand"
+              className="flex items-start gap-3 bg-white/80 rounded-lg p-4 no-underline hover:bg-white transition group"
+            >
+              <div className="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <Palette className="w-4 h-4 text-amber-600" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-neutral-900 group-hover:text-indigo-700 transition">Set your brand voice</p>
+                <p className="text-[11px] text-neutral-500 mt-0.5">Define tone, audience, and style. AI follows your guidelines.</p>
+              </div>
+            </Link>
+          </div>
+        </div>
+      )}
 
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
         {cards.map((c) => {
