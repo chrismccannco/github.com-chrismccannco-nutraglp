@@ -182,14 +182,14 @@ export default function MediaLibrary() {
   };
 
   const channelPresets = [
-    { key: "blog_hero", name: "Blog Hero", dimensions: "1200x630" },
-    { key: "og_image", name: "OG Image", dimensions: "1200x630" },
-    { key: "instagram_square", name: "Instagram Square", dimensions: "1080x1080" },
-    { key: "instagram_story", name: "Instagram Story", dimensions: "1080x1920" },
-    { key: "twitter_card", name: "Twitter Card", dimensions: "1200x675" },
-    { key: "linkedin_post", name: "LinkedIn Post", dimensions: "1200x627" },
-    { key: "youtube_thumb", name: "YouTube Thumb", dimensions: "1280x720" },
-    { key: "email_header", name: "Email Header", dimensions: "600x200" },
+    { key: "blog-hero", name: "Blog Hero", dimensions: "1200x630" },
+    { key: "og-image", name: "OG Image", dimensions: "1200x630" },
+    { key: "instagram-square", name: "Instagram Square", dimensions: "1080x1080" },
+    { key: "instagram-story", name: "Instagram Story", dimensions: "1080x1920" },
+    { key: "twitter-card", name: "Twitter Card", dimensions: "1200x675" },
+    { key: "linkedin-post", name: "LinkedIn Post", dimensions: "1200x627" },
+    { key: "youtube-thumb", name: "YouTube Thumb", dimensions: "1280x720" },
+    { key: "email-header", name: "Email Header", dimensions: "600x200" },
     { key: "favicon", name: "Favicon", dimensions: "512x512" },
   ];
 
