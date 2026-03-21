@@ -469,6 +469,16 @@ export async function initDb(): Promise<Client> {
       expires_at DATETIME NOT NULL,
       active INTEGER DEFAULT 1
     );
+
+    CREATE TABLE IF NOT EXISTS audit_log (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      action TEXT NOT NULL,
+      entity_type TEXT NOT NULL,
+      entity_id TEXT,
+      entity_label TEXT,
+      metadata TEXT DEFAULT '{}',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
   `);
 
   // Add columns that may not exist on older databases
@@ -549,6 +559,9 @@ export async function initDb(): Promise<Client> {
     await db.execute("CREATE INDEX IF NOT EXISTS idx_ai_usage_log_template ON ai_usage_log (template_id, created_at)");
     await db.execute("CREATE INDEX IF NOT EXISTS idx_media_files_deleted ON media_files (deleted_at)");
     await db.execute("CREATE INDEX IF NOT EXISTS idx_media_files_parent ON media_files (parent_id)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_content_versions_lookup ON content_versions (content_type, content_id, created_at)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_audit_log_entity ON audit_log (entity_type, entity_id, created_at)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_audit_log_action ON audit_log (action, created_at)");
   } catch {
     // Index may already exist
   }

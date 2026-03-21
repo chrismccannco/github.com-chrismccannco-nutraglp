@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
 import { dispatchWebhook } from "@/lib/webhooks";
+import { createVersion } from "@/lib/versions";
+import { writeAudit } from "@/lib/audit";
 
 export async function GET(
   _req: NextRequest,
@@ -37,11 +39,19 @@ export async function PUT(
     const body = await req.json();
     const db = getDb();
     const existing = await db.execute({
-      sql: "SELECT id FROM products WHERE slug = ?",
+      sql: "SELECT * FROM products WHERE slug = ?",
       args: [slug],
     });
     if (existing.rows.length === 0)
       return NextResponse.json({ error: "Not found" }, { status: 404 });
+
+    // Snapshot before update
+    const cur = existing.rows[0];
+    await createVersion("product", Number(cur.id), {
+      name: cur.name, tagline: cur.tagline, price: cur.price,
+      description: cur.description, features: cur.features,
+      status: cur.status, published: cur.published,
+    });
 
     const fields: Record<string, unknown> = {};
     const allowed = [
@@ -72,7 +82,8 @@ export async function PUT(
     });
     const r = result.rows[0];
 
-    // Dispatch webhook (non-blocking)
+    // Audit + webhook (non-blocking)
+    writeAudit("updated", "product", newSlug, r.name as string, { changedFields: Object.keys(fields) });
     dispatchWebhook("product.updated", { slug: newSlug, id: r.id, name: r.name }).catch(() => {});
 
     return NextResponse.json({

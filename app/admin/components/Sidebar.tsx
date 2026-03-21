@@ -35,6 +35,7 @@ import {
   Cpu,
   Webhook,
   ChevronDown,
+  ScrollText,
 } from "lucide-react";
 import { useAuth } from "../layout";
 import { useCmsBranding } from "../hooks/useCmsBranding";
@@ -104,6 +105,7 @@ const navGroups: { label: string; items: NavItem[]; collapsible?: boolean }[] = 
       { label: "Settings", href: "/admin/settings", icon: Settings, adminOnly: true },
       { label: "Users", href: "/admin/users", icon: Users, adminOnly: true },
       { label: "Webhooks", href: "/admin/webhooks", icon: Webhook },
+      { label: "Audit Log", href: "/admin/audit", icon: ScrollText, adminOnly: true },
     ],
   },
 ];

@@ -114,10 +114,24 @@ export default function VersionHistory({
     return `${days}d ago`;
   };
 
-  const handleRestore = (version: Version) => {
-    if (!confirm("Restore this version? Current unsaved changes will be lost.")) return;
-    onRestore(version.version_data);
-    onClose();
+  const handleRestore = async (version: Version) => {
+    if (!confirm("Restore this version? The current live state will be saved first, then this version applied.")) return;
+    try {
+      const res = await fetch("/api/versions", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ version_id: version.id }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        alert((err as { error?: string }).error || "Restore failed");
+        return;
+      }
+      onRestore(version.version_data);
+      onClose();
+    } catch {
+      alert("Restore failed — please try again.");
+    }
   };
 
   const selectedVersion = selected !== null ? versions.find((v) => v.id === selected) : null;
