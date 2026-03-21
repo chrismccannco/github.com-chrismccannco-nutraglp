@@ -18,6 +18,7 @@ import { Plus, Trash2, RefreshCw } from "lucide-react";
 import Link from "next/link";
 import AiAssistPanel from "../../components/AiAssistPanel";
 import type { AiAssistResult } from "../../components/AiAssistPanel";
+import DistributePanel from "../../components/DistributePanel";
 
 interface Section {
   heading: string;
@@ -305,6 +306,12 @@ export default function EditBlogPost() {
               </div>
             )}
           </MetadataPanel>
+          <DistributePanel
+            title={title}
+            postUrl={published ? `${typeof window !== "undefined" ? window.location.origin : ""}/blog/${slug}` : undefined}
+            excerpt={metaDescription || description}
+            published={published}
+          />
         </>
       }
     >

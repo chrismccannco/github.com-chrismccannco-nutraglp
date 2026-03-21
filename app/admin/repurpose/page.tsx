@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Loader2, Copy, Check, RefreshCw, ChevronDown, UserCircle } from 'lucide-react';
 import { useAIProviders } from '../hooks/useAIProviders';
+import ShareBar from '../components/ShareBar';
 
 interface Format {
   key: string;
@@ -15,6 +16,7 @@ interface RepurposeResult {
   format: string;
   label: string;
   output: string;
+  category: string;
 }
 
 interface Persona {
@@ -328,15 +330,12 @@ export default function RepurposePage() {
               <div key={r.format} className="bg-white rounded-xl border border-neutral-200 p-5">
                 <div className="flex items-center justify-between mb-3">
                   <h3 className="text-sm font-semibold text-neutral-900">{r.label}</h3>
-                  <button onClick={() => copyText(r.output, r.format)}
-                    className="flex items-center gap-1 text-xs text-neutral-400 hover:text-neutral-600 transition-colors">
-                    {copied === r.format ? <Check size={11} /> : <Copy size={11} />}
-                    {copied === r.format ? 'Copied' : 'Copy'}
-                  </button>
+                  <span className="text-[10px] text-neutral-400 uppercase tracking-wide">{r.category}</span>
                 </div>
                 <div className="text-sm text-neutral-700 whitespace-pre-wrap leading-relaxed">
                   {r.output}
                 </div>
+                <ShareBar text={r.output} category={r.category} />
               </div>
             ))}
           </div>

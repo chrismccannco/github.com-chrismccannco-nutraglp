@@ -303,6 +303,7 @@ export async function POST(req: NextRequest) {
             (r: { format: string; output: string }) => ({
               ...r,
               label: FORMATS[r.format as FormatKey]?.label || r.format,
+              category: FORMATS[r.format as FormatKey]?.category || "other",
             })
           );
 
