@@ -1,20 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { getAIConfig, generateText } from "@/lib/ai-provider";
 
 export const dynamic = "force-dynamic";
 
-async function getAnthropicKey(): Promise<string | null> {
-  try {
-    const db = getDb();
-    const result = await db.execute(
-      "SELECT value FROM site_settings WHERE key = 'anthropic_api_key'"
-    );
-    if (result.rows.length > 0 && result.rows[0].value) {
-      return result.rows[0].value as string;
-    }
-  } catch { /* fall through */ }
-  return process.env.ANTHROPIC_API_KEY || null;
-}
+
 
 /**
  * POST /api/videos/:id/suggest-clips
@@ -29,9 +19,10 @@ export async function POST(
 ) {
   try {
     const { id } = await params;
-    const apiKey = await getAnthropicKey();
-    if (!apiKey) {
-      return NextResponse.json({ error: "Anthropic API key not configured." }, { status: 500 });
+    const aiConfig = await getAIConfig();
+    if (!aiConfig) {
+      return NextResponse.json(
+        { error: "AI provider not configured. Add an API key in Settings → AI Integration." }, { status: 500 });
     }
 
     const db = getDb();
@@ -78,31 +69,14 @@ Return valid JSON array: [{ "title": "short clip title", "start_word_index": 0, 
 
 Use word indices (0-based) to mark where in the transcript each segment starts and ends. Include the exact transcript text in transcript_segment.`;
 
-    const anthropicResp = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01",
-      },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-6",
-        max_tokens: 4096,
-        system: systemPrompt,
-        messages: [{
-          role: "user",
-          content: `Here is the video transcript. Find the ${maxClips} best clips for these platforms: ${platforms.join(", ")}.\n\nTRANSCRIPT:\n${transcript}`,
-        }],
-      }),
-    });
-
-    if (!anthropicResp.ok) {
-      const err = await anthropicResp.text();
-      return NextResponse.json({ error: err }, { status: 500 });
-    }
-
-    const data = await anthropicResp.json();
-    const rawText = data.content?.[0]?.text || "[]";
+    const { text: rawText } = await generateText(
+      aiConfig,
+      [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: `Here is the video transcript. Find the ${maxClips} best clips for these platforms: ${platforms.join(", ")}.\n\nTRANSCRIPT:\n${transcript}` },
+      ],
+      4096
+    );
 
     let suggestions;
     try {
@@ -119,4 +93,5 @@ Use word indices (0-based) to mark where in the transcript each segment starts a
       { status: 500 }
     );
   }
+
 }

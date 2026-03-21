@@ -1,21 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { getAIConfig, streamText } from "@/lib/ai-provider";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
-
-async function getAnthropicKey(): Promise<string | null> {
-  try {
-    const db = getDb();
-    const result = await db.execute(
-      "SELECT value FROM site_settings WHERE key = 'anthropic_api_key'"
-    );
-    if (result.rows.length > 0 && result.rows[0].value) {
-      return result.rows[0].value as string;
-    }
-  } catch { /* fall through */ }
-  return process.env.ANTHROPIC_API_KEY || null;
-}
 
 async function loadVoice(voiceId?: number | null): Promise<string> {
   const db = getDb();
@@ -150,11 +138,6 @@ Use heading and paragraph fields to create logical sections. Use half-width for 
  */
 export async function POST(req: NextRequest) {
   try {
-    const apiKey = await getAnthropicKey();
-    if (!apiKey) {
-      return NextResponse.json({ error: "Anthropic API key not configured." }, { status: 500 });
-    }
-
     const body = await req.json();
     const { contentType, prompt, voiceId, personaId, existingContent } = body;
 
@@ -187,89 +170,35 @@ export async function POST(req: NextRequest) {
 
     const startTime = Date.now();
 
-    // Use streaming to keep the connection alive (avoids Netlify 10s timeout)
-    const anthropicResp = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01",
-      },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-6",
-        max_tokens: 4096,
-        system: systemPrompt,
-        stream: true,
-        messages: [{ role: "user", content: userPrompt }],
-      }),
-    });
-
-    if (!anthropicResp.ok) {
-      const errText = await anthropicResp.text();
-      let userMessage = "AI service is temporarily unavailable. Please try again in a moment.";
-      try {
-        const errJson = JSON.parse(errText);
-        if (errJson.error?.type === "authentication_error") {
-          userMessage = "AI service not configured. Ask your admin to check the API key in Settings.";
-        } else if (errJson.error?.type === "rate_limit_error") {
-          userMessage = "Too many requests. Please wait a moment and try again.";
-        } else if (errJson.error?.type === "overloaded_error") {
-          userMessage = "AI service is busy. Please try again in a few seconds.";
-        }
-      } catch { /* use default message */ }
-      return NextResponse.json({ error: userMessage }, { status: 500 });
+    const aiConfig = await getAIConfig();
+    if (!aiConfig) {
+      return NextResponse.json(
+        { error: "AI provider not configured. Add an API key in Settings → AI Integration." },
+        { status: 500 }
+      );
     }
 
-    // Read the Anthropic SSE stream, accumulate text, then send our own SSE events
-    // to the client. This keeps the connection alive and avoids serverless timeouts.
-    const reader = anthropicResp.body!.getReader();
+    // Stream through the provider abstraction — keeps connection alive,
+    // avoids Netlify 10s timeout, works with any provider.
     const encoder = new TextEncoder();
 
     const stream = new ReadableStream({
       async start(controller) {
-        const decoder = new TextDecoder();
         let fullText = "";
-        let inputTokens = 0;
-        let outputTokens = 0;
-        let sseBuffer = ""; // Buffer for incomplete SSE lines
 
         try {
-          while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
-
-            sseBuffer += decoder.decode(value, { stream: true });
-            const lines = sseBuffer.split("\n");
-            // Keep the last (potentially incomplete) line in the buffer
-            sseBuffer = lines.pop() || "";
-
-            for (const line of lines) {
-              if (!line.startsWith("data: ")) continue;
-              const payload = line.slice(6).trim();
-              if (payload === "[DONE]") continue;
-
-              try {
-                const evt = JSON.parse(payload);
-
-                if (evt.type === "message_start" && evt.message?.usage) {
-                  inputTokens = evt.message.usage.input_tokens || 0;
-                }
-
-                if (evt.type === "content_block_delta" && evt.delta?.text) {
-                  fullText += evt.delta.text;
-                  // Send a progress ping to keep connection alive
-                  controller.enqueue(
-                    encoder.encode(`data: {"type":"progress","len":${fullText.length}}\n\n`)
-                  );
-                }
-
-                if (evt.type === "message_delta" && evt.usage) {
-                  outputTokens = evt.usage.output_tokens || 0;
-                }
-              } catch {
-                // not valid JSON line, skip
-              }
-            }
+          for await (const chunk of streamText(
+            aiConfig,
+            [
+              { role: "system", content: systemPrompt },
+              { role: "user", content: userPrompt },
+            ],
+            4096
+          )) {
+            fullText += chunk;
+            controller.enqueue(
+              encoder.encode(`data: {"type":"progress","len":${fullText.length}}\n\n`)
+            );
           }
 
           // Parse the accumulated text as JSON
@@ -320,9 +249,9 @@ export async function POST(req: NextRequest) {
               sql: `INSERT INTO ai_usage_log (action, model, input_tokens, output_tokens, duration_ms, metadata) VALUES (?, ?, ?, ?, ?, ?)`,
               args: [
                 `ai_assist_${contentType}`,
-                "claude-sonnet-4-6",
-                inputTokens,
-                outputTokens,
+                `${aiConfig.provider}/${aiConfig.model}`,
+                0,
+                0,
                 Date.now() - startTime,
                 JSON.stringify({ contentType, prompt: prompt.slice(0, 200) }),
               ],

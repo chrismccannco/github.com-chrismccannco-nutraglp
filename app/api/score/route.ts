@@ -1,21 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { getAIConfig, generateText } from "@/lib/ai-provider";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
-async function getAnthropicKey(): Promise<string | null> {
-  try {
-    const db = getDb();
-    const result = await db.execute(
-      "SELECT value FROM site_settings WHERE key = 'anthropic_api_key'"
-    );
-    if (result.rows.length > 0 && result.rows[0].value) {
-      return result.rows[0].value as string;
-    }
-  } catch { /* fall through */ }
-  return process.env.ANTHROPIC_API_KEY || null;
-}
+
 
 async function getBrandVoice(): Promise<Record<string, string>> {
   const db = getDb();
@@ -57,9 +47,10 @@ async function getBrandVoice(): Promise<Record<string, string>> {
  */
 export async function POST(req: NextRequest) {
   try {
-    const apiKey = await getAnthropicKey();
-    if (!apiKey) {
-      return NextResponse.json({ error: "No API key" }, { status: 500 });
+    const aiConfig = await getAIConfig();
+    if (!aiConfig) {
+      return NextResponse.json(
+        { error: "AI provider not configured. Add an API key in Settings → AI Integration." }, { status: 500 });
     }
 
     const body = await req.json();
@@ -94,27 +85,11 @@ Return ONLY valid JSON, no markdown:
   "summary": "<one sentence verdict>"
 }`;
 
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01",
-      },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-6",
-        max_tokens: 256,
-        messages: [{ role: "user", content: prompt }],
-      }),
-    });
-
-    if (!response.ok) {
-      const err = await response.text();
-      return NextResponse.json({ error: err }, { status: 500 });
-    }
-
-    const data = await response.json();
-    const text = data.content?.[0]?.text || "";
+    const { text } = await generateText(
+      aiConfig,
+      [{ role: "user", content: prompt }],
+      256
+    );
     const jsonMatch = text.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
       return NextResponse.json({ error: "No JSON in response" }, { status: 500 });
@@ -132,11 +107,9 @@ Return ONLY valid JSON, no markdown:
 
     // Log AI usage
     try {
-      const inputTokens = data.usage?.input_tokens || 0;
-      const outputTokens = data.usage?.output_tokens || 0;
       await db.execute({
         sql: `INSERT INTO ai_usage_log (action, model, input_tokens, output_tokens, metadata) VALUES (?, ?, ?, ?, ?)`,
-        args: ["content_score", "claude-sonnet-4-6", inputTokens, outputTokens, JSON.stringify({ content_type, content_id })],
+        args: ["content_score", `${aiConfig.provider}/${aiConfig.model}`, 0, 0, JSON.stringify({ content_type, content_id })],
       });
     } catch { /* non-critical */ }
 
@@ -153,4 +126,5 @@ Return ONLY valid JSON, no markdown:
       { status: 500 }
     );
   }
+
 }

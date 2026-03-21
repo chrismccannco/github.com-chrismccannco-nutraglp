@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
+import { getAIConfig, generateText } from "@/lib/ai-provider";
 /**
  * AI Content Generation API
  * Proxies requests to Anthropic Claude API for content generation.
@@ -135,10 +136,10 @@ Return ONLY the shortened content in the same format. No explanation.`;
 
 export async function POST(req: NextRequest) {
   try {
-    const apiKey = process.env.ANTHROPIC_API_KEY;
-    if (!apiKey) {
+    const aiConfig = await getAIConfig();
+    if (!aiConfig) {
       return NextResponse.json(
-        { error: "ANTHROPIC_API_KEY not configured. Add it to your environment variables." },
+        { error: "AI provider not configured. Add an API key in Settings → AI Integration." },
         { status: 500 }
       );
     }
@@ -146,30 +147,11 @@ export async function POST(req: NextRequest) {
     const body: GenerateRequest = await req.json();
     const prompt = buildPrompt(body);
 
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01",
-      },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 2048,
-        messages: [{ role: "user", content: prompt }],
-      }),
-    });
-
-    if (!response.ok) {
-      const err = await response.text();
-      return NextResponse.json(
-        { error: `Anthropic API error: ${response.status} ${err}` },
-        { status: 502 }
-      );
-    }
-
-    const data = await response.json();
-    const text = data.content?.[0]?.text || "";
+    const { text } = await generateText(
+      aiConfig,
+      [{ role: "user", content: prompt }],
+      2048
+    );
 
     return NextResponse.json({ result: text });
   } catch (e: unknown) {

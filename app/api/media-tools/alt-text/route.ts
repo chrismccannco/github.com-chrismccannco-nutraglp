@@ -1,22 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { getAIConfig, generateText } from "@/lib/ai-provider";
 
 export const dynamic = "force-dynamic";
 
-async function getAnthropicKey(): Promise<string | null> {
-  try {
-    const db = getDb();
-    const result = await db.execute(
-      "SELECT value FROM site_settings WHERE key = 'anthropic_api_key'"
-    );
-    if (result.rows.length > 0 && result.rows[0].value) {
-      return result.rows[0].value as string;
-    }
-  } catch {
-    /* fall through */
-  }
-  return process.env.ANTHROPIC_API_KEY || null;
-}
+
 
 /**
  * POST /api/media-tools/alt-text
@@ -27,10 +15,10 @@ async function getAnthropicKey(): Promise<string | null> {
  */
 export async function POST(req: NextRequest) {
   try {
-    const apiKey = await getAnthropicKey();
-    if (!apiKey) {
+    const aiConfig = await getAIConfig();
+    if (!aiConfig) {
       return NextResponse.json(
-        { error: "Anthropic API key not configured." },
+        { error: "AI provider not configured. Add an API key in Settings → AI Integration." },
         { status: 500 }
       );
     }
@@ -68,11 +56,13 @@ export async function POST(req: NextRequest) {
       ? `\nAdditional context about this image: ${context}`
       : "";
 
+    // Alt-text uses vision — always uses Anthropic since it requires multimodal input.
+    // The key is sourced from the ai-provider config (falls back to env var).
     const anthropicResp = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": apiKey,
+        "x-api-key": aiConfig.provider === "anthropic" ? aiConfig.apiKey : (process.env.ANTHROPIC_API_KEY || aiConfig.apiKey),
         "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
@@ -123,4 +113,5 @@ Return only the alt text string. No quotes, no explanation.`,
       { status: 500 }
     );
   }
+
 }

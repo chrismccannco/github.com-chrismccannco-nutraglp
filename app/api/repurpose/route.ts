@@ -1,21 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { getAIConfig, streamText } from "@/lib/ai-provider";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
-async function getAnthropicKey(): Promise<string | null> {
-  try {
-    const db = getDb();
-    const result = await db.execute(
-      "SELECT value FROM site_settings WHERE key = 'anthropic_api_key'"
-    );
-    if (result.rows.length > 0 && result.rows[0].value) {
-      return result.rows[0].value as string;
-    }
-  } catch { /* fall through */ }
-  return process.env.ANTHROPIC_API_KEY || null;
-}
+
 
 async function getBrandVoicePrompt(voiceId?: number): Promise<string> {
   const db = getDb();
@@ -229,10 +219,10 @@ async function getPersonaPrompt(personaId?: number): Promise<string> {
  */
 export async function POST(req: NextRequest) {
   try {
-    const apiKey = await getAnthropicKey();
-    if (!apiKey) {
+    const aiConfig = await getAIConfig();
+    if (!aiConfig) {
       return NextResponse.json(
-        { error: "Anthropic API key not configured." },
+        { error: "AI provider not configured. Add an API key in Settings → AI Integration." },
         { status: 500 }
       );
     }
@@ -270,80 +260,25 @@ export async function POST(req: NextRequest) {
 
     const startTime = Date.now();
 
-    // Use streaming to avoid Netlify timeout
-    const anthropicResp = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01",
-      },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-6",
-        max_tokens: 4096,
-        system: systemPrompt,
-        stream: true,
-        messages: [{ role: "user", content: userPrompt }],
-      }),
-    });
-
-    if (!anthropicResp.ok) {
-      const errText = await anthropicResp.text();
-      let userMessage = "AI service is temporarily unavailable. Please try again in a moment.";
-      try {
-        const errJson = JSON.parse(errText);
-        if (errJson.error?.type === "authentication_error") {
-          userMessage = "AI service not configured. Ask your admin to check the API key in Settings.";
-        } else if (errJson.error?.type === "rate_limit_error") {
-          userMessage = "Too many requests. Please wait a moment and try again.";
-        } else if (errJson.error?.type === "overloaded_error") {
-          userMessage = "AI service is busy. Please try again in a few seconds.";
-        }
-      } catch { /* use default message */ }
-      return NextResponse.json({ error: userMessage }, { status: 500 });
-    }
-
-    const reader = anthropicResp.body!.getReader();
     const encoder = new TextEncoder();
 
     const stream = new ReadableStream({
       async start(controller) {
-        const decoder = new TextDecoder();
         let fullText = "";
-        let inputTokens = 0;
-        let outputTokens = 0;
-        let sseBuffer = "";
 
         try {
-          while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
-
-            sseBuffer += decoder.decode(value, { stream: true });
-            const lines = sseBuffer.split("\n");
-            sseBuffer = lines.pop() || "";
-
-            for (const line of lines) {
-              if (!line.startsWith("data: ")) continue;
-              const payload = line.slice(6).trim();
-              if (payload === "[DONE]") continue;
-
-              try {
-                const evt = JSON.parse(payload);
-                if (evt.type === "message_start" && evt.message?.usage) {
-                  inputTokens = evt.message.usage.input_tokens || 0;
-                }
-                if (evt.type === "content_block_delta" && evt.delta?.text) {
-                  fullText += evt.delta.text;
-                  controller.enqueue(
-                    encoder.encode(`data: {"type":"progress","len":${fullText.length}}\n\n`)
-                  );
-                }
-                if (evt.type === "message_delta" && evt.usage) {
-                  outputTokens = evt.usage.output_tokens || 0;
-                }
-              } catch { /* skip */ }
-            }
+          for await (const chunk of streamText(
+            aiConfig,
+            [
+              { role: "system", content: systemPrompt },
+              { role: "user", content: userPrompt },
+            ],
+            4096
+          )) {
+            fullText += chunk;
+            controller.enqueue(
+              encoder.encode(`data: {"type":"progress","len":${fullText.length}}\n\n`)
+            );
           }
 
           // Parse accumulated text
@@ -397,9 +332,9 @@ export async function POST(req: NextRequest) {
               sql: `INSERT INTO ai_usage_log (action, model, input_tokens, output_tokens, metadata) VALUES (?, ?, ?, ?, ?)`,
               args: [
                 "content_repurpose",
-                "claude-sonnet-4-6",
-                inputTokens,
-                outputTokens,
+                `${aiConfig.provider}/${aiConfig.model}`,
+                0,
+                0,
                 JSON.stringify({ formats, voice_id: voiceId || null, persona_id: personaId || null, duration_ms: Date.now() - startTime }),
               ],
             });

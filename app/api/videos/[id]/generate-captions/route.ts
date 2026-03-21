@@ -1,20 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { getAIConfig, generateText } from "@/lib/ai-provider";
 
 export const dynamic = "force-dynamic";
 
-async function getAnthropicKey(): Promise<string | null> {
-  try {
-    const db = getDb();
-    const result = await db.execute(
-      "SELECT value FROM site_settings WHERE key = 'anthropic_api_key'"
-    );
-    if (result.rows.length > 0 && result.rows[0].value) {
-      return result.rows[0].value as string;
-    }
-  } catch { /* fall through */ }
-  return process.env.ANTHROPIC_API_KEY || null;
-}
+
 
 async function getVoicePrompt(voiceId: number | null): Promise<string> {
   if (!voiceId) return "";
@@ -43,9 +33,10 @@ export async function POST(
 ) {
   try {
     const { id } = await params;
-    const apiKey = await getAnthropicKey();
-    if (!apiKey) {
-      return NextResponse.json({ error: "Anthropic API key not configured." }, { status: 500 });
+    const aiConfig = await getAIConfig();
+    if (!aiConfig) {
+      return NextResponse.json(
+        { error: "AI provider not configured. Add an API key in Settings → AI Integration." }, { status: 500 });
     }
 
     const db = getDb();
@@ -97,27 +88,20 @@ export async function POST(
         "Return only the caption text. No preamble.",
       ].filter(Boolean).join("\n\n");
 
-      const anthropicResp = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "x-api-key": apiKey,
-          "anthropic-version": "2023-06-01",
-        },
-        body: JSON.stringify({
-          model: "claude-sonnet-4-6",
-          max_tokens: 500,
-          system: systemPrompt,
-          messages: [{
-            role: "user",
-            content: `Video title: "${video.title}"\n\nClip transcript:\n${clip.transcript_segment}\n\nWrite the ${platform} caption.`,
-          }],
-        }),
-      });
+      let caption = "";
+      try {
+        const { text } = await generateText(
+          aiConfig,
+          [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: `Video title: "${video.title}"\n\nClip transcript:\n${clip.transcript_segment}\n\nWrite the ${platform} caption.` },
+          ],
+          500
+        );
+        caption = text.trim();
+      } catch { caption = ""; }
 
-      if (anthropicResp.ok) {
-        const data = await anthropicResp.json();
-        const caption = data.content?.[0]?.text?.trim() || "";
+      if (caption) {
 
         // Save caption to clip
         await db.execute({
@@ -136,4 +120,5 @@ export async function POST(
       { status: 500 }
     );
   }
+
 }

@@ -38,12 +38,34 @@ const securityFields = [
   { key: "admin_password", label: "Admin password", password: true },
 ];
 
-const aiFields = [
+const aiKeyFields = [
   {
     key: "anthropic_api_key",
     label: "Anthropic API key",
     password: true,
     placeholder: "sk-ant-api03-…",
+    hint: "Used when provider is set to Claude. console.anthropic.com",
+  },
+  {
+    key: "openai_api_key",
+    label: "OpenAI API key",
+    password: true,
+    placeholder: "sk-…",
+    hint: "Used when provider is set to ChatGPT (GPT-4o). platform.openai.com",
+  },
+  {
+    key: "gemini_api_key",
+    label: "Gemini API key",
+    password: true,
+    placeholder: "AIza…",
+    hint: "Used when provider is set to Gemini. aistudio.google.com/apikey",
+  },
+  {
+    key: "perplexity_api_key",
+    label: "Perplexity API key",
+    password: true,
+    placeholder: "pplx-…",
+    hint: "Used when provider is set to Perplexity. perplexity.ai/settings/api",
   },
 ];
 
@@ -292,10 +314,50 @@ export default function SettingsAdmin() {
         </FormSection>
 
         <FormSection title="AI Integration">
-          {aiFields.map(renderField)}
-          <p className="text-xs text-neutral-400 mt-2">
-            Used by AI Assist and AI Brand Scorer. Get your key at console.anthropic.com.
-          </p>
+          {/* Provider selection */}
+          <div className="mb-4">
+            <label className="block text-xs font-semibold text-neutral-500 mb-1.5 uppercase tracking-wide">
+              AI Provider
+            </label>
+            <select
+              value={settings.ai_provider || "anthropic"}
+              onChange={(e) => update("ai_provider", e.target.value)}
+              className="w-full border border-neutral-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            >
+              <option value="anthropic">Claude (Anthropic)</option>
+              <option value="openai">ChatGPT (OpenAI)</option>
+              <option value="gemini">Gemini (Google)</option>
+              <option value="perplexity">Perplexity</option>
+            </select>
+            <p className="text-xs text-neutral-400 mt-1">
+              All AI features — drafts, repurpose, assist, scoring — use this provider.
+            </p>
+          </div>
+
+          {/* Optional model override */}
+          <div className="mb-6">
+            <label className="block text-xs font-semibold text-neutral-500 mb-1.5 uppercase tracking-wide">
+              Model override <span className="font-normal normal-case">(optional)</span>
+            </label>
+            <input
+              type="text"
+              value={settings.ai_model || ""}
+              onChange={(e) => update("ai_model", e.target.value)}
+              placeholder={
+                settings.ai_provider === "openai" ? "gpt-4o" :
+                settings.ai_provider === "gemini" ? "gemini-2.0-flash" :
+                settings.ai_provider === "perplexity" ? "llama-3.1-sonar-large-128k-online" :
+                "claude-sonnet-4-20250514"
+              }
+              className="w-full border border-neutral-200 rounded-lg px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            />
+            <p className="text-xs text-neutral-400 mt-1">
+              Leave blank to use the default model for the selected provider.
+            </p>
+          </div>
+
+          {/* API keys */}
+          {aiKeyFields.map(renderField)}
         </FormSection>
 
         <FormSection title="Integrations">

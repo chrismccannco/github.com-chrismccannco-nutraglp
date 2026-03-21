@@ -1,21 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { getAIConfig, generateText } from "@/lib/ai-provider";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
-async function getAnthropicKey(): Promise<string | null> {
-  try {
-    const db = getDb();
-    const result = await db.execute(
-      "SELECT value FROM site_settings WHERE key = 'anthropic_api_key'"
-    );
-    if (result.rows.length > 0 && result.rows[0].value) {
-      return result.rows[0].value as string;
-    }
-  } catch { /* fall through */ }
-  return process.env.ANTHROPIC_API_KEY || null;
-}
+
 
 /**
  * POST /api/ai-draft
@@ -24,10 +14,10 @@ async function getAnthropicKey(): Promise<string | null> {
  */
 export async function POST(req: NextRequest) {
   try {
-    const apiKey = await getAnthropicKey();
-    if (!apiKey) {
+    const aiConfig = await getAIConfig();
+    if (!aiConfig) {
       return NextResponse.json(
-        { error: "Anthropic API key not configured." },
+        { error: "AI provider not configured. Add an API key in Settings → AI Integration." },
         { status: 500 }
       );
     }
@@ -124,28 +114,14 @@ Generate 4-6 sections. Each section body should be 2-4 paragraphs of rich HTML c
       .join("\n\n");
 
     const startTime = Date.now();
-    const anthropicResp = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01",
-      },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-6",
-        max_tokens: 4096,
-        system: systemPrompt,
-        messages: [{ role: "user", content: `Write a blog post about: ${topic}` }],
-      }),
-    });
-
-    if (!anthropicResp.ok) {
-      const err = await anthropicResp.text();
-      return NextResponse.json({ error: err }, { status: 500 });
-    }
-
-    const data = await anthropicResp.json();
-    const rawText = data.content?.[0]?.text || "{}";
+    const { text: rawText } = await generateText(
+      aiConfig,
+      [
+        { role: "system", content: systemPrompt },
+        { role: "user", content: `Write a blog post about: ${topic}` },
+      ],
+      4096
+    );
 
     // Parse the JSON response
     let draft;
@@ -167,9 +143,9 @@ Generate 4-6 sections. Each section body should be 2-4 paragraphs of rich HTML c
         sql: `INSERT INTO ai_usage_log (action, model, input_tokens, output_tokens, duration_ms, metadata) VALUES (?, ?, ?, ?, ?, ?)`,
         args: [
           "blog_draft",
-          "claude-sonnet-4-6",
-          data.usage?.input_tokens || 0,
-          data.usage?.output_tokens || 0,
+          `${aiConfig.provider}/${aiConfig.model}`,
+          0,
+          0,
           duration,
           JSON.stringify({ topic }),
         ],
@@ -183,4 +159,5 @@ Generate 4-6 sections. Each section body should be 2-4 paragraphs of rich HTML c
       { status: 500 }
     );
   }
+
 }
