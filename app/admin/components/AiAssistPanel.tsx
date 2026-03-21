@@ -151,9 +151,9 @@ export default function AiAssistPanel({
   };
 
   return (
-    <div className={`bg-gradient-to-br from-violet-50 to-teal-50 border border-violet-200 rounded-xl ${compact ? "p-3" : "p-5"}`}>
+    <div className={`bg-gradient-to-br from-teal-50 to-teal-50 border border-teal-200 rounded-xl ${compact ? "p-3" : "p-5"}`}>
       <div className="flex items-center gap-2 mb-3">
-        <div className={`${compact ? "w-6 h-6" : "w-7 h-7"} rounded-lg bg-violet-600 flex items-center justify-center`}>
+        <div className={`${compact ? "w-6 h-6" : "w-7 h-7"} rounded-lg bg-teal-600 flex items-center justify-center`}>
           <Wand2 className={`${compact ? "w-3 h-3" : "w-3.5 h-3.5"} text-white`} />
         </div>
         <div>
@@ -172,7 +172,7 @@ export default function AiAssistPanel({
         placeholder={placeholder}
         rows={compact ? 1 : 2}
         onKeyDown={(e) => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) handleGenerate(); }}
-        className={`w-full px-3 ${compact ? "py-2" : "py-2.5"} border border-violet-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 bg-white placeholder:text-neutral-400 mb-3`}
+        className={`w-full px-3 ${compact ? "py-2" : "py-2.5"} border border-teal-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 bg-white placeholder:text-neutral-400 mb-3`}
       />
 
       <div className="flex items-end gap-3">
@@ -183,7 +183,7 @@ export default function AiAssistPanel({
               <select
                 value={voiceId || ""}
                 onChange={(e) => setVoiceId(e.target.value ? Number(e.target.value) : null)}
-                className="w-full px-2 py-1.5 border border-violet-200 rounded-lg text-xs bg-white focus:outline-none focus:ring-2 focus:ring-violet-500"
+                className="w-full px-2 py-1.5 border border-teal-200 rounded-lg text-xs bg-white focus:outline-none focus:ring-2 focus:ring-teal-500"
               >
                 <option value="">Default</option>
                 {voices.map((v) => (
@@ -196,7 +196,7 @@ export default function AiAssistPanel({
               <select
                 value={personaId || ""}
                 onChange={(e) => setPersonaId(e.target.value ? Number(e.target.value) : null)}
-                className="w-full px-2 py-1.5 border border-violet-200 rounded-lg text-xs bg-white focus:outline-none focus:ring-2 focus:ring-violet-500"
+                className="w-full px-2 py-1.5 border border-teal-200 rounded-lg text-xs bg-white focus:outline-none focus:ring-2 focus:ring-teal-500"
               >
                 <option value="">Default</option>
                 {personas.map((p) => (
@@ -209,7 +209,7 @@ export default function AiAssistPanel({
         <button
           onClick={handleGenerate}
           disabled={generating || !prompt.trim()}
-          className="px-4 py-2 bg-violet-600 text-white text-sm font-medium rounded-lg hover:bg-violet-700 transition disabled:opacity-50 whitespace-nowrap flex items-center gap-2"
+          className="px-4 py-2 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-700 transition disabled:opacity-50 whitespace-nowrap flex items-center gap-2"
         >
           {generating ? (
             <>
@@ -227,7 +227,7 @@ export default function AiAssistPanel({
 
       {error && <p className="mt-2 text-xs text-red-600">{error}</p>}
       {success && (
-        <div className="mt-2 px-3 py-1.5 bg-white/80 rounded-lg border border-violet-100">
+        <div className="mt-2 px-3 py-1.5 bg-white/80 rounded-lg border border-teal-100">
           <p className="text-xs text-teal-700 font-medium">{success}</p>
         </div>
       )}

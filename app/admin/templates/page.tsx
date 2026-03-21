@@ -24,7 +24,7 @@ const BLOCK_TYPE_LABELS: Record<string, string> = {
 function categoryColor(cat: string): string {
   const colors: Record<string, string> = {
     page: "bg-blue-100 text-blue-700",
-    landing: "bg-purple-100 text-purple-700",
+    landing: "bg-teal-100 text-teal-700",
     blog: "bg-blue-100 text-blue-700",
     product: "bg-amber-100 text-amber-700",
     email: "bg-pink-100 text-pink-700",

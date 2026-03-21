@@ -97,8 +97,8 @@ export default function AdminDashboard() {
       count: stats?.products ?? "\u2014",
       href: "/admin/products",
       icon: Package,
-      accent: "text-purple-600",
-      bg: "bg-purple-50",
+      accent: "text-teal-600",
+      bg: "bg-teal-50",
     },
     {
       label: "Testimonials",
@@ -128,7 +128,7 @@ export default function AdminDashboard() {
       </div>
 
       {showGuide && (
-        <div className="relative bg-gradient-to-br from-teal-50 to-violet-50 border border-teal-200 rounded-xl p-6 mb-8">
+        <div className="relative bg-gradient-to-br from-teal-50 to-teal-50 border border-teal-200 rounded-xl p-6 mb-8">
           <button
             onClick={dismissGuide}
             className="absolute top-3 right-3 p-1 text-neutral-400 hover:text-neutral-600 transition"
@@ -142,8 +142,8 @@ export default function AdminDashboard() {
               href="/admin/blog/new"
               className="flex items-start gap-3 bg-white/80 rounded-lg p-4 no-underline hover:bg-white transition group"
             >
-              <div className="w-8 h-8 rounded-lg bg-violet-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <Wand2 className="w-4 h-4 text-violet-600" />
+              <div className="w-8 h-8 rounded-lg bg-teal-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <Wand2 className="w-4 h-4 text-teal-600" />
               </div>
               <div>
                 <p className="text-sm font-medium text-neutral-900 group-hover:text-teal-700 transition">Write a blog post with AI</p>

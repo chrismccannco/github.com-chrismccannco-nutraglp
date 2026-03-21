@@ -42,7 +42,7 @@ const PLATFORMS = [
   { key: 'linkedin', label: 'LinkedIn', color: 'bg-blue-50 text-blue-700' },
   { key: 'twitter', label: 'Twitter/X', color: 'bg-sky-50 text-sky-700' },
   { key: 'tiktok', label: 'TikTok', color: 'bg-pink-50 text-pink-700' },
-  { key: 'instagram', label: 'Instagram', color: 'bg-purple-50 text-purple-700' },
+  { key: 'instagram', label: 'Instagram', color: 'bg-teal-50 text-teal-700' },
   { key: 'youtube_shorts', label: 'YouTube Shorts', color: 'bg-red-50 text-red-700' },
 ];
 
@@ -236,7 +236,7 @@ export default function VideoEditorPage() {
             </div>
 
             <button onClick={suggestClips} disabled={suggesting || !video.transcript}
-              className="flex items-center gap-2 px-5 py-2.5 bg-violet-600 text-white text-sm font-medium rounded-lg hover:bg-violet-500 disabled:opacity-50 transition-colors w-full justify-center">
+              className="flex items-center gap-2 px-5 py-2.5 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-500 disabled:opacity-50 transition-colors w-full justify-center">
               {suggesting ? <Loader2 size={14} className="animate-spin" /> : <Wand2 size={14} />}
               {suggesting ? 'Analyzing transcript...' : 'Find best clip moments'}
             </button>
@@ -248,14 +248,14 @@ export default function VideoEditorPage() {
             {suggestions.length > 0 && (
               <div>
                 <h3 className="text-sm font-semibold text-neutral-900 mb-3 flex items-center gap-1.5">
-                  <Sparkles size={14} className="text-violet-500" /> AI Suggested Clips
+                  <Sparkles size={14} className="text-teal-500" /> AI Suggested Clips
                 </h3>
                 <div className="space-y-3">
                   {suggestions.map((s, i) => (
-                    <div key={i} className="bg-white rounded-xl border border-violet-200 p-4">
+                    <div key={i} className="bg-white rounded-xl border border-teal-200 p-4">
                       <h4 className="text-sm font-semibold text-neutral-900 mb-1">{s.title}</h4>
                       <p className="text-xs text-neutral-500 mb-2 line-clamp-3">{s.transcript_segment}</p>
-                      <p className="text-[11px] text-violet-600 mb-3">{s.rationale}</p>
+                      <p className="text-[11px] text-teal-600 mb-3">{s.rationale}</p>
                       <div className="flex flex-wrap gap-1.5">
                         {s.platforms.map(p => {
                           const pi = platformInfo(p);

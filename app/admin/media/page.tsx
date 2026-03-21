@@ -411,9 +411,9 @@ export default function MediaLibrary() {
                   <button
                     onClick={generateAltText}
                     disabled={generatingAlt}
-                    className="w-full flex items-center justify-between px-3 py-2 text-xs bg-violet-50 rounded-lg hover:bg-violet-100 transition disabled:opacity-50"
+                    className="w-full flex items-center justify-between px-3 py-2 text-xs bg-teal-50 rounded-lg hover:bg-teal-100 transition disabled:opacity-50"
                   >
-                    <span className="flex items-center gap-1.5 text-violet-700 font-medium">
+                    <span className="flex items-center gap-1.5 text-teal-700 font-medium">
                       {generatingAlt ? (
                         <Loader2 className="w-3.5 h-3.5 animate-spin" />
                       ) : (

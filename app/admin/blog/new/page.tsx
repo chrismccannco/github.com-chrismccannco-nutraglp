@@ -192,7 +192,7 @@ export default function NewBlogPost() {
           <FormSection title={`Content Preview (${aiDraft.sections.length} sections)`} collapsible>
             <div className="space-y-4">
               {aiDraft.sections.map((s, i) => (
-                <div key={i} className="border-l-2 border-violet-300 pl-3">
+                <div key={i} className="border-l-2 border-teal-300 pl-3">
                   <p className="text-xs font-semibold text-neutral-700">{s.heading}</p>
                   <div
                     className="text-xs text-neutral-500 mt-1 line-clamp-3 prose prose-xs"
