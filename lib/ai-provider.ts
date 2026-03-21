@@ -58,10 +58,16 @@ export const PROVIDER_LABELS: Record<AIProvider, string> = {
 /**
  * Reads active provider + API key from site_settings, falls back to env vars.
  * Returns null if no key is configured for the active provider.
+ *
+ * Pass `providerOverride` / `modelOverride` to let the caller (e.g. a per-request
+ * model picker in the UI) select a specific provider for a single generation.
  */
-export async function getAIConfig(): Promise<AIConfig | null> {
-  let provider: AIProvider = "anthropic";
-  let model = "";
+export async function getAIConfig(options?: {
+  providerOverride?: string;
+  modelOverride?: string;
+}): Promise<AIConfig | null> {
+  let defaultProvider: AIProvider = "anthropic";
+  let defaultModel = "";
   const keys: Partial<Record<AIProvider, string>> = {};
 
   try {
@@ -75,8 +81,8 @@ export async function getAIConfig(): Promise<AIConfig | null> {
     for (const row of result.rows) {
       const k = row.key as string;
       const v = row.value as string;
-      if (k === "ai_provider" && v) provider = v as AIProvider;
-      else if (k === "ai_model" && v) model = v;
+      if (k === "ai_provider" && v) defaultProvider = v as AIProvider;
+      else if (k === "ai_model" && v) defaultModel = v;
       else if (k === "anthropic_api_key" && v) keys.anthropic = v;
       else if (k === "openai_api_key" && v) keys.openai = v;
       else if (k === "gemini_api_key" && v) keys.gemini = v;
@@ -92,14 +98,83 @@ export async function getAIConfig(): Promise<AIConfig | null> {
   if (!keys.gemini) keys.gemini = process.env.GEMINI_API_KEY || "";
   if (!keys.perplexity) keys.perplexity = process.env.PERPLEXITY_API_KEY || "";
 
+  // Apply caller overrides (UI model picker)
+  const ALL_PROVIDERS: AIProvider[] = ["anthropic", "openai", "gemini", "perplexity"];
+  const provider: AIProvider =
+    options?.providerOverride && ALL_PROVIDERS.includes(options.providerOverride as AIProvider)
+      ? (options.providerOverride as AIProvider)
+      : defaultProvider;
+
+  const model =
+    options?.modelOverride ||
+    (provider === defaultProvider ? defaultModel : "") ||
+    DEFAULT_MODELS[provider];
+
   const apiKey = keys[provider] || "";
   if (!apiKey) return null;
 
-  return {
-    provider,
-    model: model || DEFAULT_MODELS[provider],
-    apiKey,
-  };
+  return { provider, model, apiKey };
+}
+
+/**
+ * Returns all providers that have API keys configured, plus the default.
+ * Used by the UI model picker to show only available options.
+ */
+export async function getAvailableProviders(): Promise<{
+  providers: { id: AIProvider; label: string; model: string }[];
+  defaultProvider: AIProvider;
+}> {
+  let defaultProvider: AIProvider = "anthropic";
+  let defaultModel = "";
+  const keys: Partial<Record<AIProvider, string>> = {};
+
+  try {
+    const db = getDb();
+    const result = await db.execute(
+      `SELECT key, value FROM site_settings WHERE key IN (
+        'ai_provider','ai_model',
+        'anthropic_api_key','openai_api_key','gemini_api_key','perplexity_api_key'
+      )`
+    );
+    for (const row of result.rows) {
+      const k = row.key as string;
+      const v = row.value as string;
+      if (k === "ai_provider" && v) defaultProvider = v as AIProvider;
+      else if (k === "ai_model" && v) defaultModel = v;
+      else if (k === "anthropic_api_key" && v) keys.anthropic = v;
+      else if (k === "openai_api_key" && v) keys.openai = v;
+      else if (k === "gemini_api_key" && v) keys.gemini = v;
+      else if (k === "perplexity_api_key" && v) keys.perplexity = v;
+    }
+  } catch { /* fall through */ }
+
+  if (!keys.anthropic) keys.anthropic = process.env.ANTHROPIC_API_KEY || "";
+  if (!keys.openai) keys.openai = process.env.OPENAI_API_KEY || "";
+  if (!keys.gemini) keys.gemini = process.env.GEMINI_API_KEY || "";
+  if (!keys.perplexity) keys.perplexity = process.env.PERPLEXITY_API_KEY || "";
+
+  const ALL_PROVIDERS: AIProvider[] = ["anthropic", "openai", "gemini", "perplexity"];
+  const providers = ALL_PROVIDERS
+    .filter((p) => !!keys[p])
+    .map((p) => ({
+      id: p,
+      label: PROVIDER_LABELS[p],
+      model:
+        p === defaultProvider && defaultModel
+          ? defaultModel
+          : DEFAULT_MODELS[p],
+    }));
+
+  // Always include at least the default even if key is missing (so UI shows something)
+  if (providers.length === 0) {
+    providers.push({
+      id: defaultProvider,
+      label: PROVIDER_LABELS[defaultProvider],
+      model: defaultModel || DEFAULT_MODELS[defaultProvider],
+    });
+  }
+
+  return { providers, defaultProvider };
 }
 
 // ── Non-streaming generation ──────────────────────────────────────────────────

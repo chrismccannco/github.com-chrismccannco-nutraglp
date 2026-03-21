@@ -139,7 +139,7 @@ Use heading and paragraph fields to create logical sections. Use half-width for 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { contentType, prompt, voiceId, personaId, existingContent } = body;
+    const { contentType, prompt, voiceId, personaId, existingContent, providerOverride, modelOverride } = body;
 
     if (!contentType || !prompt?.trim()) {
       return NextResponse.json({ error: "contentType and prompt are required" }, { status: 400 });
@@ -170,7 +170,7 @@ export async function POST(req: NextRequest) {
 
     const startTime = Date.now();
 
-    const aiConfig = await getAIConfig();
+    const aiConfig = await getAIConfig({ providerOverride, modelOverride });
     if (!aiConfig) {
       return NextResponse.json(
         { error: "AI provider not configured. Add an API key in Settings → AI Integration." },

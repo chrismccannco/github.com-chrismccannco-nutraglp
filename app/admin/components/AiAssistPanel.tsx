@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Wand2 } from "lucide-react";
+import { Wand2, ChevronDown } from "lucide-react";
+import { useAIProviders } from "../hooks/useAIProviders";
 
 interface BrandVoice {
   id: number;
@@ -54,6 +55,7 @@ export default function AiAssistPanel({
   const [personaId, setPersonaId] = useState<number | null>(null);
   const [success, setSuccess] = useState("");
   const [progress, setProgress] = useState(0);
+  const { providers, selectedProvider, setSelectedProvider, providerOverride } = useAIProviders();
 
   useEffect(() => {
     if (!showSelectors) return;
@@ -77,6 +79,7 @@ export default function AiAssistPanel({
           voiceId,
           personaId,
           existingContent: existingContent || undefined,
+          providerOverride: providerOverride || undefined,
         }),
       });
 
@@ -153,10 +156,10 @@ export default function AiAssistPanel({
   return (
     <div className={`bg-gradient-to-br from-teal-50 to-teal-50 border border-teal-200 rounded-xl ${compact ? "p-3" : "p-5"}`}>
       <div className="flex items-center gap-2 mb-3">
-        <div className={`${compact ? "w-6 h-6" : "w-7 h-7"} rounded-lg bg-teal-600 flex items-center justify-center`}>
+        <div className={`${compact ? "w-6 h-6" : "w-7 h-7"} rounded-lg bg-teal-600 flex items-center justify-center flex-shrink-0`}>
           <Wand2 className={`${compact ? "w-3 h-3" : "w-3.5 h-3.5"} text-white`} />
         </div>
-        <div>
+        <div className="flex-1 min-w-0">
           <p className={`${compact ? "text-xs" : "text-sm"} font-semibold text-neutral-900`}>AI Assist</p>
           {!compact && (
             <p className="text-[11px] text-neutral-500">
@@ -164,6 +167,20 @@ export default function AiAssistPanel({
             </p>
           )}
         </div>
+        {providers.length > 1 && (
+          <div className="relative flex-shrink-0">
+            <select
+              value={selectedProvider}
+              onChange={(e) => setSelectedProvider(e.target.value)}
+              className="appearance-none text-[10px] font-medium text-neutral-600 bg-white border border-teal-200 rounded-md pl-2 pr-5 py-1 focus:outline-none focus:ring-1 focus:ring-teal-400 cursor-pointer"
+            >
+              {providers.map((p) => (
+                <option key={p.id} value={p.id}>{p.label.split(" (")[0]}</option>
+              ))}
+            </select>
+            <ChevronDown className="absolute right-1 top-1/2 -translate-y-1/2 w-2.5 h-2.5 text-neutral-400 pointer-events-none" />
+          </div>
+        )}
       </div>
 
       <textarea

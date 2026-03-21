@@ -136,7 +136,11 @@ Return ONLY the shortened content in the same format. No explanation.`;
 
 export async function POST(req: NextRequest) {
   try {
-    const aiConfig = await getAIConfig();
+    const body: GenerateRequest & { providerOverride?: string; modelOverride?: string } = await req.json();
+    const aiConfig = await getAIConfig({
+      providerOverride: body.providerOverride,
+      modelOverride: body.modelOverride,
+    });
     if (!aiConfig) {
       return NextResponse.json(
         { error: "AI provider not configured. Add an API key in Settings → AI Integration." },
@@ -144,7 +148,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const body: GenerateRequest = await req.json();
     const prompt = buildPrompt(body);
 
     const { text } = await generateText(

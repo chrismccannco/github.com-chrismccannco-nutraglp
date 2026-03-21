@@ -10,6 +10,8 @@ interface AIRequest {
   existingBlocks?: Array<{ type: string; data: Record<string, unknown> }>;
   brief?: string;
   targetLength?: "short" | "medium" | "long";
+  providerOverride?: string;
+  modelOverride?: string;
 }
 
 export function useAI() {
