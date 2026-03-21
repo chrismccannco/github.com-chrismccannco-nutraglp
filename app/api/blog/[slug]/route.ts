@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { dispatchWebhook } from "@/lib/webhooks";
 
 export async function GET(
   _req: NextRequest,
@@ -84,6 +85,11 @@ export async function PUT(
       args: [newSlug],
     });
     const r = result.rows[0];
+
+    // Dispatch webhook (non-blocking)
+    const isPublishToggle = body.published !== undefined;
+    const webhookEvent = isPublishToggle && body.published ? "blog.published" : isPublishToggle && !body.published ? "blog.unpublished" : "blog.updated";
+    dispatchWebhook(webhookEvent, { slug: newSlug, id: r.id, title: r.title }).catch(() => {});
 
     // Auto-score in the background (non-blocking)
     if (body.sections || body.description) {

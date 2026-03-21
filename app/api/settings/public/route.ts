@@ -1,7 +1,16 @@
 import { NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
 
-const SENSITIVE_KEYS = ["admin_password"];
+const SENSITIVE_KEYS = [
+  "admin_password",
+  "anthropic_api_key",
+  "removebg_api_key",
+  "unsplash_api_key",
+  "sendgrid_api_key",
+  "cloudinary_api_key",
+  "cloudinary_api_secret",
+  "elevenlabs_api_key",
+];
 
 export async function GET() {
   try {

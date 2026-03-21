@@ -1,5 +1,6 @@
 import { getDb } from "@/lib/db";
 import { getImageDimensions } from "@/lib/image";
+import { dispatchWebhook } from "@/lib/webhooks";
 import { NextRequest, NextResponse } from "next/server";
 
 const ALLOWED_TYPES = [
@@ -50,6 +51,9 @@ export async function POST(request: NextRequest) {
     });
 
     const id = Number(result.lastInsertRowid);
+
+    // Dispatch webhook (non-blocking)
+    dispatchWebhook("media.uploaded", { id, filename: file.name, size: file.size, width, height, mimeType: file.type }).catch(() => {});
 
     return NextResponse.json({
       id,
@@ -125,12 +129,14 @@ export async function DELETE(request: NextRequest) {
     if (permanent) {
       // Hard delete — only from trash
       await db.execute({ sql: "DELETE FROM media_files WHERE id = ? AND deleted_at IS NOT NULL", args: [Number(id)] });
+      dispatchWebhook("media.deleted", { id: Number(id), permanent: true }).catch(() => {});
     } else {
       // Soft delete
       await db.execute({
         sql: "UPDATE media_files SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?",
         args: [Number(id)],
       });
+      dispatchWebhook("media.deleted", { id: Number(id), permanent: false }).catch(() => {});
     }
 
     return NextResponse.json({ success: true });

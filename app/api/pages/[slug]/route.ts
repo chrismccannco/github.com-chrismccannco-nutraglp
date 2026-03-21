@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { dispatchWebhook } from "@/lib/webhooks";
 
 export async function GET(
   _req: NextRequest,
@@ -100,6 +101,11 @@ export async function PUT(
       args: [slug],
     });
     const row = result.rows[0];
+
+    // Dispatch webhook (non-blocking)
+    const isPublishToggle = body.published !== undefined;
+    const webhookEvent = isPublishToggle && body.published ? "page.published" : isPublishToggle && !body.published ? "page.unpublished" : "page.updated";
+    dispatchWebhook(webhookEvent, { slug, id: row.id, title: row.title }).catch(() => {});
 
     // Auto-score in the background (non-blocking)
     if (body.content || body.title || body.meta_description) {

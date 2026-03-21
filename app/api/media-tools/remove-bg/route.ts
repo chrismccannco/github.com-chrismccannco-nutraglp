@@ -20,15 +20,21 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "imageId is required" }, { status: 400 });
     }
 
-    const apiKey = process.env.REMOVE_BG_API_KEY;
+    const db = getDb();
+
+    // Pull API key from site_settings (BYOK pattern)
+    const keyResult = await db.execute({
+      sql: "SELECT value FROM site_settings WHERE key = 'removebg_api_key'",
+      args: [],
+    });
+    const apiKey = keyResult.rows.length > 0 ? (keyResult.rows[0].value as string) : null;
+
     if (!apiKey) {
       return NextResponse.json(
-        { error: "Background removal is not configured. Set REMOVE_BG_API_KEY in environment variables." },
+        { error: "Background removal is not configured. Add your remove.bg API key in Settings → Integrations." },
         { status: 503 }
       );
     }
-
-    const db = getDb();
     const result = await db.execute({
       sql: "SELECT data, mime_type, filename, width, height FROM media_files WHERE id = ?",
       args: [Number(imageId)],

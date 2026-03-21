@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { dispatchWebhook } from "@/lib/webhooks";
 
 export async function GET(
   _req: NextRequest,
@@ -70,6 +71,10 @@ export async function PUT(
       args: [newSlug],
     });
     const r = result.rows[0];
+
+    // Dispatch webhook (non-blocking)
+    dispatchWebhook("product.updated", { slug: newSlug, id: r.id, name: r.name }).catch(() => {});
+
     return NextResponse.json({
       id: r.id, slug: r.slug, name: r.name, tagline: r.tagline,
       price: r.price, description: r.description,

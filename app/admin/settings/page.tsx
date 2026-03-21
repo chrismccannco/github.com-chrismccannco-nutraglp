@@ -47,6 +47,58 @@ const aiFields = [
   },
 ];
 
+const integrationFields = [
+  {
+    key: "removebg_api_key",
+    label: "remove.bg API key",
+    password: true,
+    placeholder: "Your remove.bg API key",
+    hint: "Background removal. 50 free images/month. Get a key at remove.bg/api",
+  },
+  {
+    key: "unsplash_api_key",
+    label: "Unsplash Access Key",
+    password: true,
+    placeholder: "Your Unsplash access key",
+    hint: "Stock photo search. Free. Get a key at unsplash.com/developers",
+  },
+  {
+    key: "sendgrid_api_key",
+    label: "SendGrid API key",
+    password: true,
+    placeholder: "SG.…",
+    hint: "Email delivery for form submissions and notifications.",
+  },
+  {
+    key: "cloudinary_cloud_name",
+    label: "Cloudinary Cloud Name",
+    password: false,
+    placeholder: "your-cloud-name",
+    hint: "",
+  },
+  {
+    key: "cloudinary_api_key",
+    label: "Cloudinary API Key",
+    password: true,
+    placeholder: "123456789012345",
+    hint: "",
+  },
+  {
+    key: "cloudinary_api_secret",
+    label: "Cloudinary API Secret",
+    password: true,
+    placeholder: "Your Cloudinary secret",
+    hint: "Image CDN and transformation. Free tier: 25k transformations/month. cloudinary.com",
+  },
+  {
+    key: "elevenlabs_api_key",
+    label: "ElevenLabs API key",
+    password: true,
+    placeholder: "Your ElevenLabs API key",
+    hint: "Text-to-speech and voice cloning. elevenlabs.io",
+  },
+];
+
 export default function SettingsAdmin() {
   const [settings, setSettings] = useState<Record<string, string>>({});
   const [loaded, setLoaded] = useState(false);
@@ -76,7 +128,7 @@ export default function SettingsAdmin() {
     setSettings((prev) => ({ ...prev, [key]: value }));
   };
 
-  const renderField = (f: { key: string; label: string; multiline?: boolean; password?: boolean; placeholder?: string }) => (
+  const renderField = (f: { key: string; label: string; multiline?: boolean; password?: boolean; placeholder?: string; hint?: string }) => (
     <div key={f.key} className="mb-4 last:mb-0">
       <label className="block text-xs font-medium text-neutral-500 mb-1">
         {f.label}
@@ -97,6 +149,9 @@ export default function SettingsAdmin() {
           placeholder={f.placeholder}
           className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
         />
+      )}
+      {f.hint && (
+        <p className="text-xs text-neutral-400 mt-1">{f.hint}</p>
       )}
     </div>
   );
@@ -241,6 +296,13 @@ export default function SettingsAdmin() {
           <p className="text-xs text-neutral-400 mt-2">
             Used by AI Assist and AI Brand Scorer. Get your key at console.anthropic.com.
           </p>
+        </FormSection>
+
+        <FormSection title="Integrations">
+          <p className="text-xs text-neutral-400 mb-4">
+            Connect third-party services. Each key is stored securely and never exposed via the public API.
+          </p>
+          {integrationFields.map(renderField)}
         </FormSection>
       </div>
     </div>
