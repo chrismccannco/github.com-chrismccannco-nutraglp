@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "next dev",
-    "build": "npx tsx lib/db.ts && npx tsx lib/seed.ts && next build",
+    "build": "next build",
     "start": "next start",
     "db:setup": "npx tsx lib/db.ts",
     "db:seed": "npx tsx lib/seed.ts"

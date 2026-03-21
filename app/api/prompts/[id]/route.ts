@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { initDb } from "@/lib/db";
 
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const id = parseInt(params.id, 10);
+    const { id: rawId } = await params;
+    const id = parseInt(rawId, 10);
     if (isNaN(id)) return NextResponse.json({ error: "Invalid id" }, { status: 400 });
     const { title, prompt, category } = await req.json();
     const db = await initDb();
@@ -23,9 +24,10 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
   }
 }
 
-export async function DELETE(_req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const id = parseInt(params.id, 10);
+    const { id: rawId } = await params;
+    const id = parseInt(rawId, 10);
     if (isNaN(id)) return NextResponse.json({ error: "Invalid id" }, { status: 400 });
     const db = await initDb();
     await db.execute({ sql: "DELETE FROM saved_prompts WHERE id = ?", args: [id] });

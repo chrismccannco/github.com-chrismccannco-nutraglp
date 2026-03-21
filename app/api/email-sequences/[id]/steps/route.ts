@@ -2,9 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { initDb } from "@/lib/db";
 
 // POST /api/email-sequences/[id]/steps — add a step
-export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const sequence_id = parseInt(params.id, 10);
+    const { id: rawId } = await params;
+    const sequence_id = parseInt(rawId, 10);
     const { step_number, delay_days = 0, subject, preheader, body } = await req.json();
     if (!subject?.trim() || !body?.trim()) {
       return NextResponse.json({ error: "subject and body are required" }, { status: 400 });

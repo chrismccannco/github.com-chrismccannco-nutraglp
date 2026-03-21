@@ -2,9 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { initDb } from "@/lib/db";
 
 // GET /api/email-sequences/[id] — sequence + all steps
-export async function GET(_req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const id = parseInt(params.id, 10);
+    const { id: rawId } = await params;
+    const id = parseInt(rawId, 10);
     const db = await initDb();
     const [seqResult, stepsResult] = await Promise.all([
       db.execute({ sql: "SELECT * FROM email_sequences WHERE id = ?", args: [id] }),
@@ -21,9 +22,10 @@ export async function GET(_req: NextRequest, { params }: { params: { id: string 
 }
 
 // PATCH /api/email-sequences/[id] — update sequence metadata
-export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const id = parseInt(params.id, 10);
+    const { id: rawId } = await params;
+    const id = parseInt(rawId, 10);
     const { name, description, trigger_event, status } = await req.json();
     const db = await initDb();
     await db.execute({
@@ -44,9 +46,10 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
 }
 
 // DELETE /api/email-sequences/[id]
-export async function DELETE(_req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const id = parseInt(params.id, 10);
+    const { id: rawId } = await params;
+    const id = parseInt(rawId, 10);
     const db = await initDb();
     await db.execute({ sql: "DELETE FROM email_sequences WHERE id = ?", args: [id] });
     return NextResponse.json({ ok: true });
