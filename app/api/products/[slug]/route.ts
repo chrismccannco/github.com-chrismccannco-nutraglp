@@ -3,6 +3,7 @@ import { getDb } from "@/lib/db";
 import { dispatchWebhook } from "@/lib/webhooks";
 import { createVersion } from "@/lib/versions";
 import { writeAudit } from "@/lib/audit";
+import { requireRole } from "@/lib/admin-auth";
 
 export async function GET(
   _req: NextRequest,
@@ -34,6 +35,8 @@ export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
+  const { error: authError } = await requireRole(req, "editor");
+  if (authError) return authError;
   const { slug } = await params;
   try {
     const body = await req.json();

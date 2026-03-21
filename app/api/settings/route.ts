@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { requireRole } from "@/lib/admin-auth";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const { error } = await requireRole(req, "admin");
+  if (error) return error;
   try {
     const db = getDb();
     const result = await db.execute("SELECT * FROM site_settings");
@@ -16,6 +19,8 @@ export async function GET() {
 }
 
 export async function PUT(req: NextRequest) {
+  const { error } = await requireRole(req, "admin");
+  if (error) return error;
   try {
     const body = await req.json();
     const db = getDb();

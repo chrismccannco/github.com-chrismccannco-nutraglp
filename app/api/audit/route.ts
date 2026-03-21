@@ -1,11 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { requireRole } from "@/lib/admin-auth";
 
 /**
  * GET /api/audit
  * Query params: entity_type, action, limit (default 100), offset (default 0)
  */
 export async function GET(req: NextRequest) {
+  const { error: authError } = await requireRole(req, "admin");
+  if (authError) return authError;
   try {
     const { searchParams } = new URL(req.url);
     const entityType = searchParams.get("entity_type");

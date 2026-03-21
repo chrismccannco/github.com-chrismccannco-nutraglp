@@ -1,6 +1,7 @@
 import { getDb } from "@/lib/db";
 import { getImageDimensions } from "@/lib/image";
 import { dispatchWebhook } from "@/lib/webhooks";
+import { requireRole } from "@/lib/admin-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 const ALLOWED_TYPES = [
@@ -13,6 +14,8 @@ const ALLOWED_TYPES = [
 const MAX_SIZE = 4 * 1024 * 1024; // 4MB
 
 export async function POST(request: NextRequest) {
+  const { error: authError } = await requireRole(request, "editor");
+  if (authError) return authError;
   try {
     const formData = await request.formData();
     const file = formData.get("file") as File | null;
@@ -113,6 +116,8 @@ export async function GET(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
+  const { error: authError } = await requireRole(request, "editor");
+  if (authError) return authError;
   try {
     const { url, permanent } = await request.json();
     if (!url) {

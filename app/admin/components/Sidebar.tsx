@@ -40,11 +40,14 @@ import {
 import { useAuth } from "../layout";
 import { useCmsBranding } from "../hooks/useCmsBranding";
 
+const ROLE_RANK: Record<string, number> = { viewer: 0, editor: 1, admin: 2 };
+
 interface NavItem {
   label: string;
   href: string;
   icon: typeof LayoutDashboard;
   adminOnly?: boolean;
+  minRole?: "viewer" | "editor" | "admin";
 }
 
 const navGroups: { label: string; items: NavItem[]; collapsible?: boolean }[] = [
@@ -63,17 +66,17 @@ const navGroups: { label: string; items: NavItem[]; collapsible?: boolean }[] = 
   {
     label: "Media & Forms",
     items: [
-      { label: "Media", href: "/admin/media", icon: Image },
-      { label: "Form Builder", href: "/admin/form-builder", icon: FormInput },
+      { label: "Media", href: "/admin/media", icon: Image, minRole: "editor" },
+      { label: "Form Builder", href: "/admin/form-builder", icon: FormInput, minRole: "editor" },
       { label: "Submissions", href: "/admin/submissions", icon: Inbox },
     ],
   },
   {
     label: "AI & Creation",
     items: [
-      { label: "AI Templates", href: "/admin/ai-templates", icon: Wand2 },
-      { label: "Repurpose", href: "/admin/repurpose", icon: RefreshCw },
-      { label: "Video Studio", href: "/admin/video-studio", icon: Video },
+      { label: "AI Templates", href: "/admin/ai-templates", icon: Wand2, minRole: "editor" },
+      { label: "Repurpose", href: "/admin/repurpose", icon: RefreshCw, minRole: "editor" },
+      { label: "Video Studio", href: "/admin/video-studio", icon: Video, minRole: "editor" },
     ],
   },
   {
@@ -129,8 +132,11 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
   const isActive = (href: string) =>
     href === "/admin" ? pathname === "/admin" : pathname.startsWith(href);
 
+  const userRoleRank = ROLE_RANK[user?.role || "viewer"] ?? 0;
+
   const renderLink = (item: NavItem) => {
-    if (item.adminOnly && !isAdmin) return null;
+    const required = item.minRole || (item.adminOnly ? "admin" : "viewer");
+    if (ROLE_RANK[required] > userRoleRank) return null;
     const active = isActive(item.href);
     const Icon = item.icon;
     return (
@@ -174,9 +180,10 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
       {/* Nav */}
       <nav className="flex-1 py-4 px-3 space-y-5 overflow-y-auto">
         {navGroups.map((group) => {
-          const visibleItems = group.items.filter(
-            (item) => !item.adminOnly || isAdmin
-          );
+          const visibleItems = group.items.filter((item) => {
+            const required = item.minRole || (item.adminOnly ? "admin" : "viewer");
+            return (ROLE_RANK[required] ?? 0) <= userRoleRank;
+          });
           if (visibleItems.length === 0) return null;
 
           const isCollapsible = group.collapsible;
@@ -212,7 +219,19 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
       </nav>
 
       {/* Footer */}
-      <div className="px-5 py-4 border-t border-neutral-100">
+      <div className="px-5 py-4 border-t border-neutral-100 space-y-2">
+        {user && (
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-neutral-500 truncate max-w-[140px]">{user.name || user.email}</span>
+            <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${
+              user.role === "admin" ? "bg-red-50 text-red-600" :
+              user.role === "editor" ? "bg-blue-50 text-blue-600" :
+              "bg-neutral-100 text-neutral-500"
+            }`}>
+              {user.role}
+            </span>
+          </div>
+        )}
         <Link
           href="/"
           target="_blank"
