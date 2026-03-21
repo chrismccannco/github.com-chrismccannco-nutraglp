@@ -60,7 +60,7 @@ export default function Mechanism() {
         {steps.map((s) => (
           <div
             key={s.num}
-            className="p-8 bg-white border border-rule rounded-xl"
+            className="p-6 md:p-8 bg-white border border-rule rounded-xl"
           >
             <div className="w-10 h-10 bg-forest rounded-lg flex items-center justify-center text-white text-lg font-bold mb-4">
               {s.num}
