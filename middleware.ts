@@ -3,6 +3,26 @@ import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const host = request.headers.get("host") ?? "";
+
+  // Host-based routing: serve ContentFoundry landing at getcontentfoundry.com
+  if (host === "getcontentfoundry.com" || host === "www.getcontentfoundry.com") {
+    // Rewrite root to /contentfoundry page; pass through assets and API
+    if (
+      !pathname.startsWith("/_next") &&
+      !pathname.startsWith("/api") &&
+      !pathname.startsWith("/images") &&
+      !pathname.startsWith("/fonts") &&
+      pathname !== "/favicon.ico" &&
+      pathname !== "/robots.txt" &&
+      pathname !== "/sitemap.xml"
+    ) {
+      const url = request.nextUrl.clone();
+      url.pathname = pathname === "/" ? "/contentfoundry" : `/contentfoundry${pathname}`;
+      return NextResponse.rewrite(url);
+    }
+    return NextResponse.next();
+  }
 
   // Only protect /admin routes
   if (!pathname.startsWith("/admin")) return NextResponse.next();
@@ -38,5 +58,11 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: [
+    /*
+     * Match all paths except static files (_next/static, _next/image, public assets)
+     * so host-based routing works, but don't slow down static asset delivery.
+     */
+    "/((?!_next/static|_next/image|favicon.ico).*)",
+  ],
 };
