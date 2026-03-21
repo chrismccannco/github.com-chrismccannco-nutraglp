@@ -32,6 +32,7 @@ const socialFields = [
 
 const analyticsFields = [
   { key: "ga_measurement_id", label: "GA4 Measurement ID", placeholder: "G-XXXXXXXXXX" },
+  { key: "ga4_property_id", label: "GA4 Property ID (for in-app reporting)", placeholder: "123456789" },
   { key: "plausible_domain", label: "Plausible domain", placeholder: "yourdomain.com" },
 ];
 

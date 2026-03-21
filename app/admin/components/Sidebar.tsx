@@ -37,6 +37,7 @@ import {
   ChevronDown,
   ScrollText,
   CalendarDays,
+  Play,
 } from "lucide-react";
 import { useAuth } from "../layout";
 import { useCmsBranding } from "../hooks/useCmsBranding";
@@ -58,6 +59,7 @@ const navGroups: { label: string; items: NavItem[]; collapsible?: boolean }[] = 
       { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
       { label: "Pages", href: "/admin/pages", icon: FileText },
       { label: "Blog", href: "/admin/blog", icon: BookOpen },
+      { label: "Content Calendar", href: "/admin/calendar", icon: CalendarDays },
       { label: "Products", href: "/admin/products", icon: Package },
       { label: "Testimonials", href: "/admin/testimonials", icon: Star },
       { label: "Reviews", href: "/admin/reviews", icon: ClipboardCheck },
@@ -77,7 +79,7 @@ const navGroups: { label: string; items: NavItem[]; collapsible?: boolean }[] = 
     items: [
       { label: "AI Templates", href: "/admin/ai-templates", icon: Wand2, minRole: "editor" },
       { label: "Repurpose", href: "/admin/repurpose", icon: RefreshCw, minRole: "editor" },
-      { label: "Content Calendar", href: "/admin/calendar", icon: CalendarDays, minRole: "editor" },
+      { label: "Batch Generate", href: "/admin/batch", icon: Play, minRole: "editor" },
       { label: "Video Studio", href: "/admin/video-studio", icon: Video, minRole: "editor" },
     ],
   },
