@@ -239,7 +239,7 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
           </div>
         )}
         <Link
-          href="/"
+          href="/blog"
           target="_blank"
           className="flex items-center gap-2 text-xs text-neutral-400 hover:text-neutral-600 no-underline transition"
         >
