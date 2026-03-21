@@ -479,6 +479,17 @@ export async function initDb(): Promise<Client> {
       metadata TEXT DEFAULT '{}',
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
+
+    CREATE TABLE IF NOT EXISTS saved_prompts (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      title TEXT NOT NULL,
+      prompt TEXT NOT NULL,
+      category TEXT DEFAULT 'general',
+      created_by TEXT,
+      sort_order INTEGER DEFAULT 0,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
   `);
 
   // Add columns that may not exist on older databases
@@ -562,6 +573,7 @@ export async function initDb(): Promise<Client> {
     await db.execute("CREATE INDEX IF NOT EXISTS idx_content_versions_lookup ON content_versions (content_type, content_id, created_at)");
     await db.execute("CREATE INDEX IF NOT EXISTS idx_audit_log_entity ON audit_log (entity_type, entity_id, created_at)");
     await db.execute("CREATE INDEX IF NOT EXISTS idx_audit_log_action ON audit_log (action, created_at)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_saved_prompts_category ON saved_prompts (category, sort_order)");
   } catch {
     // Index may already exist
   }

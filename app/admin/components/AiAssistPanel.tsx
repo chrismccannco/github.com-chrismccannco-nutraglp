@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Wand2, ChevronDown } from "lucide-react";
 import { useAIProviders } from "../hooks/useAIProviders";
+import SavedPromptsDrawer from "./SavedPromptsDrawer";
 
 interface BrandVoice {
   id: number;
@@ -167,20 +168,26 @@ export default function AiAssistPanel({
             </p>
           )}
         </div>
-        {providers.length > 1 && (
-          <div className="relative flex-shrink-0">
-            <select
-              value={selectedProvider}
-              onChange={(e) => setSelectedProvider(e.target.value)}
-              className="appearance-none text-[10px] font-medium text-neutral-600 bg-white border border-teal-200 rounded-md pl-2 pr-5 py-1 focus:outline-none focus:ring-1 focus:ring-teal-400 cursor-pointer"
-            >
-              {providers.map((p) => (
-                <option key={p.id} value={p.id}>{p.label.split(" (")[0]}</option>
-              ))}
-            </select>
-            <ChevronDown className="absolute right-1 top-1/2 -translate-y-1/2 w-2.5 h-2.5 text-neutral-400 pointer-events-none" />
-          </div>
-        )}
+        <div className="flex items-center gap-1.5 flex-shrink-0">
+          {providers.length > 1 && (
+            <div className="relative">
+              <select
+                value={selectedProvider}
+                onChange={(e) => setSelectedProvider(e.target.value)}
+                className="appearance-none text-[10px] font-medium text-neutral-600 bg-white border border-teal-200 rounded-md pl-2 pr-5 py-1 focus:outline-none focus:ring-1 focus:ring-teal-400 cursor-pointer"
+              >
+                {providers.map((p) => (
+                  <option key={p.id} value={p.id}>{p.label.split(" (")[0]}</option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-1 top-1/2 -translate-y-1/2 w-2.5 h-2.5 text-neutral-400 pointer-events-none" />
+            </div>
+          )}
+          <SavedPromptsDrawer
+            onSelect={(p) => setPrompt(p)}
+            currentPrompt={prompt}
+          />
+        </div>
       </div>
 
       <textarea

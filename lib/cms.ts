@@ -160,6 +160,29 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
   };
 }
 
+export async function getBlogPostPreview(slug: string): Promise<BlogPost | null> {
+  const db = getDb();
+  const result = await db.execute({
+    sql: "SELECT * FROM blog_posts WHERE slug = ?",
+    args: [slug],
+  });
+  if (result.rows.length === 0) return null;
+  const row = rowToObject(result.rows[0]);
+  // Prefer draft content for preview
+  const sections = JSON.parse((row.draft_sections as string) || (row.sections as string) || "[]");
+  const blocksDraft = JSON.parse((row.blocks_draft as string) || "[]");
+  const blocks = JSON.parse((row.blocks as string) || "[]");
+  return {
+    ...(row as unknown as BlogPost),
+    title: (row.draft_title as string) || (row.title as string),
+    description: (row.draft_description as string) || (row.description as string),
+    sections,
+    related_slugs: JSON.parse((row.related_slugs as string) || "[]"),
+    blocks: blocksDraft.length > 0 ? blocksDraft : blocks,
+    blocks_draft: blocksDraft,
+  };
+}
+
 export async function getFaqs(): Promise<Faq[]> {
   const db = getDb();
   const result = await db.execute(
