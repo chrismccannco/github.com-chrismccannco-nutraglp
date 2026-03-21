@@ -38,6 +38,7 @@ import {
   ScrollText,
   CalendarDays,
   Play,
+  Mail,
 } from "lucide-react";
 import { useAuth } from "../layout";
 import { useCmsBranding } from "../hooks/useCmsBranding";
@@ -80,6 +81,7 @@ const navGroups: { label: string; items: NavItem[]; collapsible?: boolean }[] = 
       { label: "AI Templates", href: "/admin/ai-templates", icon: Wand2, minRole: "editor" },
       { label: "Repurpose", href: "/admin/repurpose", icon: RefreshCw, minRole: "editor" },
       { label: "Batch Generate", href: "/admin/batch", icon: Play, minRole: "editor" },
+      { label: "Email Sequences", href: "/admin/email-sequences", icon: Mail, minRole: "editor" },
       { label: "Video Studio", href: "/admin/video-studio", icon: Video, minRole: "editor" },
     ],
   },

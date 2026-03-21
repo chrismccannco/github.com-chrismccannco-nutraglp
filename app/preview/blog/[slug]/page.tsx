@@ -16,11 +16,21 @@ export default async function BlogPreviewPage({ params }: { params: Promise<{ sl
   if (!article) notFound();
 
   const rawSections = article.sections as { heading: string; body: string | string[] }[];
+
+  function normalizeBody(body: string | string[]): string {
+    if (Array.isArray(body)) return body.map((p) => `<p>${p}</p>`).join("");
+    const trimmed = body.trim();
+    if (/^<(p|h[1-6]|ul|ol|blockquote|div|section)/i.test(trimmed)) return trimmed;
+    return trimmed
+      .split(/\n{2,}/)
+      .filter(Boolean)
+      .map((block) => `<p>${block.replace(/\n/g, "<br>")}</p>`)
+      .join("");
+  }
+
   const sections = rawSections.map((s) => ({
     heading: s.heading,
-    bodyHtml: typeof s.body === "string"
-      ? s.body
-      : s.body.map((p: string) => `<p>${p}</p>`).join(""),
+    bodyHtml: normalizeBody(s.body),
   }));
 
   const isPublished = !!article.published;
@@ -88,7 +98,7 @@ export default async function BlogPreviewPage({ params }: { params: Promise<{ sl
                     {section.heading}
                   </h2>
                   <div
-                    className="prose prose-lg max-w-none text-mist prose-p:text-[16px] prose-p:leading-[1.75] prose-headings:text-ink prose-headings:font-display prose-a:text-emerald-700"
+                    className="prose prose-lg max-w-none text-mist prose-p:text-[16px] prose-p:leading-[1.75] prose-p:mb-5 prose-headings:text-ink prose-headings:font-display prose-a:text-emerald-700"
                     dangerouslySetInnerHTML={{ __html: section.bodyHtml }}
                   />
                 </div>

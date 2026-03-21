@@ -490,6 +490,29 @@ export async function initDb(): Promise<Client> {
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
+
+    CREATE TABLE IF NOT EXISTS email_sequences (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      description TEXT,
+      trigger_event TEXT DEFAULT 'manual',
+      status TEXT NOT NULL DEFAULT 'draft',
+      created_by TEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+
+    CREATE TABLE IF NOT EXISTS email_sequence_steps (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      sequence_id INTEGER NOT NULL REFERENCES email_sequences(id) ON DELETE CASCADE,
+      step_number INTEGER NOT NULL DEFAULT 1,
+      delay_days INTEGER NOT NULL DEFAULT 0,
+      subject TEXT NOT NULL,
+      preheader TEXT,
+      body TEXT NOT NULL,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
   `);
 
   // Add columns that may not exist on older databases
@@ -574,6 +597,7 @@ export async function initDb(): Promise<Client> {
     await db.execute("CREATE INDEX IF NOT EXISTS idx_audit_log_entity ON audit_log (entity_type, entity_id, created_at)");
     await db.execute("CREATE INDEX IF NOT EXISTS idx_audit_log_action ON audit_log (action, created_at)");
     await db.execute("CREATE INDEX IF NOT EXISTS idx_saved_prompts_category ON saved_prompts (category, sort_order)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_email_seq_steps ON email_sequence_steps (sequence_id, step_number)");
   } catch {
     // Index may already exist
   }
