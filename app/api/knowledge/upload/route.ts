@@ -62,14 +62,30 @@ function inferDocType(filename: string, text: string): string {
   return "general";
 }
 
+// Common email/document header prefixes to skip when looking for a title
+const HEADER_PREFIXES = /^(subject|from|to|cc|bcc|date|reply-to|message-id|sent|received|mime-version|content-type|x-)[:\s]/i;
+
 function extractTitleFromText(text: string, filename: string): string {
-  // Try to get a title from the first non-empty line
   const lines = text.split("\n").map((l) => l.trim()).filter(Boolean);
-  const firstLine = lines[0] || "";
-  // If first line looks like a title (not too long, not all caps sentence)
-  if (firstLine.length > 3 && firstLine.length < 120) {
-    return firstLine.replace(/[#*_]+/g, "").trim();
+
+  // Skip metadata/header lines, look for the first real content line
+  for (const line of lines) {
+    // Skip email headers (Subject:, From:, To:, etc.)
+    if (HEADER_PREFIXES.test(line)) continue;
+    // Skip very short lines or lines that are just punctuation
+    if (line.length < 4) continue;
+    // Skip lines that look like URLs
+    if (/^https?:\/\//.test(line)) continue;
+    // Skip lines that are all caps with no spaces (likely metadata)
+    if (/^[A-Z_]+$/.test(line)) continue;
+    // Looks like a real title
+    if (line.length < 150) {
+      return line.replace(/^[#*_\s]+/, "").trim();
+    }
+    // Line is too long — take first sentence fragment
+    return line.split(/[.!?]/)[0].slice(0, 80).trim();
   }
+
   // Fall back to filename without extension
   return filename.replace(/\.[^.]+$/, "").replace(/[-_]+/g, " ");
 }
