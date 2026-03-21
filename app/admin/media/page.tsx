@@ -161,9 +161,9 @@ export default function MediaLibrary() {
       const imgRes = await fetch(selected.url);
       const imgBlob = await imgRes.blob();
 
-      // Process with U2-Net model in browser
+      // Process with ISNet model in browser (full precision for clean masks)
       const resultBlob = await removeBg(imgBlob, {
-        model: "isnet_quint8",
+        model: "isnet_fp16",
         output: { format: "image/png", quality: 0.9 },
       });
 
