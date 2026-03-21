@@ -19,6 +19,9 @@ import {
   Crop,
   Layers,
   ArrowDownToLine,
+  RotateCcw,
+  Archive,
+  Clock,
 } from "lucide-react";
 
 interface MediaItem {
@@ -28,7 +31,22 @@ interface MediaItem {
   width: number;
   height: number;
   mimeType: string;
+  parentId?: number | null;
+  deletedAt?: string | null;
   uploadedAt: string;
+}
+
+interface VersionItem {
+  id: number;
+  url: string;
+  pathname: string;
+  size: number;
+  width: number;
+  height: number;
+  mimeType: string;
+  parentId: number | null;
+  deletedAt: string | null;
+  createdAt: string;
 }
 
 export default function MediaLibrary() {
@@ -47,10 +65,14 @@ export default function MediaLibrary() {
   const [sharpen, setSharpen] = useState(false);
   const [exporting, setExporting] = useState<string | null>(null);
   const [exportingAll, setExportingAll] = useState(false);
+  const [showTrash, setShowTrash] = useState(false);
+  const [versions, setVersions] = useState<VersionItem[]>([]);
+  const [loadingVersions, setLoadingVersions] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
-  const load = () => {
-    fetch("/api/upload")
+  const load = (trash?: boolean) => {
+    const trashParam = trash !== undefined ? trash : showTrash;
+    fetch(`/api/upload${trashParam ? "?trash=1" : ""}`)
       .then((r) => r.json())
       .then((data) => {
         setItems(Array.isArray(data) ? data : []);
@@ -59,8 +81,26 @@ export default function MediaLibrary() {
   };
 
   useEffect(() => {
+    setLoading(true);
+    setSelected(null);
     load();
-  }, []);
+  }, [showTrash]);
+
+  const loadVersions = async (item: MediaItem) => {
+    const id = getImageId(item.url);
+    if (!id) return;
+    setLoadingVersions(true);
+    try {
+      const res = await fetch(`/api/upload/versions?id=${id}`);
+      if (res.ok) {
+        const data = await res.json();
+        setVersions(data.versions || []);
+      }
+    } catch {
+      setVersions([]);
+    }
+    setLoadingVersions(false);
+  };
 
   const handleUpload = async (files: FileList | null) => {
     if (!files || files.length === 0) return;
@@ -85,12 +125,25 @@ export default function MediaLibrary() {
     if (fileRef.current) fileRef.current.value = "";
   };
 
-  const handleDelete = async (item: MediaItem) => {
-    if (!confirm(`Delete "${item.pathname}"?`)) return;
+  const handleDelete = async (item: MediaItem, permanent = false) => {
+    const msg = permanent
+      ? `Permanently delete "${item.pathname}"? This cannot be undone.`
+      : `Move "${item.pathname}" to trash?`;
+    if (!confirm(msg)) return;
     await fetch("/api/upload", {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ url: item.url }),
+      body: JSON.stringify({ url: item.url, permanent }),
+    });
+    if (selected?.url === item.url) setSelected(null);
+    load();
+  };
+
+  const handleRestore = async (item: MediaItem) => {
+    await fetch("/api/upload", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url: item.url, action: "restore" }),
     });
     if (selected?.url === item.url) setSelected(null);
     load();
@@ -167,10 +220,12 @@ export default function MediaLibrary() {
         output: { format: "image/png", quality: 0.9 },
       });
 
-      // Upload the result back as a new media file
+      // Upload the result back as a new media file, linked to parent
       const form = new FormData();
       const filename = selected.pathname.replace(/\.[^.]+$/, "") + "_nobg.png";
       form.append("file", new File([resultBlob], filename, { type: "image/png" }));
+      const parentId = getImageId(selected.url);
+      if (parentId) form.append("parent_id", parentId);
 
       const uploadRes = await fetch("/api/upload", { method: "POST", body: form });
       if (uploadRes.ok) {
@@ -298,19 +353,37 @@ export default function MediaLibrary() {
       <div className={selected ? "flex-1 min-w-0" : "w-full"}>
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-xl font-semibold text-neutral-900">Media</h1>
+            <h1 className="text-xl font-semibold text-neutral-900">
+              {showTrash ? "Trash" : "Media"}
+            </h1>
             <p className="text-sm text-neutral-500 mt-1">
               {items.length} file{items.length !== 1 ? "s" : ""}
+              {showTrash ? " in trash" : ""}
             </p>
           </div>
-          <button
-            onClick={() => fileRef.current?.click()}
-            disabled={uploading}
-            className="flex items-center gap-2 px-4 py-2 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-700 transition disabled:opacity-50"
-          >
-            <Upload className="w-4 h-4" />
-            {uploading ? "Uploading..." : "Upload"}
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setShowTrash(!showTrash)}
+              className={`flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg transition ${
+                showTrash
+                  ? "bg-amber-100 text-amber-700 hover:bg-amber-200"
+                  : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
+              }`}
+            >
+              <Archive className="w-4 h-4" />
+              {showTrash ? "Back to Media" : "Trash"}
+            </button>
+            {!showTrash && (
+              <button
+                onClick={() => fileRef.current?.click()}
+                disabled={uploading}
+                className="flex items-center gap-2 px-4 py-2 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-700 transition disabled:opacity-50"
+              >
+                <Upload className="w-4 h-4" />
+                {uploading ? "Uploading..." : "Upload"}
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Dropzone */}
@@ -357,7 +430,7 @@ export default function MediaLibrary() {
             {items.map((item) => (
               <div
                 key={item.url}
-                onClick={() => { setSelected(item); setAltText(null); resetEdits(); }}
+                onClick={() => { setSelected(item); setAltText(null); resetEdits(); setVersions([]); loadVersions(item); }}
                 className={`bg-white border rounded-xl overflow-hidden cursor-pointer group transition ${
                   selected?.url === item.url
                     ? "border-teal-500 ring-2 ring-teal-100"
@@ -374,13 +447,32 @@ export default function MediaLibrary() {
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition flex items-center justify-center opacity-0 group-hover:opacity-100">
                     <Maximize2 className="w-5 h-5 text-white" />
                   </div>
-                  <button
-                    onClick={(e) => { e.stopPropagation(); handleDelete(item); }}
-                    className="absolute bottom-1.5 right-1.5 p-1.5 bg-red-500/90 rounded-lg opacity-0 group-hover:opacity-100 transition hover:bg-red-600"
-                    title="Delete"
-                  >
-                    <Trash2 className="w-3.5 h-3.5 text-white" />
-                  </button>
+                  {showTrash ? (
+                    <>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); handleRestore(item); }}
+                        className="absolute bottom-1.5 left-1.5 p-1.5 bg-teal-500/90 rounded-lg opacity-0 group-hover:opacity-100 transition hover:bg-teal-600"
+                        title="Restore"
+                      >
+                        <RotateCcw className="w-3.5 h-3.5 text-white" />
+                      </button>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); handleDelete(item, true); }}
+                        className="absolute bottom-1.5 right-1.5 p-1.5 bg-red-500/90 rounded-lg opacity-0 group-hover:opacity-100 transition hover:bg-red-600"
+                        title="Delete permanently"
+                      >
+                        <Trash2 className="w-3.5 h-3.5 text-white" />
+                      </button>
+                    </>
+                  ) : (
+                    <button
+                      onClick={(e) => { e.stopPropagation(); handleDelete(item); }}
+                      className="absolute bottom-1.5 right-1.5 p-1.5 bg-red-500/90 rounded-lg opacity-0 group-hover:opacity-100 transition hover:bg-red-600"
+                      title="Move to trash"
+                    >
+                      <Trash2 className="w-3.5 h-3.5 text-white" />
+                    </button>
+                  )}
                 </div>
                 <div className="px-3 py-2">
                   <p className="text-xs text-neutral-700 truncate">{item.pathname}</p>
@@ -732,24 +824,97 @@ export default function MediaLibrary() {
                 </div>
               )}
 
+              {/* Version History */}
+              {versions.length > 1 && (
+                <div className="space-y-2 pt-2 border-t border-neutral-100">
+                  <p className="text-[11px] font-medium text-neutral-500 uppercase tracking-wider">
+                    Version History
+                  </p>
+                  <div className="space-y-1 max-h-48 overflow-y-auto">
+                    {versions.map((v) => {
+                      const isCurrent = selected?.url === v.url;
+                      return (
+                        <button
+                          key={v.id}
+                          onClick={() => {
+                            setSelected({
+                              url: v.url,
+                              pathname: v.pathname,
+                              size: v.size,
+                              width: v.width,
+                              height: v.height,
+                              mimeType: v.mimeType,
+                              parentId: v.parentId,
+                              uploadedAt: v.createdAt,
+                            });
+                          }}
+                          className={`w-full flex items-center gap-2 px-2 py-1.5 rounded-lg text-left transition ${
+                            isCurrent
+                              ? "bg-teal-50 border border-teal-200"
+                              : "bg-neutral-50 hover:bg-neutral-100"
+                          }`}
+                        >
+                          <img
+                            src={v.url}
+                            alt={v.pathname}
+                            className="w-8 h-8 rounded object-cover flex-shrink-0"
+                          />
+                          <div className="min-w-0 flex-1">
+                            <p className="text-[11px] text-neutral-700 truncate">{v.pathname}</p>
+                            <div className="flex items-center gap-1 text-[10px] text-neutral-400">
+                              <Clock className="w-2.5 h-2.5" />
+                              {new Date(v.createdAt).toLocaleString()}
+                            </div>
+                          </div>
+                          {isCurrent && (
+                            <span className="text-[9px] font-medium text-teal-600 flex-shrink-0">CURRENT</span>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
               {/* Actions */}
               <div className="flex gap-2 pt-2 border-t border-neutral-100">
-                <a
-                  href={selected.url}
-                  target="_blank"
-                  rel="noopener"
-                  className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 text-xs text-neutral-700 bg-neutral-50 rounded-lg hover:bg-neutral-100 transition"
-                >
-                  <Download className="w-3.5 h-3.5" />
-                  Open
-                </a>
-                <button
-                  onClick={() => handleDelete(selected)}
-                  className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 text-xs text-red-600 bg-red-50 rounded-lg hover:bg-red-100 transition"
-                >
-                  <Trash2 className="w-3.5 h-3.5" />
-                  Delete
-                </button>
+                {showTrash ? (
+                  <>
+                    <button
+                      onClick={() => handleRestore(selected)}
+                      className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 text-xs text-teal-700 bg-teal-50 rounded-lg hover:bg-teal-100 transition"
+                    >
+                      <RotateCcw className="w-3.5 h-3.5" />
+                      Restore
+                    </button>
+                    <button
+                      onClick={() => handleDelete(selected, true)}
+                      className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 text-xs text-red-600 bg-red-50 rounded-lg hover:bg-red-100 transition"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                      Delete forever
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <a
+                      href={selected.url}
+                      target="_blank"
+                      rel="noopener"
+                      className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 text-xs text-neutral-700 bg-neutral-50 rounded-lg hover:bg-neutral-100 transition"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      Open
+                    </a>
+                    <button
+                      onClick={() => handleDelete(selected)}
+                      className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 text-xs text-red-600 bg-red-50 rounded-lg hover:bg-red-100 transition"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                      Delete
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           </div>

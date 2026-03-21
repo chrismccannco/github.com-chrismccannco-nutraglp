@@ -104,8 +104,8 @@ export async function POST(req: NextRequest) {
 
       // Save as new media file
       const insertResult = await db.execute({
-        sql: "INSERT INTO media_files (filename, mime_type, size, width, height, data) VALUES (?, ?, ?, ?, ?, ?)",
-        args: [newFilename, "image/jpeg", outputBuffer.length, preset.width, preset.height, newBase64],
+        sql: "INSERT INTO media_files (filename, mime_type, size, width, height, data, parent_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
+        args: [newFilename, "image/jpeg", outputBuffer.length, preset.width, preset.height, newBase64, Number(imageId)],
       });
 
       const newId = Number(insertResult.lastInsertRowid);

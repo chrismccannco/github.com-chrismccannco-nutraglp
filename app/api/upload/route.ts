@@ -15,6 +15,7 @@ export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
     const file = formData.get("file") as File | null;
+    const parentId = formData.get("parent_id") as string | null;
 
     if (!file) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
@@ -43,24 +44,9 @@ export async function POST(request: NextRequest) {
 
     const db = getDb();
 
-    // Ensure table exists
-    await db.execute(`
-      CREATE TABLE IF NOT EXISTS media_files (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        filename TEXT NOT NULL,
-        mime_type TEXT NOT NULL,
-        size INTEGER NOT NULL,
-        width INTEGER DEFAULT 0,
-        height INTEGER DEFAULT 0,
-        data TEXT NOT NULL,
-        thumb_data TEXT,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-      )
-    `);
-
     const result = await db.execute({
-      sql: "INSERT INTO media_files (filename, mime_type, size, width, height, data) VALUES (?, ?, ?, ?, ?, ?)",
-      args: [file.name, file.type, file.size, width, height, base64],
+      sql: "INSERT INTO media_files (filename, mime_type, size, width, height, data, parent_id) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      args: [file.name, file.type, file.size, width, height, base64, parentId ? Number(parentId) : null],
     });
 
     const id = Number(result.lastInsertRowid);
@@ -83,28 +69,22 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
   try {
     const db = getDb();
+    const { searchParams } = new URL(request.url);
+    const showTrash = searchParams.get("trash") === "1";
 
-    // Ensure table exists
-    await db.execute(`
-      CREATE TABLE IF NOT EXISTS media_files (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        filename TEXT NOT NULL,
-        mime_type TEXT NOT NULL,
-        size INTEGER NOT NULL,
-        width INTEGER DEFAULT 0,
-        height INTEGER DEFAULT 0,
-        data TEXT NOT NULL,
-        thumb_data TEXT,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-      )
-    `);
-
-    const result = await db.execute(
-      "SELECT id, filename, mime_type, size, width, height, created_at FROM media_files ORDER BY created_at DESC"
-    );
+    let result;
+    if (showTrash) {
+      result = await db.execute(
+        "SELECT id, filename, mime_type, size, width, height, parent_id, deleted_at, created_at FROM media_files WHERE deleted_at IS NOT NULL ORDER BY deleted_at DESC"
+      );
+    } else {
+      result = await db.execute(
+        "SELECT id, filename, mime_type, size, width, height, parent_id, created_at FROM media_files WHERE deleted_at IS NULL ORDER BY created_at DESC"
+      );
+    }
 
     const blobs = result.rows.map((r) => ({
       url: `/api/upload/${r.id}`,
@@ -113,6 +93,8 @@ export async function GET() {
       width: (r.width as number) || 0,
       height: (r.height as number) || 0,
       mimeType: r.mime_type as string,
+      parentId: r.parent_id as number | null,
+      deletedAt: r.deleted_at as string | null,
       uploadedAt: r.created_at as string,
     }));
 
@@ -128,25 +110,66 @@ export async function GET() {
 
 export async function DELETE(request: NextRequest) {
   try {
-    const { url } = await request.json();
+    const { url, permanent } = await request.json();
     if (!url) {
       return NextResponse.json({ error: "No URL provided" }, { status: 400 });
     }
 
-    // Extract ID from /api/upload/123
     const id = url.split("/").pop();
     if (!id) {
       return NextResponse.json({ error: "Invalid URL" }, { status: 400 });
     }
 
     const db = getDb();
-    await db.execute({ sql: "DELETE FROM media_files WHERE id = ?", args: [Number(id)] });
+
+    if (permanent) {
+      // Hard delete — only from trash
+      await db.execute({ sql: "DELETE FROM media_files WHERE id = ? AND deleted_at IS NOT NULL", args: [Number(id)] });
+    } else {
+      // Soft delete
+      await db.execute({
+        sql: "UPDATE media_files SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?",
+        args: [Number(id)],
+      });
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Delete error:", error);
     return NextResponse.json(
       { error: "Delete failed" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PATCH(request: NextRequest) {
+  try {
+    const { url, action } = await request.json();
+    if (!url) {
+      return NextResponse.json({ error: "No URL provided" }, { status: 400 });
+    }
+
+    const id = url.split("/").pop();
+    if (!id) {
+      return NextResponse.json({ error: "Invalid URL" }, { status: 400 });
+    }
+
+    const db = getDb();
+
+    if (action === "restore") {
+      await db.execute({
+        sql: "UPDATE media_files SET deleted_at = NULL WHERE id = ?",
+        args: [Number(id)],
+      });
+      return NextResponse.json({ success: true, restored: true });
+    }
+
+    return NextResponse.json({ error: "Unknown action" }, { status: 400 });
+  } catch (error) {
+    console.error("Patch error:", error);
+    return NextResponse.json(
+      { error: "Operation failed" },
       { status: 500 }
     );
   }

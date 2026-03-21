@@ -336,6 +336,8 @@ export async function initDb(): Promise<Client> {
       height INTEGER DEFAULT 0,
       data TEXT NOT NULL,
       thumb_data TEXT,
+      parent_id INTEGER REFERENCES media_files(id) ON DELETE SET NULL,
+      deleted_at DATETIME,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
 
@@ -509,6 +511,9 @@ export async function initDb(): Promise<Client> {
     "ALTER TABLE pages ADD COLUMN scored_at DATETIME",
     // Workflow webhook URLs
     "ALTER TABLE content_workflows ADD COLUMN webhook_sent INTEGER DEFAULT 0",
+    // Media soft delete + version history
+    "ALTER TABLE media_files ADD COLUMN parent_id INTEGER REFERENCES media_files(id) ON DELETE SET NULL",
+    "ALTER TABLE media_files ADD COLUMN deleted_at DATETIME",
   ];
 
   for (const sql of migrations) {
@@ -542,6 +547,8 @@ export async function initDb(): Promise<Client> {
     await db.execute("CREATE INDEX IF NOT EXISTS idx_video_clips_video ON video_clips (video_id, sort_order)");
     await db.execute("CREATE INDEX IF NOT EXISTS idx_ai_usage_log_action ON ai_usage_log (action, created_at)");
     await db.execute("CREATE INDEX IF NOT EXISTS idx_ai_usage_log_template ON ai_usage_log (template_id, created_at)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_media_files_deleted ON media_files (deleted_at)");
+    await db.execute("CREATE INDEX IF NOT EXISTS idx_media_files_parent ON media_files (parent_id)");
   } catch {
     // Index may already exist
   }
