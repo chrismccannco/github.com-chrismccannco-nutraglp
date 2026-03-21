@@ -185,6 +185,120 @@ const ENDPOINTS: { section: string; endpoints: Endpoint[] }[] = [
       },
     ],
   },
+  {
+    section: "Media",
+    endpoints: [
+      {
+        method: "GET",
+        path: "/api/v1/media",
+        description: "List all media files with URLs and responsive variants.",
+        params: [
+          { name: "limit", type: "number", description: "Results per page (max 100, default 50)" },
+          { name: "offset", type: "number", description: "Skip N results for pagination" },
+        ],
+        response: `{
+  "data": [
+    {
+      "id": 1,
+      "filename": "hero.jpg",
+      "mime_type": "image/jpeg",
+      "size": 245000,
+      "width": 1200,
+      "height": 630,
+      "url": "https://your-domain.com/api/upload/1",
+      "variants": {
+        "original": ".../api/upload/1",
+        "webp": ".../api/upload/1?format=webp",
+        "w640": ".../api/upload/1?w=640",
+        "w960": ".../api/upload/1?w=960",
+        "w1280": ".../api/upload/1?w=1280"
+      }
+    }
+  ],
+  "total": 24
+}`,
+      },
+      {
+        method: "GET",
+        path: "/api/v1/media?id={id}",
+        description: "Get a single media file by ID.",
+        params: [
+          { name: "id", type: "number", required: true, description: "The media file ID" },
+        ],
+        response: `{ "id": 1, "filename": "hero.jpg", "url": "...", "variants": {...} }`,
+      },
+    ],
+  },
+  {
+    section: "Brand Voices",
+    endpoints: [
+      {
+        method: "GET",
+        path: "/api/v1/brand-voices",
+        description: "List all brand voice profiles.",
+        response: `{
+  "data": [
+    {
+      "id": 1,
+      "name": "Clinical Authority",
+      "slug": "clinical-authority",
+      "is_default": true,
+      "tagline": "The science is the story.",
+      "tone": "Precise. Confident without being promotional.",
+      "dos": "...",
+      "donts": "...",
+      "exemplar": "..."
+    }
+  ],
+  "total": 4
+}`,
+      },
+      {
+        method: "GET",
+        path: "/api/v1/brand-voices?slug={slug}",
+        description: "Get a single brand voice by slug.",
+        params: [
+          { name: "slug", type: "string", required: true, description: "The brand voice slug" },
+        ],
+        response: `{ "id": 1, "name": "Clinical Authority", "slug": "clinical-authority", ... }`,
+      },
+    ],
+  },
+  {
+    section: "Personas",
+    endpoints: [
+      {
+        method: "GET",
+        path: "/api/v1/personas",
+        description: "List all audience personas.",
+        response: `{
+  "data": [
+    {
+      "id": 1,
+      "name": "The Needle-Averse Consumer",
+      "slug": "needle-averse-consumer",
+      "is_default": true,
+      "description": "...",
+      "demographics": "...",
+      "goals": "...",
+      "pain_points": "...",
+      "channels": ["instagram", "email"]
+    }
+  ],
+  "total": 5
+}`,
+      },
+      {
+        method: "GET",
+        path: "/api/v1/personas?slug={slug}",
+        description: "Get a single persona by slug.",
+        params: [
+          { name: "slug", type: "string", required: true, description: "The persona slug" },
+        ],
+        response: `{ "id": 1, "name": "The Needle-Averse Consumer", ... }`,
+      },
+    ],
+  },
 ];
 
 export default function ApiDocsPage() {
