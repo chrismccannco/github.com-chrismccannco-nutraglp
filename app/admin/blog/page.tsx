@@ -22,9 +22,12 @@ interface Post {
   clarity_score: number | null;
 }
 
+type StatusFilter = "all" | "published" | "draft" | "scheduled";
+
 export default function BlogAdmin() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState<StatusFilter>("all");
   const router = useRouter();
 
   useEffect(() => {
@@ -42,6 +45,23 @@ export default function BlogAdmin() {
     await fetch(`/api/blog/${post.slug}`, { method: "DELETE" });
     setPosts((prev) => prev.filter((p) => p.slug !== post.slug));
   };
+
+  const isScheduled = (post: Post) =>
+    !!post.publish_at && new Date(post.publish_at) > new Date();
+
+  const counts = {
+    all: posts.length,
+    published: posts.filter((p) => p.published && !isScheduled(p)).length,
+    draft: posts.filter((p) => !p.published && !isScheduled(p)).length,
+    scheduled: posts.filter((p) => isScheduled(p)).length,
+  };
+
+  const filtered = posts.filter((p) => {
+    if (filter === "published") return p.published && !isScheduled(p);
+    if (filter === "draft") return !p.published && !isScheduled(p);
+    if (filter === "scheduled") return isScheduled(p);
+    return true;
+  });
 
   const columns: Column<Post>[] = [
     {
@@ -67,10 +87,15 @@ export default function BlogAdmin() {
       key: "published",
       label: "Status",
       render: (row) => {
-        const isScheduled = row.publish_at && new Date(row.publish_at) > new Date();
-        return isScheduled
-          ? <span className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-full bg-blue-50 text-blue-700"><span className="w-1.5 h-1.5 rounded-full bg-blue-500" />Scheduled</span>
-          : <StatusBadge status={row.published ? "published" : "draft"} />;
+        if (isScheduled(row)) {
+          return (
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-full bg-blue-50 text-blue-700">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+              Scheduled
+            </span>
+          );
+        }
+        return <StatusBadge status={row.published ? "published" : "draft"} />;
       },
       className: "w-28",
     },
@@ -104,14 +129,26 @@ export default function BlogAdmin() {
   if (loading)
     return <p className="text-sm text-neutral-400 p-4">Loading posts\u2026</p>;
 
+  const tabs: { key: StatusFilter; label: string }[] = [
+    { key: "all", label: "All" },
+    { key: "published", label: "Published" },
+    { key: "draft", label: "Drafts" },
+    { key: "scheduled", label: "Scheduled" },
+  ];
+
   return (
     <div>
       <Breadcrumbs items={[{ label: "Admin", href: "/admin" }, { label: "Blog" }]} />
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-4">
         <div>
           <h1 className="text-xl font-semibold text-neutral-900">Blog Posts</h1>
           <p className="text-xs text-neutral-400 mt-1">
-            {posts.length} article{posts.length !== 1 ? "s" : ""}
+            {counts.all} article{counts.all !== 1 ? "s" : ""}
+            {counts.draft > 0 && (
+              <span className="ml-2 px-1.5 py-0.5 bg-amber-100 text-amber-700 rounded text-[10px] font-medium">
+                {counts.draft} draft{counts.draft !== 1 ? "s" : ""}
+              </span>
+            )}
           </p>
         </div>
         <Link
@@ -122,8 +159,33 @@ export default function BlogAdmin() {
           New post
         </Link>
       </div>
+
+      {/* Status filter tabs */}
+      <div className="flex items-center gap-1 mb-4 border-b border-neutral-200">
+        {tabs.map((tab) => (
+          <button
+            key={tab.key}
+            onClick={() => setFilter(tab.key)}
+            className={`px-3 py-2 text-xs font-medium transition border-b-2 -mb-px ${
+              filter === tab.key
+                ? "border-teal-600 text-teal-700"
+                : "border-transparent text-neutral-500 hover:text-neutral-700"
+            }`}
+          >
+            {tab.label}
+            {counts[tab.key] > 0 && (
+              <span className={`ml-1.5 px-1.5 py-0.5 rounded-full text-[10px] font-medium ${
+                filter === tab.key ? "bg-teal-100 text-teal-700" : "bg-neutral-100 text-neutral-500"
+              }`}>
+                {counts[tab.key]}
+              </span>
+            )}
+          </button>
+        ))}
+      </div>
+
       <DataTable
-        data={posts}
+        data={filtered}
         columns={columns}
         searchKeys={["title", "slug", "tag"]}
         onRowClick={(row) => router.push(`/admin/blog/${row.slug}`)}
@@ -138,7 +200,7 @@ export default function BlogAdmin() {
             destructive: true,
           },
         ]}
-        emptyMessage="No blog posts yet."
+        emptyMessage={filter === "all" ? "No blog posts yet." : `No ${filter} posts.`}
       />
     </div>
   );
