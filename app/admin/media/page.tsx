@@ -207,45 +207,30 @@ export default function MediaLibrary() {
     if (!selected) return;
     setRemovingBg(true);
     try {
-      // Run ML model client-side via WASM
-      const { removeBackground: removeBg } = await import("@imgly/background-removal");
-
-      // Fetch the image as a blob
-      const imgRes = await fetch(selected.url);
-      const imgBlob = await imgRes.blob();
-
-      // Process with ISNet model in browser (full precision for clean masks)
-      const resultBlob = await removeBg(imgBlob, {
-        model: "isnet_fp16",
-        output: { format: "image/png", quality: 0.9 },
+      const res = await fetch("/api/media-tools/remove-bg", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ imageId: Number(getImageId(selected.url)) }),
       });
-
-      // Upload the result back as a new media file, linked to parent
-      const form = new FormData();
-      const filename = selected.pathname.replace(/\.[^.]+$/, "") + "_nobg.png";
-      form.append("file", new File([resultBlob], filename, { type: "image/png" }));
-      const parentId = getImageId(selected.url);
-      if (parentId) form.append("parent_id", parentId);
-
-      const uploadRes = await fetch("/api/upload", { method: "POST", body: form });
-      if (uploadRes.ok) {
+      if (res.ok) {
         load();
-        const data = await uploadRes.json();
+        const data = await res.json();
         setSelected({
           url: data.url,
-          pathname: data.pathname || filename,
+          pathname: data.filename,
           size: data.size,
-          width: data.width || selected.width,
-          height: data.height || selected.height,
+          width: data.width,
+          height: data.height,
           mimeType: "image/png",
           uploadedAt: new Date().toISOString(),
         });
+        loadVersions({ ...selected, url: data.url });
       } else {
-        const err = await uploadRes.json();
-        alert(err.error || "Failed to save processed image");
+        const err = await res.json();
+        alert(err.error || "Failed to remove background");
       }
-    } catch (e) {
-      alert("Failed to remove background: " + (e instanceof Error ? e.message : "Unknown error"));
+    } catch {
+      alert("Failed to remove background");
     }
     setRemovingBg(false);
   };
