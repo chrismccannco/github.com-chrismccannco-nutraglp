@@ -5,17 +5,18 @@ export const dynamic = "force-dynamic";
 
 /**
  * POST /api/media-tools/remove-bg
- * Body: { imageId: number, threshold?: number }
- * Returns: { id, url } of the new image with background removed
+ * Body: { imageId: number, threshold?: number, feather?: number (default 2), refineEdges?: boolean (default true) }
+ * Returns: { id, url, filename, size, width, height } of the new image with background removed
  *
  * Uses Sharp to remove solid/near-solid backgrounds by sampling corner pixels
- * and converting matching colors to transparent. Works well for product photos
+ * and converting matching colors to transparent. Includes edge refinement to reduce
+ * halos and feathering for smoother boundaries. Works well for product photos
  * on white/solid backgrounds. Not a neural net — keep expectations calibrated.
  */
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { imageId, threshold = 30 } = body;
+    const { imageId, threshold = 30, feather = 2, refineEdges = true } = body;
 
     if (!imageId) {
       return NextResponse.json({ error: "imageId is required" }, { status: 400 });
@@ -104,6 +105,108 @@ export async function POST(req: NextRequest) {
         const alpha = Math.round(((dist - threshold) / threshold) * 255);
         newPixels[i + 3] = Math.min(newPixels[i + 3], alpha);
       }
+    }
+
+    // Edge refinement: reduce halos and speckles
+    if (refineEdges) {
+      const refined = Buffer.from(newPixels);
+
+      for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+          const idx = (y * w + x) * channels;
+          const currentAlpha = refined[idx + 3];
+
+          // Count opaque and transparent neighbors (8-connected)
+          let opaqueNeighbors = 0;
+          let transparentNeighbors = 0;
+
+          for (let dy = -1; dy <= 1; dy++) {
+            for (let dx = -1; dx <= 1; dx++) {
+              if (dx === 0 && dy === 0) continue;
+
+              const ny = y + dy;
+              const nx = x + dx;
+
+              if (nx >= 0 && nx < w && ny >= 0 && ny < h) {
+                const nidx = (ny * w + nx) * channels;
+                const neighborAlpha = refined[nidx + 3];
+
+                if (neighborAlpha > 200) {
+                  opaqueNeighbors++;
+                } else if (neighborAlpha < 50) {
+                  transparentNeighbors++;
+                }
+              }
+            }
+          }
+
+          // Speckle removal: transparent pixel surrounded mostly by opaque → make opaque
+          if (currentAlpha < 50 && opaqueNeighbors >= 6) {
+            refined[idx + 3] = 255;
+          }
+
+          // Halo removal: opaque pixel surrounded mostly by transparent and near background color
+          if (currentAlpha > 200 && transparentNeighbors >= 5) {
+            const r = refined[idx];
+            const g = refined[idx + 1];
+            const b = refined[idx + 2];
+
+            const dist = Math.sqrt(
+              (r - bgR) ** 2 + (g - bgG) ** 2 + (b - bgB) ** 2
+            );
+
+            if (dist < threshold * 1.5) {
+              refined[idx + 3] = 0;
+            }
+          }
+        }
+      }
+
+      // Copy refined data back
+      refined.copy(newPixels);
+    }
+
+    // Feathering pass: smooth boundaries between transparent and opaque
+    if (feather > 0) {
+      const feathered = Buffer.from(newPixels);
+
+      for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+          const idx = (y * w + x) * channels;
+          const currentAlpha = feathered[idx + 3];
+
+          // Only feather boundary pixels
+          if (currentAlpha > 0 && currentAlpha < 255) {
+            let transparentNeighborCount = 0;
+
+            // Check neighbors
+            for (let dy = -1; dy <= 1; dy++) {
+              for (let dx = -1; dx <= 1; dx++) {
+                if (dx === 0 && dy === 0) continue;
+
+                const ny = y + dy;
+                const nx = x + dx;
+
+                if (nx >= 0 && nx < w && ny >= 0 && ny < h) {
+                  const nidx = (ny * w + nx) * channels;
+                  const neighborAlpha = feathered[nidx + 3];
+
+                  if (neighborAlpha < 128) {
+                    transparentNeighborCount++;
+                  }
+                }
+              }
+            }
+
+            // Blend alpha based on transparent neighbors
+            const blendFactor = transparentNeighborCount / 8;
+            const newAlpha = Math.round(currentAlpha * (1 - blendFactor * (feather / 2)));
+            feathered[idx + 3] = Math.max(0, newAlpha);
+          }
+        }
+      }
+
+      feathered.copy(newPixels);
     }
 
     const outputBuffer = await sharpFn(newPixels, {

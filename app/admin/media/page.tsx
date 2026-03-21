@@ -13,6 +13,12 @@ import {
   Wand2,
   Eraser,
   Loader2,
+  SunMedium,
+  Contrast,
+  Sparkles,
+  Crop,
+  Layers,
+  ArrowDownToLine,
 } from "lucide-react";
 
 interface MediaItem {
@@ -35,6 +41,12 @@ export default function MediaLibrary() {
   const [generatingAlt, setGeneratingAlt] = useState(false);
   const [altText, setAltText] = useState<string | null>(null);
   const [removingBg, setRemovingBg] = useState(false);
+  const [adjusting, setAdjusting] = useState(false);
+  const [brightness, setBrightness] = useState(1);
+  const [contrast, setContrast] = useState(1);
+  const [sharpen, setSharpen] = useState(false);
+  const [exporting, setExporting] = useState<string | null>(null);
+  const [exportingAll, setExportingAll] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
   const load = () => {
@@ -109,6 +121,12 @@ export default function MediaLibrary() {
 
   const getImageId = (url: string) => url.split("/").pop();
 
+  const resetEdits = () => {
+    setBrightness(1);
+    setContrast(1);
+    setSharpen(false);
+  };
+
   const generateAltText = async () => {
     if (!selected) return;
     setGeneratingAlt(true);
@@ -161,6 +179,103 @@ export default function MediaLibrary() {
       alert("Failed to remove background");
     }
     setRemovingBg(false);
+  };
+
+  const channelPresets = [
+    { key: "blog_hero", name: "Blog Hero", dimensions: "1200x630" },
+    { key: "og_image", name: "OG Image", dimensions: "1200x630" },
+    { key: "instagram_square", name: "Instagram Square", dimensions: "1080x1080" },
+    { key: "instagram_story", name: "Instagram Story", dimensions: "1080x1920" },
+    { key: "twitter_card", name: "Twitter Card", dimensions: "1200x675" },
+    { key: "linkedin_post", name: "LinkedIn Post", dimensions: "1200x627" },
+    { key: "youtube_thumb", name: "YouTube Thumb", dimensions: "1280x720" },
+    { key: "email_header", name: "Email Header", dimensions: "600x200" },
+    { key: "favicon", name: "Favicon", dimensions: "512x512" },
+  ];
+
+  const exportToChannel = async (presetKey: string) => {
+    if (!selected) return;
+    setExporting(presetKey);
+    try {
+      const res = await fetch("/api/media-tools/channel-export", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          imageId: Number(getImageId(selected.url)),
+          presets: [presetKey],
+        }),
+      });
+      if (res.ok) {
+        load();
+      } else {
+        const err = await res.json();
+        alert(err.error || "Export failed");
+      }
+    } catch {
+      alert("Export failed");
+    }
+    setExporting(null);
+  };
+
+  const exportAllChannels = async () => {
+    if (!selected) return;
+    setExportingAll(true);
+    try {
+      const res = await fetch("/api/media-tools/channel-export", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          imageId: Number(getImageId(selected.url)),
+          presets: channelPresets.map((p) => p.key),
+        }),
+      });
+      if (res.ok) {
+        load();
+      } else {
+        const err = await res.json();
+        alert(err.error || "Export failed");
+      }
+    } catch {
+      alert("Export failed");
+    }
+    setExportingAll(false);
+  };
+
+  const applyAdjustments = async () => {
+    if (!selected) return;
+    setAdjusting(true);
+    try {
+      const res = await fetch("/api/media-tools/adjust", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          imageId: Number(getImageId(selected.url)),
+          brightness,
+          contrast,
+          sharpen,
+        }),
+      });
+      if (res.ok) {
+        load();
+        const data = await res.json();
+        setSelected({
+          url: data.url,
+          pathname: data.filename,
+          size: data.size,
+          width: data.width,
+          height: data.height,
+          mimeType: selected.mimeType,
+          uploadedAt: new Date().toISOString(),
+        });
+        resetEdits();
+      } else {
+        const err = await res.json();
+        alert(err.error || "Adjustment failed");
+      }
+    } catch {
+      alert("Adjustment failed");
+    }
+    setAdjusting(false);
   };
 
   return (
@@ -228,7 +343,7 @@ export default function MediaLibrary() {
             {items.map((item) => (
               <div
                 key={item.url}
-                onClick={() => { setSelected(item); setAltText(null); }}
+                onClick={() => { setSelected(item); setAltText(null); resetEdits(); }}
                 className={`bg-white border rounded-xl overflow-hidden cursor-pointer group transition ${
                   selected?.url === item.url
                     ? "border-teal-500 ring-2 ring-teal-100"
@@ -268,7 +383,14 @@ export default function MediaLibrary() {
       {/* Detail panel */}
       {selected && (
         <div className="w-80 flex-shrink-0">
-          <div className="bg-white border border-neutral-200 rounded-xl overflow-hidden sticky top-4">
+          <style>{`
+            input[type=range] {
+              width: 100%;
+              accent-color: #14b8a6;
+              cursor: pointer;
+            }
+          `}</style>
+          <div className="bg-white border border-neutral-200 rounded-xl overflow-hidden sticky top-4 max-h-[calc(100vh-2rem)] overflow-y-auto">
             {/* Preview */}
             <div className="aspect-video bg-neutral-100 relative">
               <img
@@ -399,6 +521,142 @@ export default function MediaLibrary() {
                       )}
                     </button>
                   )}
+              </div>
+
+              {/* Channel Presets */}
+              <div className="space-y-2 pt-2 border-t border-neutral-100">
+                <p className="text-[11px] font-medium text-neutral-500 uppercase tracking-wider">
+                  Channel Presets
+                </p>
+
+                <div className="grid grid-cols-2 gap-1.5">
+                  {channelPresets.map((preset) => (
+                    <button
+                      key={preset.key}
+                      onClick={() => exportToChannel(preset.key)}
+                      disabled={exporting === preset.key}
+                      className={`text-[11px] px-2 py-1.5 rounded-lg transition ${
+                        exporting === preset.key
+                          ? "bg-teal-100 text-teal-700"
+                          : "bg-neutral-50 hover:bg-neutral-100 text-neutral-700"
+                      }`}
+                    >
+                      <div className="flex items-center justify-between gap-1">
+                        <span className="font-medium">{preset.name}</span>
+                        {exporting === preset.key ? (
+                          <Loader2 className="w-3 h-3 animate-spin" />
+                        ) : null}
+                      </div>
+                      <span className="text-[10px] text-neutral-400">
+                        {preset.dimensions}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+
+                <button
+                  onClick={exportAllChannels}
+                  disabled={exportingAll}
+                  className="w-full flex items-center justify-center gap-1.5 px-3 py-2 text-xs text-teal-700 bg-teal-50 rounded-lg hover:bg-teal-100 transition disabled:opacity-50"
+                >
+                  {exportingAll ? (
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  ) : (
+                    <ArrowDownToLine className="w-3.5 h-3.5" />
+                  )}
+                  {exportingAll ? "Exporting..." : "Export all channels"}
+                </button>
+              </div>
+
+              {/* Adjustments */}
+              <div className="space-y-2 pt-2 border-t border-neutral-100">
+                <p className="text-[11px] font-medium text-neutral-500 uppercase tracking-wider">
+                  Adjustments
+                </p>
+
+                <div className="space-y-3">
+                  {/* Brightness */}
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="flex items-center gap-1 text-neutral-700">
+                        <SunMedium className="w-3.5 h-3.5" />
+                        Brightness
+                      </span>
+                      <span className="text-neutral-400">{brightness.toFixed(1)}</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="0.5"
+                      max="2.0"
+                      step="0.1"
+                      value={brightness}
+                      onChange={(e) => setBrightness(parseFloat(e.target.value))}
+                      className="w-full"
+                    />
+                  </div>
+
+                  {/* Contrast */}
+                  <div className="space-y-1">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="flex items-center gap-1 text-neutral-700">
+                        <Contrast className="w-3.5 h-3.5" />
+                        Contrast
+                      </span>
+                      <span className="text-neutral-400">{contrast.toFixed(1)}</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="0.5"
+                      max="2.0"
+                      step="0.1"
+                      value={contrast}
+                      onChange={(e) => setContrast(parseFloat(e.target.value))}
+                      className="w-full"
+                    />
+                  </div>
+
+                  {/* Sharpen */}
+                  <div className="flex items-center justify-between">
+                    <span className="flex items-center gap-1.5 text-xs text-neutral-700">
+                      <Sparkles className="w-3.5 h-3.5" />
+                      Sharpen
+                    </span>
+                    <button
+                      onClick={() => setSharpen(!sharpen)}
+                      className={`w-5 h-5 rounded border transition ${
+                        sharpen
+                          ? "bg-teal-600 border-teal-600"
+                          : "bg-white border-neutral-300 hover:border-neutral-400"
+                      }`}
+                    >
+                      {sharpen && <Check className="w-3 h-3 text-white mx-auto" />}
+                    </button>
+                  </div>
+                </div>
+
+                <div className="flex gap-2 pt-2">
+                  <button
+                    onClick={applyAdjustments}
+                    disabled={
+                      adjusting ||
+                      (brightness === 1 && contrast === 1 && !sharpen)
+                    }
+                    className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 text-xs text-white bg-teal-600 rounded-lg hover:bg-teal-700 transition disabled:opacity-50"
+                  >
+                    {adjusting ? (
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    ) : (
+                      <Layers className="w-3.5 h-3.5" />
+                    )}
+                    {adjusting ? "Applying..." : "Apply"}
+                  </button>
+                  <button
+                    onClick={resetEdits}
+                    className="flex-1 flex items-center justify-center px-3 py-2 text-xs text-neutral-600 bg-neutral-50 rounded-lg hover:bg-neutral-100 transition"
+                  >
+                    Reset
+                  </button>
+                </div>
               </div>
 
               {/* AI Tools */}
