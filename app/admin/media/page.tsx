@@ -154,29 +154,43 @@ export default function MediaLibrary() {
     if (!selected) return;
     setRemovingBg(true);
     try {
-      const res = await fetch("/api/media-tools/remove-bg", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ imageId: Number(getImageId(selected.url)) }),
+      // Run ML model client-side via WASM
+      const { removeBackground: removeBg } = await import("@imgly/background-removal");
+
+      // Fetch the image as a blob
+      const imgRes = await fetch(selected.url);
+      const imgBlob = await imgRes.blob();
+
+      // Process with U2-Net model in browser
+      const resultBlob = await removeBg(imgBlob, {
+        model: "isnet_quint8",
+        output: { format: "image/png", quality: 0.9 },
       });
-      if (res.ok) {
+
+      // Upload the result back as a new media file
+      const form = new FormData();
+      const filename = selected.pathname.replace(/\.[^.]+$/, "") + "_nobg.png";
+      form.append("file", new File([resultBlob], filename, { type: "image/png" }));
+
+      const uploadRes = await fetch("/api/upload", { method: "POST", body: form });
+      if (uploadRes.ok) {
         load();
-        const data = await res.json();
+        const data = await uploadRes.json();
         setSelected({
           url: data.url,
-          pathname: data.filename,
+          pathname: data.pathname || filename,
           size: data.size,
-          width: data.width,
-          height: data.height,
+          width: data.width || selected.width,
+          height: data.height || selected.height,
           mimeType: "image/png",
           uploadedAt: new Date().toISOString(),
         });
       } else {
-        const err = await res.json();
-        alert(err.error || "Failed to remove background");
+        const err = await uploadRes.json();
+        alert(err.error || "Failed to save processed image");
       }
-    } catch {
-      alert("Failed to remove background");
+    } catch (e) {
+      alert("Failed to remove background: " + (e instanceof Error ? e.message : "Unknown error"));
     }
     setRemovingBg(false);
   };
@@ -360,6 +374,13 @@ export default function MediaLibrary() {
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition flex items-center justify-center opacity-0 group-hover:opacity-100">
                     <Maximize2 className="w-5 h-5 text-white" />
                   </div>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); handleDelete(item); }}
+                    className="absolute bottom-1.5 right-1.5 p-1.5 bg-red-500/90 rounded-lg opacity-0 group-hover:opacity-100 transition hover:bg-red-600"
+                    title="Delete"
+                  >
+                    <Trash2 className="w-3.5 h-3.5 text-white" />
+                  </button>
                 </div>
                 <div className="px-3 py-2">
                   <p className="text-xs text-neutral-700 truncate">{item.pathname}</p>
