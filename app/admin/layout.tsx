@@ -28,9 +28,21 @@ export default function AdminLayout({
 }) {
   const branding = useCmsBranding();
 
-  // Override browser tab title for admin
+  // Override browser tab title and favicon for admin
   useEffect(() => {
     document.title = `${branding.name} — Admin`;
+    // Swap to ContentFoundry favicon in admin
+    const existing = document.querySelector<HTMLLinkElement>("link[rel~='icon']");
+    if (existing) {
+      existing.href = "/cf-favicon.svg";
+      existing.type = "image/svg+xml";
+    } else {
+      const link = document.createElement("link");
+      link.rel = "icon";
+      link.type = "image/svg+xml";
+      link.href = "/cf-favicon.svg";
+      document.head.appendChild(link);
+    }
   }, [branding.name]);
 
   const [authed, setAuthed] = useState(false);
