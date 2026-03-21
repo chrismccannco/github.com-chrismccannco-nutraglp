@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
-import { Plus, Trash2, Loader2, FileText, Search, ToggleLeft, ToggleRight } from 'lucide-react';
+import { Plus, Trash2, Loader2, FileText, Search, ToggleLeft, ToggleRight, Upload, X, AlertCircle } from 'lucide-react';
 
 interface KnowledgeDoc {
   id: number;
@@ -27,12 +27,20 @@ const DOC_TYPES: Record<string, string> = {
   policy: 'Policy',
 };
 
+const ACCEPT_TYPES = '.pdf,.docx,.doc,.txt,.md,.csv';
+
 export default function KnowledgePage() {
   const [docs, setDocs] = useState<KnowledgeDoc[]>([]);
   const [loading, setLoading] = useState(true);
   const [creating, setCreating] = useState(false);
   const [search, setSearch] = useState('');
   const [filterType, setFilterType] = useState('');
+
+  // Upload state
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [dragOver, setDragOver] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   async function load() {
     try {
@@ -73,6 +81,49 @@ export default function KnowledgePage() {
     setCreating(false);
   }
 
+  async function uploadFile(file: File) {
+    setUploading(true);
+    setUploadError(null);
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const res = await fetch('/api/knowledge/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setUploadError(data.error || 'Upload failed');
+        setUploading(false);
+        return;
+      }
+
+      // Navigate to the newly created doc
+      window.location.href = `/admin/knowledge/${data.id}`;
+    } catch {
+      setUploadError('Upload failed. Please try again.');
+      setUploading(false);
+    }
+  }
+
+  function handleFileInput(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (file) uploadFile(file);
+    // Reset input so the same file can be re-uploaded
+    e.target.value = '';
+  }
+
+  function handleDrop(e: React.DragEvent) {
+    e.preventDefault();
+    setDragOver(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) uploadFile(file);
+  }
+
   async function toggleEnabled(id: number, currentState: number) {
     try {
       const res = await fetch(`/api/knowledge/${id}`, {
@@ -109,18 +160,71 @@ export default function KnowledgePage() {
               Upload product briefs, competitor cards, and reference docs. The AI writer uses these as source of truth.
             </p>
           </div>
-          <button
-            onClick={createDoc}
-            disabled={creating}
-            className="flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-sm font-medium rounded-lg hover:bg-neutral-700 disabled:opacity-50 transition-colors"
-          >
-            {creating ? <Loader2 size={13} className="animate-spin" /> : <Plus size={13} />}
-            Add Document
-          </button>
+          <div className="flex items-center gap-2">
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept={ACCEPT_TYPES}
+              onChange={handleFileInput}
+              className="hidden"
+            />
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading}
+              className="flex items-center gap-2 px-4 py-2 bg-white border border-neutral-200 text-neutral-700 text-sm font-medium rounded-lg hover:bg-neutral-50 hover:border-neutral-300 disabled:opacity-50 transition-colors"
+            >
+              {uploading ? <Loader2 size={13} className="animate-spin" /> : <Upload size={13} />}
+              Upload File
+            </button>
+            <button
+              onClick={createDoc}
+              disabled={creating}
+              className="flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-sm font-medium rounded-lg hover:bg-neutral-700 disabled:opacity-50 transition-colors"
+            >
+              {creating ? <Loader2 size={13} className="animate-spin" /> : <Plus size={13} />}
+              Add Document
+            </button>
+          </div>
         </div>
       </div>
 
       <div className="px-8 py-6 max-w-5xl">
+        {/* Upload error */}
+        {uploadError && (
+          <div className="mb-4 flex items-start gap-3 p-4 bg-red-50 border border-red-100 rounded-xl text-sm text-red-700">
+            <AlertCircle size={15} className="mt-0.5 shrink-0" />
+            <span className="flex-1">{uploadError}</span>
+            <button onClick={() => setUploadError(null)} className="text-red-400 hover:text-red-600">
+              <X size={14} />
+            </button>
+          </div>
+        )}
+
+        {/* Drag-and-drop zone — visible when no docs or always as a subtle area */}
+        <div
+          onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
+          onDragLeave={() => setDragOver(false)}
+          onDrop={handleDrop}
+          className={`mb-6 border-2 border-dashed rounded-xl px-6 py-5 text-center transition-colors cursor-pointer ${
+            dragOver
+              ? 'border-neutral-400 bg-neutral-100'
+              : 'border-neutral-200 bg-white hover:border-neutral-300 hover:bg-neutral-50'
+          }`}
+          onClick={() => fileInputRef.current?.click()}
+        >
+          {uploading ? (
+            <div className="flex items-center justify-center gap-2 text-sm text-neutral-500">
+              <Loader2 size={16} className="animate-spin" />
+              Parsing document...
+            </div>
+          ) : (
+            <div className="flex items-center justify-center gap-2.5 text-sm text-neutral-400">
+              <Upload size={15} />
+              <span>Drop a file here or <span className="text-neutral-600 font-medium">browse</span> — PDF, DOCX, TXT, MD, CSV up to 10MB</span>
+            </div>
+          )}
+        </div>
+
         {/* Filters */}
         <div className="flex gap-3 mb-6">
           <div className="relative flex-1">
@@ -153,17 +257,8 @@ export default function KnowledgePage() {
           <div className="bg-white rounded-xl border border-neutral-200 p-8 text-center">
             <FileText size={32} className="mx-auto text-neutral-300 mb-3" />
             <p className="text-sm text-neutral-500 mb-4">
-              {search || filterType ? 'No documents match your search.' : 'No knowledge documents yet. Add your first reference doc.'}
+              {search || filterType ? 'No documents match your search.' : 'No knowledge documents yet. Upload a file or add your first reference doc.'}
             </p>
-            {!search && !filterType && (
-              <button
-                onClick={createDoc}
-                disabled={creating}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-sm font-medium rounded-lg hover:bg-neutral-700 disabled:opacity-50 transition-colors"
-              >
-                <Plus size={13} /> Add your first document
-              </button>
-            )}
           </div>
         ) : (
           <div className="space-y-3">
