@@ -119,6 +119,7 @@ export default function KnowledgePage() {
 
   function handleDrop(e: React.DragEvent) {
     e.preventDefault();
+    e.stopPropagation();
     setDragOver(false);
     const file = e.dataTransfer.files?.[0];
     if (file) uploadFile(file);
@@ -202,8 +203,9 @@ export default function KnowledgePage() {
 
         {/* Drag-and-drop zone — visible when no docs or always as a subtle area */}
         <div
-          onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
-          onDragLeave={() => setDragOver(false)}
+          onDragEnter={(e) => { e.preventDefault(); e.stopPropagation(); setDragOver(true); }}
+          onDragOver={(e) => { e.preventDefault(); e.stopPropagation(); setDragOver(true); }}
+          onDragLeave={(e) => { e.preventDefault(); e.stopPropagation(); setDragOver(false); }}
           onDrop={handleDrop}
           className={`mb-6 border-2 border-dashed rounded-xl px-6 py-5 text-center transition-colors cursor-pointer ${
             dragOver

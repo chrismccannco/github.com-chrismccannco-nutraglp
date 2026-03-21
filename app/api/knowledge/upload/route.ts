@@ -4,14 +4,38 @@ import { requireRole } from "@/lib/admin-auth";
 
 const MAX_SIZE = 10 * 1024 * 1024; // 10MB
 
-const ALLOWED_TYPES: Record<string, string> = {
+// MIME type → internal format
+const ALLOWED_MIME: Record<string, string> = {
   "application/pdf": "pdf",
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document": "docx",
   "application/msword": "doc",
   "text/plain": "txt",
   "text/markdown": "md",
   "text/csv": "csv",
+  // macOS sometimes reports these
+  "application/octet-stream": "unknown",
+  "application/x-pdf": "pdf",
 };
+
+// Extension fallback (macOS/Windows report inconsistent MIME types)
+const ALLOWED_EXT: Record<string, string> = {
+  pdf: "pdf",
+  docx: "docx",
+  doc: "doc",
+  txt: "txt",
+  md: "md",
+  csv: "csv",
+};
+
+function resolveFileType(file: File): string | null {
+  // Try MIME first
+  const byMime = ALLOWED_MIME[file.type];
+  if (byMime && byMime !== "unknown") return byMime;
+
+  // Fall back to extension
+  const ext = file.name.split(".").pop()?.toLowerCase() ?? "";
+  return ALLOWED_EXT[ext] ?? null;
+}
 
 function generateSlug(title: string): string {
   const base = title
@@ -87,11 +111,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
     }
 
-    // Validate type
-    const fileType = ALLOWED_TYPES[file.type];
+    // Validate type — check MIME then extension fallback
+    const fileType = resolveFileType(file);
     if (!fileType) {
       return NextResponse.json(
-        { error: `File type not supported. Use PDF, DOCX, TXT, MD, or CSV.` },
+        { error: `File type not supported (got "${file.type || "unknown"}"). Use PDF, DOCX, TXT, MD, or CSV.` },
         { status: 400 }
       );
     }
