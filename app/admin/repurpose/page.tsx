@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Loader2, Copy, Check, RefreshCw, ChevronDown, UserCircle } from 'lucide-react';
+import { useAIProviders } from '../hooks/useAIProviders';
 
 interface Format {
   key: string;
@@ -39,6 +40,7 @@ export default function RepurposePage() {
   const [posts, setPosts] = useState<{ slug: string; title: string }[]>([]);
   const [personas, setPersonas] = useState<Persona[]>([]);
   const [selectedPersonaId, setSelectedPersonaId] = useState<number | null>(null);
+  const { providers, selectedProvider, setSelectedProvider, providerOverride } = useAIProviders();
 
   // Load available formats and personas
   useEffect(() => {
@@ -103,7 +105,7 @@ export default function RepurposePage() {
       const res = await fetch('/api/repurpose', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content, title, formats: selectedFormats, ...(selectedPersonaId ? { personaId: selectedPersonaId } : {}) }),
+        body: JSON.stringify({ content, title, formats: selectedFormats, ...(selectedPersonaId ? { personaId: selectedPersonaId } : {}), ...(providerOverride ? { providerOverride } : {}) }),
       });
 
       if (!res.ok) {
@@ -279,6 +281,24 @@ export default function RepurposePage() {
                 })}
               </div>
             </div>
+
+            {providers.length > 1 && (
+              <div className="flex items-center gap-2">
+                <label className="text-xs font-semibold text-neutral-500 whitespace-nowrap">AI model</label>
+                <div className="relative flex-1">
+                  <select
+                    value={selectedProvider}
+                    onChange={e => setSelectedProvider(e.target.value)}
+                    className="w-full px-3 py-2 border border-neutral-200 rounded-lg text-sm bg-white text-neutral-700 appearance-none pr-8"
+                  >
+                    {providers.map(p => (
+                      <option key={p.id} value={p.id}>{p.label.split(' (')[0]}</option>
+                    ))}
+                  </select>
+                  <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" />
+                </div>
+              </div>
+            )}
 
             <button onClick={generate} disabled={loading || !content || selectedFormats.length === 0}
               className="flex items-center gap-2 px-5 py-2.5 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-500 disabled:opacity-50 transition-colors w-full justify-center">

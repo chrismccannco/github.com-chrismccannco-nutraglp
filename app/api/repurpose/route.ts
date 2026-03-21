@@ -219,16 +219,16 @@ async function getPersonaPrompt(personaId?: number): Promise<string> {
  */
 export async function POST(req: NextRequest) {
   try {
-    const aiConfig = await getAIConfig();
+    const body = await req.json();
+    const { content, title, formats, voiceId, personaId, providerOverride, modelOverride } = body;
+
+    const aiConfig = await getAIConfig({ providerOverride, modelOverride });
     if (!aiConfig) {
       return NextResponse.json(
         { error: "AI provider not configured. Add an API key in Settings → AI Integration." },
         { status: 500 }
       );
     }
-
-    const body = await req.json();
-    const { content, title, formats, voiceId, personaId } = body;
 
     if (!content || !formats || formats.length === 0) {
       return NextResponse.json(
