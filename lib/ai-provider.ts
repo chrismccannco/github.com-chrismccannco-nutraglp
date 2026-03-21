@@ -177,6 +177,55 @@ export async function getAvailableProviders(): Promise<{
   return { providers, defaultProvider };
 }
 
+// ── Error parsing ─────────────────────────────────────────────────────────────
+
+/**
+ * Converts raw provider HTTP error bodies into plain-English messages.
+ * Handles OpenAI/Perplexity, Anthropic, and Gemini error shapes.
+ */
+function parseProviderError(status: number, raw: string, provider: string): string {
+  // Try to extract a message from common JSON error shapes
+  let message = "";
+  try {
+    const body = JSON.parse(raw);
+    // OpenAI / Perplexity: { error: { message, code } }
+    if (body?.error?.message) message = body.error.message;
+    // Anthropic: { error: { message } }
+    else if (body?.error?.message) message = body.error.message;
+    // Gemini: { error: { message } }
+    else if (body?.error?.message) message = body.error.message;
+    // Generic
+    else if (typeof body?.message === "string") message = body.message;
+  } catch { /* raw wasn't JSON */ }
+
+  if (!message) message = raw.slice(0, 200);
+
+  const providerLabel =
+    provider === "anthropic" ? "Claude" :
+    provider === "openai" ? "ChatGPT" :
+    provider === "gemini" ? "Gemini" :
+    provider === "perplexity" ? "Perplexity" : provider;
+
+  // Map status codes to actionable advice
+  if (status === 401) {
+    return `${providerLabel}: Invalid API key. Check Settings → AI Integration.`;
+  }
+  if (status === 429) {
+    // Distinguish rate-limit vs quota
+    if (message.toLowerCase().includes("quota") || message.toLowerCase().includes("billing")) {
+      return `${providerLabel}: Account quota exceeded. Add credits at your provider's billing page, or switch to a different model.`;
+    }
+    return `${providerLabel}: Rate limit hit. Wait a moment and try again.`;
+  }
+  if (status === 403) {
+    return `${providerLabel}: Access denied. Check that your API key has the right permissions.`;
+  }
+  if (status >= 500) {
+    return `${providerLabel}: Server error (${status}). Try again in a moment.`;
+  }
+  return `${providerLabel} error (${status}): ${message}`;
+}
+
 // ── Non-streaming generation ──────────────────────────────────────────────────
 
 export async function generateText(
@@ -265,7 +314,7 @@ async function callAnthropic(
 
   if (!resp.ok) {
     const err = await resp.text();
-    throw new Error(`Anthropic error ${resp.status}: ${err}`);
+    throw new Error(parseProviderError(resp.status, err, "anthropic"));
   }
 
   const data = await resp.json();
@@ -304,7 +353,7 @@ async function* streamAnthropic(
 
   if (!resp.ok) {
     const err = await resp.text();
-    throw new Error(`Anthropic stream error ${resp.status}: ${err}`);
+    throw new Error(parseProviderError(resp.status, err, "anthropic"));
   }
 
   const reader = resp.body!.getReader();
@@ -354,7 +403,7 @@ async function callOpenAI(
 
   if (!resp.ok) {
     const err = await resp.text();
-    throw new Error(`OpenAI error ${resp.status}: ${err}`);
+    throw new Error(parseProviderError(resp.status, err, "openai"));
   }
 
   const data = await resp.json();
@@ -401,7 +450,7 @@ async function* streamOpenAICompat(
 
   if (!resp.ok) {
     const err = await resp.text();
-    throw new Error(`AI stream error ${resp.status}: ${err}`);
+    throw new Error(parseProviderError(resp.status, err, config.provider));
   }
 
   const reader = resp.body!.getReader();
@@ -451,7 +500,7 @@ async function callPerplexity(
 
   if (!resp.ok) {
     const err = await resp.text();
-    throw new Error(`Perplexity error ${resp.status}: ${err}`);
+    throw new Error(parseProviderError(resp.status, err, "perplexity"));
   }
 
   const data = await resp.json();
@@ -496,7 +545,7 @@ async function callGemini(
 
   if (!resp.ok) {
     const err = await resp.text();
-    throw new Error(`Gemini error ${resp.status}: ${err}`);
+    throw new Error(parseProviderError(resp.status, err, "gemini"));
   }
 
   const data = await resp.json();
@@ -535,7 +584,7 @@ async function* streamGemini(
 
   if (!resp.ok) {
     const err = await resp.text();
-    throw new Error(`Gemini stream error ${resp.status}: ${err}`);
+    throw new Error(parseProviderError(resp.status, err, "gemini"));
   }
 
   const reader = resp.body!.getReader();
