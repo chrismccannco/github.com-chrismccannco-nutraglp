@@ -1,9 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
-import { getAIConfig, streamText } from "@/lib/ai-provider";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
+
+async function getAnthropicKey(): Promise<string | null> {
+  try {
+    const db = getDb();
+    const result = await db.execute(
+      "SELECT value FROM site_settings WHERE key = 'anthropic_api_key'"
+    );
+    if (result.rows.length > 0 && result.rows[0].value) {
+      return result.rows[0].value as string;
+    }
+  } catch { /* fall through */ }
+  return process.env.ANTHROPIC_API_KEY || null;
+}
 
 async function loadVoice(voiceId?: number | null): Promise<string> {
   const db = getDb();
@@ -64,7 +76,7 @@ async function loadKnowledge(): Promise<string> {
 
 const CONTENT_TYPE_PROMPTS: Record<string, { system: string; jsonShape: string }> = {
   blog: {
-    system: "You are a blog writing engine for a GLP-1 supplement company's CMS. Produce publication-ready blog content. Avoid drug claims. Be evidence-aware.",
+    system: "You are a blog writing engine for a content management system. Produce publication-ready blog content that matches the brand voice and serves the target audience. Write clearly and with authority.",
     jsonShape: `{
   "title": "string",
   "slug": "string (lowercase, hyphens only)",
@@ -78,7 +90,7 @@ const CONTENT_TYPE_PROMPTS: Record<string, { system: string; jsonShape: string }
 Generate 4-6 sections with 2-4 paragraphs each.`,
   },
   blog_rewrite: {
-    system: "You are a content editor for a GLP-1 supplement company's CMS. Improve or rewrite the provided blog content based on the user's instructions. Keep the same section structure unless told otherwise.",
+    system: "You are a content editor for a content management system. Improve or rewrite the provided blog content based on the user's instructions. Match the existing brand voice and keep the same section structure unless told otherwise.",
     jsonShape: `{
   "title": "string",
   "description": "string (1-2 sentence summary)",
@@ -86,7 +98,7 @@ Generate 4-6 sections with 2-4 paragraphs each.`,
 }`,
   },
   page: {
-    system: "You are a landing page content engine for a GLP-1 supplement company's CMS. Create compelling page content that drives action.",
+    system: "You are a landing page content engine for a content management system. Create compelling page content that drives action and serves the brand's goals.",
     jsonShape: `{
   "title": "string",
   "meta_description": "string (under 160 chars)",
@@ -96,7 +108,7 @@ Generate 4-6 sections with 2-4 paragraphs each.`,
 Generate 3-5 sections suited for a landing/info page.`,
   },
   testimonial: {
-    system: "You are a testimonial copywriter for a GLP-1 supplement company. Take rough customer feedback or a scenario and produce a polished, authentic-sounding testimonial. Keep the voice genuine, not marketing-speak. The testimonial should feel like a real person wrote it.",
+    system: "You are a testimonial copywriter. Take rough customer feedback or a scenario and produce a polished, authentic-sounding testimonial. Keep the voice genuine, not marketing-speak. The testimonial should feel like a real person wrote it.",
     jsonShape: `{
   "name": "string (realistic first name and last initial)",
   "title": "string (a short headline that captures the transformation, e.g. 'Finally found something that works')",
@@ -105,7 +117,7 @@ Generate 3-5 sections suited for a landing/info page.`,
 }`,
   },
   form: {
-    system: "You are a form design expert for a GLP-1 supplement company's CMS. Design forms that maximize completion rates while collecting the right data. Consider UX best practices: logical field ordering, appropriate field types, clear labels, helpful placeholders, and minimal required fields.",
+    system: "You are a form design expert for a content management system. Design forms that maximize completion rates while collecting the right data. Consider UX best practices: logical field ordering, appropriate field types, clear labels, helpful placeholders, and minimal required fields.",
     jsonShape: `{
   "name": "string (form name)",
   "description": "string (brief purpose)",
@@ -138,8 +150,13 @@ Use heading and paragraph fields to create logical sections. Use half-width for 
  */
 export async function POST(req: NextRequest) {
   try {
+    const apiKey = await getAnthropicKey();
+    if (!apiKey) {
+      return NextResponse.json({ error: "NO_API_KEY" }, { status: 500 });
+    }
+
     const body = await req.json();
-    const { contentType, prompt, voiceId, personaId, existingContent, providerOverride, modelOverride } = body;
+    const { contentType, prompt, voiceId, personaId, existingContent } = body;
 
     if (!contentType || !prompt?.trim()) {
       return NextResponse.json({ error: "contentType and prompt are required" }, { status: 400 });
@@ -170,35 +187,89 @@ export async function POST(req: NextRequest) {
 
     const startTime = Date.now();
 
-    const aiConfig = await getAIConfig({ providerOverride, modelOverride });
-    if (!aiConfig) {
-      return NextResponse.json(
-        { error: "AI provider not configured. Add an API key in Settings → AI Integration." },
-        { status: 500 }
-      );
+    // Use streaming to keep the connection alive (avoids Netlify 10s timeout)
+    const anthropicResp = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": apiKey,
+        "anthropic-version": "2023-06-01",
+      },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-6",
+        max_tokens: 4096,
+        system: systemPrompt,
+        stream: true,
+        messages: [{ role: "user", content: userPrompt }],
+      }),
+    });
+
+    if (!anthropicResp.ok) {
+      const errText = await anthropicResp.text();
+      let userMessage = "AI service is temporarily unavailable. Please try again in a moment.";
+      try {
+        const errJson = JSON.parse(errText);
+        if (errJson.error?.type === "authentication_error") {
+          userMessage = "AI service not configured. Ask your admin to check the API key in Settings.";
+        } else if (errJson.error?.type === "rate_limit_error") {
+          userMessage = "Too many requests. Please wait a moment and try again.";
+        } else if (errJson.error?.type === "overloaded_error") {
+          userMessage = "AI service is busy. Please try again in a few seconds.";
+        }
+      } catch { /* use default message */ }
+      return NextResponse.json({ error: userMessage }, { status: 500 });
     }
 
-    // Stream through the provider abstraction — keeps connection alive,
-    // avoids Netlify 10s timeout, works with any provider.
+    // Read the Anthropic SSE stream, accumulate text, then send our own SSE events
+    // to the client. This keeps the connection alive and avoids serverless timeouts.
+    const reader = anthropicResp.body!.getReader();
     const encoder = new TextEncoder();
 
     const stream = new ReadableStream({
       async start(controller) {
+        const decoder = new TextDecoder();
         let fullText = "";
+        let inputTokens = 0;
+        let outputTokens = 0;
+        let sseBuffer = ""; // Buffer for incomplete SSE lines
 
         try {
-          for await (const chunk of streamText(
-            aiConfig,
-            [
-              { role: "system", content: systemPrompt },
-              { role: "user", content: userPrompt },
-            ],
-            4096
-          )) {
-            fullText += chunk;
-            controller.enqueue(
-              encoder.encode(`data: {"type":"progress","len":${fullText.length}}\n\n`)
-            );
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            sseBuffer += decoder.decode(value, { stream: true });
+            const lines = sseBuffer.split("\n");
+            // Keep the last (potentially incomplete) line in the buffer
+            sseBuffer = lines.pop() || "";
+
+            for (const line of lines) {
+              if (!line.startsWith("data: ")) continue;
+              const payload = line.slice(6).trim();
+              if (payload === "[DONE]") continue;
+
+              try {
+                const evt = JSON.parse(payload);
+
+                if (evt.type === "message_start" && evt.message?.usage) {
+                  inputTokens = evt.message.usage.input_tokens || 0;
+                }
+
+                if (evt.type === "content_block_delta" && evt.delta?.text) {
+                  fullText += evt.delta.text;
+                  // Send a progress ping to keep connection alive
+                  controller.enqueue(
+                    encoder.encode(`data: {"type":"progress","len":${fullText.length}}\n\n`)
+                  );
+                }
+
+                if (evt.type === "message_delta" && evt.usage) {
+                  outputTokens = evt.usage.output_tokens || 0;
+                }
+              } catch {
+                // not valid JSON line, skip
+              }
+            }
           }
 
           // Parse the accumulated text as JSON
@@ -249,9 +320,9 @@ export async function POST(req: NextRequest) {
               sql: `INSERT INTO ai_usage_log (action, model, input_tokens, output_tokens, duration_ms, metadata) VALUES (?, ?, ?, ?, ?, ?)`,
               args: [
                 `ai_assist_${contentType}`,
-                `${aiConfig.provider}/${aiConfig.model}`,
-                0,
-                0,
+                "claude-sonnet-4-6",
+                inputTokens,
+                outputTokens,
                 Date.now() - startTime,
                 JSON.stringify({ contentType, prompt: prompt.slice(0, 200) }),
               ],

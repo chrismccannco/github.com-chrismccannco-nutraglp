@@ -271,7 +271,7 @@ export default function EditPage() {
       <div className="mb-4">
         <AiAssistPanel
           contentType="page"
-          placeholder="e.g. Create a landing page for our new GLP-1 supplement bundle, or Write an FAQ page about dosage and timing"
+          placeholder="e.g. Create a landing page for our new product launch, or Write an FAQ page about onboarding"
           buttonLabel="Generate"
           onResult={(data: AiAssistResult) => {
             if (data.title) setTitle(data.title as string);

@@ -30,10 +30,20 @@ interface Stats {
 export default function AdminDashboard() {
   const [stats, setStats] = useState<Stats | null>(null);
   const [showGuide, setShowGuide] = useState(true);
+  const [hasApiKey, setHasApiKey] = useState<boolean | null>(null);
 
   useEffect(() => {
     const dismissed = localStorage.getItem("cs_guide_dismissed");
     if (dismissed) setShowGuide(false);
+  }, []);
+
+  useEffect(() => {
+    fetch("/api/settings")
+      .then((r) => r.json())
+      .then((d) => {
+        setHasApiKey(!!(d.anthropic_api_key || d.openai_api_key));
+      })
+      .catch(() => setHasApiKey(null));
   }, []);
 
   const dismissGuide = () => {
@@ -97,8 +107,8 @@ export default function AdminDashboard() {
       count: stats?.products ?? "\u2014",
       href: "/admin/products",
       icon: Package,
-      accent: "text-teal-600",
-      bg: "bg-teal-50",
+      accent: "text-purple-600",
+      bg: "bg-purple-50",
     },
     {
       label: "Testimonials",
@@ -127,23 +137,37 @@ export default function AdminDashboard() {
         </p>
       </div>
 
+      {hasApiKey === false && (
+        <Link
+          href="/admin/settings"
+          className="flex items-center gap-3 bg-amber-50 border border-amber-200 rounded-xl px-5 py-3.5 mb-6 no-underline hover:bg-amber-100 transition group"
+        >
+          <Settings className="w-4 h-4 text-amber-600 flex-shrink-0" />
+          <div className="flex-1">
+            <p className="text-sm font-medium text-amber-900">Connect your AI key to start generating</p>
+            <p className="text-xs text-amber-700 mt-0.5">Add your Anthropic or OpenAI key in Settings → AI Integration. Takes 30 seconds.</p>
+          </div>
+          <ArrowRight className="w-4 h-4 text-amber-500 group-hover:translate-x-0.5 transition-transform" />
+        </Link>
+      )}
+
       {showGuide && (
-        <div className="relative bg-gradient-to-br from-teal-50 to-teal-50 border border-teal-200 rounded-xl p-6 mb-8">
+        <div className="relative bg-gradient-to-br from-teal-50 to-violet-50 border border-teal-200 rounded-xl p-6 mb-8">
           <button
             onClick={dismissGuide}
             className="absolute top-3 right-3 p-1 text-neutral-400 hover:text-neutral-600 transition"
           >
             <X className="w-4 h-4" />
           </button>
-          <h2 className="text-sm font-semibold text-neutral-900 mb-1">Welcome to ContentFoundry</h2>
+          <h2 className="text-sm font-semibold text-neutral-900 mb-1">Welcome to ContentFoundry™</h2>
           <p className="text-xs text-neutral-500 mb-4">Try these to see what the platform can do.</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
             <Link
               href="/admin/blog/new"
               className="flex items-start gap-3 bg-white/80 rounded-lg p-4 no-underline hover:bg-white transition group"
             >
-              <div className="w-8 h-8 rounded-lg bg-teal-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <Wand2 className="w-4 h-4 text-teal-600" />
+              <div className="w-8 h-8 rounded-lg bg-violet-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <Wand2 className="w-4 h-4 text-violet-600" />
               </div>
               <div>
                 <p className="text-sm font-medium text-neutral-900 group-hover:text-teal-700 transition">Write a blog post with AI</p>

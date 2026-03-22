@@ -286,7 +286,7 @@ export default function FormEditorPage() {
       <div className="mb-6">
         <AiAssistPanel
           contentType="form"
-          placeholder="e.g. Contact form with name, email, and message, or Lead capture form for free supplement guide download"
+          placeholder="e.g. Contact form with name, email, and message, or Lead capture form for a free resource download"
           buttonLabel="Generate Fields"
           showSelectors={false}
           onResult={(data: AiAssistResult) => {

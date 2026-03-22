@@ -97,7 +97,7 @@ export default function NewBlogPost() {
       <div className="mb-6">
         <AiAssistPanel
           contentType="blog"
-          placeholder="e.g. How GLP-1 affects gut health and digestion, or The science behind appetite regulation with natural compounds"
+          placeholder="e.g. Why we built our product, or A guide to getting started with your first campaign"
           buttonLabel="Draft with AI"
           onResult={handleAiResult}
         />

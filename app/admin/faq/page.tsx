@@ -121,7 +121,7 @@ export default function FAQAdmin() {
             <input
               value={newCat}
               onChange={(e) => setNewCat(e.target.value)}
-              placeholder="e.g. GLP-1 Basics"
+              placeholder="e.g. Getting Started"
               className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
