@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'BigShoulders';
+  src: url('/fonts/BigShoulders-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   /* Navy family */
   --color-forest-deep: #0D1B2A;

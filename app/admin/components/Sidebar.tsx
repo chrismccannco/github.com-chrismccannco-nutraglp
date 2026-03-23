@@ -168,8 +168,8 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
       <div className="px-5 py-5 border-b border-neutral-100">
         <Link href="/admin" className="no-underline" onClick={onClose}>
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: branding.accentColor }}>
-              <span className="text-white text-xs font-bold">{branding.logoLetter}</span>
+            <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: branding.accentColor }}>
+              <span className="text-white tracking-tight leading-none select-none" style={{ fontFamily: "'BigShoulders', sans-serif", fontWeight: 700, fontSize: branding.logoLetter.length === 1 ? '20px' : '11px' }}>{branding.logoLetter}</span>
             </div>
             <div>
               <p className="text-sm font-semibold text-neutral-900 leading-tight">

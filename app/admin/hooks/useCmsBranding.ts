@@ -10,8 +10,8 @@ export interface CmsBranding {
 
 const DEFAULTS: CmsBranding = {
   name: "ContentFoundry",
-  logoLetter: "CF",
-  accentColor: "#0d9488",
+  logoLetter: "F",
+  accentColor: "#0D1117",
 };
 
 let cachedBranding: CmsBranding | null = null;
