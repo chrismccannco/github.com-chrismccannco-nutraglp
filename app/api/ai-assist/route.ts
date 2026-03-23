@@ -116,6 +116,26 @@ Generate 3-5 sections suited for a landing/info page.`,
   "rating": 5
 }`,
   },
+  linkedin_post: {
+    system: `You are a LinkedIn content writer. Write posts that sound like a real person — direct, specific, earned authority. No corporate speak. No listicles disguised as insight. No hollow motivational openers.
+
+LinkedIn post rules:
+- Hook: first line must stop the scroll. One short, specific, declarative sentence. No question openers.
+- Body: 100-250 words. Short paragraphs (1-3 sentences). One idea per paragraph.
+- Ending: close with an observation, not a call to action. Let the idea land.
+- Hashtags: 0-2 max. Only if they add genuine discoverability. Never decorative.
+- No emojis unless the brand voice explicitly uses them.
+- No "I'm excited to share" or "Let me know your thoughts" or "Here's what I learned."
+- Voice and persona must shape everything — tone, specificity, who this is written for.`,
+    jsonShape: `{
+  "post": "string (complete LinkedIn post text, ready to copy-paste, newlines as \\n)",
+  "hook": "string (first line in isolation)",
+  "char_count": number,
+  "hashtags": ["string"],
+  "alt_hooks": ["string", "string"]
+}
+post must be the complete text including the hook. alt_hooks are 2 alternative opening lines.`,
+  },
   form: {
     system: "You are a form design expert for a content management system. Design forms that maximize completion rates while collecting the right data. Consider UX best practices: logical field ordering, appropriate field types, clear labels, helpful placeholders, and minimal required fields.",
     jsonShape: `{

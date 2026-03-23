@@ -5,7 +5,7 @@ import Breadcrumbs from "../components/Breadcrumbs";
 import DataTable, { Column } from "../components/DataTable";
 import StatusBadge from "../components/StatusBadge";
 import FormSection from "../components/FormSection";
-import { X, Plus, Star } from "lucide-react";
+import { X, Plus, Star, Copy, Check } from "lucide-react";
 import AiAssistPanel from "../components/AiAssistPanel";
 import type { AiAssistResult } from "../components/AiAssistPanel";
 
@@ -40,6 +40,14 @@ export default function TestimonialsAdmin() {
   const [isNew, setIsNew] = useState(false);
   const [form, setForm] = useState<Partial<Testimonial>>(emptyForm);
   const [saving, setSaving] = useState(false);
+  const [copiedQuote, setCopiedQuote] = useState(false);
+
+  const copyQuote = () => {
+    if (!form.quote) return;
+    navigator.clipboard.writeText(form.quote);
+    setCopiedQuote(true);
+    setTimeout(() => setCopiedQuote(false), 2000);
+  };
 
   const load = () => {
     fetch("/api/testimonials")
@@ -251,9 +259,17 @@ export default function TestimonialsAdmin() {
                   </div>
                 </div>
                 <div className="mb-4">
-                  <label className="block text-xs font-medium text-neutral-500 mb-1">
-                    Quote
-                  </label>
+                  <div className="flex items-center justify-between mb-1">
+                    <label className="block text-xs font-medium text-neutral-500">
+                      Quote
+                    </label>
+                    {form.quote && (
+                      <button onClick={copyQuote} className="flex items-center gap-1 text-xs text-neutral-400 hover:text-neutral-700 transition">
+                        {copiedQuote ? <Check className="w-3 h-3 text-teal-600" /> : <Copy className="w-3 h-3" />}
+                        {copiedQuote ? "Copied" : "Copy"}
+                      </button>
+                    )}
+                  </div>
                   <textarea
                     value={form.quote || ""}
                     onChange={(e) => setForm({ ...form, quote: e.target.value })}

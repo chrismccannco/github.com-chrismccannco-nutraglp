@@ -16,6 +16,7 @@ import {
   RefreshCw,
   Palette,
   X,
+  Linkedin,
 } from "lucide-react";
 
 interface Stats {
@@ -187,15 +188,15 @@ export default function AdminDashboard() {
               </div>
             </Link>
             <Link
-              href="/admin/brand"
+              href="/admin/linkedin"
               className="flex items-start gap-3 bg-white/80 rounded-lg p-4 no-underline hover:bg-white transition group"
             >
-              <div className="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <Palette className="w-4 h-4 text-amber-600" />
+              <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <Linkedin className="w-4 h-4 text-[#0A66C2]" />
               </div>
               <div>
-                <p className="text-sm font-medium text-neutral-900 group-hover:text-teal-700 transition">Set your brand voice</p>
-                <p className="text-[11px] text-neutral-500 mt-0.5">Define tone, audience, and style. AI follows your guidelines.</p>
+                <p className="text-sm font-medium text-neutral-900 group-hover:text-teal-700 transition">Write a LinkedIn post</p>
+                <p className="text-[11px] text-neutral-500 mt-0.5">Brand voice + persona, then open directly in LinkedIn.</p>
               </div>
             </Link>
           </div>
@@ -241,6 +242,13 @@ export default function AdminDashboard() {
             className="px-4 py-2 bg-neutral-100 text-neutral-700 text-sm rounded-lg no-underline hover:bg-neutral-200 transition"
           >
             Edit pages
+          </Link>
+          <Link
+            href="/admin/linkedin"
+            className="flex items-center gap-1.5 px-4 py-2 bg-neutral-100 text-neutral-700 text-sm rounded-lg no-underline hover:bg-neutral-200 transition"
+          >
+            <Linkedin className="w-3.5 h-3.5" />
+            LinkedIn post
           </Link>
           <Link
             href="/admin/settings"
