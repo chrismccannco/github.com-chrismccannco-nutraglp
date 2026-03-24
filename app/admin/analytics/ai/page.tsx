@@ -55,6 +55,14 @@ const ACTION_LABELS: Record<string, string> = {
   template_execute: "AI Template",
   content_repurpose: "Repurpose",
   content_score: "Content Score",
+  ai_assist_blog: "Blog AI Assist",
+  ai_assist_page: "Page AI Assist",
+  ai_assist_product: "Product AI Assist",
+  ai_assist_form: "Form AI Assist",
+  ai_draft: "AI Draft",
+  ai_generate: "AI Generate",
+  ai_write: "AI Write",
+  batch_generate: "Batch Generate",
 };
 
 function formatTokens(n: number): string {

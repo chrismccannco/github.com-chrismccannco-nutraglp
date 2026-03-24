@@ -39,6 +39,7 @@ import {
   CalendarDays,
   Play,
   Mail,
+  Plug,
 } from "lucide-react";
 import { useAuth } from "../layout";
 import { useCmsBranding } from "../hooks/useCmsBranding";
@@ -108,6 +109,7 @@ const navGroups: { label: string; items: NavItem[]; collapsible?: boolean }[] = 
     items: [
       { label: "API Keys", href: "/admin/api-keys", icon: Key, adminOnly: true },
       { label: "API Docs", href: "/admin/api-docs", icon: FileCode2, adminOnly: true },
+      { label: "MCP Server", href: "/admin/mcp", icon: Plug, adminOnly: true },
       { label: "Sites", href: "/admin/sites", icon: Globe, adminOnly: true },
       { label: "Localization", href: "/admin/localization", icon: Languages, adminOnly: true },
       { label: "Documentation", href: "/admin/docs", icon: BookMarked },
