@@ -1,10 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
-import { getAIConfig, generateText } from "@/lib/ai-provider";
 
 export const dynamic = "force-dynamic";
 
-
+async function getAnthropicKey(): Promise<string | null> {
+  try {
+    const db = getDb();
+    const result = await db.execute(
+      "SELECT value FROM site_settings WHERE key = 'anthropic_api_key'"
+    );
+    if (result.rows.length > 0 && result.rows[0].value) {
+      return result.rows[0].value as string;
+    }
+  } catch { /* fall through */ }
+  return process.env.ANTHROPIC_API_KEY || null;
+}
 
 /**
  * POST /api/videos/:id/suggest-clips
@@ -19,10 +29,9 @@ export async function POST(
 ) {
   try {
     const { id } = await params;
-    const aiConfig = await getAIConfig();
-    if (!aiConfig) {
-      return NextResponse.json(
-        { error: "AI provider not configured. Add an API key in Settings → AI Integration." }, { status: 500 });
+    const apiKey = await getAnthropicKey();
+    if (!apiKey) {
+      return NextResponse.json({ error: "Anthropic API key not configured." }, { status: 500 });
     }
 
     const db = getDb();
@@ -40,26 +49,10 @@ export async function POST(
       return NextResponse.json({ error: "No transcript available. Paste the transcript first, then click Save before analyzing." }, { status: 400 });
     }
 
-    // Strip YouTube/Zoom timecodes before sending to LLM.
-    // Handles patterns like:
-    //   "1:23" or "1:23:45"          standalone timestamps
-    //   "1:12 minutes, 34 seconds"   YouTube auto-caption format
-    //   "[00:01:23]"                  bracket-wrapped timestamps
-    transcript = transcript
-      // YouTube auto-caption: "1:123 minutes, 34 secondsword" or "1:12 minutes, 34 seconds word"
-      .replace(/\d+:\d+\s+minutes?,\s*\d+\s+seconds?/gi, " ")
-      // Bracket timestamps: [00:01:23] or [1:23]
-      .replace(/\[\d{1,2}:\d{2}(?::\d{2})?\]/g, " ")
-      // Standalone timestamps at start of line: "1:23 " or "01:23:45 "
-      .replace(/^\d{1,2}:\d{2}(?::\d{2})?\s/gm, "")
-      // Collapse multiple spaces/newlines
-      .replace(/[ \t]{2,}/g, " ")
-      .replace(/\n{3,}/g, "\n\n")
-      .trim();
-
-    // Truncate very long transcripts to stay within token limits (~80k chars ~ 20k tokens)
-    if (transcript.length > 80000) {
-      transcript = transcript.slice(0, 80000) + "\n\n[TRANSCRIPT TRUNCATED]";
+    // Limit transcript to 50k chars (~12k tokens) to stay within Netlify timeout + model limits
+    const TRANSCRIPT_CHAR_LIMIT = 50000;
+    if (transcript.length > TRANSCRIPT_CHAR_LIMIT) {
+      transcript = transcript.slice(0, TRANSCRIPT_CHAR_LIMIT) + "\n\n[TRANSCRIPT TRUNCATED — analyze only the portion above]";
     }
 
     const body = await req.json();
@@ -86,14 +79,31 @@ Return valid JSON array: [{ "title": "short clip title", "start_word_index": 0, 
 
 Use word indices (0-based) to mark where in the transcript each segment starts and ends. Include the exact transcript text in transcript_segment.`;
 
-    const { text: rawText } = await generateText(
-      aiConfig,
-      [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: `Here is the video transcript. Find the ${maxClips} best clips for these platforms: ${platforms.join(", ")}.\n\nTRANSCRIPT:\n${transcript}` },
-      ],
-      4096
-    );
+    const anthropicResp = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-api-key": apiKey,
+        "anthropic-version": "2023-06-01",
+      },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-6",
+        max_tokens: 4096,
+        system: systemPrompt,
+        messages: [{
+          role: "user",
+          content: `Here is the video transcript. Find the ${maxClips} best clips for these platforms: ${platforms.join(", ")}.\n\nTRANSCRIPT:\n${transcript}`,
+        }],
+      }),
+    });
+
+    if (!anthropicResp.ok) {
+      const err = await anthropicResp.text();
+      return NextResponse.json({ error: err }, { status: 500 });
+    }
+
+    const data = await anthropicResp.json();
+    const rawText = data.content?.[0]?.text || "[]";
 
     let suggestions;
     try {
@@ -110,5 +120,4 @@ Use word indices (0-based) to mark where in the transcript each segment starts a
       { status: 500 }
     );
   }
-
 }
