@@ -37,9 +37,10 @@ test.describe("Public pages", () => {
     await expect(page.getByRole("textbox", { name: /password/i })).toBeVisible();
   });
 
-  test("admin route shows login form when unauthenticated", async ({ page }) => {
+  test("admin route redirects to login when unauthenticated", async ({ page }) => {
     await page.goto("/admin");
-    // Admin layout renders login inline at /admin — no URL redirect
+    // Unauthenticated /admin now redirects to /admin/login
+    await expect(page).toHaveURL(/\/admin\/login/, { timeout: 10000 });
     await expect(page.getByRole("textbox", { name: /email/i })).toBeVisible();
   });
 
