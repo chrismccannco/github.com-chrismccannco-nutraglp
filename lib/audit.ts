@@ -17,7 +17,12 @@ export type AuditAction =
   | "setting_changed"
   | "media_uploaded"
   | "media_deleted"
-  | "version_restored";
+  | "version_restored"
+  | "user_created"
+  | "user_updated"
+  | "user_deleted"
+  | "login"
+  | "logout";
 
 export type AuditEntityType =
   | "page"
@@ -28,22 +33,33 @@ export type AuditEntityType =
   | "setting"
   | "brand_voice"
   | "persona"
-  | "webhook";
+  | "webhook"
+  | "user"
+  | "session";
+
+export interface AuditActor {
+  id?: number;
+  email?: string;
+}
 
 /**
  * Write an audit log entry. Fire-and-forget — never throws.
+ * Pass `actor` to record which user performed the action.
  */
 export function writeAudit(
   action: AuditAction,
   entityType: AuditEntityType,
   entityId: string | number | null,
   entityLabel: string | null,
-  metadata?: Record<string, unknown>
+  metadata?: Record<string, unknown>,
+  actor?: AuditActor
 ): void {
   const db = getDb();
   db.execute({
-    sql: "INSERT INTO audit_log (action, entity_type, entity_id, entity_label, metadata) VALUES (?, ?, ?, ?, ?)",
+    sql: "INSERT INTO audit_log (user_id, user_email, action, entity_type, entity_id, entity_label, metadata) VALUES (?, ?, ?, ?, ?, ?, ?)",
     args: [
+      actor?.id ?? null,
+      actor?.email ?? null,
       action,
       entityType,
       entityId !== null ? String(entityId) : null,

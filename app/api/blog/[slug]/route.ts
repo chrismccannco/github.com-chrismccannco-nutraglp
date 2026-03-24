@@ -40,7 +40,7 @@ export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
-  const { error: authError } = await requireRole(req, "editor");
+  const { user: actor, error: authError } = await requireRole(req, "editor");
   if (authError) return authError;
   const { slug } = await params;
   try {
@@ -108,7 +108,7 @@ export async function PUT(
     const isPublishToggle = body.published !== undefined;
     const webhookEvent = isPublishToggle && body.published ? "blog.published" : isPublishToggle && !body.published ? "blog.unpublished" : "blog.updated";
     const auditAction = isPublishToggle && body.published ? "published" : isPublishToggle && !body.published ? "unpublished" : "updated";
-    writeAudit(auditAction, "blog_post", newSlug, r.title as string, { changedFields: Object.keys(fields) });
+    writeAudit(auditAction, "blog_post", newSlug, r.title as string, { changedFields: Object.keys(fields) }, actor ?? undefined);
     dispatchWebhook(webhookEvent, { slug: newSlug, id: r.id, title: r.title }).catch(() => {});
 
     // Auto-score in the background (non-blocking)

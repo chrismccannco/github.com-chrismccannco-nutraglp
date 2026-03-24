@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { requireRole } from "@/lib/admin-auth";
+import { writeAudit } from "@/lib/audit";
 
 /**
  * GET /api/webhooks — list all webhook endpoints
@@ -25,6 +27,8 @@ export async function GET() {
  * Body: { url, events: string[], secret? }
  */
 export async function POST(req: NextRequest) {
+  const { user: actor, error: authError } = await requireRole(req, "admin");
+  if (authError) return authError;
   try {
     const body = await req.json();
     const { url, events, secret } = body;
@@ -48,6 +52,7 @@ export async function POST(req: NextRequest) {
       args: [Number(result.lastInsertRowid)],
     });
     const row = created.rows[0];
+    writeAudit("created", "webhook", Number(result.lastInsertRowid), url, { events }, actor ?? undefined);
     return NextResponse.json({
       ...row,
       events: JSON.parse((row.events as string) || "[]"),

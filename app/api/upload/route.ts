@@ -2,6 +2,7 @@ import { getDb } from "@/lib/db";
 import { getImageDimensions } from "@/lib/image";
 import { dispatchWebhook } from "@/lib/webhooks";
 import { requireRole } from "@/lib/admin-auth";
+import { writeAudit } from "@/lib/audit";
 import { NextRequest, NextResponse } from "next/server";
 
 const ALLOWED_TYPES = [
@@ -14,7 +15,7 @@ const ALLOWED_TYPES = [
 const MAX_SIZE = 4 * 1024 * 1024; // 4MB
 
 export async function POST(request: NextRequest) {
-  const { error: authError } = await requireRole(request, "editor");
+  const { user: actor, error: authError } = await requireRole(request, "editor");
   if (authError) return authError;
   try {
     const formData = await request.formData();
@@ -55,7 +56,8 @@ export async function POST(request: NextRequest) {
 
     const id = Number(result.lastInsertRowid);
 
-    // Dispatch webhook (non-blocking)
+    // Audit + webhook (non-blocking)
+    writeAudit("media_uploaded", "media", id, file.name, { size: file.size, mimeType: file.type, width, height }, actor ?? undefined);
     dispatchWebhook("media.uploaded", { id, filename: file.name, size: file.size, width, height, mimeType: file.type }).catch(() => {});
 
     return NextResponse.json({

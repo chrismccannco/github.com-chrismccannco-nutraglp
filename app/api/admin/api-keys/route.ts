@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { validateSession } from "@/lib/auth";
 import { createApiKey, listApiKeys, revokeApiKey, deleteApiKey } from "@/lib/api-keys";
 import type { ApiPermission } from "@/lib/api-keys";
+import { writeAudit } from "@/lib/audit";
 
 async function getUser(req: NextRequest) {
   const token = req.cookies.get("admin_token")?.value;
@@ -44,6 +45,7 @@ export async function POST(req: NextRequest) {
 
   const result = await createApiKey(name, perms, rate_limit || 1000, user.id);
 
+  writeAudit("api_key_created", "api_key", result.key.id, name, { permissions: perms }, { id: user.id, email: user.email });
   return NextResponse.json({
     key: result.key,
     rawKey: result.rawKey,
@@ -74,5 +76,6 @@ export async function DELETE(req: NextRequest) {
     await revokeApiKey(id);
   }
 
+  writeAudit("api_key_revoked", "api_key", id, null, { action: action || "revoke" }, { id: user.id, email: user.email });
   return NextResponse.json({ ok: true });
 }

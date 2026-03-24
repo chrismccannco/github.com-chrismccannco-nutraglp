@@ -35,7 +35,7 @@ export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
-  const { error: authError } = await requireRole(req, "editor");
+  const { user: actor, error: authError } = await requireRole(req, "editor");
   if (authError) return authError;
   const { slug } = await params;
   try {
@@ -86,7 +86,7 @@ export async function PUT(
     const r = result.rows[0];
 
     // Audit + webhook (non-blocking)
-    writeAudit("updated", "product", newSlug, r.name as string, { changedFields: Object.keys(fields) });
+    writeAudit("updated", "product", newSlug, r.name as string, { changedFields: Object.keys(fields) }, actor ?? undefined);
     dispatchWebhook("product.updated", { slug: newSlug, id: r.id, name: r.name }).catch(() => {});
 
     return NextResponse.json({

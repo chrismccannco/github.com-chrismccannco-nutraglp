@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { requireRole } from "@/lib/admin-auth";
+import { writeAudit } from "@/lib/audit";
 
 function generateSlug(name: string): string {
   return name
@@ -21,6 +23,8 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  const { user: actor, error: authError } = await requireRole(req, "admin");
+  if (authError) return authError;
   try {
     const body = await req.json();
     const db = getDb();
@@ -55,7 +59,9 @@ export async function POST(req: NextRequest) {
       sql: "SELECT * FROM brand_voices WHERE id = ?",
       args: [Number(insertResult.lastInsertRowid)],
     });
-    return NextResponse.json(result.rows[0], { status: 201 });
+    const row = result.rows[0];
+    writeAudit("created", "brand_voice", Number(insertResult.lastInsertRowid), body.name, {}, actor ?? undefined);
+    return NextResponse.json(row, { status: 201 });
   } catch (e: unknown) {
     return NextResponse.json({ error: String(e) }, { status: 500 });
   }

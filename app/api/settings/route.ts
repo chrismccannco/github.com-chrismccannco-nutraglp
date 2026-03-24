@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
 import { requireRole } from "@/lib/admin-auth";
 import { encryptApiKey, decryptApiKey } from "@/lib/auth";
+import { writeAudit } from "@/lib/audit";
 
 // Keys whose values are encrypted at rest (AES-GCM via ENCRYPTION_KEY env var)
 const SENSITIVE_KEYS = new Set([
@@ -38,7 +39,7 @@ export async function GET(req: NextRequest) {
 }
 
 export async function PUT(req: NextRequest) {
-  const { error } = await requireRole(req, "admin");
+  const { user: actor, error } = await requireRole(req, "admin");
   if (error) return error;
   try {
     const body = await req.json();
@@ -55,6 +56,10 @@ export async function PUT(req: NextRequest) {
         args: [key, stored],
       });
     }
+
+    // Audit the settings change (redact sensitive keys from metadata)
+    const changedKeys = Object.keys(body);
+    writeAudit("setting_changed", "setting", null, null, { changedKeys }, actor ?? undefined);
 
     const result = await db.execute("SELECT * FROM site_settings");
     const settings: Record<string, string> = {};

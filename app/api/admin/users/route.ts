@@ -8,6 +8,7 @@ import {
   canManageUsers,
 } from "@/lib/auth";
 import type { UserRole } from "@/lib/auth";
+import { writeAudit } from "@/lib/audit";
 
 async function requireAdmin(req: NextRequest) {
   const token = req.cookies.get("admin_token")?.value;
@@ -52,6 +53,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid role" }, { status: 400 });
     }
     const id = await createUser(email, name, password, role as UserRole);
+    writeAudit("user_created", "user", id, email, { role }, { id: admin.id, email: admin.email });
     return NextResponse.json({ id, email, name, role });
   } catch (e: unknown) {
     const msg = String(e);
@@ -81,6 +83,7 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json({ error: "Invalid role" }, { status: 400 });
     }
     await updateUser(Number(id), { name, role, password });
+    writeAudit("user_updated", "user", id, null, { changedFields: Object.keys({ name, role, password }).filter(k => body[k] !== undefined) }, { id: admin.id, email: admin.email });
     return NextResponse.json({ updated: true });
   } catch (e: unknown) {
     return NextResponse.json({ error: String(e) }, { status: 500 });
@@ -105,6 +108,7 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json({ error: "Cannot delete your own account" }, { status: 400 });
     }
     await deleteUser(Number(id));
+    writeAudit("user_deleted", "user", id, null, {}, { id: admin.id, email: admin.email });
     return NextResponse.json({ deleted: true });
   } catch (e: unknown) {
     return NextResponse.json({ error: String(e) }, { status: 500 });

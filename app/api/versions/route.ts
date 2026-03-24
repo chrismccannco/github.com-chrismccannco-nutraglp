@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
 import { createVersion, type ContentType } from "@/lib/versions";
 import { writeAudit } from "@/lib/audit";
+import { requireRole } from "@/lib/admin-auth";
 
 export async function GET(req: NextRequest) {
   const type = req.nextUrl.searchParams.get("type");
@@ -67,6 +68,8 @@ export async function POST(req: NextRequest) {
  * back to the live table, and writes an audit entry.
  */
 export async function PUT(req: NextRequest) {
+  const { user: actor, error: authError } = await requireRole(req, "editor");
+  if (authError) return authError;
   try {
     const { version_id } = await req.json();
     if (!version_id) {
@@ -131,7 +134,7 @@ export async function PUT(req: NextRequest) {
     }
 
     // Audit
-    writeAudit("version_restored", contentType as "page" | "blog_post" | "product", String(contentId), String(live.title ?? live.name ?? contentId), { version_id, restored_at: v.created_at });
+    writeAudit("version_restored", contentType as "page" | "blog_post" | "product", String(contentId), String(live.title ?? live.name ?? contentId), { version_id, restored_at: v.created_at }, actor ?? undefined);
 
     return NextResponse.json({ success: true, restored: true, version_id, content_type: contentType, content_id: contentId });
   } catch (e: unknown) {

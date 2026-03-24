@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { requireRole } from "@/lib/admin-auth";
+import { writeAudit } from "@/lib/audit";
 
 export async function GET(
   _req: NextRequest,
@@ -25,6 +27,8 @@ export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const { user: actor, error: authError } = await requireRole(req, "admin");
+  if (authError) return authError;
   try {
     const { id } = await params;
     const body = await req.json();
@@ -76,16 +80,20 @@ export async function PUT(
       sql: "SELECT * FROM brand_voices WHERE id = ?",
       args: [Number(id)],
     });
-    return NextResponse.json(result.rows[0]);
+    const row = result.rows[0];
+    writeAudit("updated", "brand_voice", Number(id), row.name as string, { changedFields: Object.keys(fields) }, actor ?? undefined);
+    return NextResponse.json(row);
   } catch (e: unknown) {
     return NextResponse.json({ error: String(e) }, { status: 500 });
   }
 }
 
 export async function DELETE(
-  _req: NextRequest,
+  req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const { user: actor, error: authError } = await requireRole(req, "admin");
+  if (authError) return authError;
   try {
     const { id } = await params;
     const db = getDb();
@@ -115,6 +123,7 @@ export async function DELETE(
     if (deleteResult.rowsAffected === 0) {
       return NextResponse.json({ error: "Not found" }, { status: 404 });
     }
+    writeAudit("deleted", "brand_voice", Number(id), null, {}, actor ?? undefined);
     return NextResponse.json({ deleted: true });
   } catch (e: unknown) {
     return NextResponse.json({ error: String(e) }, { status: 500 });
