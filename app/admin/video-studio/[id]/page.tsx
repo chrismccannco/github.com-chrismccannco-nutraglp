@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { useParams } from 'next/navigation';
-import { ArrowLeft, Loader2, Check, Wand2, Copy, Trash2, Plus, Sparkles } from 'lucide-react';
+import { ArrowLeft, Loader2, Check, Wand2, Copy, Trash2, Plus, Sparkles, Scissors, AlertCircle } from 'lucide-react';
 import Link from 'next/link';
 
 interface VideoClip {
@@ -56,6 +56,7 @@ export default function VideoEditorPage() {
   const [suggestions, setSuggestions] = useState<SuggestedClip[]>([]);
   const [generatingCaptions, setGeneratingCaptions] = useState(false);
   const [copied, setCopied] = useState<number | null>(null);
+  const [suggestError, setSuggestError] = useState<string | null>(null);
   const pendingRef = useRef<Record<string, unknown>>({});
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -96,11 +97,25 @@ export default function VideoEditorPage() {
     timerRef.current = setTimeout(doSave, 1500);
   }
 
+  function cleanTimestamps() {
+    if (!video?.transcript) return;
+    const cleaned = video.transcript
+      .replace(/\d+:\d+\s+minutes?,\s*\d+\s+seconds?/gi, ' ')
+      .replace(/\[\d{1,2}:\d{2}(?::\d{2})?\]/g, ' ')
+      .replace(/^\d{1,2}:\d{2}(?::\d{2})?\s/gm, '')
+      .replace(/[ \t]{2,}/g, ' ')
+      .replace(/\n{3,}/g, '\n\n')
+      .trim();
+    update('transcript', cleaned);
+  }
+
   async function suggestClips() {
     if (!video?.transcript) return;
+    setSuggestError(null);
     // Force save transcript before analyzing
     if (Object.keys(pendingRef.current).length > 0) {
       await doSave();
+      await new Promise(r => setTimeout(r, 300));
     }
     setSuggesting(true);
     setSuggestions([]);
@@ -110,14 +125,22 @@ export default function VideoEditorPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ max_clips: 6 }),
       });
+      const contentType = res.headers.get('content-type') || '';
+      if (!contentType.includes('application/json')) {
+        setSuggestError('Request timed out. Try shortening the transcript below 50k characters.');
+        setSuggesting(false);
+        return;
+      }
+      const data = await res.json();
       if (res.ok) {
-        const data = await res.json();
         setSuggestions(data.suggestions || []);
       } else {
-        const err = await res.json();
-        alert(err.error || 'Failed to suggest clips');
+        setSuggestError(data.error || 'Failed to suggest clips');
       }
-    } catch (e) { console.error(e); alert('Failed to suggest clips'); }
+    } catch (e) {
+      console.error(e);
+      setSuggestError('Network error. Check your connection and try again.');
+    }
     setSuggesting(false);
   }
 
@@ -234,7 +257,15 @@ export default function VideoEditorPage() {
                   {((video.transcript?.length || 0) / 1000).toFixed(1)}k / 50k chars
                 </span>
               </div>
-              <p className="text-xs text-neutral-400 mb-1.5">Paste the full transcript. The AI analyzes it to suggest the best clip-worthy moments.</p>
+              <div className="flex items-center gap-2 mb-1.5">
+                <p className="text-xs text-neutral-400 flex-1">Paste the full transcript. The AI analyzes it to suggest the best clip-worthy moments.</p>
+                {video.transcript && (
+                  <button onClick={cleanTimestamps}
+                    className="flex items-center gap-1 px-2 py-1 text-[11px] text-neutral-500 border border-neutral-200 rounded-md hover:bg-neutral-50 hover:text-neutral-700 transition-colors shrink-0">
+                    <Scissors size={10} /> Clean timestamps
+                  </button>
+                )}
+              </div>
               {(video.transcript?.length || 0) > 50000 && (
                 <div className="mb-2 px-3 py-2 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-2">
                   <span className="text-amber-600 text-xs mt-0.5">⚠</span>
@@ -247,6 +278,13 @@ export default function VideoEditorPage() {
                 rows={20} placeholder="Paste your video transcript here..."
                 className={`w-full px-3 py-2.5 border rounded-lg text-sm text-neutral-800 resize-y leading-relaxed font-mono ${(video.transcript?.length || 0) > 50000 ? 'border-amber-300' : 'border-neutral-200'}`} />
             </div>
+
+            {suggestError && (
+              <div className="flex items-start gap-2 px-3 py-2.5 bg-red-50 border border-red-200 rounded-lg">
+                <AlertCircle size={13} className="text-red-500 mt-0.5 shrink-0" />
+                <p className="text-xs text-red-700">{suggestError}</p>
+              </div>
+            )}
 
             <button onClick={suggestClips} disabled={suggesting || !video.transcript}
               className="flex items-center gap-2 px-5 py-2.5 bg-violet-600 text-white text-sm font-medium rounded-lg hover:bg-violet-500 disabled:opacity-50 transition-colors w-full justify-center">
