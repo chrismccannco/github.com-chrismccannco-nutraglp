@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { useParams } from 'next/navigation';
-import { ArrowLeft, Loader2, Check, Wand2, Copy, Trash2, Plus, Sparkles } from 'lucide-react';
+import { ArrowLeft, Loader2, Check, Wand2, Copy, Trash2, Plus, Sparkles, AlertCircle, Scissors } from 'lucide-react';
 import Link from 'next/link';
 
 interface VideoClip {
@@ -56,6 +56,7 @@ export default function VideoEditorPage() {
   const [suggestions, setSuggestions] = useState<SuggestedClip[]>([]);
   const [generatingCaptions, setGeneratingCaptions] = useState(false);
   const [copied, setCopied] = useState<number | null>(null);
+  const [suggestError, setSuggestError] = useState<string | null>(null);
   const pendingRef = useRef<Record<string, unknown>>({});
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -98,26 +99,43 @@ export default function VideoEditorPage() {
 
   async function suggestClips() {
     if (!video?.transcript) return;
-    // Force save transcript before analyzing
+    // Force-save transcript before analyzing so the API reads the latest version
     if (Object.keys(pendingRef.current).length > 0) {
       await doSave();
+      // Short pause to let the DB commit settle
+      await new Promise(r => setTimeout(r, 300));
     }
     setSuggesting(true);
     setSuggestions([]);
+    setSuggestError(null);
     try {
       const res = await fetch(`/api/videos/${id}/suggest-clips`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ max_clips: 6 }),
       });
-      if (res.ok) {
-        const data = await res.json();
-        setSuggestions(data.suggestions || []);
+      // Parse response — handle non-JSON (e.g. Netlify timeout HTML) gracefully
+      let payload: { suggestions?: SuggestedClip[]; error?: string } = {};
+      const contentType = res.headers.get('content-type') || '';
+      if (contentType.includes('application/json')) {
+        payload = await res.json();
       } else {
-        const err = await res.json();
-        alert(err.error || 'Failed to suggest clips');
+        const text = await res.text();
+        payload = { error: res.ok ? 'Unexpected response format' : `Server error (${res.status}) — the analysis may have timed out on a very long transcript. Try a shorter excerpt.` };
+        console.error('suggest-clips non-JSON response:', text.slice(0, 200));
       }
-    } catch (e) { console.error(e); alert('Failed to suggest clips'); }
+      if (res.ok && payload.suggestions) {
+        setSuggestions(payload.suggestions);
+        if (payload.suggestions.length === 0) {
+          setSuggestError('No clips found. Try a longer transcript or different content.');
+        }
+      } else {
+        setSuggestError(payload.error || 'Failed to suggest clips');
+      }
+    } catch (e) {
+      console.error(e);
+      setSuggestError('Request failed — check your network connection and try again.');
+    }
     setSuggesting(false);
   }
 
@@ -157,10 +175,11 @@ export default function VideoEditorPage() {
         const vRes = await fetch(`/api/videos/${id}`);
         if (vRes.ok) setVideo(await vRes.json());
       } else {
-        const err = await res.json();
-        alert(err.error || 'Failed to generate captions');
+        let msg = 'Failed to generate captions';
+        try { const err = await res.json(); msg = err.error || msg; } catch { /* non-JSON */ }
+        setSuggestError(msg);
       }
-    } catch (e) { console.error(e); }
+    } catch (e) { console.error(e); setSuggestError('Request failed — check your connection and try again.'); }
     setGeneratingCaptions(false);
   }
 
@@ -228,12 +247,52 @@ export default function VideoEditorPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-neutral-500 mb-1.5">Transcript</label>
-              <p className="text-xs text-neutral-400 mb-1.5">Paste the full transcript. The AI analyzes it to suggest the best clip-worthy moments.</p>
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="block text-xs font-semibold text-neutral-500">Transcript</label>
+                {video.transcript && (
+                  <button
+                    onClick={() => {
+                      // Strip YouTube/Zoom timecodes from the pasted transcript
+                      const cleaned = (video.transcript || '')
+                        .replace(/\d+:\d+\s+minutes?,\s*\d+\s+seconds?/gi, ' ')
+                        .replace(/\[\d{1,2}:\d{2}(?::\d{2})?\]/g, ' ')
+                        .replace(/^\d{1,2}:\d{2}(?::\d{2})?\s/gm, '')
+                        .replace(/[ \t]{2,}/g, ' ')
+                        .replace(/\n{3,}/g, '\n\n')
+                        .trim();
+                      update('transcript', cleaned);
+                      update('transcript_status', 'complete');
+                    }}
+                    className="flex items-center gap-1 text-[10px] text-neutral-400 hover:text-teal-600 transition-colors"
+                    title="Remove YouTube/Zoom timecodes from transcript"
+                  >
+                    <Scissors size={10} /> Clean timestamps
+                  </button>
+                )}
+              </div>
+              <p className="text-xs text-neutral-400 mb-1.5">
+                Paste the full transcript. If it has YouTube or Zoom timecodes, click <strong>Clean timestamps</strong> first.
+              </p>
               <textarea value={video.transcript || ''} onChange={e => { update('transcript', e.target.value); update('transcript_status', e.target.value ? 'complete' : 'pending'); }}
                 rows={20} placeholder="Paste your video transcript here..."
                 className="w-full px-3 py-2.5 border border-neutral-200 rounded-lg text-sm text-neutral-800 resize-y leading-relaxed font-mono" />
             </div>
+
+            {/* Error banner */}
+            {suggestError && (
+              <div className="flex items-start gap-2.5 bg-red-50 border border-red-200 rounded-lg px-4 py-3">
+                <AlertCircle size={15} className="text-red-500 mt-0.5 flex-shrink-0" />
+                <div className="flex-1">
+                  <p className="text-sm text-red-700">{suggestError}</p>
+                  {suggestError.includes('not configured') && (
+                    <a href="/admin/settings/ai" className="text-xs text-red-600 underline mt-1 inline-block">
+                      Go to Settings → AI Integration →
+                    </a>
+                  )}
+                </div>
+                <button onClick={() => setSuggestError(null)} className="text-red-400 hover:text-red-600 text-xs">✕</button>
+              </div>
+            )}
 
             <button onClick={suggestClips} disabled={suggesting || !video.transcript}
               className="flex items-center gap-2 px-5 py-2.5 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-500 disabled:opacity-50 transition-colors w-full justify-center">

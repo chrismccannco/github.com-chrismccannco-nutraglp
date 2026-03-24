@@ -40,9 +40,26 @@ export async function POST(
       return NextResponse.json({ error: "No transcript available. Paste the transcript first, then click Save before analyzing." }, { status: 400 });
     }
 
-    // Truncate very long transcripts to stay within token limits (~100k chars ~ 25k tokens)
-    if (transcript.length > 100000) {
-      transcript = transcript.slice(0, 100000) + "\n\n[TRANSCRIPT TRUNCATED — full video is longer]";
+    // Strip YouTube/Zoom timecodes before sending to LLM.
+    // Handles patterns like:
+    //   "1:23" or "1:23:45"          standalone timestamps
+    //   "1:12 minutes, 34 seconds"   YouTube auto-caption format
+    //   "[00:01:23]"                  bracket-wrapped timestamps
+    transcript = transcript
+      // YouTube auto-caption: "1:123 minutes, 34 secondsword" or "1:12 minutes, 34 seconds word"
+      .replace(/\d+:\d+\s+minutes?,\s*\d+\s+seconds?/gi, " ")
+      // Bracket timestamps: [00:01:23] or [1:23]
+      .replace(/\[\d{1,2}:\d{2}(?::\d{2})?\]/g, " ")
+      // Standalone timestamps at start of line: "1:23 " or "01:23:45 "
+      .replace(/^\d{1,2}:\d{2}(?::\d{2})?\s/gm, "")
+      // Collapse multiple spaces/newlines
+      .replace(/[ \t]{2,}/g, " ")
+      .replace(/\n{3,}/g, "\n\n")
+      .trim();
+
+    // Truncate very long transcripts to stay within token limits (~80k chars ~ 20k tokens)
+    if (transcript.length > 80000) {
+      transcript = transcript.slice(0, 80000) + "\n\n[TRANSCRIPT TRUNCATED]";
     }
 
     const body = await req.json();
