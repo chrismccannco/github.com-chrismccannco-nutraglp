@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { decryptApiKey } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 30;
@@ -27,7 +28,8 @@ export async function POST(req: NextRequest) {
       sql: "SELECT value FROM site_settings WHERE key = 'removebg_api_key'",
       args: [],
     });
-    const apiKey = keyResult.rows.length > 0 ? (keyResult.rows[0].value as string) : null;
+    const rawKey = keyResult.rows.length > 0 ? (keyResult.rows[0].value as string) : null;
+    const apiKey = rawKey ? await decryptApiKey(rawKey) : null;
 
     if (!apiKey) {
       return NextResponse.json(

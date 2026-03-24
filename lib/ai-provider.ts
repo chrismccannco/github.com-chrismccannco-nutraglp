@@ -15,6 +15,7 @@
  */
 
 import { getDb } from "./db";
+import { decryptApiKey } from "./auth";
 
 // ── Types ────────────────────────────────────────────────────────────────────
 
@@ -83,10 +84,10 @@ export async function getAIConfig(options?: {
       const v = row.value as string;
       if (k === "ai_provider" && v) defaultProvider = v as AIProvider;
       else if (k === "ai_model" && v) defaultModel = v;
-      else if (k === "anthropic_api_key" && v) keys.anthropic = v;
-      else if (k === "openai_api_key" && v) keys.openai = v;
-      else if (k === "gemini_api_key" && v) keys.gemini = v;
-      else if (k === "perplexity_api_key" && v) keys.perplexity = v;
+      else if (k === "anthropic_api_key" && v) keys.anthropic = await decryptApiKey(v);
+      else if (k === "openai_api_key" && v) keys.openai = await decryptApiKey(v);
+      else if (k === "gemini_api_key" && v) keys.gemini = await decryptApiKey(v);
+      else if (k === "perplexity_api_key" && v) keys.perplexity = await decryptApiKey(v);
     }
   } catch {
     // DB unavailable — fall through to env vars
