@@ -1,6 +1,7 @@
 export async function register() {
-  // Only run in the Node.js runtime (not Edge), and only on the server
   if (process.env.NEXT_RUNTIME === "nodejs") {
+    await import("./sentry.server.config");
+
     const { initDb } = await import("./lib/db");
     try {
       await initDb();
@@ -9,4 +10,11 @@ export async function register() {
       console.error("[instrumentation] DB init failed:", err);
     }
   }
+
+  if (process.env.NEXT_RUNTIME === "edge") {
+    await import("./sentry.edge.config");
+  }
 }
+
+// Automatically captures unhandled server-side errors in Next.js App Router
+export { onRequestError } from "@sentry/nextjs/server";
