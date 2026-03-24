@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { requireRole } from "@/lib/admin-auth";
 
 function countWords(text: string): number {
   return text.trim().split(/\s+/).filter(Boolean).length;
@@ -31,6 +32,8 @@ export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const { error: authError } = await requireRole(req, "editor");
+  if (authError) return authError;
   try {
     const { id } = await params;
     const body = await req.json();
@@ -82,9 +85,11 @@ export async function PUT(
 
 // DELETE /api/knowledge/:id
 export async function DELETE(
-  _req: NextRequest,
+  req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const { error: authError } = await requireRole(req, "editor");
+  if (authError) return authError;
   try {
     const { id } = await params;
     const db = getDb();

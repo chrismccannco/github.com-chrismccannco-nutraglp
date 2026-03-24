@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { requireRole } from "@/lib/admin-auth";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -23,6 +24,8 @@ async function getAnthropicKey(): Promise<string | null> {
  * Returns a full blog post draft with title, slug, description, tag, meta, and sections.
  */
 export async function POST(req: NextRequest) {
+  const { error: authError } = await requireRole(req, "editor");
+  if (authError) return authError;
   try {
     const apiKey = await getAnthropicKey();
     if (!apiKey) {

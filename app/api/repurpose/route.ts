@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { requireRole } from "@/lib/admin-auth";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -228,6 +229,8 @@ async function getPersonaPrompt(personaId?: number): Promise<string> {
  * Returns: { results: { format: string, label: string, output: string }[] }
  */
 export async function POST(req: NextRequest) {
+  const { error: authError } = await requireRole(req, "editor");
+  if (authError) return authError;
   try {
     const apiKey = await getAnthropicKey();
     if (!apiKey) {

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDb } from '@/lib/db';
 import { getAIConfig, streamText } from '@/lib/ai-provider';
+import { requireRole } from '@/lib/admin-auth';
 
 export const dynamic = 'force-dynamic';
 
@@ -187,6 +188,8 @@ function buildUserPrompt(req: WriteRequest): string {
 }
 
 export async function POST(req: NextRequest) {
+  const { error: authError } = await requireRole(req, "editor");
+  if (authError) return authError;
   try {
     const aiConfig = await getAIConfig();
     if (!aiConfig) {

@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { initDb } from "@/lib/db";
+import { requireRole } from "@/lib/admin-auth";
 
 export async function GET() {
   try {
@@ -15,6 +16,8 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
+  const { error: authError } = await requireRole(req, "editor");
+  if (authError) return authError;
   try {
     const { title, prompt, category = "general", created_by } = await req.json();
     if (!title?.trim() || !prompt?.trim()) {

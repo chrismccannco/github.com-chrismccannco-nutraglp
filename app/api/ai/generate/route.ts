@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { getAIConfig, generateText } from "@/lib/ai-provider";
+import { requireRole } from "@/lib/admin-auth";
 /**
  * AI Content Generation API
  * Proxies requests to Anthropic Claude API for content generation.
@@ -135,6 +136,8 @@ Return ONLY the shortened content in the same format. No explanation.`;
 }
 
 export async function POST(req: NextRequest) {
+  const { error: authError } = await requireRole(req, "editor");
+  if (authError) return authError;
   try {
     const body: GenerateRequest & { providerOverride?: string; modelOverride?: string } = await req.json();
     const aiConfig = await getAIConfig({

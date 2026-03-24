@@ -33,6 +33,7 @@ const schema = {
     "Webhook dispatch",
     "Role-based access control",
     "Content versioning and audit log",
+    "Shareable preview links with token-gated access",
     "BYOK integrations",
     "TypeScript SDK",
   ],
@@ -116,7 +117,8 @@ const features = [
   { name: "Webhooks", desc: "Dispatch on publish, update, delete — connect anything" },
   { name: "Role-based Access", desc: "Admin, editor, viewer — enforced at the API level" },
   { name: "Content Versioning", desc: "Snapshot on every save, restore any version" },
-  { name: "Audit Log", desc: "Append-only log of every action, filterable by entity" },
+  { name: "Audit Log", desc: "Append-only log of every action with user attribution, filterable by entity" },
+  { name: "Preview Links", desc: "Share tokenized preview links with stakeholders — no login required, 72h expiry, revocable" },
   { name: "Media + Remove.bg", desc: "Asset management with background removal on upload" },
   { name: "BYOK Integrations", desc: "Unsplash, SendGrid, Cloudinary, ElevenLabs — your keys" },
 ];

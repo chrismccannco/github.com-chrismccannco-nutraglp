@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { initDb } from "@/lib/db";
+import { requireRole } from "@/lib/admin-auth";
 
 export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { error: authError } = await requireRole(req, "editor");
+  if (authError) return authError;
   try {
     const { id: rawId } = await params;
     const id = parseInt(rawId, 10);
@@ -24,7 +27,9 @@ export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id
   }
 }
 
-export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { error: authError } = await requireRole(req, "editor");
+  if (authError) return authError;
   try {
     const { id: rawId } = await params;
     const id = parseInt(rawId, 10);

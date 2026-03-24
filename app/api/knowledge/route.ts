@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { requireRole } from "@/lib/admin-auth";
 
 function generateSlug(title: string): string {
   const base = title
@@ -55,6 +56,8 @@ export async function GET(req: NextRequest) {
 
 // POST /api/knowledge — create a doc
 export async function POST(req: NextRequest) {
+  const { error: authError } = await requireRole(req, "editor");
+  if (authError) return authError;
   try {
     const body = await req.json();
     const db = getDb();
