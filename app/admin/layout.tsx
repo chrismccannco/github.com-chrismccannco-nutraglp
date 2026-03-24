@@ -30,11 +30,16 @@ export default function AdminLayout({
   const branding = useCmsBranding();
   const router = useRouter();
   const pathname = usePathname();
+  const isLoginPage = pathname === "/admin/login";
+
+  const [authed, setAuthed] = useState(false);
+  const [user, setUser] = useState<CurrentUser | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Override browser tab title and favicon for admin
   useEffect(() => {
     document.title = `${branding.name} — Admin`;
-    // Swap to ContentFoundry favicon in admin
     const existing = document.querySelector<HTMLLinkElement>("link[rel~='icon']");
     if (existing) {
       existing.href = "/cf-favicon.svg";
@@ -48,11 +53,6 @@ export default function AdminLayout({
     }
   }, [branding.name]);
 
-  const [authed, setAuthed] = useState(false);
-  const [user, setUser] = useState<CurrentUser | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
   // Check existing session on mount
   useEffect(() => {
     fetch("/api/admin/me")
@@ -65,7 +65,6 @@ export default function AdminLayout({
         setLoading(false);
       })
       .catch(() => {
-        // Fallback: check legacy sessionStorage
         const legacy = sessionStorage.getItem("cms_auth");
         if (legacy === "1") {
           setAuthed(true);
@@ -74,6 +73,15 @@ export default function AdminLayout({
         setLoading(false);
       });
   }, []);
+
+  // Redirect unauthenticated users — must be declared with all other hooks,
+  // before any conditional returns, to satisfy React's rules of hooks.
+  useEffect(() => {
+    if (!loading && !authed && !isLoginPage) {
+      const next = encodeURIComponent(pathname ?? "/admin");
+      router.replace(`/admin/login?next=${next}`);
+    }
+  }, [loading, authed, isLoginPage, pathname, router]);
 
   const handleLogout = async () => {
     try {
@@ -86,9 +94,9 @@ export default function AdminLayout({
     setUser(null);
   };
 
-  // /admin/login is inside this layout segment — render it without auth wrapper
-  // to avoid an infinite redirect loop
-  if (pathname === "/admin/login") {
+  // Login page lives inside this layout segment — render without auth wrapper
+  // to avoid an infinite redirect loop. All hooks above still run.
+  if (isLoginPage) {
     return <>{children}</>;
   }
 
@@ -100,15 +108,7 @@ export default function AdminLayout({
     );
   }
 
-  // Redirect unauthenticated users to login, preserving destination
-  useEffect(() => {
-    if (!loading && !authed && pathname !== "/admin/login") {
-      const next = encodeURIComponent(pathname ?? "/admin");
-      router.replace(`/admin/login?next=${next}`);
-    }
-  }, [loading, authed, pathname, router]);
-
-  if (!loading && !authed) {
+  if (!authed) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-neutral-50">
         <p className="text-sm text-neutral-400">Redirecting&hellip;</p>
@@ -122,7 +122,6 @@ export default function AdminLayout({
         <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
         <div className="flex-1 flex flex-col min-w-0">
-          {/* Header */}
           <header className="sticky top-0 z-40 bg-white border-b border-neutral-200 px-4 py-3 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <button
