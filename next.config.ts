@@ -16,7 +16,9 @@ export default withSentryConfig(nextConfig, {
 
   // Smaller client bundles, no source maps exposed to browser
   widenClientFileUpload: true,
-  hideSourceMaps: true,
-  disableLogger: true,
-  automaticVercelMonitors: false,
+  sourcemaps: { disable: true },
+  webpack: {
+    treeshake: { removeDebugLogging: true },
+    automaticVercelMonitors: false,
+  },
 });
