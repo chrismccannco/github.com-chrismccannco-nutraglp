@@ -35,11 +35,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Check for session cookie
+  // Validate token format before passing through — rejects obviously fake cookies.
+  // Full DB validation happens in the admin layout server component.
   const token = request.cookies.get("admin_token")?.value;
 
-  if (token) {
-    // Cookie exists — allow through (session validated server-side by API routes)
+  if (token && /^[0-9a-f]{64}$/.test(token)) {
     return NextResponse.next();
   }
 
