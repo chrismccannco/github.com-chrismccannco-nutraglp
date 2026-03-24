@@ -4,12 +4,12 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "ContentFoundry — The Content Supply Chain for Founder-Led Brands",
   description:
-    "A headless CMS with a knowledge base that feeds your AI writer. Everything you know, connected to everything you publish. API-first. No lock-in.",
+    "A headless CMS with a knowledge base that feeds your AI writer — and an MCP server that brings your content into Claude, Cursor, and ChatGPT. Everything you know, connected to everything you publish.",
   alternates: { canonical: "https://getcontentfoundry.com" },
   openGraph: {
     title: "ContentFoundry — The Content Supply Chain for Founder-Led Brands",
     description:
-      "Headless CMS + knowledge base + AI writer. Built for operators who know content is a moat.",
+      "Headless CMS + knowledge base + AI writer + MCP server. Built for operators who know content is a moat.",
     url: "https://getcontentfoundry.com",
     siteName: "ContentFoundry",
     type: "website",
@@ -30,6 +30,7 @@ const schema = {
     "Knowledge base that feeds AI generation",
     "AI writer with brand voice",
     "Blog, pages, products, FAQs, testimonials",
+    "MCP server — connect Claude, Cursor, ChatGPT directly to your CMS",
     "Webhook dispatch",
     "Role-based access control",
     "Content versioning and audit log",
@@ -90,6 +91,10 @@ const contrast = [
     us: "Knowledge base, AI, and CMS in one system",
   },
   {
+    them: "Your CMS is invisible to AI agents",
+    us: "MCP server included — Claude, Cursor, ChatGPT query your content directly",
+  },
+  {
     them: "Contentful/Sanity: powerful, expensive, no AI",
     us: "API-first with AI built into the editorial workflow",
   },
@@ -108,6 +113,7 @@ const contrast = [
 ];
 
 const features = [
+  { name: "MCP Server", desc: "Connect Claude, Cursor, or any MCP-compatible AI client directly to your CMS. Query content, create drafts, pull personas — without leaving the chat." },
   { name: "Blog CMS", desc: "Scheduled publishing, tags, metadata, versioning" },
   { name: "Pages CMS", desc: "Dynamic pages with full content control via API" },
   { name: "Products", desc: "Product catalog with variants, pricing, rich copy" },
@@ -180,7 +186,7 @@ export default function ContentFoundryPage() {
               Get early access
             </button>
           </div>
-          <p className="text-xs text-neutral-600 mt-4">No credit card. No commitment. Early pricing locked at signup.</p>
+          <p className="text-xs text-neutral-600 mt-4">No credit card. No commitment. Beta access, direct line to the roadmap.</p>
         </div>
       </section>
 
@@ -189,6 +195,7 @@ export default function ContentFoundryPage() {
         {[
           { val: "API-first", label: "Headless by default" },
           { val: "AI-native", label: "Knowledge base → content" },
+          { val: "MCP server", label: "Claude · Cursor · ChatGPT" },
           { val: "BYOK", label: "Your keys, your costs" },
           { val: "TypeScript SDK", label: "Drop-in developer tooling" },
         ].map((s) => (
@@ -328,7 +335,7 @@ export default function ContentFoundryPage() {
             Get early access.
           </h2>
           <p className="text-[17px] text-neutral-400 mb-10 leading-relaxed">
-            ContentFoundry is in private beta. Early access spots lock in founding pricing and direct input on the roadmap.
+            ContentFoundry is in private beta. Early access gets you direct input on the roadmap and a say in what gets built next.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <input
