@@ -17,4 +17,4 @@ export async function register() {
 }
 
 // Automatically captures unhandled server-side errors in Next.js App Router
-export { onRequestError } from "@sentry/nextjs/server";
+export { onRequestError } from "@sentry/nextjs";
