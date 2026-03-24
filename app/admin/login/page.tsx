@@ -1,12 +1,13 @@
 "use client";
 
-export const dynamic = "force-dynamic";
-
-import { useState, useEffect, FormEvent } from "react";
+import { Suspense, useState, useEffect, FormEvent } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCmsBranding } from "../hooks/useCmsBranding";
 
-export default function AdminLogin() {
+// Inner component isolates useSearchParams() inside a Suspense boundary,
+// which is required by Next.js 15 to avoid the CSR bailout error during
+// static page generation.
+function LoginForm() {
   const [loginMode, setLoginMode] = useState<"email" | "legacy">("email");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -129,5 +130,13 @@ export default function AdminLogin() {
         </button>
       </form>
     </div>
+  );
+}
+
+export default function AdminLogin() {
+  return (
+    <Suspense>
+      <LoginForm />
+    </Suspense>
   );
 }
