@@ -13,6 +13,7 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const entityType = searchParams.get("entity_type");
     const action = searchParams.get("action");
+    const userEmail = searchParams.get("user_email");
     const limit = Math.min(parseInt(searchParams.get("limit") || "100"), 500);
     const offset = parseInt(searchParams.get("offset") || "0");
 
@@ -22,6 +23,7 @@ export async function GET(req: NextRequest) {
 
     if (entityType) { conditions.push("entity_type = ?"); args.push(entityType); }
     if (action) { conditions.push("action = ?"); args.push(action); }
+    if (userEmail) { conditions.push("user_email LIKE ?"); args.push(`%${userEmail}%`); }
 
     const where = conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
 
@@ -39,6 +41,8 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({
       data: rows.rows.map((r) => ({
         id: Number(r.id),
+        user_id: r.user_id ? Number(r.user_id) : null,
+        user_email: r.user_email ?? null,
         action: r.action,
         entity_type: r.entity_type,
         entity_id: r.entity_id,

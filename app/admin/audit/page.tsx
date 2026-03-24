@@ -6,6 +6,8 @@ import { RefreshCw, Filter } from "lucide-react";
 
 interface AuditEntry {
   id: number;
+  user_id: number | null;
+  user_email: string | null;
   action: string;
   entity_type: string;
   entity_id: string | null;
@@ -27,6 +29,11 @@ const ACTION_COLORS: Record<string, string> = {
   setting_changed: "bg-neutral-100 text-neutral-600",
   media_uploaded: "bg-blue-50 text-blue-700",
   media_deleted: "bg-red-50 text-red-700",
+  user_created: "bg-blue-50 text-blue-700",
+  user_updated: "bg-amber-50 text-amber-700",
+  user_deleted: "bg-red-50 text-red-700",
+  login: "bg-teal-50 text-teal-700",
+  logout: "bg-neutral-100 text-neutral-600",
 };
 
 const ENTITY_TYPE_LABELS: Record<string, string> = {
@@ -39,10 +46,17 @@ const ENTITY_TYPE_LABELS: Record<string, string> = {
   brand_voice: "Brand voice",
   persona: "Persona",
   webhook: "Webhook",
+  user: "User",
+  session: "Session",
 };
 
 const ALL_ENTITY_TYPES = Object.keys(ENTITY_TYPE_LABELS);
-const ALL_ACTIONS = ["created", "updated", "published", "unpublished", "deleted", "restored", "version_restored", "media_uploaded", "media_deleted", "api_key_created", "api_key_revoked"];
+const ALL_ACTIONS = [
+  "created", "updated", "published", "unpublished", "deleted", "restored",
+  "version_restored", "media_uploaded", "media_deleted",
+  "api_key_created", "api_key_revoked", "setting_changed",
+  "user_created", "user_updated", "user_deleted", "login", "logout",
+];
 
 export default function AuditLogPage() {
   const [entries, setEntries] = useState<AuditEntry[]>([]);
@@ -51,6 +65,7 @@ export default function AuditLogPage() {
   const [offset, setOffset] = useState(0);
   const [entityTypeFilter, setEntityTypeFilter] = useState("");
   const [actionFilter, setActionFilter] = useState("");
+  const [userFilter, setUserFilter] = useState("");
   const [showFilters, setShowFilters] = useState(false);
   const limit = 50;
 
@@ -59,6 +74,7 @@ export default function AuditLogPage() {
     const params = new URLSearchParams({ limit: String(limit), offset: String(offset) });
     if (entityTypeFilter) params.set("entity_type", entityTypeFilter);
     if (actionFilter) params.set("action", actionFilter);
+    if (userFilter) params.set("user_email", userFilter);
     const res = await fetch(`/api/audit?${params}`);
     const data = await res.json();
     setEntries(data.data || []);
@@ -69,7 +85,7 @@ export default function AuditLogPage() {
   useEffect(() => { load(); }, [load]);
 
   // Reset offset when filters change
-  useEffect(() => { setOffset(0); }, [entityTypeFilter, actionFilter]);
+  useEffect(() => { setOffset(0); }, [entityTypeFilter, actionFilter, userFilter]);
 
   const formatDate = (s: string) => {
     const d = new Date(s);
@@ -88,7 +104,7 @@ export default function AuditLogPage() {
     return formatDate(s);
   };
 
-  const hasFilters = entityTypeFilter || actionFilter;
+  const hasFilters = entityTypeFilter || actionFilter || userFilter;
 
   return (
     <div className="max-w-4xl">
@@ -153,9 +169,19 @@ export default function AuditLogPage() {
               ))}
             </select>
           </div>
+          <div>
+            <label className="block text-[10px] font-semibold uppercase tracking-widest text-neutral-400 mb-1">User</label>
+            <input
+              type="text"
+              value={userFilter}
+              onChange={(e) => setUserFilter(e.target.value)}
+              placeholder="email address"
+              className="px-3 py-1.5 border border-neutral-200 rounded-lg text-sm text-neutral-700 focus:outline-none focus:ring-2 focus:ring-teal-500 w-48"
+            />
+          </div>
           {hasFilters && (
             <button
-              onClick={() => { setEntityTypeFilter(""); setActionFilter(""); }}
+              onClick={() => { setEntityTypeFilter(""); setActionFilter(""); setUserFilter(""); }}
               className="mt-4 text-xs text-neutral-400 hover:text-neutral-600 transition"
             >
               Clear filters
@@ -200,6 +226,17 @@ export default function AuditLogPage() {
                     </p>
                   )}
                 </div>
+
+                {/* Actor */}
+                {entry.user_email && (
+                  <button
+                    onClick={() => setUserFilter(entry.user_email!)}
+                    className="flex-shrink-0 text-[11px] text-neutral-400 hover:text-teal-600 transition truncate max-w-[120px]"
+                    title={`Filter by ${entry.user_email}`}
+                  >
+                    {entry.user_email.split("@")[0]}
+                  </button>
+                )}
 
                 {/* Time */}
                 <span className="flex-shrink-0 text-[11px] text-neutral-400" title={formatDate(entry.created_at)}>
