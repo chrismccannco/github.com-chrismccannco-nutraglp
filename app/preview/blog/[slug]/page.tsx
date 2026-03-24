@@ -1,7 +1,9 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
+import { cookies } from "next/headers";
 import BlockRenderer from "../../../components/blocks/BlockRenderer";
 import { getBlogPostPreview } from "@/lib/cms";
+import { validatePreviewAccess } from "@/lib/preview";
 
 export const dynamic = "force-dynamic";
 
@@ -10,8 +12,24 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return { title: `Preview: ${slug}`, robots: "noindex, nofollow" };
 }
 
-export default async function BlogPreviewPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function BlogPreviewPage({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ token?: string }>;
+}) {
   const { slug } = await params;
+  const { token } = await searchParams;
+
+  const cookieStore = await cookies();
+  const access = await validatePreviewAccess(token ?? null, "blog_post", slug, cookieStore);
+
+  if (!access.allowed) {
+    const returnPath = `/preview/blog/${slug}${token ? `?token=${token}` : ""}`;
+    redirect(`/admin/login?next=${encodeURIComponent(returnPath)}`);
+  }
+
   const article = await getBlogPostPreview(slug);
   if (!article) notFound();
 
@@ -38,18 +56,23 @@ export default async function BlogPreviewPage({ params }: { params: Promise<{ sl
   return (
     <>
       {/* Preview banner */}
-      <div className="bg-amber-500 text-white text-center text-xs py-2 font-medium sticky top-0 z-50">
-        {isPublished ? "PREVIEW" : "DRAFT — not published"} &mdash;{" "}
-        <a href={`/admin/blog/${slug}`} className="underline ml-1">
-          Back to editor
-        </a>
-        {isPublished && (
-          <>
-            {" · "}
-            <a href={`/blog/${slug}`} className="underline">
-              View live
-            </a>
-          </>
+      <div className="bg-amber-500 text-white text-center text-xs py-2 font-medium sticky top-0 z-50 flex items-center justify-center gap-3">
+        <span>
+          {access.label
+            ? `PREVIEW — ${access.label}`
+            : isPublished
+            ? "PREVIEW"
+            : "DRAFT — not published"}
+        </span>
+        {access.isAdmin && (
+          <a href={`/admin/blog/${slug}`} className="underline opacity-80 hover:opacity-100">
+            Back to editor
+          </a>
+        )}
+        {isPublished && access.isAdmin && (
+          <a href={`/blog/${slug}`} className="underline opacity-80 hover:opacity-100">
+            View live
+          </a>
         )}
       </div>
 

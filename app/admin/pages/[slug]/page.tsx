@@ -13,6 +13,7 @@ import { useAuth } from "../../layout";
 import BlockEditor from "../../components/blocks/BlockEditor";
 import AiAssistPanel from "../../components/AiAssistPanel";
 import type { AiAssistResult } from "../../components/AiAssistPanel";
+import SharePreviewButton from "../../components/SharePreviewButton";
 import type { Block } from "@/lib/types/blocks";
 
 export default function EditPage() {
@@ -191,6 +192,7 @@ export default function EditPage() {
           >
             Preview
           </a>
+          <SharePreviewButton contentType="page" slug={slug} />
           <AutosaveIndicator status={autosaveStatus} />
           <FormActions
             onSaveDraft={handleSaveDraft}
