@@ -134,7 +134,7 @@ export default function SlimShotPage() {
       />
       {/* Hero */}
       <section className="bg-forest-deep px-6 md:px-12 pt-28 pb-24">
-        <div className="max-w-[1100px] mx-auto flex flex-col md:flex-row md:items-center md:gap-16 md:min-h-[480px]">
+        <div className="max-w-[1100px] mx-auto flex flex-col md:flex-row md:items-start md:gap-16">
           {/* Product image — mobile: centered above text, desktop: right side */}
           <div className="flex md:hidden items-center justify-center mb-10">
             <div className="relative">
@@ -179,7 +179,7 @@ export default function SlimShotPage() {
           </div>
 
           {/* Product image — desktop */}
-          <div className="hidden md:flex flex-1 items-center justify-center max-w-[400px]">
+          <div className="hidden md:flex flex-1 items-center justify-center max-w-[400px] pt-[56px]">
             <div className="relative">
               <div className="absolute -inset-10 bg-gold/[0.05] rounded-full blur-3xl" />
               <Image

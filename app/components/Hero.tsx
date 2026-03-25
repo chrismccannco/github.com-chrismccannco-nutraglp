@@ -5,7 +5,7 @@ import WaitlistForm from "./WaitlistForm";
 export default function Hero() {
   return (
     <section id="waitlist" className="bg-forest-deep px-6 md:px-12 pt-28 pb-24">
-      <div className="max-w-[1100px] mx-auto md:flex md:items-center md:gap-16 md:min-h-[480px]">
+      <div className="max-w-[1100px] mx-auto md:flex md:items-start md:gap-16">
         <div className="flex-1 text-center md:text-left">
           <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-6">
             A biotechnology platform for natural incretin modulation.
@@ -37,7 +37,7 @@ export default function Hero() {
         </div>
 
         {/* Product image */}
-        <div className="hidden md:flex flex-1 items-center justify-center max-w-[400px]">
+        <div className="hidden md:flex flex-1 items-center justify-center max-w-[400px] pt-[56px]">
           <div className="relative">
             <div className="absolute -inset-10 bg-gold/[0.05] rounded-full blur-3xl" />
             <Image
