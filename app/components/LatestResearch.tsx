@@ -24,15 +24,13 @@ const posts = [
 
 export default function LatestResearch() {
   return (
-    <section className="py-24 px-6 md:px-12">
+    <section className="bg-forest-deep py-24 px-6 md:px-12 border-t border-white/[0.06]">
       <div className="max-w-[900px] mx-auto">
         <FadeIn>
-          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
             Research &amp; Insights
           </p>
-          <h2
-            className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-10 text-ink font-heading"
-          >
+          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-10 text-white font-heading">
             The evidence behind the formula
           </h2>
         </FadeIn>
@@ -41,14 +39,12 @@ export default function LatestResearch() {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="block p-6 bg-white border border-rule rounded-xl hover:border-forest-mid/40 transition no-underline group"
+              className="block p-6 bg-white/[0.04] border border-white/[0.08] rounded-xl hover:border-teal-light/30 hover:bg-white/[0.06] transition no-underline group"
             >
-              <h3
-                className="text-[17px] font-normal tracking-tight text-ink mb-3 leading-snug group-hover:text-forest transition font-heading"
-              >
+              <h3 className="text-[17px] font-normal tracking-tight text-white mb-3 leading-snug group-hover:text-teal-light transition font-heading">
                 {post.title}
               </h3>
-              <p className="text-sm text-mist leading-relaxed">
+              <p className="text-sm text-white/50 leading-relaxed">
                 {post.excerpt}
               </p>
             </Link>
@@ -57,7 +53,7 @@ export default function LatestResearch() {
         <div className="mt-8">
           <Link
             href="/blog"
-            className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
+            className="text-sm text-teal-light hover:text-white transition no-underline border-b border-teal-light/40 pb-0.5"
           >
             All research articles &rarr;
           </Link>

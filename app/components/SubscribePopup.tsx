@@ -5,8 +5,8 @@ import { useState, useEffect, useCallback, FormEvent } from "react";
 const STORAGE_KEY = "nutraglp_popup_dismissed";
 
 // Defaults (used while config loads or if fetch fails)
-const DEFAULT_DELAY_MS = 12000;
-const DEFAULT_SCROLL_THRESHOLD = 0.55;
+const DEFAULT_DELAY_MS = 45000;
+const DEFAULT_SCROLL_THRESHOLD = 0.70;
 const DEFAULT_HEADING = "Get on the list before we launch.";
 const DEFAULT_SUBHEADING = "Slim SHOT ships soon. Early subscribers get first access and launch pricing.";
 const DEFAULT_CTA = "Join Early Access";
@@ -167,11 +167,11 @@ export default function SubscribePopup() {
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
 
       {/* Modal */}
-      <div className="relative bg-cream rounded-2xl shadow-2xl max-w-[440px] w-full p-8 md:p-10 animate-[fadeUp_0.3s_ease-out]">
+      <div className="relative bg-forest-deep border border-white/[0.10] rounded-2xl shadow-2xl max-w-[440px] w-full p-8 md:p-10 animate-[fadeUp_0.3s_ease-out]">
         {/* Close button */}
         <button
           onClick={dismiss}
-          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-mist hover:text-ink transition rounded-full cursor-pointer"
+          className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-white/40 hover:text-white transition rounded-full cursor-pointer"
           aria-label="Close"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">

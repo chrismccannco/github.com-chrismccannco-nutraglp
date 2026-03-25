@@ -20,18 +20,16 @@ const personas = [
 
 export default function Personas() {
   return (
-    <section className="py-24 px-6 md:px-12">
+    <section className="bg-forest-deep py-24 px-6 md:px-12 border-t border-white/[0.06]">
       <div className="max-w-[1000px] mx-auto">
         <FadeIn>
-          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
             Who This Is For
           </p>
-          <h2
-            className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-ink font-heading"
-          >
+          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-white font-heading">
             Three reasons people find us.
           </h2>
-          <p className="text-[17px] leading-relaxed text-mist max-w-[640px] mb-14">
+          <p className="text-[17px] leading-relaxed text-white/55 max-w-[640px] mb-14">
             Different starting points. Same gap in the market. If one of
             these sounds like your story, Slim SHOT was built for you.
           </p>
@@ -41,17 +39,15 @@ export default function Personas() {
           {personas.map((p) => (
             <div
               key={p.label}
-              className="bg-white border border-rule rounded-xl p-8 md:p-10"
+              className="bg-white/[0.04] border border-white/[0.08] rounded-xl p-8 md:p-10"
             >
-              <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-3">
+              <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-3">
                 {p.label}
               </p>
-              <h3
-                className="text-xl md:text-2xl font-normal tracking-tight text-ink mb-4 leading-snug font-heading"
-              >
+              <h3 className="text-xl md:text-2xl font-normal tracking-tight text-white mb-4 leading-snug font-heading">
                 {p.headline}
               </h3>
-              <p className="text-[15px] text-mist leading-relaxed max-w-[680px]">
+              <p className="text-[15px] text-white/55 leading-relaxed max-w-[680px]">
                 {p.body}
               </p>
             </div>

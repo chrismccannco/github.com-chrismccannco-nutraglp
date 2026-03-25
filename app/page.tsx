@@ -5,7 +5,6 @@ import Mechanism from "./components/Mechanism";
 import Personas from "./components/Personas";
 import Contrast from "./components/Contrast";
 import Science from "./components/Science";
-import ProductLineup from "./components/ProductLineup";
 import LatestResearch from "./components/LatestResearch";
 import CTA from "./components/CTA";
 import Footer from "./components/Footer";
@@ -21,7 +20,6 @@ export default function Home() {
       <Personas />
       <Contrast />
       <Science />
-      <ProductLineup />
       <LatestResearch />
       <CTA />
       <Footer />

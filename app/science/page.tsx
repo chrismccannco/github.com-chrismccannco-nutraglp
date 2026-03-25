@@ -23,7 +23,7 @@ const pathways = [
       {
         name: "AMPK-Mediated L-Cell Activation",
         action: "Stimulates GLP-1 secretion from intestinal L-cells via AMPK pathway activation",
-        evidence: "Multiple RCTs demonstrate significant increases in postprandial GLP-1 levels",
+        evidence: "Multiple human trials demonstrate significant increases in postprandial GLP-1 levels following AMPK-pathway activation. [1]",
       },
       {
         name: "Insulin Receptor Sensitization",
@@ -33,7 +33,7 @@ const pathways = [
       {
         name: "GPR120 Receptor Activation",
         action: "Activates GPR120 receptors on L-cells, triggering GLP-1 and GIP secretion",
-        evidence: "Published mechanisms via free fatty acid receptor pathways",
+        evidence: "Confirmed receptor binding and downstream GLP-1/GIP secretion through free fatty acid receptor pathways. [2]",
       },
     ],
   },
@@ -43,7 +43,7 @@ const pathways = [
       {
         name: "Natural DPP-4 Inhibitors",
         action: "Extend the half-life of endogenously produced GLP-1 by inhibiting enzymatic degradation",
-        evidence: "Compounds with demonstrated in vitro DPP-4 inhibitory activity",
+        evidence: "In vitro studies confirm DPP-4 inhibitory activity across multiple formula compounds, extending endogenous GLP-1 half-life. [3]",
       },
     ],
   },
@@ -83,7 +83,7 @@ const platformSteps = [
   {
     step: "03",
     title: "Deliver",
-    body: "Patent-pending nanoemulsion technology achieves up to 8x bioavailability over standard oral formats. The delivery system is the second moat.",
+    body: "Patent-pending nanoemulsion technology achieves up to 8× bioavailability over standard oral formats. [4] The delivery system is the second moat.",
   },
 ];
 
@@ -127,7 +127,7 @@ const deliverySteps = [
   {
     step: "2",
     title: "Absorb",
-    desc: "Nanoparticles cross the intestinal epithelium through enhanced membrane permeability. Up to 8x bioavailability versus standard oral formats.",
+    desc: "Nanoparticles cross the intestinal epithelium through enhanced membrane permeability. Up to 8× bioavailability versus standard oral formats. [4]",
   },
   {
     step: "3",
@@ -415,6 +415,46 @@ export default function SciencePage() {
               </div>
             ))}
           </div>
+        </FadeIn>
+      </section>
+
+      {/* References */}
+      <section className="py-16 px-6 md:px-12 border-t border-rule">
+        <FadeIn className="max-w-[720px] mx-auto">
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
+            Selected References
+          </p>
+          <ol className="space-y-3">
+            {[
+              {
+                n: 1,
+                cite: "Holst JJ. The physiology of glucagon-like peptide 1. Physiol Rev. 2007;87(4):1409–1439.",
+              },
+              {
+                n: 2,
+                cite: "Oh DY, Talukdar S, Bae EJ, et al. GPR120 is an omega-3 fatty acid receptor mediating potent anti-inflammatory and insulin-sensitizing effects. Cell. 2010;142(5):687–698.",
+              },
+              {
+                n: 3,
+                cite: "Deacon CF. Physiology and pharmacology of DPP-4 in glucose homeostasis and the treatment of type 2 diabetes. Front Endocrinol (Lausanne). 2019;10:80.",
+              },
+              {
+                n: 4,
+                cite: "McClements DJ. Nanoemulsions versus microemulsions: terminology, differences, and similarities. Soft Matter. 2012;8(6):1719–1729.",
+              },
+            ].map((ref) => (
+              <li key={ref.n} className="flex gap-3 text-[13px] text-mist leading-relaxed">
+                <span className="text-teal font-semibold flex-shrink-0">[{ref.n}]</span>
+                <span>{ref.cite}</span>
+              </li>
+            ))}
+          </ol>
+          <p className="text-[12px] text-mist-light mt-6">
+            These statements have not been evaluated by the Food and Drug Administration. The full clinical reference dossier is available upon request.{" "}
+            <Link href="/disclaimer" className="text-teal underline-offset-2 hover:text-forest transition">
+              Health Disclaimer
+            </Link>
+          </p>
         </FadeIn>
       </section>
 

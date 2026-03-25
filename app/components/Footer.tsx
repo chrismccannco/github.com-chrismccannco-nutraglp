@@ -29,6 +29,9 @@ export default function Footer() {
           <Link href="/terms" className="hover:text-white/60 transition no-underline">
             Terms
           </Link>
+          <Link href="/disclaimer" className="hover:text-white/60 transition no-underline">
+            Health Disclaimer
+          </Link>
           <Link href="/investors" className="hover:text-white/60 transition no-underline">
             Investors
           </Link>

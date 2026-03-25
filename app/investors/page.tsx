@@ -694,14 +694,14 @@ html { scroll-behavior: smooth; }
         <div className="inv-inner inv-reveal">
           <p className="inv-eyebrow">Proof of Concept</p>
           <h2>Observational data. <em>503 participants.</em></h2>
-          <p className="inv-lead">A 503-person observational trial of a licensed NutraGLP formulation demonstrated weight loss outcomes after 6 months that exceeded results reported for GLP-1 and dual GLP-1/GIP pharmaceutical agents — with fewer than 5% adverse effects and no widespread discontinuation.</p>
+          <p className="inv-lead">Study design: observational. Not a randomized controlled trial — no placebo control, no blinding. The dataset (n=503) has not been submitted for peer review and requires appropriate scientific qualification before distribution.</p>
+          <p className="inv-lead">Within those constraints: 6-month results from a licensed NutraGLP formulation exceeded published outcomes for GLP-1 and dual GLP-1/GIP pharmaceutical agents, with fewer than 5% adverse effects and no widespread discontinuation.</p>
           <div className="inv-poc-block">
             <div className="inv-poc-layout">
               <div className="inv-poc-text">
-                <h3>Results that exceeded pharmaceutical benchmarks without a prescription.</h3>
+                <h3>Preliminary signal. Results that exceeded pharmaceutical benchmarks.</h3>
                 <p>Fewer than 5% adverse effects. No widespread discontinuation. GRAS-certified compounds throughout.</p>
-                <p>The roadmap includes biomarker-based mechanistic validation and controlled studies to inform permissible claims and clinical positioning.</p>
-                <p className="inv-poc-caveat">The observational study was not a randomized controlled trial. Data requires appropriate scientific qualification before distribution.</p>
+                <p>The roadmap includes biomarker-based mechanistic validation and a controlled clinical trial designed to support permissible claims and clinical positioning.</p>
               </div>
               <div className="inv-poc-nums">
                 <div className="inv-poc-row"><span className="inv-poc-big">503</span><span className="inv-poc-lbl">Participants<br />in observational trial</span></div>
