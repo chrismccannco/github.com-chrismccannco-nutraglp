@@ -5,7 +5,7 @@ import WaitlistForm from "./WaitlistForm";
 export default function Hero() {
   return (
     <section id="waitlist" className="bg-forest-deep px-6 md:px-12 pt-28 pb-24">
-      <div className="max-w-[1100px] mx-auto md:flex md:items-center md:gap-16">
+      <div className="max-w-[1100px] mx-auto md:flex md:items-center md:gap-16 md:min-h-[480px]">
         <div className="flex-1 text-center md:text-left">
           <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-6">
             A biotechnology platform for natural incretin modulation.
