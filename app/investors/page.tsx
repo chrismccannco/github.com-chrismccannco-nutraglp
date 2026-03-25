@@ -102,7 +102,7 @@ html { scroll-behavior: smooth; }
   content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
   background: linear-gradient(90deg, transparent 0%, rgba(21,133,181,0.4) 50%, transparent 100%);
 }
-.inv-hero-inner { max-width: 880px; position: relative; }
+.inv-hero-inner { max-width: 1100px; margin: 0 auto; padding: 0 48px; box-sizing: border-box; position: relative; }
 .inv-hero-eyebrow {
   font-size: 11px; font-weight: 600;
   letter-spacing: 0.14em; text-transform: uppercase;
@@ -564,6 +564,7 @@ html { scroll-behavior: smooth; }
 @media (max-width: 900px) {
   .inv-section { padding: 64px 0; }
   .inv-inner { padding: 0 24px; }
+  .inv-hero-inner { padding: 0 24px; }
   .inv-hero { padding: 96px 0 60px; }
   .inv-hero-stats { grid-template-columns: repeat(2, 1fr); gap: 20px; }
   .inv-h-stat::after { display: none; }
