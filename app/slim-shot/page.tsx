@@ -133,8 +133,8 @@ export default function SlimShotPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       {/* Hero */}
-      <section className="bg-forest-deep px-6 md:px-12 pt-28 pb-20">
-        <div className="max-w-[1000px] mx-auto flex flex-col md:flex-row md:items-center md:gap-16">
+      <section className="bg-forest-deep px-6 md:px-12 pt-28 pb-24">
+        <div className="max-w-[1100px] mx-auto flex flex-col md:flex-row md:items-center md:gap-16">
           {/* Product image — mobile: centered above text, desktop: right side */}
           <div className="flex md:hidden items-center justify-center mb-10">
             <div className="relative">
@@ -151,15 +151,15 @@ export default function SlimShotPage() {
           </div>
 
           <div className="flex-1">
-            <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
+            <p className="text-xs font-semibold uppercase tracking-[3px] text-gold/70 mb-6">
               Slim SHOT &mdash; a drinkable daily liquid, not an injection
             </p>
-            <h1 className="text-[30px] md:text-[44px] font-normal text-white leading-[1.1] tracking-tight mb-6 font-heading">
+            <h1 className="text-4xl md:text-[56px] font-normal text-white leading-[1.08] tracking-tight mb-6 font-heading">
               Daily GLP-1 amplification.
               <br />
               <span className="text-gold italic">Drink it. No needle. No syringe. Ever.</span>
             </h1>
-            <p className="text-[17px] text-white/50 leading-relaxed mb-8 max-w-[480px]">
+            <p className="text-lg md:text-xl text-white/50 leading-relaxed mb-8 max-w-[580px]">
               Slim SHOT is a drinkable liquid, not an injection. A patent-pending
               nanoemulsion you take by mouth every morning that amplifies your
               body&apos;s natural GLP-1 production and inhibits the enzyme that
@@ -179,15 +179,15 @@ export default function SlimShotPage() {
           </div>
 
           {/* Product image — desktop */}
-          <div className="hidden md:flex flex-1 items-center justify-center">
+          <div className="hidden md:flex flex-1 items-center justify-center max-w-[400px]">
             <div className="relative">
-              <div className="absolute -inset-8 bg-gold/[0.06] rounded-full blur-3xl" />
+              <div className="absolute -inset-10 bg-gold/[0.05] rounded-full blur-3xl" />
               <Image
                 src="/images/slim-shot-bottle-alt.png"
                 alt="Slim SHOT daily nanoemulsion supplement bottle"
                 width={600}
                 height={600}
-                className="relative drop-shadow-2xl max-h-[380px] w-auto"
+                className="relative drop-shadow-2xl max-h-[400px] w-auto"
                 priority
               />
             </div>
