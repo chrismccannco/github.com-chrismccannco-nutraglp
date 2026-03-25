@@ -80,7 +80,6 @@ export default function AiAssistPanel({
           voiceId,
           personaId,
           existingContent: existingContent || undefined,
-          providerOverride: providerOverride || undefined,
         }),
       });
 
