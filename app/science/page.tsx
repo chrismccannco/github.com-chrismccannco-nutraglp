@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import WaitlistForm from "../components/WaitlistForm";
 import Footer from "../components/Footer";
@@ -66,6 +65,73 @@ const pathways = [
   },
 ];
 
+const platformSteps = [
+  {
+    step: "01",
+    title: "Activate",
+    body: "Four GRAS-certified active systems stimulate endogenous GLP-1 and GIP production through AMPK activation, GPR120 signaling, and insulin receptor sensitization.",
+  },
+  {
+    step: "02",
+    title: "Protect",
+    body: "Natural DPP-4 inhibitors extend the active life of endogenous GLP-1. More hormone. Longer metabolic window. No synthetic peptides.",
+  },
+  {
+    step: "03",
+    title: "Deliver",
+    body: "Patent-pending nanoemulsion technology achieves up to 8x bioavailability over standard oral formats. The delivery system is the second moat.",
+  },
+];
+
+const productLines = [
+  {
+    name: "Slim SHOT",
+    category: "Weight Management",
+    status: "Launched",
+    statusColor: "bg-gold",
+    desc: "GLP-1 amplification for appetite regulation and metabolic rate. First product to market. D2C channel live.",
+  },
+  {
+    name: "MetaSync",
+    category: "Metabolic Health",
+    status: "In Development",
+    statusColor: "bg-forest-mid",
+    desc: "Targeted formulation for glucose regulation, insulin sensitivity, and metabolic syndrome markers. Same platform, different signaling emphasis.",
+  },
+  {
+    name: "NeuroSync",
+    category: "Cognitive Function",
+    status: "In Development",
+    statusColor: "bg-forest-mid",
+    desc: "GLP-1 receptor activation in the CNS supports neuroprotective pathways. Emerging research links incretin signaling to cognitive resilience.",
+  },
+  {
+    name: "LongevSync",
+    category: "Longevity",
+    status: "In Development",
+    statusColor: "bg-forest-mid",
+    desc: "AMPK and mTOR pathway modulation for cellular repair and metabolic aging. The same core mechanisms, optimized for healthspan extension.",
+  },
+];
+
+const deliverySteps = [
+  {
+    step: "1",
+    title: "Encapsulate",
+    desc: "Active compounds are encased in lipid-based nanoparticles. Particle size under 200nm. Protected from enzymatic degradation in the GI tract.",
+  },
+  {
+    step: "2",
+    title: "Absorb",
+    desc: "Nanoparticles cross the intestinal epithelium through enhanced membrane permeability. Up to 8x bioavailability versus standard oral formats.",
+  },
+  {
+    step: "3",
+    title: "Activate",
+    desc: "Compounds reach intestinal L-cells at effective concentrations. GLP-1 and GIP secretion triggered. 13 metabolic pathways engaged simultaneously.",
+  },
+];
+
 export default function SciencePage() {
   return (
     <main>
@@ -74,10 +140,7 @@ export default function SciencePage() {
         <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
           The Science
         </p>
-        <h1
-          className="text-[30px] md:text-[44px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6 font-heading"
-         
-        >
+        <h1 className="text-[30px] md:text-[44px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6 font-heading">
           Built on published research. Not marketing claims.
         </h1>
         <p className="text-lg text-white/50 max-w-[560px] mx-auto leading-relaxed">
@@ -89,10 +152,7 @@ export default function SciencePage() {
 
       {/* Thesis */}
       <section className="py-20 px-6 md:px-12 max-w-[720px] mx-auto">
-        <h2
-          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading"
-         
-        >
+        <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
           What is endogenous GLP-1 amplification?
         </h2>
         <p className="text-[17px] leading-relaxed text-mist mb-5">
@@ -118,12 +178,88 @@ export default function SciencePage() {
 
       <hr className="max-w-[720px] mx-auto border-t border-rule" />
 
+      {/* ─── PLATFORM ARCHITECTURE ─── */}
+      <section className="py-24 px-6 md:px-12 bg-cream-warm">
+        <div className="max-w-[960px] mx-auto">
+          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
+            Platform Architecture
+          </p>
+          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink font-heading">
+            One platform. Three mechanisms. Four product lines.
+          </h2>
+          <p className="text-[17px] leading-relaxed text-mist mb-14 max-w-[640px]">
+            Every NutraGLP product runs on the same coordinated architecture.
+            The platform is the invention, not any single compound.
+          </p>
+
+          {/* Activate → Protect → Deliver */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            {platformSteps.map((card, i) => (
+              <div key={card.title} className="border border-rule rounded-xl p-7 bg-white relative">
+                {i < platformSteps.length - 1 && (
+                  <div className="hidden md:block absolute top-1/2 -right-3 w-6 text-center text-rule text-lg">
+                    &rarr;
+                  </div>
+                )}
+                <span className="text-[11px] font-bold text-forest-mid/40 uppercase tracking-wider">
+                  {card.step}
+                </span>
+                <p className="text-[18px] font-semibold tracking-tight text-ink mt-2 mb-3">
+                  {card.title}
+                </p>
+                <p className="text-[15px] leading-relaxed text-mist">
+                  {card.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── PRODUCT PIPELINE ─── */}
+      <section className="py-24 px-6 md:px-12 bg-forest-deep">
+        <div className="max-w-[960px] mx-auto">
+          <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
+            Product Pipeline
+          </p>
+          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-6 text-white font-heading">
+            Four verticals. 40+ patent-pending formulations.
+          </h2>
+          <p className="text-[17px] leading-relaxed text-white/50 mb-14 max-w-[640px]">
+            The same core mechanisms, each optimized for a different therapeutic
+            target. Shared delivery IP across all product lines.
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {productLines.map((product) => (
+              <div
+                key={product.name}
+                className="p-7 bg-white/[0.04] border border-white/[0.08] rounded-xl"
+              >
+                <div className="flex items-center gap-3 mb-4">
+                  <span className={`inline-block w-2 h-2 rounded-full ${product.statusColor}`} />
+                  <span className="text-[11px] font-bold uppercase tracking-wider text-white/40">
+                    {product.status}
+                  </span>
+                </div>
+                <p className="text-[11px] font-bold uppercase tracking-wider text-gold/60 mb-1">
+                  {product.category}
+                </p>
+                <p className="text-[20px] font-semibold text-white tracking-tight mb-3">
+                  {product.name}
+                </p>
+                <p className="text-[15px] leading-relaxed text-white/40">
+                  {product.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Pathway Detail */}
       <section className="py-20 px-6 md:px-12 max-w-[1000px] mx-auto">
-        <h2
-          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink font-heading"
-         
-        >
+        <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink font-heading">
           Which metabolic pathways does NutraGLP target?
         </h2>
         <p className="text-[17px] leading-relaxed text-mist mb-12 max-w-[640px]">
@@ -160,59 +296,73 @@ export default function SciencePage() {
 
       <hr className="max-w-[720px] mx-auto border-t border-rule" />
 
-      {/* Nanoemulsion */}
-      <section className="py-20 px-6 md:px-12 max-w-[720px] mx-auto">
-        <h2
-          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading"
-         
-        >
-          Why do most oral supplements fail at absorption?
-        </h2>
-        <p className="text-[17px] leading-relaxed text-mist mb-5">
-          Most oral nutraceuticals fail at absorption. The compounds may have
-          demonstrated efficacy in vitro or in clinical studies, but they never
-          reach their target pathways at meaningful concentrations when taken as
-          a standard oral supplement. Bioavailability is the bottleneck.
-        </p>
-        <p className="text-[17px] leading-relaxed text-mist mb-5">
-          NutraGLP uses a patent-pending nanoemulsion delivery system that
-          encapsulates active compounds in lipid-based nanoparticles. This
-          increases surface area, protects against enzymatic degradation in the
-          GI tract, and enhances cellular uptake through improved membrane
-          permeability.
-        </p>
-        <p className="text-[17px] leading-relaxed text-mist mb-8">
-          <strong className="text-ink font-semibold">
-            The science only matters if it gets where it needs to go.
-          </strong>{" "}
-          The nanoemulsion is the mechanism that closes the gap between
-          published research and real-world metabolic effect.
-        </p>
+      {/* ─── NANOEMULSION DELIVERY ─── */}
+      <section className="py-20 px-6 md:px-12">
+        <div className="max-w-[720px] mx-auto">
+          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
+            Why do most oral supplements fail at absorption?
+          </h2>
+          <p className="text-[17px] leading-relaxed text-mist mb-5">
+            Most oral nutraceuticals fail at absorption. The compounds may have
+            demonstrated efficacy in vitro or in clinical studies, but they never
+            reach their target pathways at meaningful concentrations when taken as
+            a standard oral supplement. Bioavailability is the bottleneck.
+          </p>
+          <p className="text-[17px] leading-relaxed text-mist mb-5">
+            NutraGLP uses a patent-pending nanoemulsion delivery system that
+            encapsulates active compounds in lipid-based nanoparticles. This
+            increases surface area, protects against enzymatic degradation in the
+            GI tract, and enhances cellular uptake through improved membrane
+            permeability.
+          </p>
+          <p className="text-[17px] leading-relaxed text-mist mb-12">
+            <strong className="text-ink font-semibold">
+              The science only matters if it gets where it needs to go.
+            </strong>{" "}
+            The nanoemulsion is the mechanism that closes the gap between
+            published research and real-world metabolic effect.
+          </p>
 
-        {/* Mechanism diagram */}
-        <div className="mb-10">
-          <Image
-            src="/images/mechanism-diagram.png"
-            alt="How the NutraGLP nanoemulsion works: active compounds are encapsulated in lipid nanoparticles, absorbed through intestinal L-cells, triggering GLP-1 release and metabolic effects across 13 pathways"
-            width={1920}
-            height={840}
-            className="w-full h-auto rounded-xl border border-rule"
-          />
-        </div>
+          {/* Delivery steps visual */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-0 mb-12">
+            {deliverySteps.map((s, i) => (
+              <div key={s.title} className="relative pb-8 md:pb-0">
+                {/* Connector */}
+                {i < deliverySteps.length - 1 && (
+                  <div className="hidden md:block absolute top-5 right-0 w-full h-px bg-rule" style={{ left: "50%" }} />
+                )}
+                <div className="flex md:flex-col items-start md:items-center gap-4 md:gap-0 md:text-center">
+                  {/* Number circle */}
+                  <div className="w-10 h-10 rounded-full bg-forest-deep text-gold font-heading text-[18px] flex items-center justify-center flex-shrink-0 relative z-10">
+                    {s.step}
+                  </div>
+                  <div className="md:mt-4">
+                    <p className="text-[16px] font-semibold tracking-tight text-ink mb-2">
+                      {s.title}
+                    </p>
+                    <p className="text-[14px] leading-relaxed text-mist">
+                      {s.desc}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
 
-        <div className="flex flex-wrap gap-6">
-          <Link
-            href="/slim-shot"
-            className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
-          >
-            See the full Slim SHOT formula &rarr;
-          </Link>
-          <Link
-            href="/faq"
-            className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
-          >
-            Common questions about GLP-1 &rarr;
-          </Link>
+          <div className="flex flex-wrap gap-6">
+            <Link
+              href="/slim-shot"
+              className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
+            >
+              See the full Slim SHOT formula &rarr;
+            </Link>
+            <Link
+              href="/faq"
+              className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
+            >
+              Common questions about GLP-1 &rarr;
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -222,10 +372,7 @@ export default function SciencePage() {
           <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
             Quality & Compliance
           </p>
-          <h2
-            className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-white font-heading"
-           
-          >
+          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-white font-heading">
             How does NutraGLP meet quality and safety standards?
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
@@ -246,10 +393,7 @@ export default function SciencePage() {
 
       {/* CTA */}
       <section className="bg-forest py-16 px-6 md:px-12 text-center">
-        <h2
-          className="text-2xl md:text-3xl font-normal text-white tracking-tight mb-4 font-heading"
-         
-        >
+        <h2 className="text-2xl md:text-3xl font-normal text-white tracking-tight mb-4 font-heading">
           Questions about the science?
         </h2>
         <p className="text-[17px] text-white/50 max-w-[480px] mx-auto mb-6">
