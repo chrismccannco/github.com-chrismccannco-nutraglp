@@ -4,21 +4,26 @@ import WaitlistForm from "./WaitlistForm";
 
 export default function Hero() {
   return (
-    <section id="waitlist" className="bg-forest-deep px-6 md:px-12 pt-24 pb-16 md:pt-28 md:pb-24">
+    <section id="waitlist" className="bg-forest-deep px-6 md:px-12 pt-28 pb-24">
       <div className="max-w-[1100px] mx-auto md:flex md:items-center md:gap-16">
         <div className="flex-1 text-center md:text-left">
-          <p className="text-xs font-semibold uppercase tracking-[3px] text-gold/70 mb-5 md:mb-6">
-            Natural GLP-1 Amplification
+          <p className="text-xs font-semibold uppercase tracking-[3px] text-gold/70 mb-6">
+            A biotechnology platform for natural incretin modulation.
           </p>
-          <h1 className="text-[32px] md:text-[56px] font-normal text-white leading-[1.08] tracking-tight max-w-[800px] md:max-w-none mb-5 md:mb-6 font-heading">
+          <h1 className="text-4xl md:text-[56px] font-normal text-white leading-[1.08] tracking-tight max-w-[800px] md:max-w-none mb-6 font-heading">
             No needle. No prescription.
             <br />
             <span className="text-gold italic">No catch.</span>
           </h1>
-          <p className="text-base md:text-xl text-white/50 max-w-[580px] mx-auto md:mx-0 mb-8 md:mb-12 leading-relaxed">
+          <p className="text-lg md:text-xl text-white/50 max-w-[580px] mx-auto md:mx-0 mb-6 leading-relaxed">
             Slim SHOT is a daily liquid formula that amplifies your body&apos;s
             own GLP-1 production. Clinically studied compounds. Patent-pending
             nanoemulsion delivery. $155/mo.
+          </p>
+          <p className="text-base text-white/40 max-w-[580px] mx-auto md:mx-0 mb-12 leading-relaxed">
+            Built on a patent-pending nanoemulsion architecture. 13 validated
+            signaling targets. Designed for the regulatory framework that already
+            exists.
           </p>
           <WaitlistForm variant="hero" />
           <div className="mt-6">
@@ -31,21 +36,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Product image — small centered on mobile, full size on desktop */}
-        <div className="flex md:hidden justify-center mt-10">
-          <div className="relative">
-            <div className="absolute -inset-8 bg-gold/[0.04] rounded-full blur-2xl" />
-            <Image
-              src="/images/slim-shot-bottle-alt.png"
-              alt="Slim SHOT daily nanoemulsion supplement bottle"
-              width={600}
-              height={600}
-              className="relative drop-shadow-xl max-h-[200px] w-auto"
-              priority
-            />
-          </div>
-        </div>
-
+        {/* Product image */}
         <div className="hidden md:flex flex-1 items-center justify-center max-w-[400px]">
           <div className="relative">
             <div className="absolute -inset-10 bg-gold/[0.05] rounded-full blur-3xl" />
