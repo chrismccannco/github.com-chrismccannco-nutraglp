@@ -338,9 +338,9 @@ export default function Investors() {
                 {[
                   "Strategic acquisition by consumer health, CPG, or pharmaceutical acquirer",
                   "Target horizon: Year 4",
-                  "Target multiple: 12\u201318x EBITDA",
+                  "Target multiple: 12–18x EBITDA",
                   "Acquisition surface area: IP portfolio, nanoemulsion platform, clinical data, DTC distribution infrastructure",
-                  "Comparable acquirers: Nestl\u00e9 Health Science, Bayer, Unilever, Eli Lilly, Pfizer",
+                  "Comparable acquirers: Nestlé Health Science, Bayer, Unilever, Eli Lilly, Pfizer",
                 ].map((item) => (
                   <li
                     key={item}
