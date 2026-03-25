@@ -141,7 +141,7 @@ export default function FAQPage() {
         >
           Common questions about natural GLP-1 amplification
         </h1>
-        <p className="text-lg text-white/50 max-w-[560px] mx-auto leading-relaxed">
+        <p className="text-[17px] text-white/50 max-w-[560px] mx-auto leading-relaxed">
           The science, the technology, and how it all fits together.
         </p>
       </section>
@@ -153,7 +153,7 @@ export default function FAQPage() {
           className={`py-16 px-6 md:px-12 ${catIndex % 2 === 1 ? "bg-white" : ""}`}
         >
           <div className="max-w-[720px] mx-auto">
-            <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-8">
+            <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-8">
               {cat.category}
             </p>
             <div className="space-y-10">

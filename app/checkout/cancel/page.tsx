@@ -12,7 +12,7 @@ export default function CheckoutCancelPage() {
     <main>
       <section className="bg-forest-deep px-6 md:px-12 pt-32 pb-24 text-center">
         <div className="max-w-[560px] mx-auto">
-          <h1 className="text-3xl md:text-4xl font-normal text-white tracking-tight mb-4 font-heading">
+          <h1 className="text-[26px] md:text-[36px] font-normal text-white tracking-tight leading-tight mb-4 font-heading">
             No worries.
           </h1>
           <p className="text-[17px] text-white/50 leading-relaxed mb-4">

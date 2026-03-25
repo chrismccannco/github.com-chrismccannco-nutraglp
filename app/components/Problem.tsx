@@ -1,10 +1,10 @@
 export default function Problem() {
   return (
     <section className="py-24 px-6 md:px-12 max-w-[720px] mx-auto">
-      <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
+      <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
         The Problem
       </p>
-      <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
+      <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
         Forty-two million prescriptions. Same three trade-offs.
       </h2>
       <p className="text-[17px] leading-relaxed text-mist mb-5">

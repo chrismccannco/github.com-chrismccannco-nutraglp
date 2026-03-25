@@ -22,7 +22,7 @@ export default function ThankYouPage() {
         >
           You&apos;re in.
         </h1>
-        <p className="text-lg text-white/50 max-w-[480px] mx-auto leading-relaxed mb-10">
+        <p className="text-[17px] text-white/50 max-w-[480px] mx-auto leading-relaxed mb-10">
           We&apos;ll reach out with early access details and launch pricing
           before Slim SHOT ships. Keep an eye on your inbox.
         </p>

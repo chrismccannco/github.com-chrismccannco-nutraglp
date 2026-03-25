@@ -151,7 +151,7 @@ export default function SlimShotPage() {
           </div>
 
           <div className="flex-1">
-            <p className="text-[10px] font-semibold uppercase tracking-[1.5px] text-teal-light mb-6">
+            <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-6">
               Slim SHOT &mdash; a drinkable daily liquid, not an injection
             </p>
             <h1 className="text-4xl md:text-[56px] font-normal text-white leading-[1.08] tracking-tight mb-6 font-heading">
@@ -159,7 +159,7 @@ export default function SlimShotPage() {
               <br />
               <span className="text-gold italic heading-wonk">Drink it. No needle. No syringe. Ever.</span>
             </h1>
-            <p className="text-lg md:text-xl text-white/50 leading-relaxed mb-8 max-w-[580px]">
+            <p className="text-[17px] text-white/50 leading-relaxed mb-8 max-w-[580px]">
               Slim SHOT is a drinkable liquid, not an injection. A patent-pending
               nanoemulsion you take by mouth every morning that amplifies your
               body&apos;s natural GLP-1 production and inhibits the enzyme that
@@ -205,12 +205,12 @@ export default function SlimShotPage() {
         ].map((s) => (
           <div key={s.label} className="text-center">
             <div
-              className="text-[28px] font-normal tracking-tight text-teal-light font-heading"
+              className="text-2xl font-normal tracking-tight text-teal-light font-heading"
              
             >
               {s.value}
             </div>
-            <div className="text-[11px] text-white/50 uppercase tracking-wider mt-0.5">
+            <div className="text-[10px] text-white/50 uppercase tracking-[1.5px] mt-0.5">
               {s.label}
             </div>
           </div>
@@ -220,10 +220,10 @@ export default function SlimShotPage() {
       {/* How it works */}
       <section className="py-24 px-6 md:px-12 max-w-[1000px] mx-auto">
         <FadeIn>
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
             The Mechanism
           </p>
-          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink font-heading">
+          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-ink font-heading">
             Three systems. One daily protocol.
           </h2>
           <p className="text-[17px] leading-relaxed text-mist max-w-[640px] mb-12">
@@ -238,7 +238,7 @@ export default function SlimShotPage() {
               key={p.title}
               className="p-8 bg-white border border-rule rounded-xl"
             >
-              <h3 className="text-[17px] font-bold tracking-tight mb-3 text-ink">
+              <h3 className="text-[18px] font-semibold tracking-tight mb-3 text-ink">
                 {p.title}
               </h3>
               <p className="text-[15px] text-mist leading-relaxed">{p.desc}</p>
@@ -261,10 +261,10 @@ export default function SlimShotPage() {
       {/* What to expect */}
       <section className="py-24 px-6 md:px-12 max-w-[1000px] mx-auto">
         <FadeIn>
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
             What to Expect
           </p>
-          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink font-heading">
+          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-ink font-heading">
             The first 30 days.
           </h2>
           <p className="text-[17px] leading-relaxed text-mist max-w-[640px] mb-12">
@@ -293,11 +293,11 @@ export default function SlimShotPage() {
                   </div>
                 </div>
                 <div className="p-8 bg-white border border-rule rounded-xl flex-1">
-                  <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-3">
+                  <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-3">
                     {t.week}
                   </p>
                   <h3
-                    className="text-lg font-normal tracking-tight text-ink mb-3 font-heading"
+                    className="text-[18px] font-semibold tracking-tight text-ink mb-3 font-heading"
                    
                   >
                     {t.title}
@@ -313,10 +313,10 @@ export default function SlimShotPage() {
       {/* FAQ */}
       <section className="py-24 px-6 md:px-12 bg-cream-warm bg-dot-grid">
         <FadeIn className="max-w-[720px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
             Questions
           </p>
-          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-12 text-ink font-heading">
+          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-12 text-ink font-heading">
             Things people ask before they start.
           </h2>
 
@@ -346,7 +346,7 @@ export default function SlimShotPage() {
       {/* CTA */}
       <section className="bg-forest py-20 px-6 md:px-12 text-center">
         <h2
-          className="text-3xl md:text-4xl font-normal text-white tracking-tight mb-4 font-heading"
+          className="text-[26px] md:text-[36px] font-normal text-white tracking-tight leading-tight mb-4 font-heading"
          
         >
           Ready to try a different approach?

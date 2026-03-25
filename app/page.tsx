@@ -17,7 +17,6 @@ export default function Home() {
       <Hero />
       <ProofBar />
       <Problem />
-      <hr className="max-w-[720px] mx-auto border-t border-rule" />
       <Mechanism />
       <Personas />
       <Contrast />

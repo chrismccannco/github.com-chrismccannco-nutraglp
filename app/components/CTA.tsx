@@ -4,7 +4,7 @@ export default function CTA() {
   return (
     <section className="bg-forest py-20 px-6 md:px-12 text-center">
       <h2
-        className="text-3xl md:text-4xl font-normal text-white tracking-tight mb-4 font-heading"
+        className="text-[26px] md:text-[36px] font-normal text-white tracking-tight leading-tight mb-4 font-heading"
       >
         Ready to try a different approach?
       </h2>

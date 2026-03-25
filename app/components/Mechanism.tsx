@@ -35,16 +35,17 @@ const howToSchema = {
 
 export default function Mechanism() {
   return (
-    <section className="py-24 px-6 md:px-12 max-w-[1000px] mx-auto">
+    <section className="py-24 px-6 md:px-12 bg-cream-warm">
+      <div className="max-w-[1000px] mx-auto">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
-      <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
+      <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
         How It Works
       </p>
       <h2
-        className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading"
+        className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-6 text-ink font-heading"
       >
         Your body already makes GLP-1.
         <br />Slim SHOT helps it make more.
@@ -65,7 +66,7 @@ export default function Mechanism() {
             <div className="w-10 h-10 bg-forest rounded-lg flex items-center justify-center text-white text-lg font-bold mb-4">
               {s.num}
             </div>
-            <h3 className="text-[17px] font-bold tracking-tight mb-2 text-ink">
+            <h3 className="text-[18px] font-semibold tracking-tight mb-2 text-ink">
               {s.title}
             </h3>
             <p className="text-[15px] text-mist leading-relaxed">{s.text}</p>
@@ -91,6 +92,7 @@ export default function Mechanism() {
         >
           See the science, dosing, and FAQs &rarr;
         </Link>
+      </div>
       </div>
     </section>
   );

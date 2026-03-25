@@ -75,7 +75,7 @@ export default function AboutPage() {
         >
           The team behind NutraGLP
         </h1>
-        <p className="text-lg text-white/50 max-w-[560px] mx-auto leading-relaxed">
+        <p className="text-[17px] text-white/50 max-w-[560px] mx-auto leading-relaxed">
           Building the platform layer between pharmaceutical GLP-1 drugs and
           the supplement aisle.
         </p>
@@ -84,7 +84,7 @@ export default function AboutPage() {
       {/* Leadership */}
       <section className="py-24 px-6 md:px-12">
         <div className="max-w-[900px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-10">
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-10">
             Leadership
           </p>
 
@@ -106,11 +106,11 @@ export default function AboutPage() {
                 </div>
 
                 <div>
-                  <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-3">
+                  <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-3">
                     {person.role}
                   </p>
                   <h2
-                    className="text-3xl md:text-4xl font-normal tracking-tight text-ink mb-4 font-heading"
+                    className="text-[26px] md:text-[36px] font-normal tracking-tight text-ink mb-4 font-heading"
                   >
                     {person.name}
                   </h2>
@@ -131,11 +131,11 @@ export default function AboutPage() {
       {/* Company thesis */}
       <section className="py-24 px-6 md:px-12">
         <div className="max-w-[720px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
             The Thesis
           </p>
           <h2
-            className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading"
+            className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-6 text-ink font-heading"
           >
             The supplement aisle has a delivery problem, not a formulation
             problem.
@@ -170,11 +170,11 @@ export default function AboutPage() {
       {/* Quality */}
       <section className="py-20 px-6 md:px-12 bg-cream-warm">
         <div className="max-w-[720px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
             Standards
           </p>
           <h2
-            className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-8 text-ink font-heading"
+            className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-8 text-ink font-heading"
           >
             How the product is made
           </h2>

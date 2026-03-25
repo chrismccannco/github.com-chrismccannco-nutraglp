@@ -144,7 +144,7 @@ export default function SciencePage() {
         <h1 className="text-[30px] md:text-[44px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6 font-heading">
           Built on published research. Not marketing claims.
         </h1>
-        <p className="text-lg text-white/50 max-w-[560px] mx-auto leading-relaxed">
+        <p className="text-[17px] text-white/50 max-w-[560px] mx-auto leading-relaxed">
           Every compound in the NutraGLP formula is backed by peer-reviewed
           studies. The nanoemulsion delivery system ensures they reach their
           target pathways at effective concentrations.
@@ -153,7 +153,7 @@ export default function SciencePage() {
 
       {/* Thesis */}
       <FadeIn className="py-20 px-6 md:px-12 max-w-[720px] mx-auto">
-        <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
+        <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
           What is endogenous GLP-1 amplification?
         </h2>
         <p className="text-[17px] leading-relaxed text-mist mb-5">
@@ -182,10 +182,10 @@ export default function SciencePage() {
       {/* ─── PLATFORM ARCHITECTURE ─── */}
       <section className="py-24 px-6 md:px-12 bg-cream-warm">
         <FadeIn className="max-w-[960px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
             Platform Architecture
           </p>
-          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink font-heading">
+          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-ink font-heading">
             One platform. Three mechanisms. Four product lines.
           </h2>
           <p className="text-[17px] leading-relaxed text-mist mb-14 max-w-[640px]">
@@ -202,7 +202,7 @@ export default function SciencePage() {
                     &rarr;
                   </div>
                 )}
-                <span className="text-[11px] font-bold text-forest-mid/40 uppercase tracking-wider">
+                <span className="text-[10px] font-bold text-teal/40 uppercase tracking-[1.5px]">
                   {card.step}
                 </span>
                 <p className="text-[18px] font-semibold tracking-tight text-ink mt-2 mb-3">
@@ -260,7 +260,7 @@ export default function SciencePage() {
 
       {/* Pathway Detail */}
       <section className="py-20 px-6 md:px-12 max-w-[1000px] mx-auto">
-        <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink font-heading">
+        <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-ink font-heading">
           Which metabolic pathways does NutraGLP target?
         </h2>
         <p className="text-[17px] leading-relaxed text-mist mb-12 max-w-[640px]">
@@ -270,7 +270,7 @@ export default function SciencePage() {
 
         {pathways.map((group) => (
           <div key={group.category} className="mb-12">
-            <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-6">
+            <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-6">
               {group.category}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -298,9 +298,9 @@ export default function SciencePage() {
       <hr className="max-w-[720px] mx-auto border-t border-rule" />
 
       {/* ─── NANOEMULSION DELIVERY ─── */}
-      <section className="py-20 px-6 md:px-12">
+      <section className="py-20 px-6 md:px-12 bg-cream-warm">
         <div className="max-w-[720px] mx-auto">
-          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
+          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
             Why do most oral supplements fail at absorption?
           </h2>
           <p className="text-[17px] leading-relaxed text-mist mb-5">
@@ -368,12 +368,12 @@ export default function SciencePage() {
       </section>
 
       {/* Standards */}
-      <section className="bg-forest-deep bg-line-texture py-20 px-6 md:px-12">
+      <section className="py-20 px-6 md:px-12">
         <div className="max-w-[720px] mx-auto">
-          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
             Quality & Compliance
           </p>
-          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-white font-heading">
+          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
             How does NutraGLP meet quality and safety standards?
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
@@ -383,9 +383,9 @@ export default function SciencePage() {
               { label: "Third-Party Tested", desc: "Independent verification of purity, potency, and composition" },
               { label: "cGMP Manufactured", desc: "Produced in facilities meeting current Good Manufacturing Practice standards" },
             ].map((item) => (
-              <div key={item.label} className="p-6 bg-white/[0.04] border border-white/[0.08] rounded-xl">
-                <p className="text-[15px] font-bold text-white mb-1">{item.label}</p>
-                <p className="text-sm text-white/40 leading-relaxed">{item.desc}</p>
+              <div key={item.label} className="p-6 bg-cream-warm border border-rule rounded-xl">
+                <p className="text-[15px] font-bold text-ink mb-1">{item.label}</p>
+                <p className="text-sm text-mist leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -394,7 +394,7 @@ export default function SciencePage() {
 
       {/* CTA */}
       <section className="bg-forest py-16 px-6 md:px-12 text-center">
-        <h2 className="text-3xl md:text-4xl font-normal text-white tracking-tight mb-4 font-heading">
+        <h2 className="text-[26px] md:text-[36px] font-normal text-white tracking-tight leading-tight mb-4 font-heading">
           Questions about the science?
         </h2>
         <p className="text-[17px] text-white/50 max-w-[480px] mx-auto mb-6">

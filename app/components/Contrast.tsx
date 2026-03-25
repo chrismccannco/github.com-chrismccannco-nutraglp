@@ -24,7 +24,7 @@ export default function Contrast() {
           A Different Category
         </p>
         <h2
-          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-12 text-white font-heading"
+          className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-12 text-white font-heading"
         >
           What changes when you don&apos;t need a prescription.
         </h2>
@@ -32,7 +32,7 @@ export default function Contrast() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0.5">
           {/* Them */}
           <div className="bg-white/[0.04] rounded-lg p-6 md:p-10">
-            <p className="text-[11px] font-bold uppercase tracking-[1.5px] text-white/40 mb-6">
+            <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-white/40 mb-6">
               GLP-1 Prescriptions
             </p>
             {them.map((item) => (

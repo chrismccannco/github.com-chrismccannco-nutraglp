@@ -159,7 +159,7 @@ export default async function BlogPost({
       {relatedSlugs.length > 0 && (
         <section className="py-12 px-6 md:px-12">
           <div className="max-w-[720px] mx-auto">
-            <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-6">
+            <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-6">
               Related reading
             </p>
             <div className="space-y-4">
@@ -217,7 +217,7 @@ export default async function BlogPost({
       {/* CTA */}
       <section className="bg-forest py-20 px-6 md:px-12 text-center">
         <h2
-          className="text-3xl md:text-4xl font-normal text-white tracking-tight mb-4 font-heading"
+          className="text-[26px] md:text-[36px] font-normal text-white tracking-tight leading-tight mb-4 font-heading"
         >
           Ready to try a different approach?
         </h2>

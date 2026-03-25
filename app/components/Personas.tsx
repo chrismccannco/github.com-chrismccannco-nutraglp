@@ -18,13 +18,13 @@ const personas = [
 
 export default function Personas() {
   return (
-    <section className="py-24 px-6 md:px-12 bg-cream-warm bg-dot-grid">
+    <section className="py-24 px-6 md:px-12">
       <div className="max-w-[1000px] mx-auto">
-        <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
+        <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
           Who This Is For
         </p>
         <h2
-          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink font-heading"
+          className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-ink font-heading"
         >
           Three reasons people find us.
         </h2>
@@ -39,7 +39,7 @@ export default function Personas() {
               key={p.label}
               className="bg-white border border-rule rounded-xl p-8 md:p-10"
             >
-              <p className="text-[10px] font-bold uppercase tracking-wider text-forest-mid mb-3">
+              <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-3">
                 {p.label}
               </p>
               <h3

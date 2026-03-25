@@ -14,7 +14,7 @@ export default function NotFound() {
         >
           Page not found.
         </h1>
-        <p className="text-lg text-white/50 max-w-[480px] mx-auto leading-relaxed mb-10">
+        <p className="text-[17px] text-white/50 max-w-[480px] mx-auto leading-relaxed mb-10">
           The page you&apos;re looking for doesn&apos;t exist or has moved.
         </p>
         <div className="flex flex-wrap justify-center gap-6">

@@ -27,7 +27,7 @@ export default function CheckoutSuccessPage() {
               />
             </svg>
           </div>
-          <h1 className="text-3xl md:text-4xl font-normal text-white tracking-tight mb-4 font-heading">
+          <h1 className="text-[26px] md:text-[36px] font-normal text-white tracking-tight leading-tight mb-4 font-heading">
             Order confirmed.
           </h1>
           <p className="text-[17px] text-white/50 leading-relaxed mb-4">
