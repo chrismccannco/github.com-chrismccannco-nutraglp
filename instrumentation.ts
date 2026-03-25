@@ -4,7 +4,6 @@ export async function register() {
     try {
       await initDb();
     } catch (err) {
-      // Log but don't crash startup — DB may already be initialized
       console.error("[instrumentation] DB init failed:", err);
     }
   }
