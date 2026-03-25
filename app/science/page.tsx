@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import WaitlistForm from "../components/WaitlistForm";
+import ScienceBriefForm from "../components/ScienceBriefForm";
 import FadeIn from "../components/FadeIn";
 import Footer from "../components/Footer";
 import MechanismIllustration from "../components/science/MechanismIllustration";
@@ -422,12 +422,12 @@ export default function SciencePage() {
       <section className="bg-forest py-16 px-6 md:px-12 text-center">
         <FadeIn>
           <h2 className="text-[26px] md:text-[36px] font-normal text-white tracking-tight leading-tight mb-4 font-heading">
-            Questions about the science?
+            Want the full science brief?
           </h2>
           <p className="text-[17px] text-white/50 max-w-[480px] mx-auto mb-6">
-            Join the waitlist. We&apos;ll send the full science brief and clinical references.
+            Drop your email. We&apos;ll send the clinical references, mechanism breakdown, and bioavailability data.
           </p>
-          <WaitlistForm variant="cta" />
+          <ScienceBriefForm />
           <div className="mt-6">
             <Link
               href="/"

@@ -38,10 +38,10 @@ const SOURCES = [
 
 // ── Middle tier (primary biological events) ───────────────────────────────────
 const MIDDLE = [
-  { id: "glp1",   label: "GLP-1",    sub: "Secretion",    cx: 238, cy: 218, r: 19, from: ["activate", "deliver"] },
-  { id: "gip",    label: "GIP",      sub: "Co-secretion", cx: 376, cy: 234, r: 19, from: ["activate"] },
-  { id: "dpp4",   label: "DPP-4",    sub: "Inhibited",    cx: 522, cy: 218, r: 19, from: ["protect"] },
-  { id: "absorb", label: "Enhanced", sub: "Absorption",   cx: 658, cy: 234, r: 19, from: ["deliver"] },
+  { id: "glp1",   label: "GLP-1",    sub: "Secretion",    cx: 238, cy: 210, r: 26, from: ["activate", "deliver"] },
+  { id: "gip",    label: "GIP",      sub: "Co-secretion", cx: 376, cy: 226, r: 26, from: ["activate"] },
+  { id: "dpp4",   label: "DPP-4",    sub: "Inhibited",    cx: 522, cy: 210, r: 26, from: ["protect"] },
+  { id: "absorb", label: "Enhanced", sub: "Absorption",   cx: 658, cy: 226, r: 26, from: ["deliver"] },
 ];
 
 // ── 13 downstream metabolic effects ──────────────────────────────────────────
@@ -64,7 +64,7 @@ const DOWN = [
 ];
 
 // ── Layout ────────────────────────────────────────────────────────────────────
-const W = 900, H = 528;
+const W = 900, H = 548;
 
 // ── Helper: compute active sets for a given hovered source ───────────────────
 function getActive(hoveredId: string | null) {
@@ -194,19 +194,21 @@ export default function PathwayNetwork() {
                 stroke={srcColor} strokeWidth={1.5}
                 strokeOpacity={0.6}
               />
+              {/* Label inside circle */}
               <text
-                x={m.cx} y={m.cy - 1}
+                x={m.cx} y={m.cy}
                 textAnchor="middle" dominantBaseline="middle"
-                fontFamily="Inter,sans-serif" fontSize={9}
+                fontFamily="Inter,sans-serif" fontSize={10}
                 fontWeight={700} fill={srcColor}
               >
                 {m.label}
               </text>
+              {/* Sub-label below circle */}
               <text
-                x={m.cx} y={m.cy + 10}
-                textAnchor="middle" dominantBaseline="middle"
-                fontFamily="Inter,sans-serif" fontSize={7.5}
-                fill={srcColor} opacity={0.7}
+                x={m.cx} y={m.cy + m.r + 13}
+                textAnchor="middle"
+                fontFamily="Inter,sans-serif" fontSize={8}
+                fill={C.muted}
               >
                 {m.sub}
               </text>

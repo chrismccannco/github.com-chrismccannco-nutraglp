@@ -41,8 +41,8 @@ html { scroll-behavior: smooth; }
   --rule-dark: rgba(255,255,255,0.08);
 }
 
-.inv-section { padding: 96px 48px; }
-.inv-inner { max-width: 960px; margin: 0 auto; }
+.inv-section { padding: 96px 0; }
+.inv-inner { max-width: 1100px; margin: 0 auto; padding: 0 48px; box-sizing: border-box; }
 .inv-eyebrow {
   font-size: 11px; font-weight: 600;
   letter-spacing: 0.14em; text-transform: uppercase;
@@ -88,7 +88,7 @@ html { scroll-behavior: smooth; }
 /* ═══════════════════ HERO ═══════════════════ */
 .inv-hero {
   background: var(--navy-deep);
-  padding: 112px 48px 88px;
+  padding: 112px 0 88px;
   position: relative; overflow: hidden;
 }
 .inv-hero::before {
@@ -562,8 +562,9 @@ html { scroll-behavior: smooth; }
 
 /* ═══════════════════ RESPONSIVE ═══════════════════ */
 @media (max-width: 900px) {
-  .inv-section { padding: 64px 24px; }
-  .inv-hero { padding: 96px 24px 60px; }
+  .inv-section { padding: 64px 0; }
+  .inv-inner { padding: 0 24px; }
+  .inv-hero { padding: 96px 0 60px; }
   .inv-hero-stats { grid-template-columns: repeat(2, 1fr); gap: 20px; }
   .inv-h-stat::after { display: none; }
   .inv-h-stat:not(:first-child) { padding-left: 0; }
