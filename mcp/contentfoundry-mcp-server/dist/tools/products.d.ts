@@ -1,3 +1,0 @@
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
-export declare function registerProductTools(server: McpServer): void;
-//# sourceMappingURL=products.d.ts.map
