@@ -64,7 +64,7 @@ export default async function BlogIndex() {
     <main>
       {/* Hero */}
       <section className="bg-forest-deep px-6 md:px-12 pt-28 pb-20 text-center">
-        <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
+        <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
           Research &amp; Insights
         </p>
         <h1 className="text-[30px] md:text-[44px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6 font-heading">

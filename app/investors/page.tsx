@@ -104,13 +104,13 @@ export default function Investors() {
     <main>
       {/* ─── HERO ─── */}
       <section className="bg-forest-deep px-6 md:px-12 pt-28 pb-20 text-center">
-        <p className="text-[11px] font-bold uppercase tracking-[3px] text-gold/70 mb-6">
+        <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-6">
           NutraGLP Biosciences
         </p>
         <h1 className="text-4xl md:text-[56px] font-normal text-white leading-[1.08] tracking-tight max-w-[820px] mx-auto mb-6 font-heading">
           Your body already makes GLP-1.
           <br />
-          <span className="text-gold italic">We make it work harder.</span>
+          <span className="text-gold italic heading-wonk">We make it work harder.</span>
         </h1>
         <p className="text-[17px] leading-relaxed text-white/50 max-w-[540px] mx-auto mb-10">
           A biotechnology platform for natural incretin modulation. Raising
@@ -128,7 +128,7 @@ export default function Investors() {
       <section className="bg-forest px-6 md:px-12 py-8 flex justify-center gap-8 sm:gap-16 flex-wrap">
         {metrics.map((s) => (
           <div key={s.label} className="text-center">
-            <div className="text-[36px] md:text-[44px] font-normal tracking-tight text-gold font-heading leading-none">
+            <div className="text-[36px] md:text-[44px] font-normal tracking-tight text-teal-light font-heading leading-none">
               {s.value}
             </div>
             <div className="text-[11px] text-white/50 uppercase tracking-wider mt-1.5">
@@ -183,7 +183,7 @@ export default function Investors() {
       {/* ─── IP & DEFENSIBILITY ─── */}
       <section className="py-24 px-6 md:px-12 bg-forest-deep">
         <FadeIn className="max-w-[720px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
             IP &amp; Defensibility
           </p>
           <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-6 text-white font-heading">
@@ -216,10 +216,10 @@ export default function Investors() {
               },
             ].map((card) => (
               <div key={card.title}>
-                <div className="text-[36px] font-normal text-gold font-heading leading-none mb-1">
+                <div className="text-[36px] font-normal text-teal-light font-heading leading-none mb-1">
                   {card.stat}
                 </div>
-                <p className="text-[11px] text-gold/60 uppercase tracking-wider mb-4">
+                <p className="text-[11px] text-teal-light/60 uppercase tracking-wider mb-4">
                   {card.statLabel}
                 </p>
                 <p className="text-[15px] font-semibold text-white mb-2">
@@ -257,7 +257,7 @@ export default function Investors() {
               { value: "6 Mo", label: "Study Duration" },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
-                <div className="text-[36px] md:text-[44px] font-normal text-gold font-heading leading-none">
+                <div className="text-[36px] md:text-[44px] font-normal text-teal-light font-heading leading-none">
                   {stat.value}
                 </div>
                 <div className="text-[11px] text-mist uppercase tracking-wider mt-2">
@@ -393,7 +393,7 @@ export default function Investors() {
       {/* ─── THE RAISE (with Use of Funds visualization) ─── */}
       <section className="bg-forest-deep py-24 px-6 md:px-12">
         <FadeIn className="max-w-[720px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
             The Raise
           </p>
           <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-6 text-white font-heading">
@@ -407,7 +407,7 @@ export default function Investors() {
           <div className="grid md:grid-cols-2 gap-12">
             {/* Use of Funds — horizontal bar chart */}
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-wider text-gold mb-6">
+              <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-6">
                 Use of Funds
               </p>
               <div className="space-y-4">
@@ -415,7 +415,7 @@ export default function Investors() {
                   <div key={item.label}>
                     <div className="flex justify-between mb-1.5">
                       <span className="text-[13px] text-white/70">{item.label}</span>
-                      <span className="text-[13px] text-gold font-medium">{item.amount}</span>
+                      <span className="text-[13px] text-teal-light font-medium">{item.amount}</span>
                     </div>
                     <div className="h-2 bg-white/[0.08] rounded-full overflow-hidden">
                       <div
@@ -430,7 +430,7 @@ export default function Investors() {
 
             {/* Exit Thesis */}
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-wider text-gold mb-6">
+              <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-6">
                 Exit Thesis
               </p>
               <ul className="space-y-3">
@@ -443,7 +443,7 @@ export default function Investors() {
                 ].map((item) => (
                   <li
                     key={item}
-                    className="text-[15px] text-white/50 leading-relaxed pl-4 border-l border-gold/30"
+                    className="text-[15px] text-white/50 leading-relaxed pl-4 border-l border-teal/30"
                   >
                     {item}
                   </li>
@@ -456,7 +456,7 @@ export default function Investors() {
             id="request-deck"
             className="mt-16 pt-12 border-t border-white/10 text-center scroll-mt-24"
           >
-            <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-6">
+            <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-6">
               Request the Deck
             </p>
             <InvestorDeckForm />

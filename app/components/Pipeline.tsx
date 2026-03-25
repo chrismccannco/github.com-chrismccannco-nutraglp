@@ -94,7 +94,7 @@ export default function Pipeline() {
         </div>
 
         <div className="mt-10 bg-forest-deep/[0.04] border border-rule rounded-xl p-8 flex flex-col md:flex-row items-start md:items-center gap-6">
-          <div className="w-12 h-12 bg-forest rounded-xl flex items-center justify-center text-gold text-xl shrink-0">
+          <div className="w-12 h-12 bg-forest rounded-xl flex items-center justify-center text-teal-light text-xl shrink-0">
             <svg
               width="24"
               height="24"

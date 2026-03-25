@@ -82,7 +82,7 @@ export default async function BlogPreviewPage({
           <div className="max-w-[720px] mx-auto">
             <Link
               href="/blog"
-              className="text-[11px] font-bold uppercase tracking-[2px] text-gold no-underline hover:text-gold-light transition"
+              className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light no-underline hover:text-white/70 transition"
             >
               &larr; Research &amp; Insights
             </Link>

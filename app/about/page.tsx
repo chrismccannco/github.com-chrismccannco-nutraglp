@@ -67,7 +67,7 @@ export default function AboutPage() {
 
       {/* Hero */}
       <section className="bg-forest-deep px-6 md:px-12 pt-28 pb-20 text-center">
-        <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
+        <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
           About
         </p>
         <h1

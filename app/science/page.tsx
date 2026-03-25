@@ -138,7 +138,7 @@ export default function SciencePage() {
     <main>
       {/* Hero */}
       <section className="bg-forest-deep px-6 md:px-12 pt-28 pb-20 text-center">
-        <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
+        <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
           The Science
         </p>
         <h1 className="text-[30px] md:text-[44px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6 font-heading">
@@ -220,7 +220,7 @@ export default function SciencePage() {
       {/* ─── PRODUCT PIPELINE ─── */}
       <section className="py-24 px-6 md:px-12 bg-forest-deep">
         <FadeIn className="max-w-[960px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
             Product Pipeline
           </p>
           <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-6 text-white font-heading">
@@ -243,7 +243,7 @@ export default function SciencePage() {
                     {product.status}
                   </span>
                 </div>
-                <p className="text-[11px] font-bold uppercase tracking-wider text-gold/60 mb-1">
+                <p className="text-[11px] font-bold uppercase tracking-wider text-teal-light/60 mb-1">
                   {product.category}
                 </p>
                 <p className="text-[20px] font-semibold text-white tracking-tight mb-3">
@@ -334,7 +334,7 @@ export default function SciencePage() {
                 )}
                 <div className="flex md:flex-col items-start md:items-center gap-4 md:gap-0 md:text-center">
                   {/* Number circle */}
-                  <div className="w-10 h-10 rounded-full bg-forest-deep text-gold font-heading text-[18px] flex items-center justify-center flex-shrink-0 relative z-10">
+                  <div className="w-10 h-10 rounded-full bg-forest-deep text-teal-light font-heading text-[18px] flex items-center justify-center flex-shrink-0 relative z-10">
                     {s.step}
                   </div>
                   <div className="md:mt-4">
@@ -370,7 +370,7 @@ export default function SciencePage() {
       {/* Standards */}
       <section className="bg-forest-deep bg-line-texture py-20 px-6 md:px-12">
         <div className="max-w-[720px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
             Quality & Compliance
           </p>
           <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-white font-heading">

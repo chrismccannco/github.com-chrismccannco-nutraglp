@@ -20,7 +20,7 @@ export default function Contrast() {
   return (
     <section className="bg-forest-deep bg-line-texture py-24 px-6 md:px-12">
       <div className="max-w-[1000px] mx-auto">
-        <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
+        <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
           A Different Category
         </p>
         <h2
@@ -51,8 +51,8 @@ export default function Contrast() {
           </div>
 
           {/* Us */}
-          <div className="bg-gold/[0.08] border border-gold/20 rounded-lg p-6 md:p-10">
-            <p className="text-[11px] font-bold uppercase tracking-[1.5px] text-gold mb-6">
+          <div className="bg-teal/[0.08] border border-teal/20 rounded-lg p-6 md:p-10">
+            <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-6">
               NutraGLP
             </p>
             {us.map((item) => (
@@ -60,7 +60,7 @@ export default function Contrast() {
                 key={item.text}
                 className="py-3 border-b border-white/[0.06] flex items-start gap-3"
               >
-                <span className="w-5 h-5 shrink-0 mt-0.5 rounded-full bg-gold/20 flex items-center justify-center text-gold text-[11px] font-bold">
+                <span className="w-5 h-5 shrink-0 mt-0.5 rounded-full bg-teal/20 flex items-center justify-center text-teal-light text-[11px] font-bold">
                   ✓
                 </span>
                 <span className="text-[15px] leading-relaxed text-white/85">

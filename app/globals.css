@@ -1,9 +1,10 @@
 @import "tailwindcss";
 
 /* ============================================================
-   NutraGLP Brand System
-   Fonts: Playfair Display (headings) + Inter (body)
-   Primary: Deep Indigo #0a2463, Gold #c8962e
+   NutraGLP Brand System v2
+   Fonts: Fraunces (headings) + Inter (body)
+   Primary: Deep Indigo #0a2463, Teal #1585b5
+   CTA: Gold #c8962e (action color only)
    Palette: #0066cc, #1585b5, #6b7280, #9ca3af
    ============================================================
 
@@ -11,6 +12,7 @@
    ─────────────────────────────────────────────────
    H1 Hero  (homepage, investors):
      text-4xl md:text-[56px] font-normal leading-[1.08] tracking-tight font-heading
+     Hero italic spans: font-variation-settings: 'WONK' 1, 'SOFT' 50
 
    H1 Page  (science, about, faq, slim-shot):
      text-[30px] md:text-[44px] font-normal leading-[1.1] tracking-tight font-heading
@@ -28,7 +30,8 @@
      text-[15px] leading-relaxed
 
    Eyebrow (section labels):
-     text-[11px] font-bold uppercase tracking-[2.5px]
+     text-[10px] font-bold uppercase tracking-[1.5px]
+     Use text-teal on light bgs, text-teal-light on dark bgs
 
    Stat Value (proof bars):
      text-2xl font-normal tracking-tight font-heading
@@ -37,11 +40,17 @@
 @theme {
   /* Deep Indigo family */
   --color-forest-deep: #0a2463;
+  --color-forest-black: #0c1222;
   --color-forest: #0e3078;
   --color-forest-mid: #0066cc;
   --color-forest-light: #1585b5;
 
-  /* Gold accent */
+  /* Teal accent (primary brand accent — science, data, eyebrows) */
+  --color-teal: #1585b5;
+  --color-teal-light: #3da8d4;
+  --color-teal-muted: rgba(21, 133, 181, 0.15);
+
+  /* Gold (CTA / action color only) */
   --color-gold: #c8962e;
   --color-gold-light: #d4a84a;
   --color-gold-wash: #f5ecd8;
@@ -49,13 +58,14 @@
   /* Neutrals */
   --color-cream: #f5f2eb;
   --color-cream-warm: #eee9df;
+  --color-white-clean: #fafafa;
   --color-ink: #1a1a18;
   --color-mist: #6b7280;
   --color-mist-light: #9ca3af;
   --color-rule: #ddd8ce;
 
   /* Typography */
-  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-heading: 'Fraunces', Georgia, serif;
 }
 
 @layer base {
@@ -68,7 +78,16 @@
 
 @layer utilities {
   .font-display {
-    font-family: 'Playfair Display', Georgia, serif;
+    font-family: 'Fraunces', Georgia, serif;
+  }
+
+  /* Fraunces variable axis control */
+  .heading-wonk {
+    font-variation-settings: 'WONK' 1, 'SOFT' 50;
+  }
+
+  .heading-clean {
+    font-variation-settings: 'WONK' 0, 'SOFT' 0;
   }
 }
 

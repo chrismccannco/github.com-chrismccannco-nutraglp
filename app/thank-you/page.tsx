@@ -13,7 +13,7 @@ export default function ThankYouPage() {
   return (
     <main>
       <section className="bg-forest-deep px-6 md:px-12 pt-28 pb-20 text-center min-h-[60vh] flex flex-col items-center justify-center">
-        <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
+        <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
           Early Access
         </p>
         <h1
@@ -29,13 +29,13 @@ export default function ThankYouPage() {
         <div className="flex flex-wrap justify-center gap-6">
           <Link
             href="/science"
-            className="text-sm text-gold hover:text-gold-light transition no-underline border-b border-gold/30 pb-0.5"
+            className="text-sm text-teal-light hover:text-white/70 transition no-underline border-b border-teal/30 pb-0.5"
           >
             Read the science &rarr;
           </Link>
           <Link
             href="/blog"
-            className="text-sm text-gold hover:text-gold-light transition no-underline border-b border-gold/30 pb-0.5"
+            className="text-sm text-teal-light hover:text-white/70 transition no-underline border-b border-teal/30 pb-0.5"
           >
             Latest research &rarr;
           </Link>

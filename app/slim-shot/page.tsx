@@ -151,13 +151,13 @@ export default function SlimShotPage() {
           </div>
 
           <div className="flex-1">
-            <p className="text-xs font-semibold uppercase tracking-[3px] text-gold/70 mb-6">
+            <p className="text-[10px] font-semibold uppercase tracking-[1.5px] text-teal-light mb-6">
               Slim SHOT &mdash; a drinkable daily liquid, not an injection
             </p>
             <h1 className="text-4xl md:text-[56px] font-normal text-white leading-[1.08] tracking-tight mb-6 font-heading">
               Daily GLP-1 amplification.
               <br />
-              <span className="text-gold italic">Drink it. No needle. No syringe. Ever.</span>
+              <span className="text-gold italic heading-wonk">Drink it. No needle. No syringe. Ever.</span>
             </h1>
             <p className="text-lg md:text-xl text-white/50 leading-relaxed mb-8 max-w-[580px]">
               Slim SHOT is a drinkable liquid, not an injection. A patent-pending
@@ -166,7 +166,7 @@ export default function SlimShotPage() {
               breaks it down.
             </p>
             <div className="flex items-baseline gap-3 mb-8">
-              <span className="text-3xl text-gold font-normal font-heading">
+              <span className="text-3xl text-teal-light font-normal font-heading">
                 $155
               </span>
               <span className="text-white/40 text-sm">/month &middot; Ships direct &middot; Cancel anytime</span>
@@ -205,7 +205,7 @@ export default function SlimShotPage() {
         ].map((s) => (
           <div key={s.label} className="text-center">
             <div
-              className="text-[28px] font-normal tracking-tight text-gold font-heading"
+              className="text-[28px] font-normal tracking-tight text-teal-light font-heading"
              
             >
               {s.value}

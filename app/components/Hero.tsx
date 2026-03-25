@@ -7,13 +7,13 @@ export default function Hero() {
     <section id="waitlist" className="bg-forest-deep px-6 md:px-12 pt-28 pb-24">
       <div className="max-w-[1100px] mx-auto md:flex md:items-center md:gap-16">
         <div className="flex-1 text-center md:text-left">
-          <p className="text-xs font-semibold uppercase tracking-[3px] text-gold/70 mb-6">
+          <p className="text-[10px] font-semibold uppercase tracking-[1.5px] text-teal-light mb-6">
             A biotechnology platform for natural incretin modulation.
           </p>
           <h1 className="text-4xl md:text-[56px] font-normal text-white leading-[1.08] tracking-tight max-w-[800px] md:max-w-none mb-6 font-heading">
             No needle. No prescription.
             <br />
-            <span className="text-gold italic">No catch.</span>
+            <span className="text-gold italic heading-wonk">No catch.</span>
           </h1>
           <p className="text-lg md:text-xl text-white/50 max-w-[580px] mx-auto md:mx-0 mb-6 leading-relaxed">
             Slim SHOT is a daily liquid formula that amplifies your body&apos;s
