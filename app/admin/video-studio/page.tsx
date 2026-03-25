@@ -152,7 +152,7 @@ export default function VideoStudioPage() {
               </span>
 
               <button
-                onClick={() => deleteVideo(v.id, title)}
+                onClick={() => deleteVideo(v.id, v.title)}
                 disabled={deletingId === v.id}
                 className="p-2 text-neutral-400 hover:text-red-500 rounded-lg hover:bg-neutral-50 transition-colors flex-shrink-0"
               >
