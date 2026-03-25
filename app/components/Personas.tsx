@@ -1,3 +1,5 @@
+import FadeIn from "./FadeIn";
+
 const personas = [
   {
     label: "The needle question",
@@ -20,20 +22,22 @@ export default function Personas() {
   return (
     <section className="py-24 px-6 md:px-12">
       <div className="max-w-[1000px] mx-auto">
-        <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
-          Who This Is For
-        </p>
-        <h2
-          className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-ink font-heading"
-        >
-          Three reasons people find us.
-        </h2>
-        <p className="text-[17px] leading-relaxed text-mist max-w-[640px] mb-14">
-          Different starting points. Same gap in the market. If one of
-          these sounds like your story, Slim SHOT was built for you.
-        </p>
+        <FadeIn>
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
+            Who This Is For
+          </p>
+          <h2
+            className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-ink font-heading"
+          >
+            Three reasons people find us.
+          </h2>
+          <p className="text-[17px] leading-relaxed text-mist max-w-[640px] mb-14">
+            Different starting points. Same gap in the market. If one of
+            these sounds like your story, Slim SHOT was built for you.
+          </p>
+        </FadeIn>
 
-        <div className="grid grid-cols-1 gap-6">
+        <FadeIn delay={100} className="grid grid-cols-1 gap-6">
           {personas.map((p) => (
             <div
               key={p.label}
@@ -52,7 +56,7 @@ export default function Personas() {
               </p>
             </div>
           ))}
-        </div>
+        </FadeIn>
       </div>
     </section>
   );

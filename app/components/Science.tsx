@@ -1,8 +1,10 @@
 import Link from "next/link";
+import FadeIn from "./FadeIn";
 
 export default function Science() {
   return (
     <section className="py-24 px-6 md:px-12 max-w-[720px] mx-auto">
+      <FadeIn>
       <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
         The Science
       </p>
@@ -45,6 +47,7 @@ export default function Science() {
           See the product &rarr;
         </Link>
       </div>
+      </FadeIn>
     </section>
   );
 }

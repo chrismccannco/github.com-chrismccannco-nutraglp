@@ -1,4 +1,5 @@
 import Link from "next/link";
+import FadeIn from "./FadeIn";
 
 const posts = [
   {
@@ -25,15 +26,17 @@ export default function LatestResearch() {
   return (
     <section className="py-24 px-6 md:px-12">
       <div className="max-w-[900px] mx-auto">
-        <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
-          Research &amp; Insights
-        </p>
-        <h2
-          className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-10 text-ink font-heading"
-        >
-          The evidence behind the formula
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <FadeIn>
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
+            Research &amp; Insights
+          </p>
+          <h2
+            className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-10 text-ink font-heading"
+          >
+            The evidence behind the formula
+          </h2>
+        </FadeIn>
+        <FadeIn delay={100} className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {posts.map((post) => (
             <Link
               key={post.slug}
@@ -50,7 +53,7 @@ export default function LatestResearch() {
               </p>
             </Link>
           ))}
-        </div>
+        </FadeIn>
         <div className="mt-8">
           <Link
             href="/blog"

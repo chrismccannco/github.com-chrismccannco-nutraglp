@@ -1,8 +1,10 @@
 import WaitlistForm from "./WaitlistForm";
+import FadeIn from "./FadeIn";
 
 export default function CTA() {
   return (
     <section className="bg-forest py-20 px-6 md:px-12 text-center">
+      <FadeIn>
       <h2
         className="text-[26px] md:text-[36px] font-normal text-white tracking-tight leading-tight mb-4 font-heading"
       >
@@ -13,6 +15,7 @@ export default function CTA() {
         Slim SHOT ships direct. $155/mo. No prescription. No commitment.
       </p>
       <WaitlistForm variant="cta" />
+      </FadeIn>
     </section>
   );
 }

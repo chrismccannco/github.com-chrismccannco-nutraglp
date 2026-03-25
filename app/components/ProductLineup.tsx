@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import FadeIn from "./FadeIn";
 
 const products = [
   {
@@ -48,20 +49,22 @@ export default function ProductLineup() {
   return (
     <section className="py-24 px-6 md:px-12 bg-cream-warm bg-dot-grid">
       <div className="max-w-[1000px] mx-auto">
-        <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
-          Product Pipeline
-        </p>
-        <h2
-          className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-ink font-heading"
-        >
-          One patent-pending nanoemulsion architecture. Multiple delivery formats.
-        </h2>
-        <p className="text-[17px] leading-relaxed text-mist max-w-[600px] mb-14">
-          The same patent-pending nanoemulsion technology, designed into the
-          products people already use every day.
-        </p>
+        <FadeIn>
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
+            Product Pipeline
+          </p>
+          <h2
+            className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-ink font-heading"
+          >
+            One patent-pending nanoemulsion architecture. Multiple delivery formats.
+          </h2>
+          <p className="text-[17px] leading-relaxed text-mist max-w-[600px] mb-14">
+            The same patent-pending nanoemulsion technology, designed into the
+            products people already use every day.
+          </p>
+        </FadeIn>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <FadeIn delay={100} className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {products.map((p) => {
             const card = (
               <div
@@ -106,7 +109,7 @@ export default function ProductLineup() {
             }
             return card;
           })}
-        </div>
+        </FadeIn>
       </div>
     </section>
   );

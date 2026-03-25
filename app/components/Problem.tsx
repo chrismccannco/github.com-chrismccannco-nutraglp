@@ -1,6 +1,9 @@
+import FadeIn from "./FadeIn";
+
 export default function Problem() {
   return (
     <section className="py-24 px-6 md:px-12 max-w-[720px] mx-auto">
+      <FadeIn>
       <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
         The Problem
       </p>
@@ -25,6 +28,7 @@ export default function Problem() {
         </strong>{" "}
         That&apos;s where we built NutraGLP.
       </p>
+      </FadeIn>
     </section>
   );
 }

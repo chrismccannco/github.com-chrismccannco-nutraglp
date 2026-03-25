@@ -1,3 +1,5 @@
+import FadeIn from "./FadeIn";
+
 const them = [
   { text: "Weekly self-injection", icon: "💉" },
   { text: "$800–$1,600/month without insurance", icon: "💸" },
@@ -20,16 +22,18 @@ export default function Contrast() {
   return (
     <section className="bg-forest-deep bg-line-texture py-24 px-6 md:px-12">
       <div className="max-w-[1000px] mx-auto">
-        <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
-          A Different Category
-        </p>
-        <h2
-          className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-12 text-white font-heading"
-        >
-          What changes when you don&apos;t need a prescription.
-        </h2>
+        <FadeIn>
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
+            A Different Category
+          </p>
+          <h2
+            className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-12 text-white font-heading"
+          >
+            What changes when you don&apos;t need a prescription.
+          </h2>
+        </FadeIn>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-0.5">
+        <FadeIn delay={100} className="grid grid-cols-1 md:grid-cols-2 gap-0.5">
           {/* Them */}
           <div className="bg-white/[0.04] rounded-lg p-6 md:p-10">
             <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-white/40 mb-6">
@@ -69,7 +73,7 @@ export default function Contrast() {
               </div>
             ))}
           </div>
-        </div>
+        </FadeIn>
 
         {/* Bottom note */}
         <p className="text-xs text-white/20 mt-6 text-center">
