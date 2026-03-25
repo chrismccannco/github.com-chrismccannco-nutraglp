@@ -33,17 +33,9 @@ export default function Footer() {
             Investors
           </Link>
         </div>
-        <div className="flex items-center justify-center gap-2 mt-6">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none" className="w-5 h-5 opacity-50" aria-hidden="true">
-            <path d="M20 5.5 C12 5.5 5.5 12 5.5 20 C5.5 28 12 34.5 20 34.5" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-            <path d="M20 5.5 C28 5.5 34.5 12 34.5 20 C34.5 28 28 34.5 20 34.5" stroke="#c8962e" strokeWidth="2.5" strokeLinecap="round" fill="none"/>
-            <circle cx="20" cy="5.5" r="2.5" fill="#c8962e"/>
-            <circle cx="20" cy="34.5" r="2.5" fill="#c8962e"/>
-          </svg>
-          <p className="text-xs text-white/60">
-            &copy; {new Date().getFullYear()} NutraGLP Biosciences. All rights reserved.
-          </p>
-        </div>
+        <p className="text-xs text-white/60 text-center mt-6">
+          NutraGLP Biosciences&copy; {new Date().getFullYear()}. All rights reserved.
+        </p>
       </div>
     </footer>
   );
