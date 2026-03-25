@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import WaitlistForm from "../components/WaitlistForm";
+import FadeIn from "../components/FadeIn";
 import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
@@ -151,7 +152,7 @@ export default function SciencePage() {
       </section>
 
       {/* Thesis */}
-      <section className="py-20 px-6 md:px-12 max-w-[720px] mx-auto">
+      <FadeIn className="py-20 px-6 md:px-12 max-w-[720px] mx-auto">
         <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
           What is endogenous GLP-1 amplification?
         </h2>
@@ -174,13 +175,13 @@ export default function SciencePage() {
           incretin amplification, enzyme inhibition, insulin sensitivity, appetite
           regulation, glucose uptake, and lipid metabolism.
         </p>
-      </section>
+      </FadeIn>
 
       <hr className="max-w-[720px] mx-auto border-t border-rule" />
 
       {/* ─── PLATFORM ARCHITECTURE ─── */}
       <section className="py-24 px-6 md:px-12 bg-cream-warm">
-        <div className="max-w-[960px] mx-auto">
+        <FadeIn className="max-w-[960px] mx-auto">
           <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
             Platform Architecture
           </p>
@@ -213,12 +214,12 @@ export default function SciencePage() {
               </div>
             ))}
           </div>
-        </div>
+        </FadeIn>
       </section>
 
       {/* ─── PRODUCT PIPELINE ─── */}
       <section className="py-24 px-6 md:px-12 bg-forest-deep">
-        <div className="max-w-[960px] mx-auto">
+        <FadeIn className="max-w-[960px] mx-auto">
           <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
             Product Pipeline
           </p>
@@ -254,7 +255,7 @@ export default function SciencePage() {
               </div>
             ))}
           </div>
-        </div>
+        </FadeIn>
       </section>
 
       {/* Pathway Detail */}

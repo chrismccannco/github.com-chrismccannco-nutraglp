@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Footer from "../components/Footer";
 import InvestorDeckForm from "../components/InvestorDeckForm";
+import FadeIn from "../components/FadeIn";
 
 export const metadata: Metadata = {
   title: "Investors",
@@ -139,7 +140,7 @@ export default function Investors() {
 
       {/* ─── THE PLATFORM ─── */}
       <section className="py-24 px-6 md:px-12">
-        <div className="max-w-[720px] mx-auto mb-14">
+        <FadeIn className="max-w-[720px] mx-auto mb-14">
           <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
             The Platform
           </p>
@@ -158,8 +159,8 @@ export default function Investors() {
             through 40+ patent-pending formulations, platform-level delivery
             technology, and system design IP.
           </p>
-        </div>
-        <div className="max-w-[960px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+        </FadeIn>
+        <FadeIn className="max-w-[960px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-6" delay={150}>
           {platformCards.map((card) => (
             <div
               key={card.title}
@@ -176,12 +177,12 @@ export default function Investors() {
               </p>
             </div>
           ))}
-        </div>
+        </FadeIn>
       </section>
 
       {/* ─── IP & DEFENSIBILITY ─── */}
       <section className="py-24 px-6 md:px-12 bg-forest-deep">
-        <div className="max-w-[720px] mx-auto">
+        <FadeIn className="max-w-[720px] mx-auto">
           <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
             IP &amp; Defensibility
           </p>
@@ -230,12 +231,12 @@ export default function Investors() {
               </div>
             ))}
           </div>
-        </div>
+        </FadeIn>
       </section>
 
       {/* ─── PROOF OF CONCEPT ─── */}
       <section className="py-24 px-6 md:px-12 bg-cream-warm">
-        <div className="max-w-[720px] mx-auto">
+        <FadeIn className="max-w-[720px] mx-auto">
           <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
             Proof of Concept
           </p>
@@ -269,12 +270,12 @@ export default function Investors() {
             The observational study was not a randomized controlled trial. Data
             requires appropriate scientific qualification before distribution.
           </p>
-        </div>
+        </FadeIn>
       </section>
 
       {/* ─── THE MARKET ─── */}
       <section className="py-24 px-6 md:px-12">
-        <div className="max-w-[720px] mx-auto mb-14">
+        <FadeIn className="max-w-[720px] mx-auto mb-14">
           <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
             The Market
           </p>
@@ -304,10 +305,10 @@ export default function Investors() {
               <p className="text-[11px] text-mist uppercase tracking-wider">Discontinue in Year 1</p>
             </div>
           </div>
-        </div>
+        </FadeIn>
 
         {/* Comparables table */}
-        <div className="max-w-[1000px] mx-auto overflow-x-auto">
+        <FadeIn className="max-w-[1000px] mx-auto overflow-x-auto" delay={100}>
           <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
             Acquisition Comparables
           </p>
@@ -342,12 +343,12 @@ export default function Investors() {
               ))}
             </tbody>
           </table>
-        </div>
+        </FadeIn>
       </section>
 
       {/* ─── MILESTONE TIMELINE ─── */}
       <section className="py-24 px-6 md:px-12 bg-cream-warm">
-        <div className="max-w-[960px] mx-auto">
+        <FadeIn className="max-w-[960px] mx-auto">
           <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
             Roadmap
           </p>
@@ -386,12 +387,12 @@ export default function Investors() {
               </div>
             ))}
           </div>
-        </div>
+        </FadeIn>
       </section>
 
       {/* ─── THE RAISE (with Use of Funds visualization) ─── */}
       <section className="bg-forest-deep py-24 px-6 md:px-12">
-        <div className="max-w-[720px] mx-auto">
+        <FadeIn className="max-w-[720px] mx-auto">
           <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
             The Raise
           </p>
@@ -460,24 +461,7 @@ export default function Investors() {
             </p>
             <InvestorDeckForm />
           </div>
-        </div>
-      </section>
-
-      {/* ─── BOTTOM CTA ─── */}
-      <section className="bg-forest py-20 px-6 md:px-12 text-center">
-        <h2 className="text-[26px] md:text-[36px] font-normal text-white tracking-tight mb-4 font-heading">
-          Raising $5.5M seed.
-        </h2>
-        <p className="text-[17px] text-white/50 max-w-[520px] mx-auto mb-8">
-          For the full deck, clinical data, and a conversation about what
-          we&apos;re building.
-        </p>
-        <a
-          href="#request-deck"
-          className="inline-block px-8 py-3.5 text-[15px] font-bold rounded-md bg-gold text-white hover:bg-gold-light transition"
-        >
-          Request the Deck
-        </a>
+        </FadeIn>
       </section>
 
       <Footer />
