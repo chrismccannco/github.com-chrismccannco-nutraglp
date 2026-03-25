@@ -3,6 +3,9 @@ import Link from "next/link";
 import WaitlistForm from "../components/WaitlistForm";
 import FadeIn from "../components/FadeIn";
 import Footer from "../components/Footer";
+import MechanismIllustration from "../components/science/MechanismIllustration";
+import BioavailabilityIllustration from "../components/science/BioavailabilityIllustration";
+import PathwayNetwork from "../components/science/PathwayNetwork";
 
 export const metadata: Metadata = {
   title: "The Science",
@@ -177,6 +180,13 @@ export default function SciencePage() {
         </p>
       </FadeIn>
 
+      {/* ─── ILLUSTRATION 1: Mechanism of Action ─── */}
+      <section className="py-12 px-6 md:px-12 bg-white">
+        <FadeIn className="max-w-[960px] mx-auto">
+          <MechanismIllustration />
+        </FadeIn>
+      </section>
+
       <hr className="max-w-[720px] mx-auto border-t border-rule" />
 
       {/* ─── PLATFORM ARCHITECTURE ─── */}
@@ -260,46 +270,57 @@ export default function SciencePage() {
 
       {/* Pathway Detail */}
       <section className="py-20 px-6 md:px-12 max-w-[1000px] mx-auto">
-        <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-ink font-heading">
-          Which metabolic pathways does NutraGLP target?
-        </h2>
-        <p className="text-[17px] leading-relaxed text-mist mb-12 max-w-[640px]">
-          The formula targets three primary mechanisms, each supported by
-          multiple active compounds working in concert.
-        </p>
+        <FadeIn>
+          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-ink font-heading">
+            Which metabolic pathways does NutraGLP target?
+          </h2>
+          <p className="text-[17px] leading-relaxed text-mist mb-12 max-w-[640px]">
+            The formula targets three primary mechanisms, each supported by
+            multiple active compounds working in concert.
+          </p>
+        </FadeIn>
 
-        {pathways.map((group) => (
-          <div key={group.category} className="mb-12">
-            <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-6">
-              {group.category}
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {group.items.map((item) => (
-                <div
-                  key={item.name}
-                  className="p-6 bg-white border border-rule rounded-xl"
-                >
-                  <h3 className="text-[18px] font-semibold tracking-tight mb-2 text-ink">
-                    {item.name}
-                  </h3>
-                  <p className="text-sm text-mist leading-relaxed mb-3">
-                    {item.action}
-                  </p>
-                  <p className="text-xs text-mist-light leading-relaxed italic">
-                    {item.evidence}
-                  </p>
-                </div>
-              ))}
+        <FadeIn delay={100}>
+          {pathways.map((group) => (
+            <div key={group.category} className="mb-12">
+              <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-6">
+                {group.category}
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {group.items.map((item) => (
+                  <div
+                    key={item.name}
+                    className="p-6 bg-white border border-rule rounded-xl"
+                  >
+                    <h3 className="text-[18px] font-semibold tracking-tight mb-2 text-ink">
+                      {item.name}
+                    </h3>
+                    <p className="text-sm text-mist leading-relaxed mb-3">
+                      {item.action}
+                    </p>
+                    <p className="text-xs text-mist-light leading-relaxed italic">
+                      {item.evidence}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </FadeIn>
+      </section>
+
+      {/* ─── ILLUSTRATION 3: 13-Pathway Network ─── */}
+      <section className="py-12 px-6 md:px-12 bg-white">
+        <FadeIn className="max-w-[960px] mx-auto">
+          <PathwayNetwork />
+        </FadeIn>
       </section>
 
       <hr className="max-w-[720px] mx-auto border-t border-rule" />
 
       {/* ─── NANOEMULSION DELIVERY ─── */}
       <section className="py-20 px-6 md:px-12 bg-cream-warm">
-        <div className="max-w-[720px] mx-auto">
+        <FadeIn className="max-w-[720px] mx-auto">
           <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
             Why do most oral supplements fail at absorption?
           </h2>
@@ -350,6 +371,11 @@ export default function SciencePage() {
             ))}
           </div>
 
+          {/* ─── ILLUSTRATION 2: Bioavailability Comparison ─── */}
+          <div className="mt-4 mb-12">
+            <BioavailabilityIllustration />
+          </div>
+
           <div className="flex flex-wrap gap-6">
             <Link
               href="/slim-shot"
@@ -364,12 +390,12 @@ export default function SciencePage() {
               Common questions about GLP-1 &rarr;
             </Link>
           </div>
-        </div>
+        </FadeIn>
       </section>
 
       {/* Standards */}
       <section className="py-20 px-6 md:px-12">
-        <div className="max-w-[720px] mx-auto">
+        <FadeIn className="max-w-[720px] mx-auto">
           <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
             Quality & Compliance
           </p>
@@ -389,26 +415,28 @@ export default function SciencePage() {
               </div>
             ))}
           </div>
-        </div>
+        </FadeIn>
       </section>
 
       {/* CTA */}
       <section className="bg-forest py-16 px-6 md:px-12 text-center">
-        <h2 className="text-[26px] md:text-[36px] font-normal text-white tracking-tight leading-tight mb-4 font-heading">
-          Questions about the science?
-        </h2>
-        <p className="text-[17px] text-white/50 max-w-[480px] mx-auto mb-6">
-          Join the waitlist. We&apos;ll send the full science brief and clinical references.
-        </p>
-        <WaitlistForm variant="cta" />
-        <div className="mt-6">
-          <Link
-            href="/"
-            className="text-white/40 text-sm hover:text-white/70 transition no-underline"
-          >
-            &larr; Back to home
-          </Link>
-        </div>
+        <FadeIn>
+          <h2 className="text-[26px] md:text-[36px] font-normal text-white tracking-tight leading-tight mb-4 font-heading">
+            Questions about the science?
+          </h2>
+          <p className="text-[17px] text-white/50 max-w-[480px] mx-auto mb-6">
+            Join the waitlist. We&apos;ll send the full science brief and clinical references.
+          </p>
+          <WaitlistForm variant="cta" />
+          <div className="mt-6">
+            <Link
+              href="/"
+              className="text-white/40 text-sm hover:text-white/70 transition no-underline"
+            >
+              &larr; Back to home
+            </Link>
+          </div>
+        </FadeIn>
       </section>
 
       <Footer />
