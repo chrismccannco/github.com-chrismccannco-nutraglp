@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Footer from "../components/Footer";
+import InvestorDeckForm from "../components/InvestorDeckForm";
 import InvestorInteractions from "./InvestorInteractions";
 
 export const metadata: Metadata = {
@@ -514,6 +515,14 @@ export default function InvestorsPage() {
 }
 .inv-c-card a:hover { color: var(--teal); border-color: var(--teal); }
 
+/* ═══════════════════ DECK FORM ═══════════════════ */
+.inv-deck-form-wrap {
+  margin-top: 40px; margin-bottom: 56px;
+  padding: 40px; border-radius: 8px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
 /* ═══════════════════ DISCLAIMER ═══════════════════ */
 .inv-disclaimer {
   background: var(--cream-warm);
@@ -804,6 +813,11 @@ export default function InvestorsPage() {
           <p className="inv-eyebrow">Get in Touch</p>
           <h2>Request the deck.<br /><em>Let&apos;s talk.</em></h2>
           <p className="inv-lead">We&apos;re in active conversations with strategic and financial investors. If you&apos;re working through the science or building a position on the GLP-1 economy, we&apos;d like to talk.</p>
+
+          <div className="inv-deck-form-wrap">
+            <InvestorDeckForm />
+          </div>
+
           <div className="inv-contact-grid">
             <div className="inv-c-card">
               <p className="inv-c-role">Science &amp; IP</p>
