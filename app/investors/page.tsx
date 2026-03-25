@@ -23,6 +23,7 @@ export default function InvestorsPage() {
         dangerouslySetInnerHTML={{
           __html: `
 /* ═══════════════════ INVESTOR PAGE STYLES ═══════════════════ */
+html { scroll-behavior: smooth; }
 .inv-page {
   --navy-deep: #0a2463;
   --navy: #0066cc;
