@@ -1,5 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
+import FadeIn from "./FadeIn";
+import MechanismDiagram from "./MechanismDiagram";
 
 const steps = [
   {
@@ -35,64 +36,58 @@ const howToSchema = {
 
 export default function Mechanism() {
   return (
-    <section className="py-24 px-6 md:px-12 bg-cream-warm">
+    <section className="py-24 px-6 md:px-12 bg-forest-deep">
       <div className="max-w-[1000px] mx-auto">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
-      />
-      <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
-        How It Works
-      </p>
-      <h2
-        className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-6 text-ink font-heading"
-      >
-        Your body already makes GLP-1.
-        <br />Slim SHOT helps it make more.
-      </h2>
-      <p className="text-[17px] leading-relaxed text-mist max-w-[640px] mb-12">
-        GLP-1 drugs work by injecting synthetic hormones. Slim SHOT takes a
-        different approach: a drinkable liquid that amplifies your body&apos;s
-        natural GLP-1 production while inhibiting the enzyme that breaks it
-        down. Three steps, one daily Slim SHOT.
-      </p>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-        {steps.map((s) => (
-          <div
-            key={s.num}
-            className="p-6 md:p-8 bg-white border border-rule rounded-xl"
-          >
-            <div className="w-10 h-10 bg-forest rounded-lg flex items-center justify-center text-white text-lg font-bold mb-4">
-              {s.num}
-            </div>
-            <h3 className="text-[18px] font-semibold tracking-tight mb-2 text-ink">
-              {s.title}
-            </h3>
-            <p className="text-[15px] text-mist leading-relaxed">{s.text}</p>
-          </div>
-        ))}
-      </div>
-
-      {/* Mechanism diagram */}
-      <div className="mt-14 mb-10">
-        <Image
-          src="/images/mechanism-diagram.png"
-          alt="How the NutraGLP nanoemulsion works: active compounds are encapsulated in lipid nanoparticles, absorbed through intestinal L-cells, triggering GLP-1 release and metabolic effects across 13 pathways"
-          width={1920}
-          height={840}
-          className="w-full h-auto rounded-xl border border-rule"
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
         />
-      </div>
+        <FadeIn>
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
+            How It Works
+          </p>
+          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-6 text-white font-heading">
+            Your body already makes GLP-1.
+            <br />
+            <span className="text-gold italic">Slim SHOT helps it make more.</span>
+          </h2>
+          <p className="text-[17px] leading-relaxed text-white/50 max-w-[640px] mb-12">
+            GLP-1 drugs work by injecting synthetic hormones. Slim SHOT takes a
+            different approach: a drinkable liquid that amplifies your body&apos;s
+            natural GLP-1 production while inhibiting the enzyme that breaks it
+            down. Three steps, one daily Slim SHOT.
+          </p>
+        </FadeIn>
 
-      <div className="mt-10">
-        <Link
-          href="/slim-shot"
-          className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
-        >
-          See the science, dosing, and FAQs &rarr;
-        </Link>
-      </div>
+        <FadeIn delay={100} className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-14">
+          {steps.map((s) => (
+            <div
+              key={s.num}
+              className="p-6 md:p-8 bg-white/[0.04] border border-white/[0.08] rounded-xl"
+            >
+              <div className="w-10 h-10 bg-gold/20 border border-gold/30 rounded-lg flex items-center justify-center text-gold text-lg font-bold mb-4">
+                {s.num}
+              </div>
+              <h3 className="text-[18px] font-semibold tracking-tight mb-2 text-white">
+                {s.title}
+              </h3>
+              <p className="text-[15px] text-white/50 leading-relaxed">{s.text}</p>
+            </div>
+          ))}
+        </FadeIn>
+
+        <FadeIn delay={200}>
+          <MechanismDiagram />
+        </FadeIn>
+
+        <div className="mt-10">
+          <Link
+            href="/slim-shot"
+            className="text-sm text-white/40 hover:text-white/70 transition no-underline border-b border-white/20 pb-0.5"
+          >
+            See the science, dosing, and FAQs &rarr;
+          </Link>
+        </div>
       </div>
     </section>
   );
