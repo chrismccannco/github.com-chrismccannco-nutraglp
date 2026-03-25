@@ -274,7 +274,7 @@ export default function SlimShotPage() {
         </FadeIn>
 
         {/* Timeline with connected visual */}
-        <div className="relative">
+        <FadeIn delay={100} className="relative">
           {/* Connecting line (desktop only) */}
           <div className="hidden md:block absolute top-[28px] left-[calc(16.67%-8px)] right-[calc(16.67%-8px)] h-[2px] bg-gradient-to-r from-forest-mid/20 via-forest-mid/40 to-gold/40" />
 
@@ -307,7 +307,7 @@ export default function SlimShotPage() {
               </div>
             ))}
           </div>
-        </div>
+        </FadeIn>
       </section>
 
       {/* FAQ */}
@@ -345,21 +345,22 @@ export default function SlimShotPage() {
 
       {/* CTA */}
       <section className="bg-forest py-20 px-6 md:px-12 text-center">
-        <h2
-          className="text-[26px] md:text-[36px] font-normal text-white tracking-tight leading-tight mb-4 font-heading"
-         
-        >
-          Ready to try a different approach?
-        </h2>
-        <p className="text-[17px] text-white/50 max-w-[520px] mx-auto mb-8">
-          $155/mo. No prescription. No commitment. Join the waitlist for
-          early access and launch pricing.
-        </p>
-        {CHECKOUT_ENABLED ? (
-          <BuyButton variant="cta" label="Start your subscription" />
-        ) : (
-          <WaitlistForm variant="cta" />
-        )}
+        <FadeIn>
+          <h2
+            className="text-[26px] md:text-[36px] font-normal text-white tracking-tight leading-tight mb-4 font-heading"
+          >
+            Ready to try a different approach?
+          </h2>
+          <p className="text-[17px] text-white/50 max-w-[520px] mx-auto mb-8">
+            $155/mo. No prescription. No commitment. Join the waitlist for
+            early access and launch pricing.
+          </p>
+          {CHECKOUT_ENABLED ? (
+            <BuyButton variant="cta" label="Start your subscription" />
+          ) : (
+            <WaitlistForm variant="cta" />
+          )}
+        </FadeIn>
       </section>
 
       <Footer />
