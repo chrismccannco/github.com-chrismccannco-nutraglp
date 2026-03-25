@@ -153,13 +153,13 @@ export default function ScorePage() {
           {/* Strengths + improvements */}
           <div className="grid grid-cols-2 gap-5">
             <div>
-              <h3 className="text-xs font-bold text-emerald-700 uppercase tracking-wider mb-3 flex items-center gap-1.5">
+              <h3 className="text-xs font-bold text-teal-700 uppercase tracking-wider mb-3 flex items-center gap-1.5">
                 <CheckCircle size={12} /> Strengths
               </h3>
               <ul className="space-y-2">
                 {result.strengths.map((s, i) => (
                   <li key={i} className="text-sm text-neutral-600 flex gap-2">
-                    <span className="text-emerald-400 mt-px">•</span>{s}
+                    <span className="text-teal-400 mt-px">•</span>{s}
                   </li>
                 ))}
               </ul>

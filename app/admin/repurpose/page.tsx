@@ -105,12 +105,46 @@ export default function RepurposePage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ content, title, formats: selectedFormats, ...(selectedPersonaId ? { personaId: selectedPersonaId } : {}) }),
       });
-      if (res.ok) {
-        const data = await res.json();
-        setResults(data.results || []);
-      } else {
-        const err = await res.json();
-        alert(err.error || 'Generation failed');
+
+      if (!res.ok) {
+        let errMsg = 'Generation failed';
+        try { const err = await res.json(); errMsg = err.error || errMsg; } catch { /* use default */ }
+        alert(errMsg);
+        setLoading(false);
+        return;
+      }
+
+      // Read SSE stream with proper line buffering
+      const reader = res.body!.getReader();
+      const decoder = new TextDecoder();
+      let sseBuffer = '';
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        sseBuffer += decoder.decode(value, { stream: true });
+        const lines = sseBuffer.split('\n');
+        sseBuffer = lines.pop() || '';
+
+        for (const line of lines) {
+          if (!line.startsWith('data: ')) continue;
+          const payload = line.slice(6).trim();
+          if (payload === '[DONE]') continue;
+          try {
+            const evt = JSON.parse(payload);
+            if (evt.type === 'result_b64') {
+              const bytes = Uint8Array.from(atob(evt.data), (c) => c.charCodeAt(0));
+              const json = new TextDecoder().decode(bytes);
+              const data = JSON.parse(json);
+              setResults(data.results || []);
+            } else if (evt.type === 'result' && evt.data) {
+              setResults(evt.data.results || []);
+            } else if (evt.type === 'error') {
+              alert(evt.error || 'Generation failed');
+            }
+          } catch { /* skip */ }
+        }
       }
     } catch {
       alert('Generation failed');
@@ -247,7 +281,7 @@ export default function RepurposePage() {
             </div>
 
             <button onClick={generate} disabled={loading || !content || selectedFormats.length === 0}
-              className="flex items-center gap-2 px-5 py-2.5 bg-emerald-600 text-white text-sm font-medium rounded-lg hover:bg-emerald-500 disabled:opacity-50 transition-colors w-full justify-center">
+              className="flex items-center gap-2 px-5 py-2.5 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-500 disabled:opacity-50 transition-colors w-full justify-center">
               {loading ? <Loader2 size={14} className="animate-spin" /> : <RefreshCw size={14} />}
               {loading ? 'Generating...' : selectedFormats.length === 0 ? 'Select formats above' : `Generate ${selectedFormats.length} format${selectedFormats.length !== 1 ? 's' : ''}`}
             </button>

@@ -155,7 +155,7 @@ export default function UsersPage() {
         {!showForm && (
           <button
             onClick={() => { resetForm(); setShowForm(true); }}
-            className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white text-sm font-medium rounded-lg hover:bg-emerald-700 transition"
+            className="flex items-center gap-2 px-4 py-2 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-700 transition"
           >
             <UserPlus className="w-4 h-4" />
             Add user
@@ -177,7 +177,7 @@ export default function UsersPage() {
                 value={formEmail}
                 onChange={(e) => setFormEmail(e.target.value)}
                 disabled={!!editingId}
-                className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm disabled:bg-neutral-50 disabled:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm disabled:bg-neutral-50 disabled:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                 placeholder="user@example.com"
               />
             </div>
@@ -187,7 +187,7 @@ export default function UsersPage() {
                 type="text"
                 value={formName}
                 onChange={(e) => setFormName(e.target.value)}
-                className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                 placeholder="Full name"
               />
             </div>
@@ -199,7 +199,7 @@ export default function UsersPage() {
                 type="password"
                 value={formPassword}
                 onChange={(e) => setFormPassword(e.target.value)}
-                className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
                 placeholder={editingId ? "••••••••" : "Set password"}
               />
             </div>
@@ -208,7 +208,7 @@ export default function UsersPage() {
               <select
                 value={formRole}
                 onChange={(e) => setFormRole(e.target.value as "admin" | "editor" | "viewer")}
-                className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent"
               >
                 <option value="admin">Admin — full access</option>
                 <option value="editor">Editor — manage content</option>
@@ -225,7 +225,7 @@ export default function UsersPage() {
             <button
               onClick={handleSave}
               disabled={saving}
-              className="px-4 py-2 bg-emerald-600 text-white text-sm font-medium rounded-lg hover:bg-emerald-700 disabled:opacity-50 transition"
+              className="px-4 py-2 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-700 disabled:opacity-50 transition"
             >
               {saving ? "Saving…" : editingId ? "Update" : "Create user"}
             </button>

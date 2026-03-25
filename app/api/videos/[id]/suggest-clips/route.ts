@@ -49,9 +49,10 @@ export async function POST(
       return NextResponse.json({ error: "No transcript available. Paste the transcript first, then click Save before analyzing." }, { status: 400 });
     }
 
-    // Truncate very long transcripts to stay within token limits (~100k chars ~ 25k tokens)
-    if (transcript.length > 100000) {
-      transcript = transcript.slice(0, 100000) + "\n\n[TRANSCRIPT TRUNCATED — full video is longer]";
+    // Limit transcript to 50k chars (~12k tokens) to stay within Netlify timeout + model limits
+    const TRANSCRIPT_CHAR_LIMIT = 50000;
+    if (transcript.length > TRANSCRIPT_CHAR_LIMIT) {
+      transcript = transcript.slice(0, TRANSCRIPT_CHAR_LIMIT) + "\n\n[TRANSCRIPT TRUNCATED — analyze only the portion above]";
     }
 
     const body = await req.json();

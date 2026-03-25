@@ -25,7 +25,7 @@ export default function CheckoutCancelPage() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link
               href="/slim-shot"
-              className="inline-block px-8 py-3 bg-[#b8955a] text-white font-semibold rounded-full hover:bg-[#a07e47] transition-colors text-sm no-underline"
+              className="inline-block px-8 py-3 bg-[#c8962e] text-white font-semibold rounded-full hover:bg-[#a87a24] transition-colors text-sm no-underline"
             >
               Back to Slim SHOT
             </Link>

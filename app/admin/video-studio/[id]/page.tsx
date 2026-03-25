@@ -208,7 +208,7 @@ export default function VideoEditorPage() {
           </div>
           <div className="flex items-center gap-3">
             {saving && <span className="flex items-center gap-1.5 text-xs text-neutral-400"><Loader2 size={12} className="animate-spin" /> Saving...</span>}
-            {saved && <span className="flex items-center gap-1.5 text-xs text-emerald-600"><Check size={12} /> Saved</span>}
+            {saved && <span className="flex items-center gap-1.5 text-xs text-teal-600"><Check size={12} /> Saved</span>}
             <button onClick={doSave} disabled={saving}
               className="flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-sm font-medium rounded-lg hover:bg-neutral-700 disabled:opacity-50 transition-colors">
               <Check size={13} /> Save
@@ -228,11 +228,24 @@ export default function VideoEditorPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-neutral-500 mb-1.5">Transcript</label>
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="block text-xs font-semibold text-neutral-500">Transcript</label>
+                <span className={`text-xs tabular-nums ${(video.transcript?.length || 0) > 50000 ? 'text-amber-600 font-medium' : 'text-neutral-400'}`}>
+                  {((video.transcript?.length || 0) / 1000).toFixed(1)}k / 50k chars
+                </span>
+              </div>
               <p className="text-xs text-neutral-400 mb-1.5">Paste the full transcript. The AI analyzes it to suggest the best clip-worthy moments.</p>
+              {(video.transcript?.length || 0) > 50000 && (
+                <div className="mb-2 px-3 py-2 bg-amber-50 border border-amber-200 rounded-lg flex items-start gap-2">
+                  <span className="text-amber-600 text-xs mt-0.5">⚠</span>
+                  <p className="text-xs text-amber-700">
+                    Transcript exceeds 50k characters. Only the first 50k will be analyzed. Consider trimming to the most relevant section.
+                  </p>
+                </div>
+              )}
               <textarea value={video.transcript || ''} onChange={e => { update('transcript', e.target.value); update('transcript_status', e.target.value ? 'complete' : 'pending'); }}
                 rows={20} placeholder="Paste your video transcript here..."
-                className="w-full px-3 py-2.5 border border-neutral-200 rounded-lg text-sm text-neutral-800 resize-y leading-relaxed font-mono" />
+                className={`w-full px-3 py-2.5 border rounded-lg text-sm text-neutral-800 resize-y leading-relaxed font-mono ${(video.transcript?.length || 0) > 50000 ? 'border-amber-300' : 'border-neutral-200'}`} />
             </div>
 
             <button onClick={suggestClips} disabled={suggesting || !video.transcript}
@@ -279,7 +292,7 @@ export default function VideoEditorPage() {
                 <h3 className="text-sm font-semibold text-neutral-900">Clips ({video.clips?.length || 0})</h3>
                 {(video.clips?.length || 0) > 0 && (
                   <button onClick={generateCaptions} disabled={generatingCaptions}
-                    className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 text-white text-xs font-medium rounded-lg hover:bg-emerald-500 disabled:opacity-50 transition-colors">
+                    className="flex items-center gap-1.5 px-3 py-1.5 bg-teal-600 text-white text-xs font-medium rounded-lg hover:bg-teal-500 disabled:opacity-50 transition-colors">
                     {generatingCaptions ? <Loader2 size={11} className="animate-spin" /> : <Wand2 size={11} />}
                     {generatingCaptions ? 'Generating...' : 'Generate all captions'}
                   </button>

@@ -14,7 +14,7 @@ import { useAutosave } from "../../hooks/useAutosave";
 import { useAuth } from "../../layout";
 import BlockEditor from "../../components/blocks/BlockEditor";
 import type { Block } from "@/lib/types/blocks";
-import { Plus, Trash2, RefreshCw } from "lucide-react";
+import { Plus, Trash2, RefreshCw, Copy, Check } from "lucide-react";
 import Link from "next/link";
 import AiAssistPanel from "../../components/AiAssistPanel";
 import type { AiAssistResult } from "../../components/AiAssistPanel";
@@ -57,6 +57,26 @@ export default function EditBlogPost() {
   const [publishAt, setPublishAt] = useState("");
   const [relatedSlugs, setRelatedSlugs] = useState("");
   const [saving, setSaving] = useState(false);
+  const [copiedSection, setCopiedSection] = useState<number | "post" | null>(null);
+
+  const copySection = (i: number) => {
+    const s = sections[i];
+    const text = `${s.heading}\n\n${s.body.replace(/<[^>]+>/g, "")}`.trim();
+    navigator.clipboard.writeText(text);
+    setCopiedSection(i);
+    setTimeout(() => setCopiedSection(null), 2000);
+  };
+
+  const copyFullPost = () => {
+    const text = [
+      title,
+      description ? `\n${description}` : "",
+      ...sections.map((s) => `\n## ${s.heading}\n\n${s.body.replace(/<[^>]+>/g, "")}`),
+    ].join("\n").trim();
+    navigator.clipboard.writeText(text);
+    setCopiedSection("post");
+    setTimeout(() => setCopiedSection(null), 2000);
+  };
   const [saved, setSaved] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [updatedAt, setUpdatedAt] = useState("");
@@ -241,7 +261,7 @@ export default function EditBlogPost() {
               publishAt && new Date(publishAt) > new Date()
                 ? "bg-blue-50 text-blue-700 hover:bg-blue-100"
                 : published
-                  ? "bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
+                  ? "bg-teal-50 text-teal-700 hover:bg-teal-100"
                   : "bg-amber-50 text-amber-700 hover:bg-amber-100"
             }`}
             title={published ? "Click to unpublish" : "Click to publish"}
@@ -249,7 +269,7 @@ export default function EditBlogPost() {
             <span className={`w-1.5 h-1.5 rounded-full ${
               publishAt && new Date(publishAt) > new Date()
                 ? "bg-blue-500"
-                : published ? "bg-emerald-500" : "bg-amber-500"
+                : published ? "bg-teal-500" : "bg-amber-500"
             }`} />
             {publishAt && new Date(publishAt) > new Date()
               ? "Scheduled"
@@ -316,7 +336,7 @@ export default function EditBlogPost() {
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
         </div>
         <div className="mb-4">
@@ -327,7 +347,7 @@ export default function EditBlogPost() {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             rows={2}
-            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
         </div>
         <div className="grid grid-cols-2 gap-4 mb-4">
@@ -338,7 +358,7 @@ export default function EditBlogPost() {
             <input
               value={date}
               onChange={(e) => setDate(e.target.value)}
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
           <div>
@@ -348,7 +368,7 @@ export default function EditBlogPost() {
             <input
               value={readTime}
               onChange={(e) => setReadTime(e.target.value)}
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
         </div>
@@ -360,7 +380,7 @@ export default function EditBlogPost() {
             <input
               value={tag}
               onChange={(e) => setTag(e.target.value)}
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
           <div>
@@ -370,7 +390,7 @@ export default function EditBlogPost() {
             <input
               value={gradient}
               onChange={(e) => setGradient(e.target.value)}
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
         </div>
@@ -385,7 +405,7 @@ export default function EditBlogPost() {
             type="datetime-local"
             value={publishAt ? publishAt.slice(0, 16) : ""}
             onChange={(e) => setPublishAt(e.target.value ? new Date(e.target.value).toISOString() : "")}
-            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
           <p className="text-xs text-neutral-400 mt-1">
             {publishAt
@@ -410,7 +430,7 @@ export default function EditBlogPost() {
             value={featuredImage}
             onChange={(e) => setFeaturedImage(e.target.value)}
             placeholder="Upload or paste URL"
-            className="flex-1 px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="flex-1 px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
           <button
             type="button"
@@ -436,7 +456,7 @@ export default function EditBlogPost() {
         <input
           value={relatedSlugs}
           onChange={(e) => setRelatedSlugs(e.target.value)}
-          className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
         />
       </FormSection>
 
@@ -449,7 +469,7 @@ export default function EditBlogPost() {
             value={metaTitle}
             onChange={(e) => setMetaTitle(e.target.value)}
             placeholder="Override post title for search engines"
-            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
           <p className="text-xs text-neutral-400 mt-1">
             {metaTitle.length}/60 characters
@@ -464,7 +484,7 @@ export default function EditBlogPost() {
             onChange={(e) => setMetaDescription(e.target.value)}
             rows={2}
             placeholder="Override post description for search engines"
-            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
           <p className="text-xs text-neutral-400 mt-1">
             {metaDescription.length}/160 characters
@@ -478,7 +498,7 @@ export default function EditBlogPost() {
             value={ogImage}
             onChange={(e) => setOgImage(e.target.value)}
             placeholder="https://..."
-            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
           />
           {ogImage && (
             <img
@@ -515,7 +535,17 @@ export default function EditBlogPost() {
         <h2 className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
           Content
         </h2>
-        <div className="flex items-center gap-1 bg-neutral-100 rounded-md p-0.5">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={copyFullPost}
+            className="flex items-center gap-1 text-xs text-neutral-500 hover:text-neutral-800 transition"
+            title="Copy full post as plain text"
+          >
+            {copiedSection === "post" ? <Check className="w-3.5 h-3.5 text-teal-600" /> : <Copy className="w-3.5 h-3.5" />}
+            {copiedSection === "post" ? "Copied" : "Copy post"}
+          </button>
+          <div className="w-px h-3 bg-neutral-200" />
+          <div className="flex items-center gap-1 bg-neutral-100 rounded-md p-0.5">
           <button
             onClick={() => setEditorMode("sections")}
             className={`px-3 py-1 text-xs font-medium rounded transition ${
@@ -537,6 +567,7 @@ export default function EditBlogPost() {
             Blocks
           </button>
         </div>
+        </div>
       </div>
 
       {editorMode === "blocks" ? (
@@ -546,7 +577,7 @@ export default function EditBlogPost() {
           <div className="flex items-center justify-end mb-1">
             <button
               onClick={addSection}
-              className="flex items-center gap-1 text-xs text-emerald-600 hover:text-emerald-700 font-medium"
+              className="flex items-center gap-1 text-xs text-teal-600 hover:text-teal-700 font-medium"
             >
               <Plus className="w-3.5 h-3.5" />
               Add section
@@ -559,18 +590,27 @@ export default function EditBlogPost() {
                 <label className="block text-xs font-medium text-neutral-500">
                   Heading
                 </label>
-                <button
-                  onClick={() => removeSection(i)}
-                  className="p-1 text-neutral-400 hover:text-red-600 rounded hover:bg-neutral-50 transition"
-                  title="Remove section"
-                >
-                  <Trash2 className="w-3.5 h-3.5" />
-                </button>
+                <div className="flex items-center gap-1">
+                  <button
+                    onClick={() => copySection(i)}
+                    className="p-1 text-neutral-400 hover:text-neutral-700 rounded hover:bg-neutral-50 transition"
+                    title="Copy section as plain text"
+                  >
+                    {copiedSection === i ? <Check className="w-3.5 h-3.5 text-teal-600" /> : <Copy className="w-3.5 h-3.5" />}
+                  </button>
+                  <button
+                    onClick={() => removeSection(i)}
+                    className="p-1 text-neutral-400 hover:text-red-600 rounded hover:bg-neutral-50 transition"
+                    title="Remove section"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
               </div>
               <input
                 value={section.heading}
                 onChange={(e) => updateSectionHeading(i, e.target.value)}
-                className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 mb-3"
+                className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 mb-3"
               />
               <label className="block text-xs font-medium text-neutral-500 mb-1">
                 Body

@@ -6,9 +6,9 @@ import { usePathname } from "next/navigation";
 import type { CTAButtonBlockData } from "@/lib/types/blocks";
 
 const styleClasses: Record<string, string> = {
-  primary: "bg-[#b8955a] text-white hover:bg-[#a07e47] shadow-lg",
-  secondary: "bg-[#F5F0E8] text-[#1B3A5C] hover:bg-[#EDE6D8]",
-  outline: "border-2 border-[#b8955a] text-[#b8955a] hover:bg-[#b8955a] hover:text-white",
+  primary: "bg-[#c8962e] text-white hover:bg-[#a87a24] shadow-lg",
+  secondary: "bg-[#f5f2eb] text-[#0e3078] hover:bg-[#eee9df]",
+  outline: "border-2 border-[#c8962e] text-[#c8962e] hover:bg-[#c8962e] hover:text-white",
 };
 
 function getSessionId(): string {

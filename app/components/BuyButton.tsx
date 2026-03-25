@@ -49,10 +49,10 @@ export default function BuyButton({
     "inline-block font-semibold rounded-full transition-colors text-center no-underline cursor-pointer";
 
   const variantStyles: Record<string, string> = {
-    hero: "px-10 py-4 bg-[#b8955a] text-white hover:bg-[#a07e47] shadow-lg text-lg",
-    cta: "px-10 py-4 bg-[#b8955a] text-white hover:bg-[#a07e47] shadow-lg text-lg",
+    hero: "px-10 py-4 bg-[#c8962e] text-white hover:bg-[#a87a24] shadow-lg text-lg",
+    cta: "px-10 py-4 bg-[#c8962e] text-white hover:bg-[#a87a24] shadow-lg text-lg",
     inline:
-      "px-8 py-3 bg-[#b8955a] text-white hover:bg-[#a07e47] shadow text-sm",
+      "px-8 py-3 bg-[#c8962e] text-white hover:bg-[#a87a24] shadow text-sm",
   };
 
   return (

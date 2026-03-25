@@ -1,9 +1,9 @@
 import type { StatsGridBlockData } from "@/lib/types/blocks";
 
 const BG: Record<string, string> = {
-  forest: "bg-[#1B3A5C] text-white",
-  cream: "bg-[#F5F0E8] text-[#1A1A1A]",
-  sage: "bg-[#4A90C4] text-[#1A1A1A]",
+  forest: "bg-[#0e3078] text-white",
+  cream: "bg-[#f5f2eb] text-[#1A1A1A]",
+  sage: "bg-[#1585b5] text-[#1A1A1A]",
   ink: "bg-[#1A1A1A] text-white",
   white: "bg-white text-[#1A1A1A]",
 };

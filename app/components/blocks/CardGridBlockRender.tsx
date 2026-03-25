@@ -2,9 +2,9 @@ import type { CardGridBlockData } from "@/lib/types/blocks";
 import Link from "next/link";
 
 const BG: Record<string, string> = {
-  forest: "bg-[#1B3A5C] text-white",
-  cream: "bg-[#F5F0E8] text-[#1A1A1A]",
-  sage: "bg-[#4A90C4] text-[#1A1A1A]",
+  forest: "bg-[#0e3078] text-white",
+  cream: "bg-[#f5f2eb] text-[#1A1A1A]",
+  sage: "bg-[#1585b5] text-[#1A1A1A]",
   ink: "bg-[#1A1A1A] text-white",
   white: "bg-white text-[#1A1A1A]",
 };
@@ -43,7 +43,7 @@ export default function CardGridBlockRender({ data }: { data: CardGridBlockData 
               {card.ctaText && card.ctaUrl && (
                 <Link
                   href={card.ctaUrl}
-                  className="inline-block mt-4 text-sm font-medium text-[#1B3A5C] hover:underline"
+                  className="inline-block mt-4 text-sm font-medium text-[#0e3078] hover:underline"
                 >
                   {card.ctaText} &rarr;
                 </Link>

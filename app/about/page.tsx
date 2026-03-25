@@ -71,7 +71,7 @@ export default function AboutPage() {
           About
         </p>
         <h1
-          className="text-3xl md:text-[48px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6 font-display"
+          className="text-[30px] md:text-[44px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6 font-heading"
         >
           The team behind NutraGLP
         </h1>
@@ -110,7 +110,7 @@ export default function AboutPage() {
                     {person.role}
                   </p>
                   <h2
-                    className="text-2xl md:text-3xl font-normal tracking-tight text-ink mb-4 font-display"
+                    className="text-3xl md:text-4xl font-normal tracking-tight text-ink mb-4 font-heading"
                   >
                     {person.name}
                   </h2>
@@ -135,7 +135,7 @@ export default function AboutPage() {
             The Thesis
           </p>
           <h2
-            className="text-2xl md:text-3xl font-normal tracking-tight leading-tight mb-6 text-ink font-display"
+            className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading"
           >
             The supplement aisle has a delivery problem, not a formulation
             problem.
@@ -174,7 +174,7 @@ export default function AboutPage() {
             Standards
           </p>
           <h2
-            className="text-2xl md:text-3xl font-normal tracking-tight leading-tight mb-8 text-ink font-display"
+            className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-8 text-ink font-heading"
           >
             How the product is made
           </h2>

@@ -20,7 +20,7 @@ const metrics = [
   { value: "$132B", label: "Total Addressable Market" },
   { value: "30+", label: "Patent-Pending Formulations" },
   { value: "4", label: "Product Lines" },
-  { value: "$4.5M", label: "Seed Round" },
+  { value: "$5.5M", label: "Seed Round" },
 ];
 
 export default function Investors() {
@@ -32,7 +32,7 @@ export default function Investors() {
           NutraGLP Sync&trade; Platform
         </p>
         <h1
-          className="text-4xl md:text-[52px] font-normal text-white leading-[1.08] tracking-tight max-w-[820px] mx-auto mb-6 font-heading"
+          className="text-4xl md:text-[56px] font-normal text-white leading-[1.08] tracking-tight max-w-[820px] mx-auto mb-6 font-heading"
          
         >
           Your body already makes GLP-1.
@@ -172,7 +172,7 @@ export default function Investors() {
           className="text-3xl md:text-4xl font-normal text-white tracking-tight mb-4 font-heading"
          
         >
-          Raising $4.5M seed.
+          Raising $5.5M seed.
         </h2>
         <p className="text-[17px] text-white/50 max-w-[520px] mx-auto mb-8">
           For the full deck, clinical data, and a conversation

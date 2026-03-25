@@ -28,9 +28,9 @@ interface WorkflowPanelProps {
 const STATUS_CONFIG = {
   draft: { label: "Draft", color: "text-neutral-600 bg-neutral-100", icon: Clock },
   pending_review: { label: "Pending Review", color: "text-amber-700 bg-amber-50", icon: Clock },
-  approved: { label: "Approved", color: "text-emerald-700 bg-emerald-50", icon: CheckCircle2 },
+  approved: { label: "Approved", color: "text-teal-700 bg-teal-50", icon: CheckCircle2 },
   rejected: { label: "Needs Changes", color: "text-red-700 bg-red-50", icon: XCircle },
-  published: { label: "Published", color: "text-emerald-700 bg-emerald-50", icon: CheckCircle2 },
+  published: { label: "Published", color: "text-teal-700 bg-teal-50", icon: CheckCircle2 },
 };
 
 export default function WorkflowPanel({
@@ -171,13 +171,13 @@ export default function WorkflowPanel({
               onChange={(e) => setNote(e.target.value)}
               placeholder="Review note (optional)"
               rows={2}
-              className="w-full px-2.5 py-1.5 text-xs border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-none"
+              className="w-full px-2.5 py-1.5 text-xs border border-neutral-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 resize-none"
             />
             <div className="flex gap-2">
               <button
                 onClick={() => submitAction("approved", currentUserName)}
                 disabled={submitting}
-                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium bg-emerald-50 text-emerald-700 rounded-lg hover:bg-emerald-100 transition disabled:opacity-50"
+                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium bg-teal-50 text-teal-700 rounded-lg hover:bg-teal-100 transition disabled:opacity-50"
               >
                 <CheckCircle2 className="w-3.5 h-3.5" />
                 Approve
@@ -199,7 +199,7 @@ export default function WorkflowPanel({
           <button
             onClick={() => submitAction("published", currentUserName)}
             disabled={submitting}
-            className="w-full flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition disabled:opacity-50"
+            className="w-full flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-medium bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition disabled:opacity-50"
           >
             <CheckCircle2 className="w-3.5 h-3.5" />
             {submitting ? "Publishing..." : "Publish"}
@@ -286,9 +286,9 @@ function WorkflowHistory({
     const map: Record<string, string> = {
       draft: "bg-neutral-300",
       pending_review: "bg-amber-400",
-      approved: "bg-emerald-400",
+      approved: "bg-teal-400",
       rejected: "bg-red-400",
-      published: "bg-emerald-600",
+      published: "bg-teal-600",
     };
     return map[s] || "bg-neutral-300";
   };

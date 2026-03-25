@@ -2,10 +2,10 @@ import type { HeroBlockData } from "@/lib/types/blocks";
 import Link from "next/link";
 
 const bgClasses: Record<string, string> = {
-  forest: "bg-[#1B3A5C] text-white",
-  cream: "bg-[#F5F0E8] text-[#1A1A1A]",
+  forest: "bg-[#0e3078] text-white",
+  cream: "bg-[#f5f2eb] text-[#1A1A1A]",
   white: "bg-white text-[#1A1A1A]",
-  sage: "bg-[#4A90C4] text-[#1A1A1A]",
+  sage: "bg-[#1585b5] text-[#1A1A1A]",
   ink: "bg-[#1A1A1A] text-white",
 };
 
@@ -39,7 +39,7 @@ export default function HeroBlockRender({ data }: { data: HeroBlockData }) {
         {data.ctaText && data.ctaUrl && (
           <Link
             href={data.ctaUrl}
-            className="inline-block mt-4 px-10 py-4 bg-[#b8955a] text-white font-semibold rounded-full hover:bg-[#a07e47] transition-colors shadow-lg text-lg"
+            className="inline-block mt-4 px-10 py-4 bg-[#c8962e] text-white font-semibold rounded-full hover:bg-[#a87a24] transition-colors shadow-lg text-lg"
           >
             {data.ctaText}
           </Link>

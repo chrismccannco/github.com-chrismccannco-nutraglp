@@ -139,7 +139,7 @@ export default function SlimShotPage() {
               Slim SHOT &mdash; a drinkable daily liquid, not an injection
             </p>
             <h1
-              className="text-3xl md:text-[44px] font-normal text-white leading-[1.1] tracking-tight mb-6 font-heading"
+              className="text-[30px] md:text-[44px] font-normal text-white leading-[1.1] tracking-tight mb-6 font-heading"
              
             >
               Daily GLP-1 amplification.

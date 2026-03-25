@@ -62,7 +62,7 @@ export default function AnalyticsPage() {
               onClick={() => setDays(d)}
               className={`px-3 py-1.5 text-xs rounded-lg transition ${
                 days === d
-                  ? "bg-emerald-600 text-white"
+                  ? "bg-teal-600 text-white"
                   : "bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
               }`}
             >
@@ -143,7 +143,7 @@ export default function AnalyticsPage() {
                       className="flex-1 flex flex-col items-center group relative"
                     >
                       <div
-                        className="w-full bg-emerald-500 rounded-t opacity-80 hover:opacity-100 transition min-h-[2px]"
+                        className="w-full bg-teal-500 rounded-t opacity-80 hover:opacity-100 transition min-h-[2px]"
                         style={{ height: `${Math.max(h, 1)}%` }}
                       />
                       <span className="text-[9px] text-neutral-400 mt-1 truncate w-full text-center">

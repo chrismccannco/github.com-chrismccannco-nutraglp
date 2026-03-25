@@ -194,11 +194,11 @@ export default function FormEditorPage() {
             onClick={() => setPublished(!published)}
             className={`flex items-center gap-1.5 px-2.5 py-1 text-xs font-medium rounded-full transition ${
               published
-                ? "bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
+                ? "bg-teal-50 text-teal-700 hover:bg-teal-100"
                 : "bg-amber-50 text-amber-700 hover:bg-amber-100"
             }`}
           >
-            <span className={`w-1.5 h-1.5 rounded-full ${published ? "bg-emerald-500" : "bg-amber-500"}`} />
+            <span className={`w-1.5 h-1.5 rounded-full ${published ? "bg-teal-500" : "bg-amber-500"}`} />
             {published ? "Live" : "Draft"}
           </button>
           <button
@@ -211,7 +211,7 @@ export default function FormEditorPage() {
           <button
             onClick={() => save()}
             disabled={saving}
-            className="flex items-center gap-1.5 px-4 py-1.5 text-sm font-medium bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition disabled:opacity-50"
+            className="flex items-center gap-1.5 px-4 py-1.5 text-sm font-medium bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition disabled:opacity-50"
           >
             <Save className="w-3.5 h-3.5" />
             {saved ? "Saved!" : saving ? "Saving..." : "Save"}
@@ -229,7 +229,7 @@ export default function FormEditorPage() {
               <input
                 value={settings.submitLabel || ""}
                 onChange={(e) => setSettings({ ...settings, submitLabel: e.target.value })}
-                className="w-full px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
               />
             </div>
             <div>
@@ -238,7 +238,7 @@ export default function FormEditorPage() {
                 value={settings.notifyEmail || ""}
                 onChange={(e) => setSettings({ ...settings, notifyEmail: e.target.value })}
                 placeholder="admin@example.com"
-                className="w-full px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
               />
             </div>
             <div className="sm:col-span-2">
@@ -247,7 +247,7 @@ export default function FormEditorPage() {
                 value={settings.successMessage || ""}
                 onChange={(e) => setSettings({ ...settings, successMessage: e.target.value })}
                 rows={2}
-                className="w-full px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
               />
             </div>
             <div>
@@ -256,7 +256,7 @@ export default function FormEditorPage() {
                 value={settings.redirectUrl || ""}
                 onChange={(e) => setSettings({ ...settings, redirectUrl: e.target.value })}
                 placeholder="/thank-you"
-                className="w-full px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
               />
             </div>
             <div>
@@ -266,7 +266,7 @@ export default function FormEditorPage() {
                 value={settings.limitSubmissions || ""}
                 onChange={(e) => setSettings({ ...settings, limitSubmissions: Number(e.target.value) || undefined })}
                 placeholder="Unlimited"
-                className="w-full px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full px-3 py-2 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
               />
             </div>
             <div className="flex items-center gap-2">
@@ -286,7 +286,7 @@ export default function FormEditorPage() {
       <div className="mb-6">
         <AiAssistPanel
           contentType="form"
-          placeholder="e.g. Contact form with name, email, and message, or Lead capture form for free supplement guide download"
+          placeholder="e.g. Contact form with name, email, and message, or Lead capture form for a free resource download"
           buttonLabel="Generate Fields"
           showSelectors={false}
           onResult={(data: AiAssistResult) => {
@@ -339,7 +339,7 @@ export default function FormEditorPage() {
               <button
                 key={ft.type}
                 onClick={() => addField(ft.type)}
-                className="flex items-center gap-2 px-3 py-2 text-xs text-neutral-700 bg-neutral-50 rounded-lg hover:bg-emerald-50 hover:text-emerald-700 transition"
+                className="flex items-center gap-2 px-3 py-2 text-xs text-neutral-700 bg-neutral-50 rounded-lg hover:bg-teal-50 hover:text-teal-700 transition"
               >
                 <span className="w-5 text-center font-mono text-neutral-400">{ft.icon}</span>
                 {ft.label}
@@ -350,7 +350,7 @@ export default function FormEditorPage() {
       ) : (
         <button
           onClick={() => setShowPalette(true)}
-          className="w-full py-3 border-2 border-dashed border-neutral-300 rounded-xl text-sm text-neutral-400 hover:border-emerald-400 hover:text-emerald-600 transition flex items-center justify-center gap-2"
+          className="w-full py-3 border-2 border-dashed border-neutral-300 rounded-xl text-sm text-neutral-400 hover:border-teal-400 hover:text-teal-600 transition flex items-center justify-center gap-2"
         >
           <Plus className="w-4 h-4" />
           Add field
@@ -364,7 +364,7 @@ export default function FormEditorPage() {
             href={`/form/${slug}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-xs text-emerald-600 hover:text-emerald-700"
+            className="inline-flex items-center gap-1.5 text-xs text-teal-600 hover:text-teal-700"
           >
             <Eye className="w-3.5 h-3.5" />
             Preview live form
@@ -408,7 +408,7 @@ function FieldRow({
   return (
     <div
       className={`bg-white border rounded-xl overflow-hidden transition ${
-        dragIdx === index ? "border-emerald-400 shadow-sm" : "border-neutral-200"
+        dragIdx === index ? "border-teal-400 shadow-sm" : "border-neutral-200"
       }`}
       draggable
       onDragStart={onDragStart}
@@ -455,7 +455,7 @@ function FieldRow({
               <input
                 value={field.label}
                 onChange={(e) => onUpdate({ label: e.target.value })}
-                className="w-full px-3 py-1.5 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full px-3 py-1.5 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
               />
             </div>
             <div>
@@ -463,7 +463,7 @@ function FieldRow({
               <select
                 value={field.width || "full"}
                 onChange={(e) => onUpdate({ width: e.target.value as "full" | "half" })}
-                className="w-full px-3 py-1.5 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                className="w-full px-3 py-1.5 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
               >
                 <option value="full">Full width</option>
                 <option value="half">Half width</option>
@@ -478,7 +478,7 @@ function FieldRow({
                 <input
                   value={field.placeholder || ""}
                   onChange={(e) => onUpdate({ placeholder: e.target.value })}
-                  className="w-full px-3 py-1.5 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-3 py-1.5 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
                 />
               </div>
               <div>
@@ -486,7 +486,7 @@ function FieldRow({
                 <input
                   value={field.helpText || ""}
                   onChange={(e) => onUpdate({ helpText: e.target.value })}
-                  className="w-full px-3 py-1.5 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full px-3 py-1.5 text-sm border border-neutral-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
                 />
               </div>
             </div>
@@ -506,7 +506,7 @@ function FieldRow({
                         next[i] = { ...next[i], label: e.target.value, value: e.target.value.toLowerCase().replace(/\s+/g, "-") };
                         onUpdate({ options: next });
                       }}
-                      className="flex-1 px-2 py-1 text-sm border border-neutral-300 rounded focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                      className="flex-1 px-2 py-1 text-sm border border-neutral-300 rounded focus:outline-none focus:ring-1 focus:ring-teal-500"
                     />
                     <button
                       onClick={() => {
@@ -524,7 +524,7 @@ function FieldRow({
                     const next = [...(field.options || []), { label: `Option ${(field.options?.length || 0) + 1}`, value: `option-${(field.options?.length || 0) + 1}` }];
                     onUpdate({ options: next });
                   }}
-                  className="text-xs text-emerald-600 hover:text-emerald-700"
+                  className="text-xs text-teal-600 hover:text-teal-700"
                 >
                   + Add option
                 </button>

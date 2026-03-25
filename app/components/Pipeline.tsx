@@ -45,7 +45,7 @@ export default function Pipeline() {
           Product Pipeline
         </p>
         <h2
-          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink font-display"
+          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink font-heading"
         >
           One platform. Multiple products.
         </h2>
@@ -64,7 +64,7 @@ export default function Pipeline() {
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <h3
-                    className="text-xl font-normal tracking-tight text-ink mb-1 font-display"
+                    className="text-xl font-normal tracking-tight text-ink mb-1 font-heading"
                   >
                     {p.name}
                   </h3>
@@ -112,7 +112,7 @@ export default function Pipeline() {
           </div>
           <div>
             <h3
-              className="text-lg font-normal tracking-tight text-ink mb-1 font-display"
+              className="text-lg font-normal tracking-tight text-ink mb-1 font-heading"
             >
               NutraGLP Companion App
             </h3>

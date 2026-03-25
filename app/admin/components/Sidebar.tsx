@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import {
   LayoutDashboard,
   FileText,
@@ -33,42 +34,78 @@ import {
   Video,
   Cpu,
   Webhook,
+  ChevronDown,
 } from "lucide-react";
 import { useAuth } from "../layout";
 import { useCmsBranding } from "../hooks/useCmsBranding";
 
-const contentNav = [
-  { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
-  { label: "Pages", href: "/admin/pages", icon: FileText },
-  { label: "Blog", href: "/admin/blog", icon: BookOpen },
-  { label: "Products", href: "/admin/products", icon: Package },
-  { label: "Testimonials", href: "/admin/testimonials", icon: Star },
-  { label: "Reviews", href: "/admin/reviews", icon: ClipboardCheck },
-  { label: "Submissions", href: "/admin/submissions", icon: Inbox },
-  { label: "Media", href: "/admin/media", icon: Image },
-  { label: "Analytics", href: "/admin/analytics", icon: BarChart3 },
-  { label: "Performance", href: "/admin/performance", icon: Gauge },
-  { label: "FAQ", href: "/admin/faq", icon: HelpCircle },
-  { label: "Form Builder", href: "/admin/form-builder", icon: FormInput },
-  { label: "Templates", href: "/admin/templates", icon: LayoutTemplate },
-  { label: "Brand Hub", href: "/admin/brand", icon: Palette },
-  { label: "Knowledge Base", href: "/admin/knowledge", icon: LibraryBig },
-  { label: "AI Templates", href: "/admin/ai-templates", icon: Wand2 },
-  { label: "Personas", href: "/admin/personas", icon: UserCircle },
-  { label: "Repurpose", href: "/admin/repurpose", icon: RefreshCw },
-  { label: "Video Studio", href: "/admin/video-studio", icon: Video },
-  { label: "AI Usage", href: "/admin/analytics/ai", icon: Cpu },
-  { label: "Webhooks", href: "/admin/webhooks", icon: Webhook },
-];
+interface NavItem {
+  label: string;
+  href: string;
+  icon: typeof LayoutDashboard;
+  adminOnly?: boolean;
+}
 
-const settingsNav = [
-  { label: "API Keys", href: "/admin/api-keys", icon: Key, adminOnly: true },
-  { label: "API Docs", href: "/admin/api-docs", icon: FileCode2, adminOnly: true },
-  { label: "Sites", href: "/admin/sites", icon: Globe, adminOnly: true },
-  { label: "Localization", href: "/admin/localization", icon: Languages, adminOnly: true },
-  { label: "Documentation", href: "/admin/docs", icon: BookMarked },
-  { label: "Settings", href: "/admin/settings", icon: Settings, adminOnly: true },
-  { label: "Users", href: "/admin/users", icon: Users, adminOnly: true },
+const navGroups: { label: string; items: NavItem[]; collapsible?: boolean }[] = [
+  {
+    label: "Content",
+    items: [
+      { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
+      { label: "Pages", href: "/admin/pages", icon: FileText },
+      { label: "Blog", href: "/admin/blog", icon: BookOpen },
+      { label: "Products", href: "/admin/products", icon: Package },
+      { label: "Testimonials", href: "/admin/testimonials", icon: Star },
+      { label: "Reviews", href: "/admin/reviews", icon: ClipboardCheck },
+      { label: "FAQ", href: "/admin/faq", icon: HelpCircle },
+    ],
+  },
+  {
+    label: "Media & Forms",
+    items: [
+      { label: "Media", href: "/admin/media", icon: Image },
+      { label: "Form Builder", href: "/admin/form-builder", icon: FormInput },
+      { label: "Submissions", href: "/admin/submissions", icon: Inbox },
+    ],
+  },
+  {
+    label: "AI & Creation",
+    items: [
+      { label: "AI Templates", href: "/admin/ai-templates", icon: Wand2 },
+      { label: "Repurpose", href: "/admin/repurpose", icon: RefreshCw },
+      { label: "Video Studio", href: "/admin/video-studio", icon: Video },
+    ],
+  },
+  {
+    label: "Brand & Voice",
+    items: [
+      { label: "Brand Hub", href: "/admin/brand", icon: Palette },
+      { label: "Knowledge Base", href: "/admin/knowledge", icon: LibraryBig },
+      { label: "Personas", href: "/admin/personas", icon: UserCircle },
+      { label: "Templates", href: "/admin/templates", icon: LayoutTemplate },
+    ],
+  },
+  {
+    label: "Analytics",
+    items: [
+      { label: "Analytics", href: "/admin/analytics", icon: BarChart3 },
+      { label: "Performance", href: "/admin/performance", icon: Gauge },
+      { label: "AI Usage", href: "/admin/analytics/ai", icon: Cpu },
+    ],
+  },
+  {
+    label: "System",
+    collapsible: true,
+    items: [
+      { label: "API Keys", href: "/admin/api-keys", icon: Key, adminOnly: true },
+      { label: "API Docs", href: "/admin/api-docs", icon: FileCode2, adminOnly: true },
+      { label: "Sites", href: "/admin/sites", icon: Globe, adminOnly: true },
+      { label: "Localization", href: "/admin/localization", icon: Languages, adminOnly: true },
+      { label: "Documentation", href: "/admin/docs", icon: BookMarked },
+      { label: "Settings", href: "/admin/settings", icon: Settings, adminOnly: true },
+      { label: "Users", href: "/admin/users", icon: Users, adminOnly: true },
+      { label: "Webhooks", href: "/admin/webhooks", icon: Webhook },
+    ],
+  },
 ];
 
 interface SidebarProps {
@@ -82,15 +119,15 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
   const isAdmin = user?.role === "admin";
   const branding = useCmsBranding();
 
+  // System group starts collapsed unless the user is currently on a system page
+  const systemPaths = navGroups.find((g) => g.label === "System")?.items.map((i) => i.href) || [];
+  const onSystemPage = systemPaths.some((p) => pathname.startsWith(p));
+  const [systemOpen, setSystemOpen] = useState(onSystemPage);
+
   const isActive = (href: string) =>
     href === "/admin" ? pathname === "/admin" : pathname.startsWith(href);
 
-  const renderLink = (item: {
-    label: string;
-    href: string;
-    icon: typeof LayoutDashboard;
-    adminOnly?: boolean;
-  }) => {
+  const renderLink = (item: NavItem) => {
     if (item.adminOnly && !isAdmin) return null;
     const active = isActive(item.href);
     const Icon = item.icon;
@@ -101,7 +138,7 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
         onClick={onClose}
         className={`flex items-center gap-3 px-4 py-2 text-sm rounded-lg no-underline transition ${
           active
-            ? "bg-emerald-50 text-emerald-700 font-medium border-l-2 border-emerald-600 -ml-px"
+            ? "bg-teal-50 text-teal-700 font-medium border-l-2 border-teal-600 -ml-px"
             : "text-neutral-600 hover:bg-neutral-50 hover:text-neutral-900"
         }`}
       >
@@ -117,8 +154,8 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
       <div className="px-5 py-5 border-b border-neutral-100">
         <Link href="/admin" className="no-underline" onClick={onClose}>
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ backgroundColor: branding.accentColor }}>
-              <span className="text-white text-xs font-bold">{branding.logoLetter}</span>
+            <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0" style={{ backgroundColor: branding.accentColor }}>
+              <span className="text-white tracking-tight leading-none select-none" style={{ fontFamily: "'BigShoulders', sans-serif", fontWeight: 700, fontSize: branding.logoLetter.length === 1 ? '20px' : '11px' }}>{branding.logoLetter}</span>
             </div>
             <div>
               <p className="text-sm font-semibold text-neutral-900 leading-tight">
@@ -133,19 +170,43 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 py-4 px-3 space-y-6 overflow-y-auto">
-        <div>
-          <p className="px-4 mb-2 text-[10px] font-semibold uppercase tracking-widest text-neutral-400">
-            Content
-          </p>
-          <div className="space-y-0.5">{contentNav.map(renderLink)}</div>
-        </div>
-        <div>
-          <p className="px-4 mb-2 text-[10px] font-semibold uppercase tracking-widest text-neutral-400">
-            Settings
-          </p>
-          <div className="space-y-0.5">{settingsNav.map(renderLink)}</div>
-        </div>
+      <nav className="flex-1 py-4 px-3 space-y-5 overflow-y-auto">
+        {navGroups.map((group) => {
+          const visibleItems = group.items.filter(
+            (item) => !item.adminOnly || isAdmin
+          );
+          if (visibleItems.length === 0) return null;
+
+          const isCollapsible = group.collapsible;
+          const isExpanded = !isCollapsible || systemOpen;
+
+          return (
+            <div key={group.label}>
+              {isCollapsible ? (
+                <button
+                  onClick={() => setSystemOpen(!systemOpen)}
+                  className="flex items-center justify-between w-full px-4 mb-2 group"
+                >
+                  <span className="text-[10px] font-semibold uppercase tracking-widest text-neutral-400 group-hover:text-neutral-600 transition">
+                    {group.label}
+                  </span>
+                  <ChevronDown
+                    className={`w-3 h-3 text-neutral-400 transition-transform ${
+                      isExpanded ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+              ) : (
+                <p className="px-4 mb-2 text-[10px] font-semibold uppercase tracking-widest text-neutral-400">
+                  {group.label}
+                </p>
+              )}
+              {isExpanded && (
+                <div className="space-y-0.5">{visibleItems.map(renderLink)}</div>
+              )}
+            </div>
+          );
+        })}
       </nav>
 
       {/* Footer */}

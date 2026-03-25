@@ -53,7 +53,7 @@ export default function TestimonialCarousel() {
           >
             <Stars count={t.rating} />
             {t.title && (
-              <p className="text-[15px] font-medium text-ink mt-3 mb-2 font-display">
+              <p className="text-[15px] font-medium text-ink mt-3 mb-2 font-heading">
                 {t.title}
               </p>
             )}

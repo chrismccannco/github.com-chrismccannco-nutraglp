@@ -145,7 +145,7 @@ export default function ApiKeysPage() {
           </a>
           <button
             onClick={() => setShowCreate(true)}
-            className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition"
+            className="flex items-center gap-1.5 px-3 py-2 text-xs font-medium bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition"
           >
             <Plus className="w-3.5 h-3.5" />
             Create Key
@@ -191,7 +191,7 @@ export default function ApiKeysPage() {
               value={newKeyName}
               onChange={(e) => setNewKeyName(e.target.value)}
               placeholder="e.g. Mobile App, Marketing Site"
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
 
@@ -220,7 +220,7 @@ export default function ApiKeysPage() {
               type="number"
               value={newKeyLimit}
               onChange={(e) => setNewKeyLimit(Number(e.target.value))}
-              className="w-32 px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-32 px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
             <span className="text-xs text-neutral-400 ml-2">requests/day</span>
           </div>
@@ -229,7 +229,7 @@ export default function ApiKeysPage() {
             <button
               onClick={handleCreate}
               disabled={creating || !newKeyName.trim()}
-              className="px-4 py-2 text-xs font-medium bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition disabled:opacity-50"
+              className="px-4 py-2 text-xs font-medium bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition disabled:opacity-50"
             >
               {creating ? "Creating..." : "Create Key"}
             </button>
@@ -252,7 +252,7 @@ export default function ApiKeysPage() {
           <p className="text-sm text-neutral-500 mb-3">No API keys yet.</p>
           <button
             onClick={() => setShowCreate(true)}
-            className="text-xs text-emerald-600 hover:text-emerald-700 font-medium"
+            className="text-xs text-teal-600 hover:text-teal-700 font-medium"
           >
             Create your first key
           </button>
@@ -263,7 +263,7 @@ export default function ApiKeysPage() {
             <div key={k.id} className="px-5 py-4 flex items-center gap-4">
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <Key className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                  <Key className="w-4 h-4 text-teal-500 flex-shrink-0" />
                   <span className="text-sm font-medium text-neutral-900">{k.name}</span>
                   <code className="text-[11px] px-1.5 py-0.5 bg-neutral-100 rounded text-neutral-500 font-mono">
                     {k.key_prefix}...

@@ -183,7 +183,7 @@ export default function SubscribePopup() {
         {submitted ? (
           <div className="text-center py-4">
             <p
-              className="text-2xl font-normal text-forest mb-2 font-display"
+              className="text-2xl font-normal text-forest mb-2 font-heading"
             >
               You&apos;re in.
             </p>
@@ -197,7 +197,7 @@ export default function SubscribePopup() {
               Early Access
             </p>
             <h3
-              className="text-2xl font-normal tracking-tight text-ink mb-2 leading-snug font-display"
+              className="text-2xl font-normal tracking-tight text-ink mb-2 leading-snug font-heading"
             >
               {config.heading}
             </h3>

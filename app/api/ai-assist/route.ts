@@ -76,7 +76,7 @@ async function loadKnowledge(): Promise<string> {
 
 const CONTENT_TYPE_PROMPTS: Record<string, { system: string; jsonShape: string }> = {
   blog: {
-    system: "You are a blog writing engine for a GLP-1 supplement company's CMS. Produce publication-ready blog content. Avoid drug claims. Be evidence-aware.",
+    system: "You are a blog writing engine for a content management system. Produce publication-ready blog content that matches the brand voice and serves the target audience. Write clearly and with authority.",
     jsonShape: `{
   "title": "string",
   "slug": "string (lowercase, hyphens only)",
@@ -90,7 +90,7 @@ const CONTENT_TYPE_PROMPTS: Record<string, { system: string; jsonShape: string }
 Generate 4-6 sections with 2-4 paragraphs each.`,
   },
   blog_rewrite: {
-    system: "You are a content editor for a GLP-1 supplement company's CMS. Improve or rewrite the provided blog content based on the user's instructions. Keep the same section structure unless told otherwise.",
+    system: "You are a content editor for a content management system. Improve or rewrite the provided blog content based on the user's instructions. Match the existing brand voice and keep the same section structure unless told otherwise.",
     jsonShape: `{
   "title": "string",
   "description": "string (1-2 sentence summary)",
@@ -98,7 +98,7 @@ Generate 4-6 sections with 2-4 paragraphs each.`,
 }`,
   },
   page: {
-    system: "You are a landing page content engine for a GLP-1 supplement company's CMS. Create compelling page content that drives action.",
+    system: "You are a landing page content engine for a content management system. Create compelling page content that drives action and serves the brand's goals.",
     jsonShape: `{
   "title": "string",
   "meta_description": "string (under 160 chars)",
@@ -108,7 +108,7 @@ Generate 4-6 sections with 2-4 paragraphs each.`,
 Generate 3-5 sections suited for a landing/info page.`,
   },
   testimonial: {
-    system: "You are a testimonial copywriter for a GLP-1 supplement company. Take rough customer feedback or a scenario and produce a polished, authentic-sounding testimonial. Keep the voice genuine, not marketing-speak. The testimonial should feel like a real person wrote it.",
+    system: "You are a testimonial copywriter. Take rough customer feedback or a scenario and produce a polished, authentic-sounding testimonial. Keep the voice genuine, not marketing-speak. The testimonial should feel like a real person wrote it.",
     jsonShape: `{
   "name": "string (realistic first name and last initial)",
   "title": "string (a short headline that captures the transformation, e.g. 'Finally found something that works')",
@@ -116,8 +116,28 @@ Generate 3-5 sections suited for a landing/info page.`,
   "rating": 5
 }`,
   },
+  linkedin_post: {
+    system: `You are a LinkedIn content writer. Write posts that sound like a real person — direct, specific, earned authority. No corporate speak. No listicles disguised as insight. No hollow motivational openers.
+
+LinkedIn post rules:
+- Hook: first line must stop the scroll. One short, specific, declarative sentence. No question openers.
+- Body: 100-250 words. Short paragraphs (1-3 sentences). One idea per paragraph.
+- Ending: close with an observation, not a call to action. Let the idea land.
+- Hashtags: 0-2 max. Only if they add genuine discoverability. Never decorative.
+- No emojis unless the brand voice explicitly uses them.
+- No "I'm excited to share" or "Let me know your thoughts" or "Here's what I learned."
+- Voice and persona must shape everything — tone, specificity, who this is written for.`,
+    jsonShape: `{
+  "post": "string (complete LinkedIn post text, ready to copy-paste, newlines as \\n)",
+  "hook": "string (first line in isolation)",
+  "char_count": number,
+  "hashtags": ["string"],
+  "alt_hooks": ["string", "string"]
+}
+post must be the complete text including the hook. alt_hooks are 2 alternative opening lines.`,
+  },
   form: {
-    system: "You are a form design expert for a GLP-1 supplement company's CMS. Design forms that maximize completion rates while collecting the right data. Consider UX best practices: logical field ordering, appropriate field types, clear labels, helpful placeholders, and minimal required fields.",
+    system: "You are a form design expert for a content management system. Design forms that maximize completion rates while collecting the right data. Consider UX best practices: logical field ordering, appropriate field types, clear labels, helpful placeholders, and minimal required fields.",
     jsonShape: `{
   "name": "string (form name)",
   "description": "string (brief purpose)",
@@ -145,14 +165,14 @@ Use heading and paragraph fields to create logical sections. Use half-width for 
 
 /**
  * POST /api/ai-assist
- * Universal AI content generation endpoint.
+ * Universal AI content generation endpoint — streams the response to avoid timeouts.
  * Body: { contentType, prompt, voiceId?, personaId?, existingContent? }
  */
 export async function POST(req: NextRequest) {
   try {
     const apiKey = await getAnthropicKey();
     if (!apiKey) {
-      return NextResponse.json({ error: "Anthropic API key not configured." }, { status: 500 });
+      return NextResponse.json({ error: "NO_API_KEY" }, { status: 500 });
     }
 
     const body = await req.json();
@@ -186,6 +206,8 @@ export async function POST(req: NextRequest) {
       : prompt;
 
     const startTime = Date.now();
+
+    // Use streaming to keep the connection alive (avoids Netlify 10s timeout)
     const anthropicResp = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
@@ -197,47 +219,146 @@ export async function POST(req: NextRequest) {
         model: "claude-sonnet-4-6",
         max_tokens: 4096,
         system: systemPrompt,
+        stream: true,
         messages: [{ role: "user", content: userPrompt }],
       }),
     });
 
     if (!anthropicResp.ok) {
-      const err = await anthropicResp.text();
-      return NextResponse.json({ error: err }, { status: 500 });
+      const errText = await anthropicResp.text();
+      let userMessage = "AI service is temporarily unavailable. Please try again in a moment.";
+      try {
+        const errJson = JSON.parse(errText);
+        if (errJson.error?.type === "authentication_error") {
+          userMessage = "AI service not configured. Ask your admin to check the API key in Settings.";
+        } else if (errJson.error?.type === "rate_limit_error") {
+          userMessage = "Too many requests. Please wait a moment and try again.";
+        } else if (errJson.error?.type === "overloaded_error") {
+          userMessage = "AI service is busy. Please try again in a few seconds.";
+        }
+      } catch { /* use default message */ }
+      return NextResponse.json({ error: userMessage }, { status: 500 });
     }
 
-    const data = await anthropicResp.json();
-    const rawText = data.content?.[0]?.text || "{}";
+    // Read the Anthropic SSE stream, accumulate text, then send our own SSE events
+    // to the client. This keeps the connection alive and avoids serverless timeouts.
+    const reader = anthropicResp.body!.getReader();
+    const encoder = new TextEncoder();
 
-    let result;
-    try {
-      result = JSON.parse(rawText);
-    } catch {
-      const jsonMatch = rawText.match(/[\[{][\s\S]*[\]}]/);
-      result = jsonMatch ? JSON.parse(jsonMatch[0]) : null;
-    }
+    const stream = new ReadableStream({
+      async start(controller) {
+        const decoder = new TextDecoder();
+        let fullText = "";
+        let inputTokens = 0;
+        let outputTokens = 0;
+        let sseBuffer = ""; // Buffer for incomplete SSE lines
 
-    if (!result) {
-      return NextResponse.json({ error: "AI returned invalid JSON" }, { status: 500 });
-    }
+        try {
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
 
-    // Log usage
-    try {
-      const db = getDb();
-      await db.execute({
-        sql: `INSERT INTO ai_usage_log (action, model, input_tokens, output_tokens, duration_ms, metadata) VALUES (?, ?, ?, ?, ?, ?)`,
-        args: [
-          `ai_assist_${contentType}`,
-          "claude-sonnet-4-6",
-          data.usage?.input_tokens || 0,
-          data.usage?.output_tokens || 0,
-          Date.now() - startTime,
-          JSON.stringify({ contentType, prompt: prompt.slice(0, 200) }),
-        ],
-      });
-    } catch { /* non-critical */ }
+            sseBuffer += decoder.decode(value, { stream: true });
+            const lines = sseBuffer.split("\n");
+            // Keep the last (potentially incomplete) line in the buffer
+            sseBuffer = lines.pop() || "";
 
-    return NextResponse.json(result);
+            for (const line of lines) {
+              if (!line.startsWith("data: ")) continue;
+              const payload = line.slice(6).trim();
+              if (payload === "[DONE]") continue;
+
+              try {
+                const evt = JSON.parse(payload);
+
+                if (evt.type === "message_start" && evt.message?.usage) {
+                  inputTokens = evt.message.usage.input_tokens || 0;
+                }
+
+                if (evt.type === "content_block_delta" && evt.delta?.text) {
+                  fullText += evt.delta.text;
+                  // Send a progress ping to keep connection alive
+                  controller.enqueue(
+                    encoder.encode(`data: {"type":"progress","len":${fullText.length}}\n\n`)
+                  );
+                }
+
+                if (evt.type === "message_delta" && evt.usage) {
+                  outputTokens = evt.usage.output_tokens || 0;
+                }
+              } catch {
+                // not valid JSON line, skip
+              }
+            }
+          }
+
+          // Parse the accumulated text as JSON
+          let result;
+          // Strip markdown code fences if present
+          let cleaned = fullText.trim();
+          if (cleaned.startsWith("```")) {
+            cleaned = cleaned.replace(/^```(?:json)?\s*/, "").replace(/\s*```$/, "");
+          }
+          try {
+            result = JSON.parse(cleaned);
+          } catch {
+            // Try to extract the outermost JSON object or array
+            const jsonMatch = cleaned.match(/[\[{][\s\S]*[\]}]/);
+            if (jsonMatch) {
+              try {
+                result = JSON.parse(jsonMatch[0]);
+              } catch {
+                result = null;
+              }
+            }
+          }
+
+          if (!result) {
+            controller.enqueue(
+              encoder.encode(`data: ${JSON.stringify({ type: "error", error: "AI returned invalid JSON. Try again with a simpler prompt." })}\n\n`)
+            );
+          } else {
+            // Send the final result as a base64-encoded payload to avoid SSE line-splitting issues
+            const resultJson = JSON.stringify(result);
+            const b64 = Buffer.from(resultJson).toString("base64");
+            controller.enqueue(
+              encoder.encode(`data: {"type":"result_b64","data":"${b64}"}\n\n`)
+            );
+          }
+        } catch (e) {
+          controller.enqueue(
+            encoder.encode(`data: ${JSON.stringify({ type: "error", error: e instanceof Error ? e.message : "Stream error" })}\n\n`)
+          );
+        } finally {
+          controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+          controller.close();
+
+          // Log AI usage (fire and forget)
+          try {
+            const db = getDb();
+            await db.execute({
+              sql: `INSERT INTO ai_usage_log (action, model, input_tokens, output_tokens, duration_ms, metadata) VALUES (?, ?, ?, ?, ?, ?)`,
+              args: [
+                `ai_assist_${contentType}`,
+                "claude-sonnet-4-6",
+                inputTokens,
+                outputTokens,
+                Date.now() - startTime,
+                JSON.stringify({ contentType, prompt: prompt.slice(0, 200) }),
+              ],
+            });
+          } catch { /* non-critical */ }
+        }
+      },
+    });
+
+    return new NextResponse(stream, {
+      headers: {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        Connection: "keep-alive",
+      },
+    });
   } catch (err: unknown) {
     return NextResponse.json(
       { error: err instanceof Error ? err.message : "Unknown error" },

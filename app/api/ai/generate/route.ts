@@ -22,8 +22,8 @@ PRODUCT CONTEXT:
 - Positioned between pharmaceutical GLP-1 drugs (Ozempic, Wegovy) and typical supplements
 - Key differentiators: natural ingredients, no injection, no prescription, patent-pending delivery system
 - Founded by Richard Kaufman PhD (nanoemulsion expert) and Chris McCann (enterprise sales)
-- Brand colors: deep navy (#0D1B2A), forest blue (#1B3A5C), sky blue (#4A90C4), cream (#F5F0E8)
-- Fonts: Fraunces (headings), DM Sans (body)
+- Brand colors: deep indigo (#0a2463), blue (#0066cc), teal (#1585b5), gold (#c8962e)
+- Fonts: Playfair Display (headings), Inter (body)
 
 IMPORTANT RULES:
 - Never make medical claims. Always position as a dietary supplement.

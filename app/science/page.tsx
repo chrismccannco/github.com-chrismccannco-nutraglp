@@ -75,7 +75,7 @@ export default function SciencePage() {
           The Science
         </p>
         <h1
-          className="text-3xl md:text-[48px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6 font-heading"
+          className="text-[30px] md:text-[44px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6 font-heading"
          
         >
           Built on published research. Not marketing claims.
@@ -90,7 +90,7 @@ export default function SciencePage() {
       {/* Thesis */}
       <section className="py-20 px-6 md:px-12 max-w-[720px] mx-auto">
         <h2
-          className="text-2xl md:text-3xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading"
+          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading"
          
         >
           What is endogenous GLP-1 amplification?
@@ -121,7 +121,7 @@ export default function SciencePage() {
       {/* Pathway Detail */}
       <section className="py-20 px-6 md:px-12 max-w-[1000px] mx-auto">
         <h2
-          className="text-2xl md:text-3xl font-normal tracking-tight leading-tight mb-4 text-ink font-heading"
+          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink font-heading"
          
         >
           Which metabolic pathways does NutraGLP target?
@@ -142,7 +142,7 @@ export default function SciencePage() {
                   key={item.name}
                   className="p-6 bg-white border border-rule rounded-xl"
                 >
-                  <h3 className="text-[16px] font-bold tracking-tight mb-2 text-ink">
+                  <h3 className="text-[18px] font-semibold tracking-tight mb-2 text-ink">
                     {item.name}
                   </h3>
                   <p className="text-sm text-mist leading-relaxed mb-3">
@@ -163,7 +163,7 @@ export default function SciencePage() {
       {/* Nanoemulsion */}
       <section className="py-20 px-6 md:px-12 max-w-[720px] mx-auto">
         <h2
-          className="text-2xl md:text-3xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading"
+          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading"
          
         >
           Why do most oral supplements fail at absorption?
@@ -223,7 +223,7 @@ export default function SciencePage() {
             Quality & Compliance
           </p>
           <h2
-            className="text-2xl md:text-3xl font-normal tracking-tight leading-tight mb-6 text-white font-heading"
+            className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-white font-heading"
            
           >
             How does NutraGLP meet quality and safety standards?

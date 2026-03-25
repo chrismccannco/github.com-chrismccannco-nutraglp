@@ -163,7 +163,7 @@ export default function PersonaEditPage() {
           </div>
           <div className="flex items-center gap-3">
             {saving && <span className="flex items-center gap-1.5 text-xs text-neutral-400"><Loader2 size={12} className="animate-spin" /> Saving...</span>}
-            {saved && <span className="flex items-center gap-1.5 text-xs text-emerald-600"><Check size={12} /> Saved</span>}
+            {saved && <span className="flex items-center gap-1.5 text-xs text-teal-600"><Check size={12} /> Saved</span>}
             <button onClick={toggleDefault}
               className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg border transition-colors ${
                 persona.is_default === 1 ? 'bg-amber-50 border-amber-200 text-amber-700' : 'bg-white border-neutral-200 text-neutral-500 hover:border-amber-300 hover:text-amber-600'

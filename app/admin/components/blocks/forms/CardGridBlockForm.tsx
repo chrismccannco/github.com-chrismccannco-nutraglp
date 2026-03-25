@@ -142,7 +142,7 @@ export default function CardGridBlockForm({ data, onChange }: Props) {
         <button
           type="button"
           onClick={addCard}
-          className="flex items-center gap-1 text-xs text-emerald-600 hover:text-emerald-700"
+          className="flex items-center gap-1 text-xs text-teal-600 hover:text-teal-700"
         >
           <Plus className="w-3.5 h-3.5" /> Add card
         </button>

@@ -102,7 +102,7 @@ export default async function BlogPost({
             &larr; Research &amp; Insights
           </Link>
           <h1
-            className="text-3xl md:text-[42px] font-normal text-white leading-[1.12] tracking-tight mt-6 mb-6 font-display"
+            className="text-[30px] md:text-[44px] font-normal text-white leading-[1.1] tracking-tight mt-6 mb-6 font-heading"
           >
             {article.title as string}
           </h1>
@@ -129,12 +129,12 @@ export default async function BlogPost({
             {sections.map((section) => (
               <div key={section.heading}>
                 <h2
-                  className="text-xl md:text-2xl font-normal tracking-tight leading-tight mb-5 text-ink font-display"
+                  className="text-xl md:text-2xl font-normal tracking-tight leading-tight mb-5 text-ink font-heading"
                 >
                   {section.heading}
                 </h2>
                 <div
-                  className="prose prose-lg max-w-none text-mist prose-p:text-[16px] prose-p:leading-[1.75] prose-headings:text-ink prose-headings:font-display prose-a:text-emerald-700"
+                  className="prose prose-lg max-w-none text-mist prose-p:text-[16px] prose-p:leading-[1.75] prose-headings:text-ink prose-headings:font-heading prose-a:text-emerald-700"
                   dangerouslySetInnerHTML={{ __html: section.bodyHtml }}
                 />
               </div>
@@ -161,7 +161,7 @@ export default async function BlogPost({
                     className="block p-5 bg-white border border-rule rounded-lg hover:border-forest-mid/40 transition no-underline"
                   >
                     <p
-                      className="text-[17px] font-normal tracking-tight text-ink mb-1 font-display"
+                      className="text-[17px] font-normal tracking-tight text-ink mb-1 font-heading"
                     >
                       {related.title}
                     </p>
@@ -205,7 +205,7 @@ export default async function BlogPost({
       {/* CTA */}
       <section className="bg-forest py-20 px-6 md:px-12 text-center">
         <h2
-          className="text-3xl md:text-4xl font-normal text-white tracking-tight mb-4 font-display"
+          className="text-3xl md:text-4xl font-normal text-white tracking-tight mb-4 font-heading"
         >
           Ready to try a different approach?
         </h2>

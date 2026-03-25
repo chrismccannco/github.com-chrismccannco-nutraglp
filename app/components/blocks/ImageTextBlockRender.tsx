@@ -1,9 +1,9 @@
 import type { ImageTextBlockData } from "@/lib/types/blocks";
 
 const bgClasses: Record<string, string> = {
-  forest: "bg-[#1B3A5C] text-white",
-  cream: "bg-[#F5F0E8]",
-  sage: "bg-[#4A90C4]",
+  forest: "bg-[#0e3078] text-white",
+  cream: "bg-[#f5f2eb]",
+  sage: "bg-[#1585b5]",
   white: "bg-white",
   "": "",
 };

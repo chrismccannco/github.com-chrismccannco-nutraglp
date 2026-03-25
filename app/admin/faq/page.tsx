@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import RichTextEditor from "../components/RichTextEditor";
 import Breadcrumbs from "../components/Breadcrumbs";
 import StatusBadge from "../components/StatusBadge";
-import { Plus, Pencil, Trash2 } from "lucide-react";
+import { Plus, Pencil, Trash2, Copy, Check } from "lucide-react";
 
 interface FAQ {
   id: number;
@@ -26,6 +26,15 @@ export default function FAQAdmin() {
   const [newQ, setNewQ] = useState("");
   const [newA, setNewA] = useState("");
   const [newCat, setNewCat] = useState("");
+  const [copiedNew, setCopiedNew] = useState(false);
+  const [copiedEdit, setCopiedEdit] = useState(false);
+
+  const copyAnswer = (text: string, which: "new" | "edit") => {
+    const plain = text.replace(/<[^>]+>/g, "").trim();
+    navigator.clipboard.writeText(plain);
+    if (which === "new") { setCopiedNew(true); setTimeout(() => setCopiedNew(false), 2000); }
+    else { setCopiedEdit(true); setTimeout(() => setCopiedEdit(false), 2000); }
+  };
 
   const load = () => {
     fetch("/api/faqs")
@@ -99,7 +108,7 @@ export default function FAQAdmin() {
         </div>
         <button
           onClick={() => setShowNew(!showNew)}
-          className="flex items-center gap-1.5 px-4 py-2 bg-emerald-600 text-white text-sm rounded-lg hover:bg-emerald-700 transition"
+          className="flex items-center gap-1.5 px-4 py-2 bg-teal-600 text-white text-sm rounded-lg hover:bg-teal-700 transition"
         >
           {showNew ? (
             "Cancel"
@@ -121,8 +130,8 @@ export default function FAQAdmin() {
             <input
               value={newCat}
               onChange={(e) => setNewCat(e.target.value)}
-              placeholder="e.g. GLP-1 Basics"
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              placeholder="e.g. Getting Started"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
           <div>
@@ -132,13 +141,21 @@ export default function FAQAdmin() {
             <input
               value={newQ}
               onChange={(e) => setNewQ(e.target.value)}
-              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-neutral-500 mb-1">
-              Answer
-            </label>
+            <div className="flex items-center justify-between mb-1">
+              <label className="block text-xs font-medium text-neutral-500">
+                Answer
+              </label>
+              {newA && (
+                <button onClick={() => copyAnswer(newA, "new")} className="flex items-center gap-1 text-xs text-neutral-400 hover:text-neutral-700 transition">
+                  {copiedNew ? <Check className="w-3 h-3 text-teal-600" /> : <Copy className="w-3 h-3" />}
+                  {copiedNew ? "Copied" : "Copy"}
+                </button>
+              )}
+            </div>
             <RichTextEditor
               content={newA}
               onChange={(html) => setNewA(html)}
@@ -147,7 +164,7 @@ export default function FAQAdmin() {
           </div>
           <button
             onClick={handleCreate}
-            className="px-4 py-2 bg-emerald-600 text-white text-sm rounded-lg hover:bg-emerald-700 transition"
+            className="px-4 py-2 bg-teal-600 text-white text-sm rounded-lg hover:bg-teal-700 transition"
           >
             Create FAQ
           </button>
@@ -166,20 +183,29 @@ export default function FAQAdmin() {
                 editing === faq.id ? (
                   <div
                     key={faq.id}
-                    className="bg-white border border-emerald-200 rounded-lg shadow-sm p-5 space-y-3"
+                    className="bg-white border border-teal-200 rounded-lg shadow-sm p-5 space-y-3"
                   >
                     <input
                       value={editCat}
                       onChange={(e) => setEditCat(e.target.value)}
                       placeholder="Category"
-                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
                     />
                     <input
                       value={editQ}
                       onChange={(e) => setEditQ(e.target.value)}
                       placeholder="Question"
-                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                      className="w-full px-3 py-2 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
                     />
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-xs font-medium text-neutral-500">Answer</span>
+                      {editA && (
+                        <button onClick={() => copyAnswer(editA, "edit")} className="flex items-center gap-1 text-xs text-neutral-400 hover:text-neutral-700 transition">
+                          {copiedEdit ? <Check className="w-3 h-3 text-teal-600" /> : <Copy className="w-3 h-3" />}
+                          {copiedEdit ? "Copied" : "Copy"}
+                        </button>
+                      )}
+                    </div>
                     <RichTextEditor
                       content={editA}
                       onChange={(html) => setEditA(html)}
@@ -196,7 +222,7 @@ export default function FAQAdmin() {
                     <div className="flex gap-2">
                       <button
                         onClick={() => saveEdit(faq.id)}
-                        className="px-3 py-1.5 bg-emerald-600 text-white text-xs rounded-lg hover:bg-emerald-700 transition"
+                        className="px-3 py-1.5 bg-teal-600 text-white text-xs rounded-lg hover:bg-teal-700 transition"
                       >
                         Save
                       </button>

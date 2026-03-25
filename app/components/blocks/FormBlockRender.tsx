@@ -4,10 +4,10 @@ import { useState } from "react";
 import type { FormBlockData } from "@/lib/types/blocks";
 
 const bgClasses: Record<string, string> = {
-  forest: "bg-[#1B3A5C] text-white",
-  cream: "bg-[#F5F0E8] text-[#1A1A1A]",
+  forest: "bg-[#0e3078] text-white",
+  cream: "bg-[#f5f2eb] text-[#1A1A1A]",
   white: "bg-white text-[#1A1A1A]",
-  sage: "bg-[#4A90C4] text-[#1A1A1A]",
+  sage: "bg-[#1585b5] text-[#1A1A1A]",
   ink: "bg-[#1A1A1A] text-white",
 };
 
@@ -85,7 +85,7 @@ export default function FormBlockRender({ data }: { data: FormBlockData }) {
           <button
             type="submit"
             disabled={status === "sending"}
-            className="px-6 py-3 bg-[#1B3A5C] text-white rounded-full font-semibold text-sm hover:bg-[#132D4A] transition-colors disabled:opacity-50 whitespace-nowrap"
+            className="px-6 py-3 bg-[#0e3078] text-white rounded-full font-semibold text-sm hover:bg-[#0a2463] transition-colors disabled:opacity-50 whitespace-nowrap"
           >
             {status === "sending" ? "Sending..." : data.buttonText || "Submit"}
           </button>

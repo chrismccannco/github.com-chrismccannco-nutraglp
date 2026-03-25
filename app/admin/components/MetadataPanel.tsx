@@ -163,7 +163,7 @@ function VersionHistoryInline({
               if (confirm("Restore this version? Unsaved changes will be lost."))
                 onRestore(v.version_data);
             }}
-            className="text-[10px] text-emerald-600 hover:text-emerald-700 font-medium"
+            className="text-[10px] text-teal-600 hover:text-teal-700 font-medium"
           >
             Restore
           </button>

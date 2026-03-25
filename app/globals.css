@@ -1,32 +1,66 @@
 @import "tailwindcss";
 
+/* ============================================================
+   NutraGLP Brand System
+   Fonts: Playfair Display (headings) + Inter (body)
+   Primary: Deep Indigo #0a2463, Gold #c8962e
+   Palette: #0066cc, #1585b5, #6b7280, #9ca3af
+   ============================================================
+
+   TYPE SCALE (apply consistently across all pages)
+   ─────────────────────────────────────────────────
+   H1 Hero  (homepage, investors):
+     text-4xl md:text-[56px] font-normal leading-[1.08] tracking-tight font-heading
+
+   H1 Page  (science, about, faq, slim-shot):
+     text-[30px] md:text-[44px] font-normal leading-[1.1] tracking-tight font-heading
+
+   H2:
+     text-[26px] md:text-[36px] font-normal leading-tight tracking-tight font-heading
+
+   H3 (card titles):
+     text-[18px] font-semibold tracking-tight
+
+   Body Large (hero subtext, intro paragraphs):
+     text-[17px] leading-relaxed
+
+   Body (card descriptions, answers):
+     text-[15px] leading-relaxed
+
+   Eyebrow (section labels):
+     text-[11px] font-bold uppercase tracking-[2.5px]
+
+   Stat Value (proof bars):
+     text-2xl font-normal tracking-tight font-heading
+   ============================================================ */
+
 @theme {
-  /* Navy family */
-  --color-forest-deep: #0D1B2A;
-  --color-forest: #1B3A5C;
-  --color-forest-mid: #2B5EA7;
-  --color-forest-light: #4A90C4;
+  /* Deep Indigo family */
+  --color-forest-deep: #0a2463;
+  --color-forest: #0e3078;
+  --color-forest-mid: #0066cc;
+  --color-forest-light: #1585b5;
 
   /* Gold accent */
-  --color-gold: #b8955a;
-  --color-gold-light: #d4ad72;
-  --color-gold-wash: #f0e6d4;
+  --color-gold: #c8962e;
+  --color-gold-light: #d4a84a;
+  --color-gold-wash: #f5ecd8;
 
   /* Neutrals */
   --color-cream: #f5f2eb;
   --color-cream-warm: #eee9df;
   --color-ink: #1a1a18;
-  --color-mist: #8a8a80;
-  --color-mist-light: #b3b0a8;
+  --color-mist: #6b7280;
+  --color-mist-light: #9ca3af;
   --color-rule: #ddd8ce;
 
   /* Typography */
-  --font-heading: 'Fraunces', Georgia, serif;
+  --font-heading: 'Playfair Display', Georgia, serif;
 }
 
 @layer base {
   body {
-    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -34,7 +68,7 @@
 
 @layer utilities {
   .font-display {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: 'Playfair Display', Georgia, serif;
   }
 }
 
@@ -63,11 +97,5 @@
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@layer utilities {
-  .font-display {
-    font-family: "Fraunces", Georgia, serif;
   }
 }

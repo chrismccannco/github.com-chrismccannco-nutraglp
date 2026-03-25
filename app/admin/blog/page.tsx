@@ -81,7 +81,7 @@ export default function BlogAdmin() {
       render: (row) => {
         if (row.brand_score == null) return <span className="text-[11px] text-neutral-300">—</span>;
         const s = row.brand_score;
-        const color = s >= 80 ? "bg-emerald-100 text-emerald-700" : s >= 60 ? "bg-amber-100 text-amber-700" : "bg-red-100 text-red-700";
+        const color = s >= 80 ? "bg-teal-100 text-teal-700" : s >= 60 ? "bg-amber-100 text-amber-700" : "bg-red-100 text-red-700";
         return (
           <span className={`inline-flex items-center px-2 py-0.5 text-[11px] font-semibold rounded-full ${color}`}>
             {s}
@@ -116,7 +116,7 @@ export default function BlogAdmin() {
         </div>
         <Link
           href="/admin/blog/new"
-          className="flex items-center gap-1.5 px-4 py-2 bg-emerald-600 text-white text-sm rounded-lg no-underline hover:bg-emerald-700 transition"
+          className="flex items-center gap-1.5 px-4 py-2 bg-teal-600 text-white text-sm rounded-lg no-underline hover:bg-teal-700 transition"
         >
           <Plus className="w-4 h-4" />
           New post

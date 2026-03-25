@@ -60,7 +60,7 @@ export default async function OGImage({ params }: { params: Promise<{ slug: stri
             fontSize: 13,
             fontWeight: 700,
             letterSpacing: "3px",
-            color: "#b8955a",
+            color: "#c8962e",
             textTransform: "uppercase" as const,
             marginBottom: 16,
           }}
