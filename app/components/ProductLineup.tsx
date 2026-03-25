@@ -54,14 +54,14 @@ export default function ProductLineup() {
         <h2
           className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink font-display"
         >
-          One platform. Multiple formats.
+          One patent-pending nanoemulsion architecture. Multiple delivery formats.
         </h2>
         <p className="text-[17px] leading-relaxed text-mist max-w-[600px] mb-14">
           The same patent-pending nanoemulsion technology, designed into the
           products people already use every day.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {products.map((p) => {
             const card = (
               <div
