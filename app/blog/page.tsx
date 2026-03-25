@@ -67,7 +67,7 @@ export default async function BlogIndex() {
         <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
           Research &amp; Insights
         </p>
-        <h1 className="text-3xl md:text-[48px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6 font-heading">
+        <h1 className="text-[30px] md:text-[44px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6 font-heading">
           The science behind natural GLP-1 amplification
         </h1>
         <p className="text-lg text-white/50 max-w-[560px] mx-auto leading-relaxed">

@@ -68,7 +68,7 @@ export default function Mechanism() {
             <h3 className="text-[17px] font-bold tracking-tight mb-2 text-ink">
               {s.title}
             </h3>
-            <p className="text-sm text-mist leading-relaxed">{s.text}</p>
+            <p className="text-[15px] text-mist leading-relaxed">{s.text}</p>
           </div>
         ))}
       </div>

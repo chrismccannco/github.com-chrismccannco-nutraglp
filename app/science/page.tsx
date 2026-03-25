@@ -394,7 +394,7 @@ export default function SciencePage() {
 
       {/* CTA */}
       <section className="bg-forest py-16 px-6 md:px-12 text-center">
-        <h2 className="text-2xl md:text-3xl font-normal text-white tracking-tight mb-4 font-heading">
+        <h2 className="text-3xl md:text-4xl font-normal text-white tracking-tight mb-4 font-heading">
           Questions about the science?
         </h2>
         <p className="text-[17px] text-white/50 max-w-[480px] mx-auto mb-6">

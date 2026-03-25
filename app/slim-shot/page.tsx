@@ -151,7 +151,7 @@ export default function SlimShotPage() {
           </div>
 
           <div className="flex-1">
-            <p className="text-[10px] font-bold uppercase tracking-[2px] text-gold mb-4">
+            <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
               Slim SHOT &mdash; a drinkable daily liquid, not an injection
             </p>
             <h1 className="text-[30px] md:text-[44px] font-normal text-white leading-[1.1] tracking-tight mb-6 font-heading">
@@ -205,12 +205,12 @@ export default function SlimShotPage() {
         ].map((s) => (
           <div key={s.label} className="text-center">
             <div
-              className="text-xl font-normal tracking-tight text-gold font-heading"
+              className="text-[28px] font-normal tracking-tight text-gold font-heading"
              
             >
               {s.value}
             </div>
-            <div className="text-[10px] text-white/50 uppercase tracking-wider mt-0.5">
+            <div className="text-[11px] text-white/50 uppercase tracking-wider mt-0.5">
               {s.label}
             </div>
           </div>
@@ -241,7 +241,7 @@ export default function SlimShotPage() {
               <h3 className="text-[17px] font-bold tracking-tight mb-3 text-ink">
                 {p.title}
               </h3>
-              <p className="text-sm text-mist leading-relaxed">{p.desc}</p>
+              <p className="text-[15px] text-mist leading-relaxed">{p.desc}</p>
             </div>
           ))}
         </FadeIn>
@@ -293,7 +293,7 @@ export default function SlimShotPage() {
                   </div>
                 </div>
                 <div className="p-8 bg-white border border-rule rounded-xl flex-1">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-forest-mid mb-3">
+                  <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-3">
                     {t.week}
                   </p>
                   <h3
@@ -302,7 +302,7 @@ export default function SlimShotPage() {
                   >
                     {t.title}
                   </h3>
-                  <p className="text-sm text-mist leading-relaxed">{t.desc}</p>
+                  <p className="text-[15px] text-mist leading-relaxed">{t.desc}</p>
                 </div>
               </div>
             ))}
@@ -326,7 +326,7 @@ export default function SlimShotPage() {
                 <h3 className="text-[15px] font-bold text-ink mb-3">
                   {faq.q}
                 </h3>
-                <p className="text-sm text-mist leading-relaxed">
+                <p className="text-[15px] text-mist leading-relaxed">
                   {faq.a}
                 </p>
               </div>
