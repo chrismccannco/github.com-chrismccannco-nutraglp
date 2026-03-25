@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Copy, Check, ChevronDown, ChevronRight, Zap, Lock, BookOpen } from "lucide-react";
+import { Copy, Check, ChevronDown, ChevronRight, Zap, Lock, BookOpen, Package, Terminal } from "lucide-react";
 
 interface Endpoint {
   method: string;
@@ -185,6 +185,120 @@ const ENDPOINTS: { section: string; endpoints: Endpoint[] }[] = [
       },
     ],
   },
+  {
+    section: "Media",
+    endpoints: [
+      {
+        method: "GET",
+        path: "/api/v1/media",
+        description: "List all media files with URLs and responsive variants.",
+        params: [
+          { name: "limit", type: "number", description: "Results per page (max 100, default 50)" },
+          { name: "offset", type: "number", description: "Skip N results for pagination" },
+        ],
+        response: `{
+  "data": [
+    {
+      "id": 1,
+      "filename": "hero.jpg",
+      "mime_type": "image/jpeg",
+      "size": 245000,
+      "width": 1200,
+      "height": 630,
+      "url": "https://your-domain.com/api/upload/1",
+      "variants": {
+        "original": ".../api/upload/1",
+        "webp": ".../api/upload/1?format=webp",
+        "w640": ".../api/upload/1?w=640",
+        "w960": ".../api/upload/1?w=960",
+        "w1280": ".../api/upload/1?w=1280"
+      }
+    }
+  ],
+  "total": 24
+}`,
+      },
+      {
+        method: "GET",
+        path: "/api/v1/media?id={id}",
+        description: "Get a single media file by ID.",
+        params: [
+          { name: "id", type: "number", required: true, description: "The media file ID" },
+        ],
+        response: `{ "id": 1, "filename": "hero.jpg", "url": "...", "variants": {...} }`,
+      },
+    ],
+  },
+  {
+    section: "Brand Voices",
+    endpoints: [
+      {
+        method: "GET",
+        path: "/api/v1/brand-voices",
+        description: "List all brand voice profiles.",
+        response: `{
+  "data": [
+    {
+      "id": 1,
+      "name": "Clinical Authority",
+      "slug": "clinical-authority",
+      "is_default": true,
+      "tagline": "The science is the story.",
+      "tone": "Precise. Confident without being promotional.",
+      "dos": "...",
+      "donts": "...",
+      "exemplar": "..."
+    }
+  ],
+  "total": 4
+}`,
+      },
+      {
+        method: "GET",
+        path: "/api/v1/brand-voices?slug={slug}",
+        description: "Get a single brand voice by slug.",
+        params: [
+          { name: "slug", type: "string", required: true, description: "The brand voice slug" },
+        ],
+        response: `{ "id": 1, "name": "Clinical Authority", "slug": "clinical-authority", ... }`,
+      },
+    ],
+  },
+  {
+    section: "Personas",
+    endpoints: [
+      {
+        method: "GET",
+        path: "/api/v1/personas",
+        description: "List all audience personas.",
+        response: `{
+  "data": [
+    {
+      "id": 1,
+      "name": "The Needle-Averse Consumer",
+      "slug": "needle-averse-consumer",
+      "is_default": true,
+      "description": "...",
+      "demographics": "...",
+      "goals": "...",
+      "pain_points": "...",
+      "channels": ["instagram", "email"]
+    }
+  ],
+  "total": 5
+}`,
+      },
+      {
+        method: "GET",
+        path: "/api/v1/personas?slug={slug}",
+        description: "Get a single persona by slug.",
+        params: [
+          { name: "slug", type: "string", required: true, description: "The persona slug" },
+        ],
+        response: `{ "id": 1, "name": "The Needle-Averse Consumer", ... }`,
+      },
+    ],
+  },
 ];
 
 export default function ApiDocsPage() {
@@ -333,11 +447,167 @@ X-RateLimit-Remaining: 847`}</code>
         ))}
       </div>
 
-      {/* SDKs hint */}
-      <div className="mt-8 p-5 bg-neutral-50 border border-neutral-200 rounded-xl">
-        <h2 className="text-sm font-semibold text-neutral-900 mb-2">Quick Start</h2>
+      {/* SDK Documentation */}
+      <div className="mt-8 p-5 bg-white border border-neutral-200 rounded-xl" id="sdk">
+        <div className="flex items-center gap-2 mb-3">
+          <Package className="w-4 h-4 text-teal-600" />
+          <h2 className="text-sm font-semibold text-neutral-900">JavaScript / TypeScript SDK</h2>
+        </div>
+        <p className="text-sm text-neutral-600 mb-4">
+          The official SDK gives you typed access to every resource. Works with Next.js, Astro, Remix, Nuxt, or any JavaScript runtime.
+        </p>
+
+        <div className="space-y-4">
+          <div>
+            <div className="flex items-center gap-2 mb-1.5">
+              <Terminal className="w-3.5 h-3.5 text-neutral-400" />
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-neutral-400">Install</p>
+            </div>
+            <CodeBlock label="" code="npm install @contentfoundry/sdk" id="sdk-install" copiedSnippet={copiedSnippet} onCopy={copySnippet} />
+          </div>
+
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-neutral-400 mb-1.5">Initialize</p>
+            <CodeBlock
+              label=""
+              code={`import { ContentFoundry } from "@contentfoundry/sdk";
+
+const cf = new ContentFoundry({
+  baseUrl: "${baseUrl}",
+  apiKey: process.env.CONTENTFOUNDRY_API_KEY!,
+});`}
+              id="sdk-init"
+              copiedSnippet={copiedSnippet}
+              onCopy={copySnippet}
+            />
+          </div>
+
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-neutral-400 mb-1.5">Resources</p>
+            <div className="grid grid-cols-2 gap-2 text-xs text-neutral-600 mb-3">
+              <div className="flex items-center gap-2"><code className="text-teal-700 font-mono">cf.pages</code><span>.list() .get(slug)</span></div>
+              <div className="flex items-center gap-2"><code className="text-teal-700 font-mono">cf.blog</code><span>.list(opts) .get(slug)</span></div>
+              <div className="flex items-center gap-2"><code className="text-teal-700 font-mono">cf.products</code><span>.list() .get(slug)</span></div>
+              <div className="flex items-center gap-2"><code className="text-teal-700 font-mono">cf.media</code><span>.list() .get(id) .srcset(media)</span></div>
+              <div className="flex items-center gap-2"><code className="text-teal-700 font-mono">cf.brandVoices</code><span>.list() .get(slug) .getDefault()</span></div>
+              <div className="flex items-center gap-2"><code className="text-teal-700 font-mono">cf.personas</code><span>.list() .get(slug) .getDefault()</span></div>
+              <div className="flex items-center gap-2"><code className="text-teal-700 font-mono">cf.faqs</code><span>.list(opts) .get(id)</span></div>
+              <div className="flex items-center gap-2"><code className="text-teal-700 font-mono">cf.testimonials</code><span>.list(opts) .get(id)</span></div>
+            </div>
+          </div>
+
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-neutral-400 mb-1.5">Examples</p>
+            <div className="space-y-3">
+              <CodeBlock
+                label="Fetch blog posts"
+                code={`// List recent posts tagged "Science"
+const posts = await cf.blog.list({ tag: "Science", limit: 10 });
+
+// Get a single post with full content
+const post = await cf.blog.get("how-glp1-works");
+console.log(post.title, post.sections);`}
+                id="sdk-blog"
+                copiedSnippet={copiedSnippet}
+                onCopy={copySnippet}
+              />
+              <CodeBlock
+                label="Responsive images"
+                code={`const images = await cf.media.list({ limit: 20 });
+
+// Generate a srcset string for responsive <img> tags
+const srcset = cf.media.srcset(images.data[0]);
+// => ".../api/upload/1?w=640 640w, .../api/upload/1?w=960 960w, ..."`}
+                id="sdk-media"
+                copiedSnippet={copiedSnippet}
+                onCopy={copySnippet}
+              />
+              <CodeBlock
+                label="Next.js App Router"
+                code={`// app/blog/[slug]/page.tsx
+import { ContentFoundry } from "@contentfoundry/sdk";
+
+const cf = new ContentFoundry({
+  baseUrl: process.env.CF_URL!,
+  apiKey: process.env.CF_API_KEY!,
+});
+
+export default async function BlogPost({ params }: { params: { slug: string } }) {
+  const post = await cf.blog.get(params.slug);
+  return <article><h1>{post.title}</h1></article>;
+}`}
+                id="sdk-nextjs"
+                copiedSnippet={copiedSnippet}
+                onCopy={copySnippet}
+              />
+              <CodeBlock
+                label="Astro"
+                code={`---
+// src/pages/blog/[slug].astro
+import { ContentFoundry } from "@contentfoundry/sdk";
+
+const cf = new ContentFoundry({
+  baseUrl: import.meta.env.CF_URL,
+  apiKey: import.meta.env.CF_API_KEY,
+});
+
+const { slug } = Astro.params;
+const post = await cf.blog.get(slug!);
+---
+<h1>{post.title}</h1>`}
+                id="sdk-astro"
+                copiedSnippet={copiedSnippet}
+                onCopy={copySnippet}
+              />
+            </div>
+          </div>
+
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-neutral-400 mb-1.5">Error Handling</p>
+            <CodeBlock
+              label=""
+              code={`import { ContentFoundryError } from "@contentfoundry/sdk";
+
+try {
+  const page = await cf.pages.get("missing-page");
+} catch (err) {
+  if (err instanceof ContentFoundryError) {
+    console.log(err.status); // 404
+    console.log(err.message); // "Not found"
+  }
+}`}
+              id="sdk-errors"
+              copiedSnippet={copiedSnippet}
+              onCopy={copySnippet}
+            />
+          </div>
+
+          <div>
+            <p className="text-[10px] font-semibold uppercase tracking-widest text-neutral-400 mb-1.5">TypeScript Types</p>
+            <CodeBlock
+              label=""
+              code={`// All types are exported for full IntelliSense support
+import type {
+  Page, PageDetail,
+  BlogPost, BlogPostDetail,
+  Product, MediaFile,
+  BrandVoice, Persona,
+  FAQ, Testimonial,
+  PaginatedResponse,
+} from "@contentfoundry/sdk";`}
+              id="sdk-types"
+              copiedSnippet={copiedSnippet}
+              onCopy={copySnippet}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Raw HTTP Quick Start */}
+      <div className="mt-4 p-5 bg-neutral-50 border border-neutral-200 rounded-xl">
+        <h2 className="text-sm font-semibold text-neutral-900 mb-2">Raw HTTP</h2>
         <p className="text-sm text-neutral-600 mb-3">
-          Use any HTTP client to query the API. Here are examples in common languages:
+          If you prefer plain HTTP, use any client. No SDK required.
         </p>
         <div className="space-y-3">
           <CodeBlock

@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { dispatchWebhook } from "@/lib/webhooks";
+import { createVersion } from "@/lib/versions";
+import { writeAudit } from "@/lib/audit";
+import { requireRole } from "@/lib/admin-auth";
 
 export async function GET(
   _req: NextRequest,
@@ -36,16 +40,31 @@ export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
+  const { user: actor, error: authError } = await requireRole(req, "editor");
+  if (authError) return authError;
   const { slug } = await params;
   try {
     const body = await req.json();
     const db = getDb();
     const existing = await db.execute({
-      sql: "SELECT id FROM blog_posts WHERE slug = ?",
+      sql: "SELECT * FROM blog_posts WHERE slug = ?",
       args: [slug],
     });
     if (existing.rows.length === 0)
       return NextResponse.json({ error: "Not found" }, { status: 404 });
+
+    // Snapshot current state before update
+    const cur = existing.rows[0];
+    await createVersion("blog_post", Number(cur.id), {
+      title: cur.title,
+      description: cur.description,
+      date: cur.date,
+      sections: cur.sections,
+      blocks: cur.blocks,
+      featured_image: cur.featured_image,
+      published: cur.published,
+      updated_at: cur.updated_at,
+    });
 
     const fields: Record<string, unknown> = {};
     const allowed = [
@@ -84,6 +103,13 @@ export async function PUT(
       args: [newSlug],
     });
     const r = result.rows[0];
+
+    // Audit + webhook (non-blocking)
+    const isPublishToggle = body.published !== undefined;
+    const webhookEvent = isPublishToggle && body.published ? "blog.published" : isPublishToggle && !body.published ? "blog.unpublished" : "blog.updated";
+    const auditAction = isPublishToggle && body.published ? "published" : isPublishToggle && !body.published ? "unpublished" : "updated";
+    writeAudit(auditAction, "blog_post", newSlug, r.title as string, { changedFields: Object.keys(fields) }, actor ?? undefined);
+    dispatchWebhook(webhookEvent, { slug: newSlug, id: r.id, title: r.title }).catch(() => {});
 
     // Auto-score in the background (non-blocking)
     if (body.sections || body.description) {

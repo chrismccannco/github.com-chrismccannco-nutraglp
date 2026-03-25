@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Loader2, Copy, Check, RefreshCw, ChevronDown, UserCircle } from 'lucide-react';
+import { useAIProviders } from '../hooks/useAIProviders';
+import ShareBar from '../components/ShareBar';
 
 interface Format {
   key: string;
@@ -14,6 +16,7 @@ interface RepurposeResult {
   format: string;
   label: string;
   output: string;
+  category: string;
 }
 
 interface Persona {
@@ -39,6 +42,7 @@ export default function RepurposePage() {
   const [posts, setPosts] = useState<{ slug: string; title: string }[]>([]);
   const [personas, setPersonas] = useState<Persona[]>([]);
   const [selectedPersonaId, setSelectedPersonaId] = useState<number | null>(null);
+  const { providers, selectedProvider, setSelectedProvider, providerOverride } = useAIProviders();
 
   // Load available formats and personas
   useEffect(() => {
@@ -103,7 +107,7 @@ export default function RepurposePage() {
       const res = await fetch('/api/repurpose', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content, title, formats: selectedFormats, ...(selectedPersonaId ? { personaId: selectedPersonaId } : {}) }),
+        body: JSON.stringify({ content, title, formats: selectedFormats, ...(selectedPersonaId ? { personaId: selectedPersonaId } : {}), ...(providerOverride ? { providerOverride } : {}) }),
       });
 
       if (!res.ok) {
@@ -280,6 +284,24 @@ export default function RepurposePage() {
               </div>
             </div>
 
+            {providers.length > 1 && (
+              <div className="flex items-center gap-2">
+                <label className="text-xs font-semibold text-neutral-500 whitespace-nowrap">AI model</label>
+                <div className="relative flex-1">
+                  <select
+                    value={selectedProvider}
+                    onChange={e => setSelectedProvider(e.target.value)}
+                    className="w-full px-3 py-2 border border-neutral-200 rounded-lg text-sm bg-white text-neutral-700 appearance-none pr-8"
+                  >
+                    {providers.map(p => (
+                      <option key={p.id} value={p.id}>{p.label.split(' (')[0]}</option>
+                    ))}
+                  </select>
+                  <ChevronDown size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none" />
+                </div>
+              </div>
+            )}
+
             <button onClick={generate} disabled={loading || !content || selectedFormats.length === 0}
               className="flex items-center gap-2 px-5 py-2.5 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-500 disabled:opacity-50 transition-colors w-full justify-center">
               {loading ? <Loader2 size={14} className="animate-spin" /> : <RefreshCw size={14} />}
@@ -308,15 +330,12 @@ export default function RepurposePage() {
               <div key={r.format} className="bg-white rounded-xl border border-neutral-200 p-5">
                 <div className="flex items-center justify-between mb-3">
                   <h3 className="text-sm font-semibold text-neutral-900">{r.label}</h3>
-                  <button onClick={() => copyText(r.output, r.format)}
-                    className="flex items-center gap-1 text-xs text-neutral-400 hover:text-neutral-600 transition-colors">
-                    {copied === r.format ? <Check size={11} /> : <Copy size={11} />}
-                    {copied === r.format ? 'Copied' : 'Copy'}
-                  </button>
+                  <span className="text-[10px] text-neutral-400 uppercase tracking-wide">{r.category}</span>
                 </div>
                 <div className="text-sm text-neutral-700 whitespace-pre-wrap leading-relaxed">
                   {r.output}
                 </div>
+                <ShareBar text={r.output} category={r.category} />
               </div>
             ))}
           </div>

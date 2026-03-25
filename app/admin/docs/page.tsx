@@ -18,6 +18,65 @@ interface DocSection {
 }
 
 const docs: DocSection[] = [
+  /* ---- QUICK START ---- */
+  {
+    id: "quickstart-overview",
+    title: "5-Minute Setup Guide",
+    category: "Quick Start",
+    content:
+      "Get ContentFoundry running from zero to publishing in under five minutes. You'll log in, create your first page, and connect an AI client via the MCP server.",
+    steps: [
+      "Go to /admin and log in with your email and password",
+      "Click Dashboard — you'll see a snapshot of your content across pages, blog, products, and forms",
+      "Click Pages → New Page to create your first page with the visual block builder",
+      "Go to Blog → New Post to draft your first blog post",
+      "Visit Admin → API Keys to generate a key for external integrations or the MCP server",
+      "Visit Admin → MCP Server for instructions on connecting Claude, Cursor, or ChatGPT directly to your content",
+    ],
+    tips: [
+      "The sidebar collapses System-level sections by default — click System to expand API Keys, MCP Server, and Settings",
+      "Every page auto-saves on changes; check the save indicator in the top right of the editor",
+    ],
+  },
+  {
+    id: "quickstart-first-page",
+    title: "Your First Page",
+    category: "Quick Start",
+    content:
+      "The page builder is block-based. You pick blocks (Hero, Text, FAQ, CTA, etc.) and fill them in. No code required. Publish when ready or save as a draft.",
+    steps: [
+      "Click Pages in the sidebar",
+      "Click New Page and give it a title and slug (e.g. /about)",
+      "Click Add Block and choose a block type — Hero is a good starting point",
+      "Fill in the headline, subheadline, and CTA text",
+      "Add more blocks as needed (Text, Features, CTA, FAQ)",
+      "Set status to Published and click Save",
+    ],
+    tips: [
+      "The slug becomes the URL path — use lowercase, hyphenated words",
+      "Preview mode shows you exactly how the page will look before you publish",
+    ],
+  },
+  {
+    id: "quickstart-ai",
+    title: "Using AI in the CMS",
+    category: "Quick Start",
+    content:
+      "ContentFoundry has AI built into every content editor. The AI Assist button in the blog, page, and product editors lets you draft, rewrite, or expand content using your brand voice and personas.",
+    steps: [
+      "Open any blog post or page in the editor",
+      "Click the AI Assist or wand icon in the toolbar",
+      "Describe what you want — or let it draft from your title and existing content",
+      "Review and accept, or iterate with a follow-up prompt",
+      "For batch content, use AI → Batch Generate to create multiple posts from a topic list",
+      "For repurposing, use AI → Repurpose to adapt content across formats",
+    ],
+    tips: [
+      "Adding Personas (Brand & Voice → Personas) makes AI output significantly more targeted",
+      "Brand Hub → Brand Voices stores your tone and style guidelines for the AI to follow",
+    ],
+  },
+
   /* ---- GETTING STARTED ---- */
   {
     id: "login",
@@ -289,6 +348,180 @@ const docs: DocSection[] = [
     ],
   },
 
+  /* ---- AI & CREATION ---- */
+  {
+    id: "ai-templates",
+    title: "AI Templates",
+    category: "AI & Creation",
+    content:
+      "AI Templates are reusable generation workflows. Each template has a name, a prompt blueprint, a target content type, and an optional persona. Run a template to generate content in seconds without re-writing your prompt each time.",
+    steps: [
+      "Go to AI & Creation → AI Templates",
+      "Click New Template",
+      "Give it a name (e.g. 'GLP-1 Blog Post Intro')",
+      "Write the prompt blueprint — use {{topic}} or {{persona}} as dynamic variables",
+      "Choose the output type (blog post, product description, FAQ, etc.)",
+      "Optionally link a Persona and Brand Voice to shape the output",
+      "Click Run to generate content immediately",
+    ],
+    tips: [
+      "Variables in double curly braces ({{variable}}) are filled in at runtime",
+      "Templates run faster when they reference an existing Persona — the AI already knows the audience",
+    ],
+  },
+  {
+    id: "repurpose",
+    title: "Repurpose Content",
+    category: "AI & Creation",
+    content:
+      "Repurpose takes an existing blog post, page, or product and transforms it into a different format — email, social post, summary, FAQ expansion, and more. One source, many outputs.",
+    steps: [
+      "Go to AI & Creation → Repurpose",
+      "Select the source content (blog post, page, or product)",
+      "Choose a target format (email, LinkedIn post, Twitter thread, FAQ, etc.)",
+      "Optionally select a persona to tailor the voice",
+      "Click Repurpose and review the output",
+      "Save the result as a draft or copy it to clipboard",
+    ],
+    tips: [
+      "Your best-performing blog posts make the richest repurpose material",
+      "LinkedIn and email formats tend to compress well from longer posts",
+    ],
+  },
+  {
+    id: "batch-generate",
+    title: "Batch Generate",
+    category: "AI & Creation",
+    content:
+      "Batch Generate lets you create multiple pieces of content from a single job. Feed it a list of topics or product names and it creates a draft for each one simultaneously.",
+    steps: [
+      "Go to AI & Creation → Batch Generate",
+      "Choose a content type (blog posts, product descriptions, FAQs, etc.)",
+      "Enter the list of topics or items — one per line",
+      "Select a template or write a prompt for the job",
+      "Set the persona and brand voice",
+      "Click Run Batch and monitor progress",
+      "Review drafts and publish or edit individually",
+    ],
+    tips: [
+      "Batch jobs run asynchronously — you can leave the page and come back",
+      "All generated content lands as drafts — nothing publishes automatically",
+    ],
+  },
+  {
+    id: "email-sequences",
+    title: "Email Sequences",
+    category: "AI & Creation",
+    content:
+      "Build multi-email nurture sequences with AI. Define the audience, goal, and number of emails. The AI drafts the full sequence with subject lines, bodies, and send-timing recommendations.",
+    steps: [
+      "Go to AI & Creation → Email Sequences",
+      "Click New Sequence",
+      "Name it and describe the audience and goal",
+      "Set the number of emails and rough cadence",
+      "Select a persona for voice targeting",
+      "Click Generate Sequence",
+      "Edit individual emails in the sequence editor",
+    ],
+    tips: [
+      "Sequences work best when you describe the audience journey, not just the product",
+      "You can regenerate individual emails without restarting the whole sequence",
+    ],
+  },
+  {
+    id: "video-studio",
+    title: "Video Studio",
+    category: "AI & Creation",
+    content:
+      "Video Studio extracts clip-worthy moments from transcripts and generates platform-specific captions. Paste a transcript from any recorded talk, webinar, or presentation and the AI finds the best moments for LinkedIn, TikTok, Instagram, and YouTube Shorts.",
+    steps: [
+      "Go to AI & Creation → Video Studio",
+      "Click New Video and give it a title",
+      "Paste the full transcript from your video",
+      "Optionally add the source URL (YouTube, Loom, Zoom)",
+      "Click 'Find best clip moments' to get AI suggestions",
+      "For each suggestion, click the platform buttons to create a clip",
+      "Click 'Generate all captions' to write platform-specific captions for every clip",
+      "Copy captions for use in your publishing workflow",
+    ],
+    tips: [
+      "Longer transcripts (30+ minutes) yield the best clip variety",
+      "The AI assigns each suggestion to specific platforms based on format fit — a 2-minute monologue vs. a quick insight go to different places",
+    ],
+  },
+
+  /* ---- MCP SERVER ---- */
+  {
+    id: "mcp-overview",
+    title: "What is the MCP Server?",
+    category: "MCP Server",
+    content:
+      "The ContentFoundry MCP server lets AI clients like Claude, Cursor, and ChatGPT query your CMS directly. Instead of copying content into your AI tool, the AI reads your blog posts, personas, FAQs, and products on demand. It also creates draft posts when you ask it to.",
+    tips: [
+      "MCP stands for Model Context Protocol — an open standard for connecting AI agents to tools and data sources",
+      "The server runs locally on your machine and talks to your ContentFoundry API",
+      "A read key is all you need for querying; add write permission to allow draft creation",
+    ],
+  },
+  {
+    id: "mcp-setup",
+    title: "Setting Up the MCP Server",
+    category: "MCP Server",
+    content:
+      "Setup takes about two minutes. You generate an API key, build the server once, and add a config block to your AI client. The server then connects automatically each time you open the client.",
+    steps: [
+      "Go to Admin → API Keys and generate a new key with read permission (add write if you want draft creation)",
+      "In your terminal, navigate to the repo and run: cd mcp/contentfoundry-mcp-server && npm install && npm run build",
+      "Open your Claude Desktop config: ~/Library/Application Support/Claude/claude_desktop_config.json (macOS) or %APPDATA%\\Claude\\claude_desktop_config.json (Windows)",
+      "Add the mcpServers block with your site URL and API key (the MCP Server admin page auto-populates this config)",
+      "Restart Claude Desktop",
+      "Test it: ask Claude to 'list my blog posts' or 'get the weight-loss persona'",
+    ],
+    tips: [
+      "The Admin → MCP Server page generates the exact config JSON with your site URL pre-filled",
+      "For Cursor, add the same config to .cursor/mcp.json in your project root",
+    ],
+  },
+  {
+    id: "mcp-tools",
+    title: "Available MCP Tools",
+    category: "MCP Server",
+    content:
+      "The MCP server exposes 12 tools. Read tools require a read key. cf_create_draft_blog_post requires a write key.",
+    tips: [
+      "cf_list_blog_posts: list published posts, filter by tag",
+      "cf_get_blog_post: get full post content by slug",
+      "cf_list_pages: list all published pages",
+      "cf_get_page: get full page content by slug",
+      "cf_list_products: list all published products",
+      "cf_get_product: get full product details by slug",
+      "cf_list_faqs: list FAQs, filter by category",
+      "cf_list_testimonials: list testimonials, filter to featured",
+      "cf_list_personas: list all audience personas",
+      "cf_get_persona: get full persona details by slug",
+      "cf_list_brand_voices: list brand voice profiles",
+      "cf_create_draft_blog_post: create a new unpublished draft (write key required)",
+    ],
+  },
+  {
+    id: "mcp-prompts",
+    title: "Example MCP Prompts",
+    category: "MCP Server",
+    content:
+      "Once the MCP server is connected, you can talk to your CMS in plain language from within Claude, Cursor, or ChatGPT.",
+    steps: [
+      "\"List all blog posts tagged 'nutrition' and identify any topic gaps\"",
+      "\"Get the weight-loss patient persona, then write a product description for our GLP-1 program in that voice\"",
+      "\"Pull all FAQs and tell me which questions our blog posts don't answer\"",
+      "\"Write a 500-word intro post about GLP-1 side effects and save it as a draft\"",
+      "\"Get our featured testimonials and draft a one-page leave-behind for a sales call\"",
+    ],
+    tips: [
+      "Persona + content queries are especially powerful — the AI can read the persona and immediately write in that voice",
+      "The draft creation tool saves directly to your CMS — you can review and publish from Admin → Blog",
+    ],
+  },
+
   /* ---- ANALYTICS & PERFORMANCE ---- */
   {
     id: "analytics",
@@ -503,6 +736,7 @@ const docs: DocSection[] = [
 /* ------------------------------------------------------------------ */
 
 const categoryOrder = [
+  "Quick Start",
   "Getting Started",
   "Pages",
   "Blog",
@@ -513,6 +747,8 @@ const categoryOrder = [
   "Form Builder",
   "Templates",
   "Workflows",
+  "AI & Creation",
+  "MCP Server",
   "Analytics",
   "API",
   "Multi-Site",

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Footer from "../components/Footer";
+import { getBlogPosts } from "@/lib/cms";
 
 export const metadata: Metadata = {
   title: "Research & Insights",
@@ -11,7 +12,8 @@ export const metadata: Metadata = {
   },
 };
 
-const posts = [
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const _legacyPosts = [
   {
     slug: "natural-glp1-amplification",
     title: "Natural GLP-1 Amplification: What the Research Shows",
@@ -54,48 +56,18 @@ const posts = [
   },
 ];
 
-const blogSchema = {
-  "@context": "https://schema.org",
-  "@type": "Blog",
-  name: "NutraGLP Research & Insights",
-  description:
-    "Evidence-based articles on natural GLP-1 amplification, nanoemulsion bioavailability, and metabolic health science.",
-  url: "https://nutraglp.com/blog",
-  publisher: {
-    "@type": "Organization",
-    name: "NutraGLP",
-    url: "https://nutraglp.com",
-  },
-  blogPost: posts.map((post) => ({
-    "@type": "BlogPosting",
-    headline: post.title,
-    description: post.excerpt,
-    datePublished: post.date,
-    url: `https://nutraglp.com/blog/${post.slug}`,
-    publisher: {
-      "@type": "Organization",
-      name: "NutraGLP",
-    },
-  })),
-};
 
-export default function BlogIndex() {
+export default async function BlogIndex() {
+  const posts = await getBlogPosts();
+
   return (
     <main>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
-      />
-
       {/* Hero */}
       <section className="bg-forest-deep px-6 md:px-12 pt-28 pb-20 text-center">
         <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
           Research &amp; Insights
         </p>
-        <h1
-          className="text-3xl md:text-[48px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6 font-heading"
-         
-        >
+        <h1 className="text-3xl md:text-[48px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6 font-heading">
           The science behind natural GLP-1 amplification
         </h1>
         <p className="text-lg text-white/50 max-w-[560px] mx-auto leading-relaxed">
@@ -107,39 +79,57 @@ export default function BlogIndex() {
       {/* Posts */}
       <section className="py-20 px-6 md:px-12">
         <div className="max-w-[800px] mx-auto space-y-8">
+          {posts.length === 0 && (
+            <div className="text-center py-20">
+              <p className="text-lg text-mist">No articles published yet.</p>
+              <p className="text-sm mt-2 text-mist-light">
+                Publish your first post from the{" "}
+                <Link href="/admin/blog" className="text-forest-mid underline">
+                  Blog admin
+                </Link>
+                .
+              </p>
+            </div>
+          )}
           {posts.map((post) => (
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
               className="block bg-white border border-rule rounded-xl hover:border-forest-mid/40 transition no-underline group overflow-hidden"
             >
-              {/* Visual header */}
-              <div className={`h-32 bg-gradient-to-br ${post.gradient} relative flex items-end p-6`}>
-                <span className="text-[10px] font-bold uppercase tracking-[2px] text-white/60">
-                  {post.tag}
-                </span>
+              <div className={`h-32 bg-gradient-to-br ${post.gradient || "from-forest-deep to-forest"} relative flex items-end p-6`}>
+                {post.tag && (
+                  <span className="text-[10px] font-bold uppercase tracking-[2px] text-white/60">
+                    {post.tag}
+                  </span>
+                )}
               </div>
               <div className="p-8 pt-6">
                 <div className="flex items-center gap-4 mb-4">
-                  <time className="text-[11px] font-bold uppercase tracking-wider text-forest-mid">
-                    {new Date(post.date).toLocaleDateString("en-US", {
-                      month: "long",
-                      day: "numeric",
-                      year: "numeric",
-                    })}
-                  </time>
-                  <span className="text-[11px] text-mist-light">&middot;</span>
-                  <span className="text-[11px] text-mist-light">{post.readTime} read</span>
+                  {post.date && (
+                    <time className="text-[11px] font-bold uppercase tracking-wider text-forest-mid">
+                      {new Date(post.date).toLocaleDateString("en-US", {
+                        month: "long",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </time>
+                  )}
+                  {post.read_time && (
+                    <>
+                      <span className="text-[11px] text-mist-light">&middot;</span>
+                      <span className="text-[11px] text-mist-light">{post.read_time} read</span>
+                    </>
+                  )}
                 </div>
-                <h2
-                  className="text-xl md:text-2xl font-normal tracking-tight text-ink mb-3 group-hover:text-forest transition font-heading"
-                 
-                >
+                <h2 className="text-xl md:text-2xl font-normal tracking-tight text-ink mb-3 group-hover:text-forest transition font-heading">
                   {post.title}
                 </h2>
-                <p className="text-[15px] text-mist leading-relaxed">
-                  {post.excerpt}
-                </p>
+                {post.description && (
+                  <p className="text-[15px] text-mist leading-relaxed">
+                    {post.description}
+                  </p>
+                )}
               </div>
             </Link>
           ))}

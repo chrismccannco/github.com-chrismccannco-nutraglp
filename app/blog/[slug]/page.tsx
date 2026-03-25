@@ -48,12 +48,24 @@ export default async function BlogPost({
   if (!article) notFound();
 
   const rawSections = article.sections as { heading: string; body: string | string[] }[];
-  // Support both legacy string[] and new HTML string format
+
+  // Normalize body: wrap plain-text double-newlines in <p> tags so prose spacing works
+  function normalizeBody(body: string | string[]): string {
+    if (Array.isArray(body)) return body.map((p) => `<p>${p}</p>`).join("");
+    const trimmed = body.trim();
+    // Already has block-level HTML — use as-is
+    if (/^<(p|h[1-6]|ul|ol|blockquote|div|section)/i.test(trimmed)) return trimmed;
+    // Plain text: split on double newlines and wrap each block in <p>
+    return trimmed
+      .split(/\n{2,}/)
+      .filter(Boolean)
+      .map((block) => `<p>${block.replace(/\n/g, "<br>")}</p>`)
+      .join("");
+  }
+
   const sections = rawSections.map((s) => ({
     heading: s.heading,
-    bodyHtml: typeof s.body === "string"
-      ? s.body
-      : s.body.map((p: string) => `<p>${p}</p>`).join(""),
+    bodyHtml: normalizeBody(s.body),
   }));
   const relatedSlugs = article.related_slugs as string[];
 

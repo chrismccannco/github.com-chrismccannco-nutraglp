@@ -1,12 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { requireRole } from "@/lib/admin-auth";
 
 function generateSlug(title: string): string {
-  return title
+  const base = title
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "")
-    .slice(0, 80);
+    .slice(0, 60);
+  const suffix = Date.now().toString(36);
+  return `${base}-${suffix}`;
 }
 
 function countWords(text: string): number {
@@ -53,6 +56,8 @@ export async function GET(req: NextRequest) {
 
 // POST /api/knowledge — create a doc
 export async function POST(req: NextRequest) {
+  const { error: authError } = await requireRole(req, "editor");
+  if (authError) return authError;
   try {
     const body = await req.json();
     const db = getDb();

@@ -210,9 +210,21 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
       </nav>
 
       {/* Footer */}
-      <div className="px-5 py-4 border-t border-neutral-100">
+      <div className="px-5 py-4 border-t border-neutral-100 space-y-2">
+        {user && (
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-neutral-500 truncate max-w-[140px]">{user.name || user.email}</span>
+            <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${
+              user.role === "admin" ? "bg-red-50 text-red-600" :
+              user.role === "editor" ? "bg-blue-50 text-blue-600" :
+              "bg-neutral-100 text-neutral-500"
+            }`}>
+              {user.role}
+            </span>
+          </div>
+        )}
         <Link
-          href="/"
+          href="/blog"
           target="_blank"
           className="flex items-center gap-2 text-xs text-neutral-400 hover:text-neutral-600 no-underline transition"
         >

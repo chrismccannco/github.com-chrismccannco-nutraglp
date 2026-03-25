@@ -95,6 +95,20 @@ export default function RootLayout({
           }}
         />
         <PageViewTracker />
+
+
+            {/* Hidden forms for Netlify build-time detection */}
+            <form name="waitlist" data-netlify="true" netlify-honeypot="bot-field" hidden>
+              <input type="text" name="email" />
+              <input type="text" name="bot-field" />
+            </form>
+            <form name="investor-deck" data-netlify="true" netlify-honeypot="bot-field" hidden>
+              <input type="text" name="name" />
+              <input type="text" name="email" />
+              <input type="text" name="firm" />
+              <input type="text" name="subject" />
+              <input type="text" name="bot-field" />
+            </form>
         <Header />
         {children}
       </body>

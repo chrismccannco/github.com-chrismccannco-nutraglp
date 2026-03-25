@@ -18,6 +18,8 @@ import { Plus, Trash2, RefreshCw, Copy, Check } from "lucide-react";
 import Link from "next/link";
 import AiAssistPanel from "../../components/AiAssistPanel";
 import type { AiAssistResult } from "../../components/AiAssistPanel";
+import SharePreviewButton from "../../components/SharePreviewButton";
+import DistributePanel from "../../components/DistributePanel";
 
 interface Section {
   heading: string;
@@ -283,6 +285,7 @@ export default function EditBlogPost() {
           >
             Preview
           </a>
+          <SharePreviewButton contentType="blog_post" slug={slug} />
           <Link
             href={`/admin/repurpose?from=${slug}`}
             className="px-3 py-1.5 text-xs font-medium text-neutral-600 bg-neutral-100 rounded-lg hover:bg-neutral-200 transition-colors no-underline flex items-center gap-1.5"
@@ -325,6 +328,12 @@ export default function EditBlogPost() {
               </div>
             )}
           </MetadataPanel>
+          <DistributePanel
+            title={title}
+            postUrl={published ? `${typeof window !== "undefined" ? window.location.origin : ""}/blog/${slug}` : undefined}
+            excerpt={metaDescription || description}
+            published={published}
+          />
         </>
       }
     >

@@ -51,15 +51,30 @@ export default function KnowledgeEditPage() {
       .finally(() => setLoading(false));
   }, [id]);
 
-  const doSave = useCallback(async () => {
-    if (!doc || Object.keys(pendingRef.current).length === 0) return;
+  const doSave = useCallback(async (force = false) => {
+    if (!doc) return;
+    // Auto-save: skip if nothing pending. Manual save (force=true): always send full state.
+    if (!force && Object.keys(pendingRef.current).length === 0) return;
     setSaving(true);
     setSaved(false);
+    const payload = force
+      ? {
+          title: doc.title,
+          doc_type: doc.doc_type,
+          content: doc.content,
+          summary: doc.summary,
+          enabled: doc.enabled,
+          tags: (() => {
+            try { return JSON.parse(doc.tags || '[]'); } catch { return []; }
+          })(),
+          ...pendingRef.current,
+        }
+      : pendingRef.current;
     try {
       const res = await fetch(`/api/knowledge/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(pendingRef.current),
+        body: JSON.stringify(payload),
       });
       if (res.ok) {
         const updated = await res.json();
@@ -146,7 +161,7 @@ export default function KnowledgeEditPage() {
               </span>
             )}
             <button
-              onClick={doSave}
+              onClick={() => doSave(true)}
               disabled={saving}
               className="flex items-center gap-2 px-4 py-2 bg-neutral-900 text-white text-sm font-medium rounded-lg hover:bg-neutral-700 disabled:opacity-50 transition-colors"
             >

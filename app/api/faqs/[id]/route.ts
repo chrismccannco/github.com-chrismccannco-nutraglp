@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { requireRole } from "@/lib/admin-auth";
 
 export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const { error: authError } = await requireRole(req, "editor");
+  if (authError) return authError;
   const { id } = await params;
   try {
     const body = await req.json();
@@ -45,9 +48,11 @@ export async function PUT(
 }
 
 export async function DELETE(
-  _req: NextRequest,
+  req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const { error: authError } = await requireRole(req, "editor");
+  if (authError) return authError;
   const { id } = await params;
   try {
     const db = getDb();

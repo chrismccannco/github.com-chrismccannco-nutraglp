@@ -54,7 +54,7 @@ export default function ProductLineup() {
         <h2
           className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink font-heading"
         >
-          One platform. Multiple formats.
+          One patent-pending nanoemulsion architecture. Multiple delivery formats.
         </h2>
         <p className="text-[17px] leading-relaxed text-mist max-w-[600px] mb-14">
           The same patent-pending nanoemulsion technology, designed into the

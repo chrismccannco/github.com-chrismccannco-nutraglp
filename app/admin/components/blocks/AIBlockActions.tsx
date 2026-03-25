@@ -39,11 +39,11 @@ export default function AIBlockActions({ blockType, content, pageTitle, onUpdate
       <button
         onClick={() => setOpen(!open)}
         disabled={loading}
-        className="p-1 rounded hover:bg-violet-50 text-violet-400 hover:text-violet-600 transition-colors"
+        className="p-1 rounded hover:bg-teal-50 text-teal-400 hover:text-teal-600 transition-colors"
         title="AI Assist"
       >
         {loading ? (
-          <div className="w-3.5 h-3.5 border-2 border-violet-300 border-t-violet-600 rounded-full animate-spin" />
+          <div className="w-3.5 h-3.5 border-2 border-teal-300 border-t-teal-600 rounded-full animate-spin" />
         ) : (
           <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -52,22 +52,22 @@ export default function AIBlockActions({ blockType, content, pageTitle, onUpdate
       </button>
 
       {open && !loading && (
-        <div className="absolute top-full right-0 mt-1 bg-white border border-violet-200 rounded-lg shadow-lg z-20 py-1 min-w-[120px]">
+        <div className="absolute top-full right-0 mt-1 bg-white border border-teal-200 rounded-lg shadow-lg z-20 py-1 min-w-[120px]">
           <button
             onClick={() => handleAction("rewrite")}
-            className="w-full text-left px-3 py-1.5 text-xs text-neutral-700 hover:bg-violet-50 transition-colors"
+            className="w-full text-left px-3 py-1.5 text-xs text-neutral-700 hover:bg-teal-50 transition-colors"
           >
             Rewrite
           </button>
           <button
             onClick={() => handleAction("expand")}
-            className="w-full text-left px-3 py-1.5 text-xs text-neutral-700 hover:bg-violet-50 transition-colors"
+            className="w-full text-left px-3 py-1.5 text-xs text-neutral-700 hover:bg-teal-50 transition-colors"
           >
             Expand
           </button>
           <button
             onClick={() => handleAction("shorten")}
-            className="w-full text-left px-3 py-1.5 text-xs text-neutral-700 hover:bg-violet-50 transition-colors"
+            className="w-full text-left px-3 py-1.5 text-xs text-neutral-700 hover:bg-teal-50 transition-colors"
           >
             Shorten
           </button>

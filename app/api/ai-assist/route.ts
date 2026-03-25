@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { requireRole } from "@/lib/admin-auth";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
@@ -169,6 +170,8 @@ Use heading and paragraph fields to create logical sections. Use half-width for 
  * Body: { contentType, prompt, voiceId?, personaId?, existingContent? }
  */
 export async function POST(req: NextRequest) {
+  const { error: authError } = await requireRole(req, "editor");
+  if (authError) return authError;
   try {
     const apiKey = await getAnthropicKey();
     if (!apiKey) {

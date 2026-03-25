@@ -80,6 +80,7 @@ export default function AiAssistPanel({
           voiceId,
           personaId,
           existingContent: existingContent || undefined,
+          providerOverride: providerOverride || undefined,
         }),
       });
 
@@ -161,16 +162,36 @@ export default function AiAssistPanel({
   return (
     <div className={`bg-gradient-to-br from-violet-50 to-teal-50 border border-violet-200 rounded-xl ${compact ? "p-3" : "p-5"}`}>
       <div className="flex items-center gap-2 mb-3">
-        <div className={`${compact ? "w-6 h-6" : "w-7 h-7"} rounded-lg bg-violet-600 flex items-center justify-center`}>
+        <div className={`${compact ? "w-6 h-6" : "w-7 h-7"} rounded-lg bg-teal-600 flex items-center justify-center flex-shrink-0`}>
           <Wand2 className={`${compact ? "w-3 h-3" : "w-3.5 h-3.5"} text-white`} />
         </div>
-        <div>
+        <div className="flex-1 min-w-0">
           <p className={`${compact ? "text-xs" : "text-sm"} font-semibold text-neutral-900`}>AI Assist</p>
           {!compact && (
             <p className="text-[11px] text-neutral-500">
               {existingContent ? "Describe how to improve the existing content" : "Describe what you want to create"}
             </p>
           )}
+        </div>
+        <div className="flex items-center gap-1.5 flex-shrink-0">
+          {providers.length > 1 && (
+            <div className="relative">
+              <select
+                value={selectedProvider}
+                onChange={(e) => setSelectedProvider(e.target.value)}
+                className="appearance-none text-[10px] font-medium text-neutral-600 bg-white border border-teal-200 rounded-md pl-2 pr-5 py-1 focus:outline-none focus:ring-1 focus:ring-teal-400 cursor-pointer"
+              >
+                {providers.map((p) => (
+                  <option key={p.id} value={p.id}>{p.label.split(" (")[0]}</option>
+                ))}
+              </select>
+              <ChevronDown className="absolute right-1 top-1/2 -translate-y-1/2 w-2.5 h-2.5 text-neutral-400 pointer-events-none" />
+            </div>
+          )}
+          <SavedPromptsDrawer
+            onSelect={(p) => setPrompt(p)}
+            currentPrompt={prompt}
+          />
         </div>
       </div>
 
@@ -180,7 +201,7 @@ export default function AiAssistPanel({
         placeholder={placeholder}
         rows={compact ? 1 : 2}
         onKeyDown={(e) => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) handleGenerate(); }}
-        className={`w-full px-3 ${compact ? "py-2" : "py-2.5"} border border-violet-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-violet-500 bg-white placeholder:text-neutral-400 mb-3`}
+        className={`w-full px-3 ${compact ? "py-2" : "py-2.5"} border border-teal-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-teal-500 bg-white placeholder:text-neutral-400 mb-3`}
       />
 
       <div className="flex items-end gap-3">
@@ -191,7 +212,7 @@ export default function AiAssistPanel({
               <select
                 value={voiceId || ""}
                 onChange={(e) => setVoiceId(e.target.value ? Number(e.target.value) : null)}
-                className="w-full px-2 py-1.5 border border-violet-200 rounded-lg text-xs bg-white focus:outline-none focus:ring-2 focus:ring-violet-500"
+                className="w-full px-2 py-1.5 border border-teal-200 rounded-lg text-xs bg-white focus:outline-none focus:ring-2 focus:ring-teal-500"
               >
                 <option value="">Default</option>
                 {voices.map((v) => (
@@ -204,7 +225,7 @@ export default function AiAssistPanel({
               <select
                 value={personaId || ""}
                 onChange={(e) => setPersonaId(e.target.value ? Number(e.target.value) : null)}
-                className="w-full px-2 py-1.5 border border-violet-200 rounded-lg text-xs bg-white focus:outline-none focus:ring-2 focus:ring-violet-500"
+                className="w-full px-2 py-1.5 border border-teal-200 rounded-lg text-xs bg-white focus:outline-none focus:ring-2 focus:ring-teal-500"
               >
                 <option value="">Default</option>
                 {personas.map((p) => (
@@ -217,7 +238,7 @@ export default function AiAssistPanel({
         <button
           onClick={handleGenerate}
           disabled={generating || !prompt.trim()}
-          className="px-4 py-2 bg-violet-600 text-white text-sm font-medium rounded-lg hover:bg-violet-700 transition disabled:opacity-50 whitespace-nowrap flex items-center gap-2"
+          className="px-4 py-2 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-700 transition disabled:opacity-50 whitespace-nowrap flex items-center gap-2"
         >
           {generating ? (
             <>

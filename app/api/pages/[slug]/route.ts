@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { dispatchWebhook } from "@/lib/webhooks";
+import { createVersion } from "@/lib/versions";
+import { writeAudit } from "@/lib/audit";
+import { requireRole } from "@/lib/admin-auth";
 
 export async function GET(
   _req: NextRequest,
@@ -37,16 +41,31 @@ export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
+  const { user: actor, error: authError } = await requireRole(req, "editor");
+  if (authError) return authError;
   const { slug } = await params;
   try {
     const body = await req.json();
     const db = getDb();
     const existing = await db.execute({
-      sql: "SELECT id FROM pages WHERE slug = ?",
+      sql: "SELECT * FROM pages WHERE slug = ?",
       args: [slug],
     });
     if (existing.rows.length === 0)
       return NextResponse.json({ error: "Not found" }, { status: 404 });
+
+    // Snapshot current state before update
+    const currentRow = existing.rows[0];
+    await createVersion("page", Number(currentRow.id), {
+      title: currentRow.title,
+      meta_title: currentRow.meta_title,
+      meta_description: currentRow.meta_description,
+      og_image: currentRow.og_image,
+      content: currentRow.content,
+      blocks: currentRow.blocks,
+      published: currentRow.published,
+      updated_at: currentRow.updated_at,
+    });
 
     const updates: string[] = [];
     const values: (string | null)[] = [];
@@ -100,6 +119,13 @@ export async function PUT(
       args: [slug],
     });
     const row = result.rows[0];
+
+    // Audit + webhook (non-blocking)
+    const isPublishToggle = body.published !== undefined;
+    const webhookEvent = isPublishToggle && body.published ? "page.published" : isPublishToggle && !body.published ? "page.unpublished" : "page.updated";
+    const auditAction = isPublishToggle && body.published ? "published" : isPublishToggle && !body.published ? "unpublished" : "updated";
+    writeAudit(auditAction, "page", slug, row.title as string, { changedFields: Object.keys(body) }, actor ?? undefined);
+    dispatchWebhook(webhookEvent, { slug, id: row.id, title: row.title }).catch(() => {});
 
     // Auto-score in the background (non-blocking)
     if (body.content || body.title || body.meta_description) {

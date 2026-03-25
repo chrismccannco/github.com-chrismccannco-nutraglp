@@ -65,6 +65,7 @@ export default function NewBlogPost() {
           read_time: aiDraft?.read_time || "5 min",
           gradient: "from-blue-900 to-blue-800",
           sections: aiDraft?.sections || [{ heading: "", body: [""] }],
+          published: 0,
         }),
       });
       if (!res.ok) {
@@ -192,7 +193,7 @@ export default function NewBlogPost() {
           <FormSection title={`Content Preview (${aiDraft.sections.length} sections)`} collapsible>
             <div className="space-y-4">
               {aiDraft.sections.map((s, i) => (
-                <div key={i} className="border-l-2 border-violet-300 pl-3">
+                <div key={i} className="border-l-2 border-teal-300 pl-3">
                   <p className="text-xs font-semibold text-neutral-700">{s.heading}</p>
                   <div
                     className="text-xs text-neutral-500 mt-1 line-clamp-3 prose prose-xs"
@@ -214,7 +215,7 @@ export default function NewBlogPost() {
           disabled={saving}
           className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
         >
-          {saving ? "Creating\u2026" : "Create post"}
+          {saving ? "Creating\u2026" : "Create draft"}
         </button>
       </form>
     </div>

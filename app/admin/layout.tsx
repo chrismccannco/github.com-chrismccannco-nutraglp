@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, createContext, useContext } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import { Menu, LogOut } from "lucide-react";
 import Sidebar from "./components/Sidebar";
 import { useCmsBranding } from "./hooks/useCmsBranding";
@@ -27,22 +28,30 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const branding = useCmsBranding();
-
-  // Override browser tab title for admin
-  useEffect(() => {
-    document.title = `${branding.name} — Admin`;
-  }, [branding.name]);
+  const router = useRouter();
+  const pathname = usePathname();
+  const isLoginPage = pathname === "/admin/login";
 
   const [authed, setAuthed] = useState(false);
   const [user, setUser] = useState<CurrentUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // Login form state
-  const [loginMode, setLoginMode] = useState<"email" | "legacy">("email");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  // Override browser tab title and favicon for admin
+  useEffect(() => {
+    document.title = `${branding.name} — Admin`;
+    const existing = document.querySelector<HTMLLinkElement>("link[rel~='icon']");
+    if (existing) {
+      existing.href = "/cf-favicon.svg";
+      existing.type = "image/svg+xml";
+    } else {
+      const link = document.createElement("link");
+      link.rel = "icon";
+      link.type = "image/svg+xml";
+      link.href = "/cf-favicon.svg";
+      document.head.appendChild(link);
+    }
+  }, [branding.name]);
 
   // Check existing session on mount
   useEffect(() => {
@@ -56,7 +65,6 @@ export default function AdminLayout({
         setLoading(false);
       })
       .catch(() => {
-        // Fallback: check legacy sessionStorage
         const legacy = sessionStorage.getItem("cms_auth");
         if (legacy === "1") {
           setAuthed(true);
@@ -66,40 +74,14 @@ export default function AdminLayout({
       });
   }, []);
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-
-    try {
-      const body: Record<string, string> = { password };
-      if (loginMode === "email" && email) {
-        body.email = email;
-      }
-
-      const res = await fetch("/api/admin/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setError(data.error || "Login failed");
-        return;
-      }
-
-      if (data.user) {
-        setUser(data.user);
-      } else {
-        setUser({ id: 0, email: "", name: "Admin", role: "admin" });
-      }
-      sessionStorage.setItem("cms_auth", "1");
-      setAuthed(true);
-    } catch {
-      setError("Could not connect to CMS");
+  // Redirect unauthenticated users — must be declared with all other hooks,
+  // before any conditional returns, to satisfy React's rules of hooks.
+  useEffect(() => {
+    if (!loading && !authed && !isLoginPage) {
+      const next = encodeURIComponent(pathname ?? "/admin");
+      router.replace(`/admin/login?next=${next}`);
     }
-  };
+  }, [loading, authed, isLoginPage, pathname, router]);
 
   const handleLogout = async () => {
     try {
@@ -111,6 +93,12 @@ export default function AdminLayout({
     setAuthed(false);
     setUser(null);
   };
+
+  // Login page lives inside this layout segment — render without auth wrapper
+  // to avoid an infinite redirect loop. All hooks above still run.
+  if (isLoginPage) {
+    return <>{children}</>;
+  }
 
   if (loading) {
     return (
@@ -190,7 +178,6 @@ export default function AdminLayout({
         <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
         <div className="flex-1 flex flex-col min-w-0">
-          {/* Header */}
           <header className="sticky top-0 z-40 bg-white border-b border-neutral-200 px-4 py-3 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <button

@@ -8,10 +8,6 @@ For comprehensive product details, science, and full FAQ, see: https://nutraglp.
 
 NutraGLP is building the platform layer between pharmaceutical GLP-1 drugs and the supplement aisle. The company's patent-pending nanoemulsion technology solves the bioavailability problem that limits most oral nutraceutical formats, ensuring active compounds reach their target metabolic pathways at effective concentrations.
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/main
 ## Products
 
 ### Slim SHOT

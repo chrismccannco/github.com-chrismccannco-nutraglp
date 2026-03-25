@@ -1,20 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDb } from '@/lib/db';
+import { getAIConfig, streamText } from '@/lib/ai-provider';
+import { requireRole } from '@/lib/admin-auth';
 
 export const dynamic = 'force-dynamic';
 
-async function getAnthropicKey(): Promise<string | null> {
-  try {
-    const db = getDb();
-    const result = await db.execute(
-      "SELECT value FROM site_settings WHERE key = 'anthropic_api_key'"
-    );
-    if (result.rows.length > 0 && result.rows[0].value) {
-      return result.rows[0].value as string;
-    }
-  } catch { /* fall through */ }
-  return process.env.ANTHROPIC_API_KEY || null;
-}
+
 
 type WriteMode =
   | 'full_post'
@@ -197,11 +188,13 @@ function buildUserPrompt(req: WriteRequest): string {
 }
 
 export async function POST(req: NextRequest) {
+  const { error: authError } = await requireRole(req, "editor");
+  if (authError) return authError;
   try {
-    const apiKey = await getAnthropicKey();
-    if (!apiKey) {
+    const aiConfig = await getAIConfig();
+    if (!aiConfig) {
       return NextResponse.json(
-        { error: 'Anthropic API key not configured. Add it in Admin → Settings → AI Integration.' },
+        { error: "AI provider not configured. Add an API key in Settings → AI Integration." },
         { status: 500 }
       );
     }
@@ -214,31 +207,37 @@ export async function POST(req: NextRequest) {
     const systemPrompt = buildSystemPrompt(voice, knowledgeDocs, persona);
     const userPrompt = buildUserPrompt(body);
 
-    // Stream the response
-    const anthropicResp = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': apiKey,
-        'anthropic-version': '2023-06-01',
-        'anthropic-beta': 'messages-2023-12-15',
+    const encoder = new TextEncoder();
+    const stream = new ReadableStream({
+      async start(controller) {
+        try {
+          for await (const chunk of streamText(
+            aiConfig,
+            [
+              { role: 'system', content: systemPrompt },
+              { role: 'user', content: userPrompt },
+            ],
+            2048
+          )) {
+            // Emit in Anthropic SSE format so existing clients continue to work
+            controller.enqueue(
+              encoder.encode(
+                `data: ${JSON.stringify({ type: 'content_block_delta', delta: { type: 'text_delta', text: chunk } })}\n\n`
+              )
+            );
+          }
+          controller.enqueue(encoder.encode('data: {"type":"message_stop"}\n\n'));
+        } catch (e) {
+          controller.enqueue(
+            encoder.encode(`data: ${JSON.stringify({ type: 'error', error: String(e) })}\n\n`)
+          );
+        } finally {
+          controller.close();
+        }
       },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 2048,
-        system: systemPrompt,
-        stream: true,
-        messages: [{ role: 'user', content: userPrompt }],
-      }),
     });
 
-    if (!anthropicResp.ok) {
-      const err = await anthropicResp.text();
-      return NextResponse.json({ error: err }, { status: 500 });
-    }
-
-    // Pass the stream straight through to the client
-    return new NextResponse(anthropicResp.body, {
+    return new NextResponse(stream, {
       headers: {
         'Content-Type': 'text/event-stream',
         'Cache-Control': 'no-cache',
@@ -253,4 +252,5 @@ export async function POST(req: NextRequest) {
       { status: 500 }
     );
   }
+
 }

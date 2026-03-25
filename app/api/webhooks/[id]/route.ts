@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { requireRole } from "@/lib/admin-auth";
+import { writeAudit } from "@/lib/audit";
 
 /**
  * PUT /api/webhooks/:id — update a webhook endpoint
@@ -8,6 +10,8 @@ export async function PUT(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const { user: actor, error: authError } = await requireRole(req, "admin");
+  if (authError) return authError;
   const { id } = await params;
   try {
     const body = await req.json();
@@ -42,6 +46,7 @@ export async function PUT(
       args: [Number(id)],
     });
     const row = result.rows[0];
+    writeAudit("updated", "webhook", Number(id), row.url as string, { changedFields: updates.map(u => u.split(" = ")[0]) }, actor ?? undefined);
     return NextResponse.json({
       ...row,
       events: JSON.parse((row.events as string) || "[]"),
@@ -55,9 +60,11 @@ export async function PUT(
  * DELETE /api/webhooks/:id
  */
 export async function DELETE(
-  _req: NextRequest,
+  req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  const { user: actor, error: authError } = await requireRole(req, "admin");
+  if (authError) return authError;
   const { id } = await params;
   try {
     const db = getDb();
@@ -67,6 +74,7 @@ export async function DELETE(
     });
     if (result.rowsAffected === 0)
       return NextResponse.json({ error: "Not found" }, { status: 404 });
+    writeAudit("deleted", "webhook", Number(id), null, {}, actor ?? undefined);
     return NextResponse.json({ deleted: true });
   } catch (e) {
     return NextResponse.json({ error: String(e) }, { status: 500 });

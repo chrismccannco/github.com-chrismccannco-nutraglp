@@ -34,7 +34,7 @@ export default function FormActions({
         <button
           onClick={onSaveDraft}
           disabled={saving}
-          className="px-4 py-2 text-sm border border-neutral-300 rounded-lg hover:bg-neutral-50 transition disabled:opacity-50"
+          className="px-4 py-2 text-sm border border-neutral-300 rounded-lg hover:bg-neutral-50 transition disabled:opacity-50 whitespace-nowrap"
         >
           {saving ? "Saving\u2026" : "Save draft"}
         </button>
