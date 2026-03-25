@@ -67,6 +67,37 @@ const platformCards = [
   },
 ];
 
+const useOfFunds = [
+  { label: "Clinical Validation", pct: 30, amount: "$1.65M" },
+  { label: "Manufacturing Scale", pct: 25, amount: "$1.375M" },
+  { label: "Go-to-Market / D2C", pct: 20, amount: "$1.1M" },
+  { label: "IP Prosecution", pct: 15, amount: "$825K" },
+  { label: "Regulatory / Compliance", pct: 10, amount: "$550K" },
+];
+
+const milestones = [
+  {
+    phase: "Now",
+    title: "Seed Round",
+    items: ["$5.5M raise", "D2C launch (Slim SHOT)", "Observational data published"],
+  },
+  {
+    phase: "Year 1",
+    title: "Clinical + Scale",
+    items: ["Biomarker-based mechanistic study", "Nanoemulsion manufacturing at scale", "Telehealth channel live"],
+  },
+  {
+    phase: "Year 2",
+    title: "Platform Expansion",
+    items: ["3 additional product lines", "Controlled clinical trial", "Series A"],
+  },
+  {
+    phase: "Year 4",
+    title: "Exit Window",
+    items: ["Strategic acquisition target", "12\u201318x EBITDA multiple", "Full IP portfolio prosecuted"],
+  },
+];
+
 export default function Investors() {
   return (
     <main>
@@ -250,15 +281,36 @@ export default function Investors() {
           <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
             Serving the market Ozempic created.
           </h2>
-          <p className="text-[17px] leading-relaxed text-mist">
+          <p className="text-[17px] leading-relaxed text-mist mb-10">
             The GLP-1 drug market is projected to exceed $100B in annual revenue
             within a decade. 42 million prescriptions were written in 2024. A
             significant and growing population cannot access, afford, or
             tolerate pharmacologic therapy. No credible non-drug option has
             existed until now.
           </p>
+
+          {/* Market size visualization */}
+          <div className="grid grid-cols-3 gap-6 mb-14">
+            <div className="text-center">
+              <div className="text-[44px] font-normal text-forest-deep font-heading leading-none mb-1">$132B</div>
+              <p className="text-[11px] text-mist uppercase tracking-wider">TAM by 2030</p>
+            </div>
+            <div className="text-center">
+              <div className="text-[44px] font-normal text-forest-deep font-heading leading-none mb-1">42M</div>
+              <p className="text-[11px] text-mist uppercase tracking-wider">Rx Written (2024)</p>
+            </div>
+            <div className="text-center">
+              <div className="text-[44px] font-normal text-forest-deep font-heading leading-none mb-1">70%</div>
+              <p className="text-[11px] text-mist uppercase tracking-wider">Discontinue in Year 1</p>
+            </div>
+          </div>
         </div>
+
+        {/* Comparables table */}
         <div className="max-w-[1000px] mx-auto overflow-x-auto">
+          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
+            Acquisition Comparables
+          </p>
           <table className="w-full text-left text-sm">
             <thead>
               <tr className="bg-forest-deep text-white">
@@ -293,7 +345,51 @@ export default function Investors() {
         </div>
       </section>
 
-      {/* ─── THE RAISE ─── */}
+      {/* ─── MILESTONE TIMELINE ─── */}
+      <section className="py-24 px-6 md:px-12 bg-cream-warm">
+        <div className="max-w-[960px] mx-auto">
+          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
+            Roadmap
+          </p>
+          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-14 text-ink font-heading">
+            Seed to exit in four years.
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-0">
+            {milestones.map((m, i) => (
+              <div key={m.phase} className="relative pl-8 md:pl-0 pb-10 md:pb-0">
+                {/* Vertical line (mobile) / horizontal line (desktop) */}
+                {i < milestones.length - 1 && (
+                  <>
+                    <div className="absolute left-[11px] top-6 bottom-0 w-px bg-rule md:hidden" />
+                    <div className="hidden md:block absolute top-3 left-1/2 right-0 h-px bg-rule" style={{ width: "100%" }} />
+                  </>
+                )}
+                {/* Dot */}
+                <div className={`absolute left-0 md:relative md:left-auto top-0 w-6 h-6 rounded-full border-2 flex items-center justify-center ${i === 0 ? "border-gold bg-gold" : "border-rule bg-white"}`}>
+                  {i === 0 && <div className="w-2 h-2 rounded-full bg-white" />}
+                </div>
+                <div className="md:mt-4">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-forest-mid mb-1">
+                    {m.phase}
+                  </p>
+                  <p className="text-[18px] font-semibold tracking-tight text-ink mb-3">
+                    {m.title}
+                  </p>
+                  <ul className="space-y-1.5">
+                    {m.items.map((item) => (
+                      <li key={item} className="text-[14px] leading-relaxed text-mist">
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── THE RAISE (with Use of Funds visualization) ─── */}
       <section className="bg-forest-deep py-24 px-6 md:px-12">
         <div className="max-w-[720px] mx-auto">
           <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
@@ -308,39 +404,41 @@ export default function Investors() {
           </p>
 
           <div className="grid md:grid-cols-2 gap-12">
+            {/* Use of Funds — horizontal bar chart */}
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-wider text-gold mb-4">
+              <p className="text-[11px] font-bold uppercase tracking-wider text-gold mb-6">
                 Use of Funds
               </p>
-              <ul className="space-y-3">
-                {[
-                  "Biomarker-based mechanistic validation and controlled study infrastructure",
-                  "Nanoemulsion manufacturing scale and quality systems",
-                  "Go-to-market execution, D2C launch and telehealth channel development",
-                  "IP prosecution across 40+ patent-pending formulations",
-                  "Regulatory compliance and claims substantiation",
-                ].map((item) => (
-                  <li
-                    key={item}
-                    className="text-[15px] text-white/50 leading-relaxed pl-4 border-l border-gold/30"
-                  >
-                    {item}
-                  </li>
+              <div className="space-y-4">
+                {useOfFunds.map((item) => (
+                  <div key={item.label}>
+                    <div className="flex justify-between mb-1.5">
+                      <span className="text-[13px] text-white/70">{item.label}</span>
+                      <span className="text-[13px] text-gold font-medium">{item.amount}</span>
+                    </div>
+                    <div className="h-2 bg-white/[0.08] rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-gold rounded-full"
+                        style={{ width: `${item.pct}%` }}
+                      />
+                    </div>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
 
+            {/* Exit Thesis */}
             <div>
-              <p className="text-[11px] font-bold uppercase tracking-wider text-gold mb-4">
+              <p className="text-[11px] font-bold uppercase tracking-wider text-gold mb-6">
                 Exit Thesis
               </p>
               <ul className="space-y-3">
                 {[
                   "Strategic acquisition by consumer health, CPG, or pharmaceutical acquirer",
                   "Target horizon: Year 4",
-                  "Target multiple: 12–18x EBITDA",
+                  "Target multiple: 12\u201318x EBITDA",
                   "Acquisition surface area: IP portfolio, nanoemulsion platform, clinical data, DTC distribution infrastructure",
-                  "Comparable acquirers: Nestlé Health Science, Bayer, Unilever, Eli Lilly, Pfizer",
+                  "Comparable acquirers: Nestl\u00e9 Health Science, Bayer, Unilever, Eli Lilly, Pfizer",
                 ].map((item) => (
                   <li
                     key={item}
