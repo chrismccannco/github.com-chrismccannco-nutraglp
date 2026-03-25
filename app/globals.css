@@ -1,40 +1,32 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: 'BigShoulders';
-  src: url('/fonts/BigShoulders-Bold.ttf') format('truetype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
 @theme {
-  /* Navy family */
-  --color-forest-deep: #0D1B2A;
-  --color-forest: #1B3A5C;
-  --color-forest-mid: #2B5EA7;
-  --color-forest-light: #4A90C4;
+  /* Navy family — canonical brand kit */
+  --color-forest-deep: #0a2463;
+  --color-forest: #0a2463;
+  --color-forest-mid: #1585b5;
+  --color-forest-light: #0066cc;
 
-  /* Gold accent */
-  --color-gold: #b8955a;
-  --color-gold-light: #d4ad72;
-  --color-gold-wash: #f0e6d4;
+  /* Gold accent — canonical */
+  --color-gold: #c8962e;
+  --color-gold-light: #d4a94a;
+  --color-gold-wash: #f5ead4;
 
-  /* Neutrals */
-  --color-cream: #f5f2eb;
-  --color-cream-warm: #eee9df;
-  --color-ink: #1a1a18;
-  --color-mist: #8a8a80;
-  --color-mist-light: #b3b0a8;
-  --color-rule: #ddd8ce;
+  /* Neutrals — canonical */
+  --color-cream: #f9fafb;
+  --color-cream-warm: #f9fafb;
+  --color-ink: #111827;
+  --color-mist: #6b7280;
+  --color-mist-light: #9ca3af;
+  --color-rule: #e5e7eb;
 
-  /* Typography */
-  --font-heading: 'Fraunces', Georgia, serif;
+  /* Typography — canonical */
+  --font-heading: 'Playfair Display', Georgia, serif;
 }
 
 @layer base {
   body {
-    font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -42,7 +34,7 @@
 
 @layer utilities {
   .font-display {
-    font-family: 'Fraunces', Georgia, serif;
+    font-family: 'Playfair Display', Georgia, serif;
   }
 }
 
@@ -76,6 +68,6 @@
 
 @layer utilities {
   .font-display {
-    font-family: "Fraunces", Georgia, serif;
+    font-family: "Playfair Display", Georgia, serif;
   }
 }
