@@ -172,7 +172,6 @@ export default function AiAssistPanel({
             </p>
           )}
         </div>
-        </div>
       </div>
 
       <textarea
