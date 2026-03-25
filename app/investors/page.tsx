@@ -150,24 +150,24 @@ html { scroll-behavior: smooth; }
 /* Hero stats */
 .inv-hero-stats {
   display: grid; grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid rgba(255,255,255,0.08); padding-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.14); padding-top: 40px;
 }
 .inv-h-stat { padding-right: 24px; position: relative; }
 .inv-h-stat:not(:last-child)::after {
   content: ''; position: absolute; right: 0; top: 0; bottom: 0;
-  width: 1px; background: rgba(255,255,255,0.08);
+  width: 1px; background: rgba(255,255,255,0.14);
 }
 .inv-h-stat:not(:first-child) { padding-left: 24px; }
 .inv-h-stat-val {
   font-family: 'Fraunces', Georgia, serif;
-  font-size: 44px; font-weight: 600;
+  font-size: clamp(40px, 4vw, 48px); font-weight: 600;
   color: #fff; line-height: 1; letter-spacing: -0.03em;
   font-optical-sizing: auto;
 }
 .inv-h-stat-label {
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--teal); margin-top: 8px; line-height: 1.3;
+  font-size: 13px; font-weight: 500;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: rgba(255,255,255,0.70); margin-top: 10px; line-height: 1.35;
 }
 
 /* ═══════════════════ PLATFORM ═══════════════════ */

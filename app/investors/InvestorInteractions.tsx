@@ -24,7 +24,7 @@ export default function InvestorInteractions() {
     const handleScroll = () => {
       if (!sticky || !hero) return;
       const heroEnd = hero.getBoundingClientRect().height + (hero as HTMLElement).offsetTop;
-      sticky.classList.toggle("show", window.scrollY > heroEnd + 200);
+      sticky.classList.toggle("show", window.scrollY > heroEnd - 200);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
 
