@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import WaitlistForm from "../components/WaitlistForm";
+import PathwayDiagram from "../components/PathwayDiagram";
 import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
@@ -189,25 +189,7 @@ export default function SciencePage() {
           published research and real-world metabolic effect.
         </p>
 
-        {/* Mechanism diagram */}
-        <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-3 mt-8">
-          Mechanism of Action
-        </p>
-        <p className="text-[15px] text-mist leading-relaxed mb-6">
-          From nanoemulsion ingestion through intestinal absorption to
-          downstream metabolic effects. Five stages, one daily dose.
-        </p>
-        <div className="mb-10">
-          <Image
-            src="/images/mechanism-diagram.png"
-            alt="Five-stage mechanism of action: nanoemulsion ingestion, epithelial crossing, L-cell activation, DPP-4 inhibition, and 13 downstream metabolic pathways"
-            width={1920}
-            height={840}
-            className="w-full h-auto rounded-xl border border-rule"
-          />
-        </div>
-
-        <div className="flex flex-wrap gap-6">
+        <div className="flex flex-wrap gap-6 mt-8">
           <Link
             href="/slim-shot"
             className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
@@ -221,6 +203,22 @@ export default function SciencePage() {
             Common questions about GLP-1 &rarr;
           </Link>
         </div>
+      </section>
+
+      <hr className="max-w-[720px] mx-auto border-t border-rule" />
+
+      {/* Interactive pathway diagram */}
+      <section className="py-20 px-6 md:px-12 max-w-[1000px] mx-auto">
+        <h2
+          className="text-2xl md:text-3xl font-normal tracking-tight leading-tight mb-4 text-ink font-heading"
+        >
+          How do the active systems interact?
+        </h2>
+        <p className="text-[17px] leading-relaxed text-mist max-w-[640px] mb-10">
+          Three compound systems. Eleven downstream pathways. Select a trigger
+          to see which metabolic pathways it activates.
+        </p>
+        <PathwayDiagram />
       </section>
 
       {/* Standards */}
