@@ -35,7 +35,7 @@ export default function Contrast() {
 
         <FadeIn delay={100} className="grid grid-cols-1 md:grid-cols-2 gap-0.5">
           {/* Them */}
-          <div className="bg-white/[0.04] rounded-lg p-6 md:p-10">
+          <div className="bg-white/[0.07] rounded-lg p-6 md:p-10">
             <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-white/40 mb-6">
               GLP-1 Prescriptions
             </p>

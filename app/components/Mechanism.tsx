@@ -23,9 +23,9 @@ const steps = [
 const howToSchema = {
   "@context": "https://schema.org",
   "@type": "HowTo",
-  name: "How Slim SHOT activates natural GLP-1 production",
+  name: "How NutraGLP activates natural GLP-1 production",
   description:
-    "A daily drinkable liquid that amplifies your body's natural GLP-1 production while inhibiting the enzyme that breaks it down. Three steps, one daily Slim SHOT.",
+    "A daily drinkable liquid that amplifies your body's natural GLP-1 production while inhibiting the enzyme that breaks it down. Three steps, one daily dose.",
   step: steps.map((s) => ({
     "@type": "HowToStep",
     name: s.title,
@@ -49,13 +49,13 @@ export default function Mechanism() {
           <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-6 text-white font-heading">
             Your body already makes GLP-1.
             <br />
-            <span className="text-gold italic">Slim SHOT helps it make more.</span>
+            <span className="text-gold italic">NutraGLP helps it make more.</span>
           </h2>
           <p className="text-[17px] leading-relaxed text-white/50 max-w-[640px] mb-12">
-            GLP-1 drugs work by injecting synthetic hormones. Slim SHOT takes a
+            GLP-1 drugs work by injecting synthetic hormones. NutraGLP takes a
             different approach: a drinkable liquid that amplifies your body&apos;s
             natural GLP-1 production while inhibiting the enzyme that breaks it
-            down. Three steps, one daily Slim SHOT.
+            down. Three steps, one daily dose.
           </p>
         </FadeIn>
 
@@ -63,7 +63,7 @@ export default function Mechanism() {
           {steps.map((s) => (
             <div
               key={s.num}
-              className="p-6 md:p-8 bg-white/[0.04] border border-white/[0.08] rounded-xl"
+              className="p-6 md:p-8 bg-white/[0.07] border border-white/[0.12] rounded-xl"
             >
               <div className="w-10 h-10 bg-gold/20 border border-gold/30 rounded-lg flex items-center justify-center text-gold text-lg font-bold mb-4">
                 {s.num}

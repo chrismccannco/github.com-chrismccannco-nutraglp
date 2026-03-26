@@ -2,7 +2,7 @@ import FadeIn from "./FadeIn";
 
 export default function Problem() {
   return (
-    <section className="bg-forest-deep py-24 px-6 md:px-12 border-t border-white/[0.06]">
+    <section className="bg-forest-black py-24 px-6 md:px-12 border-t border-white/[0.10]">
       <div className="max-w-[720px] mx-auto">
         <FadeIn>
           <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">

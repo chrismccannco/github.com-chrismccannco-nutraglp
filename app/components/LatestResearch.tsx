@@ -24,7 +24,7 @@ const posts = [
 
 export default function LatestResearch() {
   return (
-    <section className="bg-forest-deep py-24 px-6 md:px-12 border-t border-white/[0.06]">
+    <section className="bg-forest-deep py-24 px-6 md:px-12 border-t border-white/[0.10]">
       <div className="max-w-[900px] mx-auto">
         <FadeIn>
           <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
@@ -39,7 +39,7 @@ export default function LatestResearch() {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="block p-6 bg-white/[0.04] border border-white/[0.08] rounded-xl hover:border-teal-light/30 hover:bg-white/[0.06] transition no-underline group"
+              className="block p-6 bg-white/[0.07] border border-white/[0.12] rounded-xl hover:border-teal-light/40 hover:bg-white/[0.10] transition no-underline group"
             >
               <h3 className="text-[17px] font-normal tracking-tight text-white mb-3 leading-snug group-hover:text-teal-light transition font-heading">
                 {post.title}

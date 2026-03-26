@@ -55,9 +55,9 @@ export async function seed() {
         mechanism: {
           kicker: "How It Works",
           headline: "Your body already makes GLP-1.",
-          headlineLine2: "Slim SHOT helps it make more.",
+          headlineLine2: "NutraGLP helps it make more.",
           description:
-            "GLP-1 drugs work by injecting synthetic hormones. Slim SHOT takes a different approach: a drinkable liquid that amplifies your body's natural GLP-1 production while inhibiting the enzyme that breaks it down. Three steps, one daily Slim SHOT.",
+            "GLP-1 drugs work by injecting synthetic hormones. NutraGLP takes a different approach: a drinkable liquid that amplifies your body's natural GLP-1 production while inhibiting the enzyme that breaks it down. Three steps, one daily dose.",
           steps: [
             {
               num: "1",
