@@ -4,13 +4,13 @@ export default function Footer() {
   return (
     <footer className="bg-forest-deep px-6 md:px-12 py-10">
       <div className="max-w-[720px] mx-auto">
-        <p className="text-xs text-white/50 leading-relaxed text-center">
+        <p className="text-xs text-white/30 leading-relaxed text-center">
           *These statements have not been evaluated by the Food and Drug
           Administration. This product is not intended to diagnose, treat, cure,
           or prevent any disease. NutraGLP is a dietary supplement. Consult your
           healthcare provider before starting any new supplement regimen.
         </p>
-        <div className="flex justify-center gap-4 sm:gap-6 mt-6 text-xs text-white/60 flex-wrap">
+        <div className="flex justify-center gap-4 sm:gap-6 mt-6 text-xs text-white/40 flex-wrap">
           <Link href="/slim-shot" className="hover:text-white/60 transition no-underline">
             Slim SHOT
           </Link>
@@ -29,15 +29,12 @@ export default function Footer() {
           <Link href="/terms" className="hover:text-white/60 transition no-underline">
             Terms
           </Link>
-          <Link href="/disclaimer" className="hover:text-white/60 transition no-underline">
-            Health Disclaimer
-          </Link>
           <Link href="/investors" className="hover:text-white/60 transition no-underline">
             Investors
           </Link>
         </div>
-        <p className="text-xs text-white/60 text-center mt-6">
-          NutraGLP Biosciences&copy; {new Date().getFullYear()}. All rights reserved.
+        <p className="text-xs text-white/40 mt-6 text-center">
+          &copy; {new Date().getFullYear()} NutraGLP Biosciences. All rights reserved.
         </p>
       </div>
     </footer>
