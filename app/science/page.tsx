@@ -181,8 +181,8 @@ export default function SciencePage() {
       </FadeIn>
 
       {/* Mechanism of Action Illustration */}
-      <section className="py-12 px-6 md:px-12 bg-white">
-        <FadeIn className="max-w-[960px] mx-auto">
+      <section className="py-16 px-6 md:px-12 bg-white">
+        <FadeIn className="max-w-[960px] mx-auto" delay={200}>
           <MechanismIllustration />
         </FadeIn>
       </section>

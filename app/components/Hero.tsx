@@ -4,8 +4,8 @@ import WaitlistForm from "./WaitlistForm";
 
 export default function Hero() {
   return (
-    <section id="waitlist" className="bg-forest-deep px-6 md:px-12 pt-28 pb-24">
-      <div className="max-w-[1100px] mx-auto md:flex md:items-center md:gap-16">
+    <section id="waitlist" className="bg-forest-deep px-6 md:px-12 pt-28 pb-20">
+      <div className="max-w-[1000px] mx-auto md:flex md:items-center md:gap-16">
         <div className="flex-1 text-center md:text-left">
           <p className="text-xs font-semibold uppercase tracking-[3px] text-gold/70 mb-6">
             A different approach to GLP-1
@@ -32,15 +32,15 @@ export default function Hero() {
         </div>
 
         {/* Product image */}
-        <div className="hidden md:flex flex-1 items-center justify-center max-w-[400px]">
+        <div className="hidden md:flex flex-1 items-center justify-center">
           <div className="relative">
-            <div className="absolute -inset-10 bg-gold/[0.05] rounded-full blur-3xl" />
+            <div className="absolute -inset-8 bg-gold/[0.06] rounded-full blur-3xl" />
             <Image
               src="/images/slim-shot-bottle-alt.png"
               alt="Slim SHOT daily liquid formula bottle"
               width={600}
               height={600}
-              className="relative drop-shadow-2xl max-h-[400px] w-auto"
+              className="relative drop-shadow-2xl max-h-[380px] w-auto"
               priority
             />
           </div>
