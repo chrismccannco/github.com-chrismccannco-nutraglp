@@ -183,25 +183,25 @@ export default function SubscribePopup() {
         {submitted ? (
           <div className="text-center py-4">
             <p
-              className="text-2xl font-normal text-forest mb-2 font-heading"
+              className="text-2xl font-normal text-teal-light mb-2 font-heading"
             >
               You&apos;re in.
             </p>
-            <p className="text-sm text-mist">
+            <p className="text-sm text-white/60">
               We&apos;ll reach out with early access details.
             </p>
           </div>
         ) : (
           <>
-            <p className="text-[10px] font-bold uppercase tracking-[2px] text-forest-mid mb-3">
+            <p className="text-[10px] font-bold uppercase tracking-[2px] text-teal-light mb-3">
               Early Access
             </p>
             <h3
-              className="text-2xl font-normal tracking-tight text-ink mb-2 leading-snug font-heading"
+              className="text-2xl font-normal tracking-tight text-white mb-2 leading-snug font-heading"
             >
               {config.heading}
             </h3>
-            <p className="text-[15px] text-mist leading-relaxed mb-6">
+            <p className="text-[15px] text-white/60 leading-relaxed mb-6">
               {config.subheading}
             </p>
 
@@ -228,7 +228,7 @@ export default function SubscribePopup() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 placeholder="Email address"
-                className="w-full px-4 py-3 rounded-lg text-[15px] bg-white border border-rule text-ink placeholder-mist-light outline-none focus:border-forest-mid transition"
+                className="w-full px-4 py-3 rounded-lg text-[15px] bg-white/[0.08] border border-white/[0.15] text-white placeholder-white/30 outline-none focus:border-teal-light/50 transition"
               />
 
               {/* Phone */}
@@ -239,7 +239,7 @@ export default function SubscribePopup() {
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="Phone number (optional)"
-                  className="w-full px-4 py-3 rounded-lg text-[15px] bg-white border border-rule text-ink placeholder-mist-light outline-none focus:border-forest-mid transition"
+                  className="w-full px-4 py-3 rounded-lg text-[15px] bg-white/[0.08] border border-white/[0.15] text-white placeholder-white/30 outline-none focus:border-teal-light/50 transition"
                 />
               )}
 
@@ -253,7 +253,7 @@ export default function SubscribePopup() {
                     onChange={(e) => setSmsOptIn(e.target.checked)}
                     className="mt-1 accent-forest w-4 h-4 cursor-pointer"
                   />
-                  <span className="text-xs text-mist leading-relaxed">
+                  <span className="text-xs text-white/50 leading-relaxed">
                     I agree to receive SMS updates about launch timing
                     and availability. Msg &amp; data rates may apply. Reply STOP
                     to unsubscribe.
@@ -270,7 +270,7 @@ export default function SubscribePopup() {
               </button>
             </form>
 
-            <p className="text-[11px] text-mist-light text-center mt-4">
+            <p className="text-[11px] text-white/30 text-center mt-4">
               No spam. Unsubscribe anytime.
             </p>
           </>

@@ -150,22 +150,22 @@ export default function FAQPage() {
       {faqCategories.map((cat, catIndex) => (
         <section
           key={cat.category}
-          className={`py-16 px-6 md:px-12 ${catIndex % 2 === 1 ? "bg-white" : ""}`}
+          className={`py-16 px-6 md:px-12 ${catIndex % 2 === 1 ? "bg-forest-black" : ""}`}
         >
           <div className="max-w-[720px] mx-auto">
-            <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-8">
+            <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-8">
               {cat.category}
             </p>
             <div className="space-y-10">
               {cat.faqs.map((faq) => (
                 <div key={faq.q}>
                   <h2
-                    className="text-xl md:text-[26px] font-normal tracking-tight leading-tight mb-4 text-ink font-heading"
+                    className="text-xl md:text-[26px] font-normal tracking-tight leading-tight mb-4 text-white font-heading"
                    
                   >
                     {faq.q}
                   </h2>
-                  <p className="text-[16px] leading-relaxed text-mist">
+                  <p className="text-[16px] leading-relaxed text-white/60">
                     {faq.a}
                   </p>
                 </div>
@@ -176,17 +176,17 @@ export default function FAQPage() {
       ))}
 
       {/* Cross-links */}
-      <section className="py-12 px-6 md:px-12 border-t border-rule">
+      <section className="py-12 px-6 md:px-12 border-t border-white/[0.10]">
         <div className="max-w-[720px] mx-auto flex flex-wrap gap-6">
           <Link
             href="/slim-shot"
-            className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
+            className="text-sm text-teal-light hover:text-white transition no-underline border-b border-teal-light/40 pb-0.5"
           >
             Product details, dosing, and pricing &rarr;
           </Link>
           <Link
             href="/science"
-            className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
+            className="text-sm text-teal-light hover:text-white transition no-underline border-b border-teal-light/40 pb-0.5"
           >
             Read the full science &rarr;
           </Link>

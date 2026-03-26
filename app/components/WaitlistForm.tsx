@@ -39,9 +39,9 @@ export default function WaitlistForm({ variant = "default" }: { variant?: "defau
 
   if (submitted) {
     return (
-      <div className={`text-center ${variant === "cta" ? "text-white" : variant === "hero" ? "text-white/70" : "text-ink"}`}>
+      <div className="text-center text-white/70">
         <p className="text-lg font-semibold mb-1">You&apos;re on the list.</p>
-        <p className={`text-sm ${variant === "cta" ? "text-white/50" : variant === "hero" ? "text-white/40" : "text-mist"}`}>
+        <p className="text-sm text-white/40">
           We&apos;ll be in touch with early access details.
         </p>
       </div>
@@ -78,7 +78,7 @@ export default function WaitlistForm({ variant = "default" }: { variant?: "defau
             ? "bg-white/[0.08] border border-white/[0.12] text-white placeholder-white/30 focus:border-gold/50"
             : isLight
             ? "bg-white/20 border border-white/30 text-white placeholder-white/50 focus:border-white/60"
-            : "bg-white border border-rule text-ink placeholder-mist-light focus:border-forest-mid"
+            : "bg-white/[0.08] border border-white/[0.15] text-white placeholder-white/30 focus:border-teal-light/50"
         }`}
       />
       <button

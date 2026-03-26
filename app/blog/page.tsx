@@ -81,10 +81,10 @@ export default async function BlogIndex() {
         <div className="max-w-[800px] mx-auto space-y-8">
           {posts.length === 0 && (
             <div className="text-center py-20">
-              <p className="text-lg text-mist">No articles published yet.</p>
-              <p className="text-sm mt-2 text-mist-light">
+              <p className="text-lg text-white/60">No articles published yet.</p>
+              <p className="text-sm mt-2 text-white/40">
                 Publish your first post from the{" "}
-                <Link href="/admin/blog" className="text-forest-mid underline">
+                <Link href="/admin/blog" className="text-teal-light underline">
                   Blog admin
                 </Link>
                 .
@@ -95,7 +95,7 @@ export default async function BlogIndex() {
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
-              className="block bg-white border border-rule rounded-xl hover:border-forest-mid/40 transition no-underline group overflow-hidden"
+              className="block bg-white/[0.07] border border-white/[0.12] rounded-xl hover:border-teal-light/30 transition no-underline group overflow-hidden"
             >
               <div className={`h-32 bg-gradient-to-br ${post.gradient || "from-forest-deep to-forest"} relative flex items-end p-6`}>
                 {post.tag && (
@@ -107,7 +107,7 @@ export default async function BlogIndex() {
               <div className="p-8 pt-6">
                 <div className="flex items-center gap-4 mb-4">
                   {post.date && (
-                    <time className="text-[11px] font-bold uppercase tracking-wider text-forest-mid">
+                    <time className="text-[11px] font-bold uppercase tracking-wider text-teal-light">
                       {new Date(post.date).toLocaleDateString("en-US", {
                         month: "long",
                         day: "numeric",
@@ -117,16 +117,16 @@ export default async function BlogIndex() {
                   )}
                   {post.read_time && (
                     <>
-                      <span className="text-[11px] text-mist-light">&middot;</span>
-                      <span className="text-[11px] text-mist-light">{post.read_time} read</span>
+                      <span className="text-[11px] text-white/40">&middot;</span>
+                      <span className="text-[11px] text-white/40">{post.read_time} read</span>
                     </>
                   )}
                 </div>
-                <h2 className="text-xl md:text-2xl font-normal tracking-tight text-ink mb-3 group-hover:text-forest transition font-heading">
+                <h2 className="text-xl md:text-2xl font-normal tracking-tight text-white mb-3 group-hover:text-teal-light transition font-heading">
                   {post.title}
                 </h2>
                 {post.description && (
-                  <p className="text-[15px] text-mist leading-relaxed">
+                  <p className="text-[15px] text-white/60 leading-relaxed">
                     {post.description}
                   </p>
                 )}
@@ -137,23 +137,23 @@ export default async function BlogIndex() {
       </section>
 
       {/* Cross-links */}
-      <section className="py-12 px-6 md:px-12 border-t border-rule">
+      <section className="py-12 px-6 md:px-12 border-t border-white/[0.10]">
         <div className="max-w-[720px] mx-auto flex flex-wrap gap-6">
           <Link
             href="/science"
-            className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
+            className="text-sm text-teal-light hover:text-white transition no-underline border-b border-teal-light/40 pb-0.5"
           >
             Full science breakdown &rarr;
           </Link>
           <Link
             href="/faq"
-            className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
+            className="text-sm text-teal-light hover:text-white transition no-underline border-b border-teal-light/40 pb-0.5"
           >
             Frequently asked questions &rarr;
           </Link>
           <Link
             href="/slim-shot"
-            className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
+            className="text-sm text-teal-light hover:text-white transition no-underline border-b border-teal-light/40 pb-0.5"
           >
             Slim SHOT product details &rarr;
           </Link>

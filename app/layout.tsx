@@ -69,7 +69,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico?v=2" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
       </head>
-      <body className="bg-cream text-ink">
+      <body className="bg-forest-black text-white">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

@@ -170,7 +170,7 @@ export default function BioavailabilityIllustration() {
           8× greater bioavailability — 72% vs 9% of active compound reaches target pathways
         </text>
       </svg>
-      <figcaption className="text-center text-[11px] text-mist mt-2">
+      <figcaption className="text-center text-[11px] text-white/40 mt-2">
         Active compound remaining at each stage of oral absorption. Area is proportional to quantity.
       </figcaption>
     </figure>

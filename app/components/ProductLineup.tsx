@@ -47,18 +47,18 @@ const products = [
 
 export default function ProductLineup() {
   return (
-    <section className="py-24 px-6 md:px-12 bg-cream-warm bg-dot-grid">
+    <section className="py-24 px-6 md:px-12 bg-forest-deep border-t border-white/[0.10]">
       <div className="max-w-[1000px] mx-auto">
         <FadeIn>
-          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
             Product Pipeline
           </p>
           <h2
-            className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-ink font-heading"
+            className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-white font-heading"
           >
             One patent-pending nanoemulsion architecture. Multiple delivery formats.
           </h2>
-          <p className="text-[17px] leading-relaxed text-mist max-w-[600px] mb-14">
+          <p className="text-[17px] leading-relaxed text-white/60 max-w-[600px] mb-14">
             The same patent-pending nanoemulsion technology, designed into the
             products people already use every day.
           </p>
@@ -69,8 +69,8 @@ export default function ProductLineup() {
             const card = (
               <div
                 key={p.name}
-                className={`bg-white border border-rule rounded-xl p-5 flex flex-col transition ${
-                  p.href ? "hover:border-forest-mid/30 hover:shadow-sm cursor-pointer" : ""
+                className={`bg-white/[0.07] border border-white/[0.12] rounded-xl p-5 flex flex-col transition ${
+                  p.href ? "hover:border-teal-light/30 cursor-pointer" : ""
                 }`}
               >
                 <div className="flex items-end justify-center h-[180px] mb-5">
@@ -83,16 +83,16 @@ export default function ProductLineup() {
                   />
                 </div>
                 <p
-                  className="text-[17px] font-normal tracking-tight text-ink mb-1.5 font-heading"
+                  className="text-[17px] font-normal tracking-tight text-white mb-1.5 font-heading"
                 >
                   {p.name}
                 </p>
-                <p className="text-[13px] text-mist leading-relaxed mb-4 flex-1">
+                <p className="text-[13px] text-white/60 leading-relaxed mb-4 flex-1">
                   {p.desc}
                 </p>
                 <p
                   className={`text-[10px] font-bold uppercase tracking-[1.5px] ${
-                    p.live ? "text-forest-mid" : "text-mist/60"
+                    p.live ? "text-teal-light" : "text-white/30"
                   }`}
                 >
                   {p.status}

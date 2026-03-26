@@ -11,7 +11,7 @@ export default function DisclaimerPage() {
   return (
     <main>
       <section className="bg-charcoal px-6 md:px-12 pt-28 pb-16 text-center">
-        <p className="text-xs font-semibold tracking-widest uppercase text-teal mb-4">Legal</p>
+        <p className="text-xs font-semibold tracking-widest uppercase text-teal-light mb-4">Legal</p>
         <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight font-serif">
           Health Disclaimer
         </h1>

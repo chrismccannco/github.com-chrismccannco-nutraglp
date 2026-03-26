@@ -156,23 +156,23 @@ export default function SciencePage() {
 
       {/* Thesis */}
       <FadeIn className="py-20 px-6 md:px-12 max-w-[720px] mx-auto">
-        <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
+        <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-6 text-white font-heading">
           What is endogenous GLP-1 amplification?
         </h2>
-        <p className="text-[17px] leading-relaxed text-mist mb-5">
+        <p className="text-[17px] leading-relaxed text-white/60 mb-5">
           Pharmaceutical GLP-1 receptor agonists work by introducing synthetic
           peptides that mimic natural incretin hormones. The approach is
           effective. It also requires injection, carries significant side
           effects, and costs upward of $1,000 per month.
         </p>
-        <p className="text-[17px] leading-relaxed text-mist mb-5">
+        <p className="text-[17px] leading-relaxed text-white/60 mb-5">
           NutraGLP takes a different approach. Rather than replacing the body&apos;s
           incretin production with synthetic analogs, the formula is designed to
           amplify the GLP-1 and GIP your gut already produces, while extending
           the window those hormones remain active by inhibiting DPP-4, the
           enzyme responsible for their degradation.
         </p>
-        <p className="text-[17px] leading-relaxed text-mist">
+        <p className="text-[17px] leading-relaxed text-white/60">
           This is not a single-mechanism product. GLP-1 signaling is part of a
           larger metabolic system. NutraGLP engages 13 distinct pathways across
           incretin amplification, enzyme inhibition, insulin sensitivity, appetite
@@ -181,24 +181,24 @@ export default function SciencePage() {
       </FadeIn>
 
       {/* ─── ILLUSTRATION 1: Mechanism of Action ─── */}
-      <section className="py-12 px-6 md:px-12 bg-white">
+      <section className="py-12 px-6 md:px-12 bg-forest-black">
         <FadeIn className="max-w-[960px] mx-auto">
           <MechanismIllustration />
         </FadeIn>
       </section>
 
-      <hr className="max-w-[720px] mx-auto border-t border-rule" />
+      <hr className="max-w-[720px] mx-auto border-t border-white/[0.10]" />
 
       {/* ─── PLATFORM ARCHITECTURE ─── */}
-      <section className="py-24 px-6 md:px-12 bg-cream-warm">
+      <section className="py-24 px-6 md:px-12 bg-forest-black border-t border-white/[0.10]">
         <FadeIn className="max-w-[960px] mx-auto">
-          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
             Platform Architecture
           </p>
-          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-ink font-heading">
+          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-white font-heading">
             One platform. Three mechanisms. Four product lines.
           </h2>
-          <p className="text-[17px] leading-relaxed text-mist mb-14 max-w-[640px]">
+          <p className="text-[17px] leading-relaxed text-white/60 mb-14 max-w-[640px]">
             Every NutraGLP product runs on the same coordinated architecture.
             The platform is the invention, not any single compound.
           </p>
@@ -206,19 +206,19 @@ export default function SciencePage() {
           {/* Activate → Protect → Deliver */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             {platformSteps.map((card, i) => (
-              <div key={card.title} className="border border-rule rounded-xl p-7 bg-white relative">
+              <div key={card.title} className="bg-white/[0.07] border border-white/[0.12] rounded-xl p-7 relative">
                 {i < platformSteps.length - 1 && (
-                  <div className="hidden md:block absolute top-1/2 -right-3 w-6 text-center text-rule text-lg">
+                  <div className="hidden md:block absolute top-1/2 -right-3 w-6 text-center text-white/20 text-lg">
                     &rarr;
                   </div>
                 )}
-                <span className="text-[10px] font-bold text-teal/40 uppercase tracking-[1.5px]">
+                <span className="text-[10px] font-bold text-teal-light/50 uppercase tracking-[1.5px]">
                   {card.step}
                 </span>
-                <p className="text-[18px] font-semibold tracking-tight text-ink mt-2 mb-3">
+                <p className="text-[18px] font-semibold tracking-tight text-white mt-2 mb-3">
                   {card.title}
                 </p>
-                <p className="text-[15px] leading-relaxed text-mist">
+                <p className="text-[15px] leading-relaxed text-white/60">
                   {card.body}
                 </p>
               </div>
@@ -271,10 +271,10 @@ export default function SciencePage() {
       {/* Pathway Detail */}
       <section className="py-20 px-6 md:px-12 max-w-[1000px] mx-auto">
         <FadeIn>
-          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-ink font-heading">
+          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-white font-heading">
             Which metabolic pathways does NutraGLP target?
           </h2>
-          <p className="text-[17px] leading-relaxed text-mist mb-12 max-w-[640px]">
+          <p className="text-[17px] leading-relaxed text-white/60 mb-12 max-w-[640px]">
             The formula targets three primary mechanisms, each supported by
             multiple active compounds working in concert.
           </p>
@@ -283,22 +283,22 @@ export default function SciencePage() {
         <FadeIn delay={100}>
           {pathways.map((group) => (
             <div key={group.category} className="mb-12">
-              <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-6">
+              <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-6">
                 {group.category}
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {group.items.map((item) => (
                   <div
                     key={item.name}
-                    className="p-6 bg-white border border-rule rounded-xl"
+                    className="p-6 bg-white/[0.07] border border-white/[0.12] rounded-xl"
                   >
-                    <h3 className="text-[18px] font-semibold tracking-tight mb-2 text-ink">
+                    <h3 className="text-[18px] font-semibold tracking-tight mb-2 text-white">
                       {item.name}
                     </h3>
-                    <p className="text-sm text-mist leading-relaxed mb-3">
+                    <p className="text-sm text-white/60 leading-relaxed mb-3">
                       {item.action}
                     </p>
-                    <p className="text-xs text-mist-light leading-relaxed italic">
+                    <p className="text-xs text-white/40 leading-relaxed italic">
                       {item.evidence}
                     </p>
                   </div>
@@ -310,35 +310,35 @@ export default function SciencePage() {
       </section>
 
       {/* ─── ILLUSTRATION 3: 13-Pathway Network ─── */}
-      <section className="py-12 px-6 md:px-12 bg-white">
+      <section className="py-12 px-6 md:px-12 bg-forest-black">
         <FadeIn className="max-w-[960px] mx-auto">
           <PathwayNetwork />
         </FadeIn>
       </section>
 
-      <hr className="max-w-[720px] mx-auto border-t border-rule" />
+      <hr className="max-w-[720px] mx-auto border-t border-white/[0.10]" />
 
       {/* ─── NANOEMULSION DELIVERY ─── */}
-      <section className="py-20 px-6 md:px-12 bg-cream-warm">
+      <section className="py-20 px-6 md:px-12 bg-forest-deep border-t border-white/[0.10]">
         <FadeIn className="max-w-[720px] mx-auto">
-          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
+          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-6 text-white font-heading">
             Why do most oral supplements fail at absorption?
           </h2>
-          <p className="text-[17px] leading-relaxed text-mist mb-5">
+          <p className="text-[17px] leading-relaxed text-white/60 mb-5">
             Most oral nutraceuticals fail at absorption. The compounds may have
             demonstrated efficacy in vitro or in clinical studies, but they never
             reach their target pathways at meaningful concentrations when taken as
             a standard oral supplement. Bioavailability is the bottleneck.
           </p>
-          <p className="text-[17px] leading-relaxed text-mist mb-5">
+          <p className="text-[17px] leading-relaxed text-white/60 mb-5">
             NutraGLP uses a patent-pending nanoemulsion delivery system that
             encapsulates active compounds in lipid-based nanoparticles. This
             increases surface area, protects against enzymatic degradation in the
             GI tract, and enhances cellular uptake through improved membrane
             permeability.
           </p>
-          <p className="text-[17px] leading-relaxed text-mist mb-12">
-            <strong className="text-ink font-semibold">
+          <p className="text-[17px] leading-relaxed text-white/60 mb-12">
+            <strong className="text-white font-semibold">
               The science only matters if it gets where it needs to go.
             </strong>{" "}
             The nanoemulsion is the mechanism that closes the gap between
@@ -351,7 +351,7 @@ export default function SciencePage() {
               <div key={s.title} className="relative pb-8 md:pb-0">
                 {/* Connector */}
                 {i < deliverySteps.length - 1 && (
-                  <div className="hidden md:block absolute top-5 right-0 w-full h-px bg-rule" style={{ left: "50%" }} />
+                  <div className="hidden md:block absolute top-5 right-0 w-full h-px bg-white/20" style={{ left: "50%" }} />
                 )}
                 <div className="flex md:flex-col items-start md:items-center gap-4 md:gap-0 md:text-center">
                   {/* Number circle */}
@@ -359,10 +359,10 @@ export default function SciencePage() {
                     {s.step}
                   </div>
                   <div className="md:mt-4">
-                    <p className="text-[16px] font-semibold tracking-tight text-ink mb-2">
+                    <p className="text-[16px] font-semibold tracking-tight text-white mb-2">
                       {s.title}
                     </p>
-                    <p className="text-[14px] leading-relaxed text-mist">
+                    <p className="text-[14px] leading-relaxed text-white/60">
                       {s.desc}
                     </p>
                   </div>
@@ -379,13 +379,13 @@ export default function SciencePage() {
           <div className="flex flex-wrap gap-6">
             <Link
               href="/slim-shot"
-              className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
+              className="text-sm text-teal-light hover:text-white transition no-underline border-b border-teal-light/40 pb-0.5"
             >
               See the full Slim SHOT formula &rarr;
             </Link>
             <Link
               href="/faq"
-              className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
+              className="text-sm text-teal-light hover:text-white transition no-underline border-b border-teal-light/40 pb-0.5"
             >
               Common questions about GLP-1 &rarr;
             </Link>
@@ -396,10 +396,10 @@ export default function SciencePage() {
       {/* Standards */}
       <section className="py-20 px-6 md:px-12">
         <FadeIn className="max-w-[720px] mx-auto">
-          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
             Quality & Compliance
           </p>
-          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
+          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-6 text-white font-heading">
             How does NutraGLP meet quality and safety standards?
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
@@ -409,9 +409,9 @@ export default function SciencePage() {
               { label: "Third-Party Tested", desc: "Independent verification of purity, potency, and composition" },
               { label: "cGMP Manufactured", desc: "Produced in facilities meeting current Good Manufacturing Practice standards" },
             ].map((item) => (
-              <div key={item.label} className="p-6 bg-cream-warm border border-rule rounded-xl">
-                <p className="text-[15px] font-bold text-ink mb-1">{item.label}</p>
-                <p className="text-sm text-mist leading-relaxed">{item.desc}</p>
+              <div key={item.label} className="p-6 bg-white/[0.07] border border-white/[0.12] rounded-xl">
+                <p className="text-[15px] font-bold text-white mb-1">{item.label}</p>
+                <p className="text-sm text-white/60 leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -419,9 +419,9 @@ export default function SciencePage() {
       </section>
 
       {/* References */}
-      <section className="py-16 px-6 md:px-12 border-t border-rule">
+      <section className="py-16 px-6 md:px-12 border-t border-white/[0.10]">
         <FadeIn className="max-w-[720px] mx-auto">
-          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
             Selected References
           </p>
           <ol className="space-y-3">
@@ -443,15 +443,15 @@ export default function SciencePage() {
                 cite: "McClements DJ. Nanoemulsions versus microemulsions: terminology, differences, and similarities. Soft Matter. 2012;8(6):1719–1729.",
               },
             ].map((ref) => (
-              <li key={ref.n} className="flex gap-3 text-[13px] text-mist leading-relaxed">
-                <span className="text-teal font-semibold flex-shrink-0">[{ref.n}]</span>
+              <li key={ref.n} className="flex gap-3 text-[13px] text-white/60 leading-relaxed">
+                <span className="text-teal-light font-semibold flex-shrink-0">[{ref.n}]</span>
                 <span>{ref.cite}</span>
               </li>
             ))}
           </ol>
-          <p className="text-[12px] text-mist-light mt-6">
+          <p className="text-[12px] text-white/40 mt-6">
             These statements have not been evaluated by the Food and Drug Administration. The full clinical reference dossier is available upon request.{" "}
-            <Link href="/disclaimer" className="text-teal underline-offset-2 hover:text-forest transition">
+            <Link href="/disclaimer" className="text-teal-light underline-offset-2 hover:text-white transition">
               Health Disclaimer
             </Link>
           </p>

@@ -12,7 +12,7 @@ const products = [
     name: "NutraGLP Sweetener",
     format: "Non-Caloric Powder",
     status: "In Development",
-    statusColor: "bg-forest-mid/20 text-forest-mid",
+    statusColor: "bg-white/10 text-white/50",
     description:
       "A zero-calorie sweetener formulated with incretin-supportive compounds. Designed to replace artificial sweeteners while actively supporting metabolic health with every use.",
     price: null,
@@ -21,7 +21,7 @@ const products = [
     name: "NutraGLP Protein",
     format: "Protein & Meal Replacement",
     status: "In Development",
-    statusColor: "bg-forest-mid/20 text-forest-mid",
+    statusColor: "bg-white/10 text-white/50",
     description:
       "Protein powder with integrated GLP-1 amplification. Appetite control, muscle preservation, and metabolic support in a single serving. Built for the post-GLP-1-drug consumer.",
     price: null,
@@ -30,7 +30,7 @@ const products = [
     name: "NutraGLP Energy",
     format: "Drink & Gel",
     status: "In Development",
-    statusColor: "bg-forest-mid/20 text-forest-mid",
+    statusColor: "bg-white/10 text-white/50",
     description:
       "Thermogenic energy products with embedded incretin signaling. Clean energy plus metabolic amplification in ready-to-drink and portable gel formats.",
     price: null,
@@ -39,17 +39,17 @@ const products = [
 
 export default function Pipeline() {
   return (
-    <section className="py-24 px-6 md:px-12 bg-cream-warm">
+    <section className="py-24 px-6 md:px-12 bg-forest-black border-t border-white/[0.10]">
       <div className="max-w-[1000px] mx-auto">
-        <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
+        <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
           Product Pipeline
         </p>
         <h2
-          className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-ink font-heading"
+          className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-white font-heading"
         >
           One platform. Multiple products.
         </h2>
-        <p className="text-[17px] leading-relaxed text-mist max-w-[640px] mb-14">
+        <p className="text-[17px] leading-relaxed text-white/60 max-w-[640px] mb-14">
           Every product in the NutraGLP Sync ecosystem is built on the same
           patent-pending incretin amplification and nanoemulsion delivery
           technology. Slim SHOT is first. It won&apos;t be the last.
@@ -59,16 +59,16 @@ export default function Pipeline() {
           {products.map((p) => (
             <div
               key={p.name}
-              className="bg-white border border-rule rounded-xl p-8 flex flex-col"
+              className="bg-white/[0.07] border border-white/[0.12] rounded-xl p-8 flex flex-col"
             >
               <div className="flex items-start justify-between mb-4">
                 <div>
                   <h3
-                    className="text-xl font-normal tracking-tight text-ink mb-1 font-heading"
+                    className="text-xl font-normal tracking-tight text-white mb-1 font-heading"
                   >
                     {p.name}
                   </h3>
-                  <p className="text-xs uppercase tracking-wider text-mist">
+                  <p className="text-xs uppercase tracking-wider text-white/40">
                     {p.format}
                   </p>
                 </div>
@@ -78,22 +78,22 @@ export default function Pipeline() {
                   {p.status}
                 </span>
               </div>
-              <p className="text-sm text-mist leading-relaxed flex-1">
+              <p className="text-sm text-white/60 leading-relaxed flex-1">
                 {p.description}
               </p>
               {p.price && (
-                <div className="mt-5 pt-4 border-t border-rule">
-                  <span className="text-sm text-ink font-semibold">
+                <div className="mt-5 pt-4 border-t border-white/[0.10]">
+                  <span className="text-sm text-white font-semibold">
                     {p.price}
                   </span>
-                  <span className="text-xs text-mist ml-1">subscription</span>
+                  <span className="text-xs text-white/40 ml-1">subscription</span>
                 </div>
               )}
             </div>
           ))}
         </div>
 
-        <div className="mt-10 bg-forest-deep/[0.04] border border-rule rounded-xl p-8 flex flex-col md:flex-row items-start md:items-center gap-6">
+        <div className="mt-10 bg-white/[0.05] border border-white/[0.12] rounded-xl p-8 flex flex-col md:flex-row items-start md:items-center gap-6">
           <div className="w-12 h-12 bg-forest rounded-xl flex items-center justify-center text-teal-light text-xl shrink-0">
             <svg
               width="24"
@@ -112,18 +112,18 @@ export default function Pipeline() {
           </div>
           <div>
             <h3
-              className="text-lg font-normal tracking-tight text-ink mb-1 font-heading"
+              className="text-lg font-normal tracking-tight text-white mb-1 font-heading"
             >
               NutraGLP Companion App
             </h3>
-            <p className="text-sm text-mist leading-relaxed">
+            <p className="text-sm text-white/60 leading-relaxed">
               AI-driven personalized recommendations for aligning diet and
               lifestyle to maximize metabolic effects. Hydration tracking, macro
               guidance, weight monitoring, cravings and energy logging. The
               platform&apos;s intelligence layer.
             </p>
           </div>
-          <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-forest-mid/20 text-forest-mid whitespace-nowrap shrink-0">
+          <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white/10 text-white/50 whitespace-nowrap shrink-0">
             In Development
           </span>
         </div>

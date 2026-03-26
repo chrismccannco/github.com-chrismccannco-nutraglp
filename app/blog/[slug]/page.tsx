@@ -141,12 +141,12 @@ export default async function BlogPost({
             {sections.map((section) => (
               <div key={section.heading}>
                 <h2
-                  className="text-xl md:text-2xl font-normal tracking-tight leading-tight mb-5 text-ink font-heading"
+                  className="text-xl md:text-2xl font-normal tracking-tight leading-tight mb-5 text-white font-heading"
                 >
                   {section.heading}
                 </h2>
                 <div
-                  className="prose prose-lg max-w-none text-mist prose-p:text-[16px] prose-p:leading-[1.75] prose-headings:text-ink prose-headings:font-heading prose-a:text-emerald-700"
+                  className="prose prose-lg max-w-none text-white/60 prose-p:text-[16px] prose-p:leading-[1.75] prose-headings:text-white prose-headings:font-heading prose-a:text-teal-light"
                   dangerouslySetInnerHTML={{ __html: section.bodyHtml }}
                 />
               </div>
@@ -159,7 +159,7 @@ export default async function BlogPost({
       {relatedSlugs.length > 0 && (
         <section className="py-12 px-6 md:px-12">
           <div className="max-w-[720px] mx-auto">
-            <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-6">
+            <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-6">
               Related reading
             </p>
             <div className="space-y-4">
@@ -170,14 +170,14 @@ export default async function BlogPost({
                   <Link
                     key={rs}
                     href={`/blog/${rs}`}
-                    className="block p-5 bg-white border border-rule rounded-lg hover:border-forest-mid/40 transition no-underline"
+                    className="block p-5 bg-white/[0.07] border border-white/[0.12] rounded-lg hover:border-teal-light/30 transition no-underline"
                   >
                     <p
-                      className="text-[17px] font-normal tracking-tight text-ink mb-1 font-heading"
+                      className="text-[17px] font-normal tracking-tight text-white mb-1 font-heading"
                     >
                       {related.title}
                     </p>
-                    <p className="text-sm text-mist leading-relaxed line-clamp-2">
+                    <p className="text-sm text-white/60 leading-relaxed line-clamp-2">
                       {related.description}
                     </p>
                   </Link>
@@ -188,26 +188,26 @@ export default async function BlogPost({
         </section>
       )}
 
-      <hr className="max-w-[720px] mx-auto border-t border-rule" />
+      <hr className="max-w-[720px] mx-auto border-t border-white/[0.10]" />
 
       {/* Cross-links */}
       <section className="py-12 px-6 md:px-12">
         <div className="max-w-[720px] mx-auto flex flex-wrap gap-6">
           <Link
             href="/blog"
-            className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
+            className="text-sm text-teal-light hover:text-white transition no-underline border-b border-teal-light/40 pb-0.5"
           >
             All articles &rarr;
           </Link>
           <Link
             href="/science"
-            className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
+            className="text-sm text-teal-light hover:text-white transition no-underline border-b border-teal-light/40 pb-0.5"
           >
             Full science breakdown &rarr;
           </Link>
           <Link
             href="/slim-shot"
-            className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
+            className="text-sm text-teal-light hover:text-white transition no-underline border-b border-teal-light/40 pb-0.5"
           >
             Slim SHOT product details &rarr;
           </Link>

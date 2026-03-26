@@ -278,7 +278,7 @@ export default function PathwayNetwork() {
           </text>
         )}
       </svg>
-      <figcaption className="text-center text-[11px] text-mist mt-2">
+      <figcaption className="text-center text-[11px] text-white/40 mt-2">
         Three primary mechanisms connect to 13 downstream metabolic effects through four biological events.
       </figcaption>
     </figure>

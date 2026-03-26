@@ -408,7 +408,7 @@ export default function MechanismIllustration() {
           + 7 more pathways
         </text>
       </svg>
-      <figcaption className="text-center text-[11px] text-mist mt-2">
+      <figcaption className="text-center text-[11px] text-white/40 mt-2">
         From nanoemulsion ingestion to 13 metabolic pathways — the complete mechanism of action.
       </figcaption>
     </figure>

@@ -49,15 +49,15 @@ export default function TestimonialCarousel() {
         {testimonials.map((t) => (
           <div
             key={t.id}
-            className="w-[320px] shrink-0 bg-white border border-rule rounded-xl p-6"
+            className="w-[320px] shrink-0 bg-white/[0.07] border border-white/[0.12] rounded-xl p-6"
           >
             <Stars count={t.rating} />
             {t.title && (
-              <p className="text-[15px] font-medium text-ink mt-3 mb-2 font-heading">
+              <p className="text-[15px] font-medium text-white mt-3 mb-2 font-heading">
                 {t.title}
               </p>
             )}
-            <p className="text-sm text-mist leading-relaxed mb-4">
+            <p className="text-sm text-white/60 leading-relaxed mb-4">
               &ldquo;{t.quote}&rdquo;
             </p>
             <div className="flex items-center gap-3">
@@ -68,11 +68,11 @@ export default function TestimonialCarousel() {
                   className="w-8 h-8 rounded-full object-cover"
                 />
               ) : (
-                <div className="w-8 h-8 rounded-full bg-forest-mid/10 flex items-center justify-center text-xs font-bold text-forest-mid">
+                <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-xs font-bold text-white/60">
                   {t.name.charAt(0)}
                 </div>
               )}
-              <span className="text-xs text-mist font-medium">{t.name}</span>
+              <span className="text-xs text-white/50 font-medium">{t.name}</span>
             </div>
           </div>
         ))}

@@ -77,7 +77,7 @@ const faqs = [
   },
   {
     q: "How do I take it? Is it an injection?",
-    a: "Not an injection. Slim SHOT is a drinkable liquid you take by mouth, like a wellness shot. One per day, ideally in the morning on an empty stomach. No needle, no syringe, no mixing, no measuring. Refrigerate after opening.",
+    a: "Not an injection. Slim SHOT is a drinkable liquid you take by mouth, like a wellness shot. Half in the morning, half in the afternoon — two doses daily, split to maintain consistent GLP-1 support throughout the day. No needle, no syringe, no mixing, no measuring. Refrigerate after opening.",
   },
   {
     q: "What does it taste like?",
@@ -161,9 +161,9 @@ export default function SlimShotPage() {
             </h1>
             <p className="text-[17px] text-white/50 leading-relaxed mb-8 max-w-[580px]">
               Slim SHOT is a drinkable liquid, not an injection. A patent-pending
-              nanoemulsion you take by mouth every morning that amplifies your
-              body&apos;s natural GLP-1 production and inhibits the enzyme that
-              breaks it down.
+              nanoemulsion taken twice daily — half in the morning, half in the
+              afternoon — that amplifies your body&apos;s natural GLP-1
+              production and inhibits the enzyme that breaks it down.
             </p>
             <div className="flex items-baseline gap-3 mb-8">
               <span className="text-3xl text-teal-light font-normal font-heading">
@@ -220,13 +220,13 @@ export default function SlimShotPage() {
       {/* How it works */}
       <section className="py-24 px-6 md:px-12 max-w-[1000px] mx-auto">
         <FadeIn>
-          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
             The Mechanism
           </p>
-          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-ink font-heading">
+          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-white font-heading">
             Three systems. One daily protocol.
           </h2>
-          <p className="text-[17px] leading-relaxed text-mist max-w-[640px] mb-12">
+          <p className="text-[17px] leading-relaxed text-white/60 max-w-[640px] mb-12">
             Slim SHOT works at the intersection of clinical science and delivery
             technology. The formula activates, protects, and delivers.
           </p>
@@ -236,12 +236,12 @@ export default function SlimShotPage() {
           {principles.map((p) => (
             <div
               key={p.title}
-              className="p-8 bg-white border border-rule rounded-xl"
+              className="p-8 bg-white/[0.07] border border-white/[0.12] rounded-xl"
             >
-              <h3 className="text-[18px] font-semibold tracking-tight mb-3 text-ink">
+              <h3 className="text-[18px] font-semibold tracking-tight mb-3 text-white">
                 {p.title}
               </h3>
-              <p className="text-[15px] text-mist leading-relaxed">{p.desc}</p>
+              <p className="text-[15px] text-white/60 leading-relaxed">{p.desc}</p>
             </div>
           ))}
         </FadeIn>
@@ -249,25 +249,25 @@ export default function SlimShotPage() {
         <div className="mt-8">
           <Link
             href="/science"
-            className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
+            className="text-sm text-teal-light hover:text-white transition no-underline border-b border-teal-light/40 pb-0.5"
           >
             Full science breakdown &rarr;
           </Link>
         </div>
       </section>
 
-      <hr className="max-w-[720px] mx-auto border-t border-rule" />
+      <hr className="max-w-[720px] mx-auto border-t border-white/[0.10]" />
 
       {/* What to expect */}
       <section className="py-24 px-6 md:px-12 max-w-[1000px] mx-auto">
         <FadeIn>
-          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
             What to Expect
           </p>
-          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-ink font-heading">
+          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-white font-heading">
             The first 30 days.
           </h2>
-          <p className="text-[17px] leading-relaxed text-mist max-w-[640px] mb-12">
+          <p className="text-[17px] leading-relaxed text-white/60 max-w-[640px] mb-12">
             This isn&apos;t a quick fix. It&apos;s a daily protocol that compounds
             over time. Here&apos;s what the trajectory typically looks like.
           </p>
@@ -276,7 +276,7 @@ export default function SlimShotPage() {
         {/* Timeline with connected visual */}
         <FadeIn delay={100} className="relative">
           {/* Connecting line (desktop only) */}
-          <div className="hidden md:block absolute top-[28px] left-[calc(16.67%-8px)] right-[calc(16.67%-8px)] h-[2px] bg-gradient-to-r from-forest-mid/20 via-forest-mid/40 to-gold/40" />
+          <div className="hidden md:block absolute top-[28px] left-[calc(16.67%-8px)] right-[calc(16.67%-8px)] h-[2px] bg-gradient-to-r from-white/10 via-white/20 to-gold/40" />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {timeline.map((t, i) => (
@@ -284,25 +284,25 @@ export default function SlimShotPage() {
                 {/* Step dot */}
                 <div className="flex justify-center mb-4">
                   <div className={`w-14 h-14 rounded-full flex items-center justify-center border-2 ${
-                    i === 2 ? 'border-gold bg-gold/10' : 'border-forest-mid/30 bg-forest-mid/5'
+                    i === 2 ? 'border-gold bg-gold/10' : 'border-white/20 bg-white/5'
                   }`}>
-                    <span className={`text-lg font-normal ${i === 2 ? 'text-gold' : 'text-forest-mid'} font-heading`}
+                    <span className={`text-lg font-normal ${i === 2 ? 'text-gold' : 'text-white/40'} font-heading`}
                      >
                       {i + 1}
                     </span>
                   </div>
                 </div>
-                <div className="p-8 bg-white border border-rule rounded-xl flex-1">
-                  <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-3">
+                <div className="p-8 bg-white/[0.07] border border-white/[0.12] rounded-xl flex-1">
+                  <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-3">
                     {t.week}
                   </p>
                   <h3
-                    className="text-[18px] font-semibold tracking-tight text-ink mb-3 font-heading"
+                    className="text-[18px] font-semibold tracking-tight text-white mb-3 font-heading"
                    
                   >
                     {t.title}
                   </h3>
-                  <p className="text-[15px] text-mist leading-relaxed">{t.desc}</p>
+                  <p className="text-[15px] text-white/60 leading-relaxed">{t.desc}</p>
                 </div>
               </div>
             ))}
@@ -311,22 +311,22 @@ export default function SlimShotPage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-24 px-6 md:px-12 bg-cream-warm bg-dot-grid">
+      <section className="py-24 px-6 md:px-12 bg-forest-black border-t border-white/[0.10]">
         <FadeIn className="max-w-[720px] mx-auto">
-          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal mb-4">
+          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
             Questions
           </p>
-          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-12 text-ink font-heading">
+          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-12 text-white font-heading">
             Things people ask before they start.
           </h2>
 
           <div className="space-y-6">
             {faqs.map((faq) => (
-              <div key={faq.q} className="bg-white border border-rule rounded-xl p-6 md:p-8">
-                <h3 className="text-[15px] font-bold text-ink mb-3">
+              <div key={faq.q} className="bg-white/[0.07] border border-white/[0.12] rounded-xl p-6 md:p-8">
+                <h3 className="text-[15px] font-bold text-white mb-3">
                   {faq.q}
                 </h3>
-                <p className="text-[15px] text-mist leading-relaxed">
+                <p className="text-[15px] text-white/60 leading-relaxed">
                   {faq.a}
                 </p>
               </div>
@@ -335,7 +335,7 @@ export default function SlimShotPage() {
           <div className="mt-8">
             <Link
               href="/faq"
-              className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
+              className="text-sm text-teal-light hover:text-white transition no-underline border-b border-teal-light/40 pb-0.5"
             >
               More questions about GLP-1, nanoemulsions, and the science &rarr;
             </Link>
