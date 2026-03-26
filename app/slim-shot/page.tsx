@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import WaitlistForm from "../components/WaitlistForm";
 import BuyButton from "../components/BuyButton";
-import FadeIn from "../components/FadeIn";
 import Footer from "../components/Footer";
 
 const CHECKOUT_ENABLED = process.env.NEXT_PUBLIC_STRIPE_ENABLED === "true";
@@ -11,7 +10,7 @@ const CHECKOUT_ENABLED = process.env.NEXT_PUBLIC_STRIPE_ENABLED === "true";
 export const metadata: Metadata = {
   title: "Slim SHOT — Daily GLP-1 Amplification",
   description:
-    "A daily liquid formula that amplifies your body's own GLP-1 production. Patent-pending nanoemulsion delivery, clinically studied compounds. $155/mo.",
+    "A daily liquid formula that amplifies your body's own GLP-1 production. Patent-pending nanoemulsion delivery, clinically studied compounds. $149/mo.",
   alternates: {
     canonical: "https://nutraglp.com/slim-shot",
   },
@@ -41,12 +40,12 @@ const timeline = [
   {
     week: "Week 2–3",
     title: "Activation",
-    desc: "GLP-1 production ramps up. Appetite regulation becomes more noticeable. Energy levels tend to stabilize as glucose metabolism improves.",
+    desc: "The formula builds in your system. Many people notice appetite changes becoming more consistent and energy levels feeling more stable throughout the day.",
   },
   {
     week: "Week 4+",
     title: "Steady state",
-    desc: "The full metabolic effect. Consistent appetite control, improved metabolic markers, sustained energy. This is where the compound effect of daily use shows up.",
+    desc: "This is where consistent daily use tends to show its compound effect. Individual responses vary based on metabolism, diet, and activity level. Some people feel the shift clearly; others notice it gradually.",
   },
 ];
 
@@ -77,7 +76,7 @@ const faqs = [
   },
   {
     q: "How do I take it? Is it an injection?",
-    a: "Not an injection. Slim SHOT is a drinkable liquid you take by mouth, like a wellness shot. Half in the morning, half in the afternoon — two doses daily, split to maintain consistent GLP-1 support throughout the day. No needle, no syringe, no mixing, no measuring. Refrigerate after opening.",
+    a: "Not an injection. Slim SHOT is a drinkable liquid you take by mouth, like a wellness shot. One per day, ideally in the morning on an empty stomach. No needle, no syringe, no mixing, no measuring. Refrigerate after opening.",
   },
   {
     q: "What does it taste like?",
@@ -99,7 +98,7 @@ const productSchema = {
   image: "https://nutraglp.com/og-image.png",
   offers: {
     "@type": "Offer",
-    price: "155.00",
+    price: "149.00",
     priceCurrency: "USD",
     availability: "https://schema.org/PreOrder",
     priceValidUntil: "2026-12-31",
@@ -133,61 +132,52 @@ export default function SlimShotPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       {/* Hero */}
-      <section className="bg-forest-deep px-6 md:px-12 pt-28 pb-24">
-        <div className="max-w-[1100px] mx-auto flex flex-col md:flex-row md:items-start md:gap-16">
-          {/* Product image — mobile: centered above text, desktop: right side */}
-          <div className="flex md:hidden items-center justify-center mb-10">
-            <div className="relative">
-              <div className="absolute -inset-6 bg-gold/[0.06] rounded-full blur-3xl" />
-              <Image
-                src="/images/slim-shot-bottle-alt.png"
-                alt="Slim SHOT daily nanoemulsion supplement bottle"
-                width={400}
-                height={400}
-                className="relative drop-shadow-2xl max-h-[240px] w-auto"
-                priority
-              />
-            </div>
-          </div>
-
+      <section className="bg-forest-deep px-6 md:px-12 pt-28 pb-20">
+        <div className="max-w-[1000px] mx-auto md:flex md:items-center md:gap-16">
           <div className="flex-1">
-            <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-6">
+            <p className="text-[10px] font-bold uppercase tracking-[2px] text-gold mb-4">
               Slim SHOT &mdash; a drinkable daily liquid, not an injection
             </p>
-            <h1 className="text-4xl md:text-[56px] font-normal text-white leading-[1.08] tracking-tight mb-6 font-heading">
+            <h1
+              className="text-3xl md:text-[44px] font-normal text-white leading-[1.1] tracking-tight mb-6 font-heading"
+             
+            >
               Daily GLP-1 amplification.
               <br />
-              <span className="text-gold italic heading-wonk">Drink it. No needle. No syringe. Ever.</span>
+              <span className="text-gold italic">Drink it. No needle. No syringe. Ever.</span>
             </h1>
-            <p className="text-[17px] text-white/50 leading-relaxed mb-8 max-w-[580px]">
+            <p className="text-[17px] text-white/50 leading-relaxed mb-8 max-w-[480px]">
               Slim SHOT is a drinkable liquid, not an injection. A patent-pending
-              nanoemulsion taken twice daily — half in the morning, half in the
-              afternoon — that amplifies your body&apos;s natural GLP-1
-              production and inhibits the enzyme that breaks it down.
+              nanoemulsion you take by mouth every morning that amplifies your
+              body&apos;s natural GLP-1 production and inhibits the enzyme that
+              breaks it down.
             </p>
             <div className="flex items-baseline gap-3 mb-8">
-              <span className="text-3xl text-teal-light font-normal font-heading">
-                $155
+              <span
+                className="text-3xl text-gold font-normal font-heading"
+               
+              >
+                $149
               </span>
               <span className="text-white/40 text-sm">/month &middot; Ships direct &middot; Cancel anytime</span>
             </div>
             {CHECKOUT_ENABLED ? (
-              <BuyButton variant="hero" label="Subscribe — $155/mo" />
+              <BuyButton variant="hero" label="Subscribe — $149/mo" />
             ) : (
               <WaitlistForm variant="hero" />
             )}
           </div>
 
-          {/* Product image — desktop */}
-          <div className="hidden md:flex flex-1 items-center justify-center max-w-[400px] pt-[56px]">
+          {/* Product image */}
+          <div className="hidden md:flex flex-1 items-center justify-center">
             <div className="relative">
-              <div className="absolute -inset-10 bg-gold/[0.05] rounded-full blur-3xl" />
+              <div className="absolute -inset-8 bg-gold/[0.06] rounded-full blur-3xl" />
               <Image
                 src="/images/slim-shot-bottle-alt.png"
                 alt="Slim SHOT daily nanoemulsion supplement bottle"
                 width={600}
                 height={600}
-                className="relative drop-shadow-2xl max-h-[400px] w-auto"
+                className="relative drop-shadow-2xl max-h-[380px] w-auto"
                 priority
               />
             </div>
@@ -200,17 +190,17 @@ export default function SlimShotPage() {
         {[
           { value: "1 shot", label: "Daily" },
           { value: "30 sec", label: "Morning Routine" },
-          { value: "100%", label: "Natural" },
+          { value: "GRAS", label: "Certified" },
           { value: "0", label: "Injections" },
         ].map((s) => (
           <div key={s.label} className="text-center">
             <div
-              className="text-2xl font-normal tracking-tight text-teal-light font-heading"
+              className="text-xl font-normal tracking-tight text-gold font-heading"
              
             >
               {s.value}
             </div>
-            <div className="text-[10px] text-white/50 uppercase tracking-[1.5px] mt-0.5">
+            <div className="text-[10px] text-white/50 uppercase tracking-wider mt-0.5">
               {s.label}
             </div>
           </div>
@@ -219,64 +209,66 @@ export default function SlimShotPage() {
 
       {/* How it works */}
       <section className="py-24 px-6 md:px-12 max-w-[1000px] mx-auto">
-        <FadeIn>
-          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
-            The Mechanism
-          </p>
-          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-white font-heading">
-            Three systems. One daily protocol.
-          </h2>
-          <p className="text-[17px] leading-relaxed text-white/60 max-w-[640px] mb-12">
-            Slim SHOT works at the intersection of clinical science and delivery
-            technology. The formula activates, protects, and delivers.
-          </p>
-        </FadeIn>
+        <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
+          The Mechanism
+        </p>
+        <h2
+          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink font-heading"
+         
+        >
+          Three systems. One daily protocol.
+        </h2>
+        <p className="text-[17px] leading-relaxed text-mist max-w-[640px] mb-12">
+          Slim SHOT works at the intersection of clinical science and delivery
+          technology. The formula activates, protects, and delivers.
+        </p>
 
-        <FadeIn delay={150} className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {principles.map((p) => (
             <div
               key={p.title}
-              className="p-8 bg-white/[0.07] border border-white/[0.12] rounded-xl"
+              className="p-8 bg-white border border-rule rounded-xl"
             >
-              <h3 className="text-[18px] font-semibold tracking-tight mb-3 text-white">
+              <h3 className="text-[17px] font-bold tracking-tight mb-3 text-ink">
                 {p.title}
               </h3>
-              <p className="text-[15px] text-white/60 leading-relaxed">{p.desc}</p>
+              <p className="text-sm text-mist leading-relaxed">{p.desc}</p>
             </div>
           ))}
-        </FadeIn>
+        </div>
 
         <div className="mt-8">
           <Link
             href="/science"
-            className="text-sm text-teal-light hover:text-white transition no-underline border-b border-teal-light/40 pb-0.5"
+            className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
           >
             Full science breakdown &rarr;
           </Link>
         </div>
       </section>
 
-      <hr className="max-w-[720px] mx-auto border-t border-white/[0.10]" />
+      <hr className="max-w-[720px] mx-auto border-t border-rule" />
 
       {/* What to expect */}
       <section className="py-24 px-6 md:px-12 max-w-[1000px] mx-auto">
-        <FadeIn>
-          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
-            What to Expect
-          </p>
-          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-white font-heading">
-            The first 30 days.
-          </h2>
-          <p className="text-[17px] leading-relaxed text-white/60 max-w-[640px] mb-12">
-            This isn&apos;t a quick fix. It&apos;s a daily protocol that compounds
-            over time. Here&apos;s what the trajectory typically looks like.
-          </p>
-        </FadeIn>
+        <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
+          What to Expect
+        </p>
+        <h2
+          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink font-heading"
+         
+        >
+          The first 30 days.
+        </h2>
+        <p className="text-[17px] leading-relaxed text-mist max-w-[640px] mb-12">
+          This isn&apos;t a quick fix. It&apos;s a daily protocol that compounds
+          over time. Here&apos;s what the trajectory typically looks like.
+        </p>
 
         {/* Timeline with connected visual */}
-        <FadeIn delay={100} className="relative">
+        <div className="relative">
           {/* Connecting line (desktop only) */}
-          <div className="hidden md:block absolute top-[28px] left-[calc(16.67%-8px)] right-[calc(16.67%-8px)] h-[2px] bg-gradient-to-r from-white/10 via-white/20 to-gold/40" />
+          <div className="hidden md:block absolute top-[28px] left-[calc(16.67%-8px)] right-[calc(16.67%-8px)] h-[2px] bg-gradient-to-r from-forest-mid/20 via-forest-mid/40 to-gold/40" />
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {timeline.map((t, i) => (
@@ -284,49 +276,52 @@ export default function SlimShotPage() {
                 {/* Step dot */}
                 <div className="flex justify-center mb-4">
                   <div className={`w-14 h-14 rounded-full flex items-center justify-center border-2 ${
-                    i === 2 ? 'border-gold bg-gold/10' : 'border-white/20 bg-white/5'
+                    i === 2 ? 'border-gold bg-gold/10' : 'border-forest-mid/30 bg-forest-mid/5'
                   }`}>
-                    <span className={`text-lg font-normal ${i === 2 ? 'text-gold' : 'text-white/40'} font-heading`}
+                    <span className={`text-lg font-normal ${i === 2 ? 'text-gold' : 'text-forest-mid'} font-heading`}
                      >
                       {i + 1}
                     </span>
                   </div>
                 </div>
-                <div className="p-8 bg-white/[0.07] border border-white/[0.12] rounded-xl flex-1">
-                  <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-3">
+                <div className="p-8 bg-white border border-rule rounded-xl flex-1">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-forest-mid mb-3">
                     {t.week}
                   </p>
                   <h3
-                    className="text-[18px] font-semibold tracking-tight text-white mb-3 font-heading"
+                    className="text-lg font-normal tracking-tight text-ink mb-3 font-heading"
                    
                   >
                     {t.title}
                   </h3>
-                  <p className="text-[15px] text-white/60 leading-relaxed">{t.desc}</p>
+                  <p className="text-sm text-mist leading-relaxed">{t.desc}</p>
                 </div>
               </div>
             ))}
           </div>
-        </FadeIn>
+        </div>
       </section>
 
       {/* FAQ */}
-      <section className="py-24 px-6 md:px-12 bg-forest-black border-t border-white/[0.10]">
-        <FadeIn className="max-w-[720px] mx-auto">
-          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
+      <section className="py-24 px-6 md:px-12 bg-cream-warm bg-dot-grid">
+        <div className="max-w-[720px] mx-auto">
+          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
             Questions
           </p>
-          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-12 text-white font-heading">
+          <h2
+            className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-12 text-ink font-heading"
+           
+          >
             Things people ask before they start.
           </h2>
 
           <div className="space-y-6">
             {faqs.map((faq) => (
-              <div key={faq.q} className="bg-white/[0.07] border border-white/[0.12] rounded-xl p-6 md:p-8">
-                <h3 className="text-[15px] font-bold text-white mb-3">
+              <div key={faq.q} className="bg-white border border-rule rounded-xl p-6 md:p-8">
+                <h3 className="text-[15px] font-bold text-ink mb-3">
                   {faq.q}
                 </h3>
-                <p className="text-[15px] text-white/60 leading-relaxed">
+                <p className="text-sm text-mist leading-relaxed">
                   {faq.a}
                 </p>
               </div>
@@ -335,32 +330,31 @@ export default function SlimShotPage() {
           <div className="mt-8">
             <Link
               href="/faq"
-              className="text-sm text-teal-light hover:text-white transition no-underline border-b border-teal-light/40 pb-0.5"
+              className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
             >
               More questions about GLP-1, nanoemulsions, and the science &rarr;
             </Link>
           </div>
-        </FadeIn>
+        </div>
       </section>
 
       {/* CTA */}
       <section className="bg-forest py-20 px-6 md:px-12 text-center">
-        <FadeIn>
-          <h2
-            className="text-[26px] md:text-[36px] font-normal text-white tracking-tight leading-tight mb-4 font-heading"
-          >
-            Ready to try a different approach?
-          </h2>
-          <p className="text-[17px] text-white/50 max-w-[520px] mx-auto mb-8">
-            $155/mo. No prescription. No commitment. Join the waitlist for
-            early access and launch pricing.
-          </p>
-          {CHECKOUT_ENABLED ? (
-            <BuyButton variant="cta" label="Start your subscription" />
-          ) : (
-            <WaitlistForm variant="cta" />
-          )}
-        </FadeIn>
+        <h2
+          className="text-3xl md:text-4xl font-normal text-white tracking-tight mb-4 font-heading"
+         
+        >
+          Ready to try a different approach?
+        </h2>
+        <p className="text-[17px] text-white/50 max-w-[520px] mx-auto mb-8">
+          $149/mo. No prescription. No commitment. Join the waitlist for
+          early access and launch pricing.
+        </p>
+        {CHECKOUT_ENABLED ? (
+          <BuyButton variant="cta" label="Start your subscription" />
+        ) : (
+          <WaitlistForm variant="cta" />
+        )}
       </section>
 
       <Footer />

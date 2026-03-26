@@ -67,24 +67,24 @@ export default function AboutPage() {
 
       {/* Hero */}
       <section className="bg-forest-deep px-6 md:px-12 pt-28 pb-20 text-center">
-        <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
+        <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
           About
         </p>
         <h1
-          className="text-[30px] md:text-[44px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6 font-heading"
+          className="text-3xl md:text-[48px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6 font-display"
         >
           The team behind NutraGLP
         </h1>
-        <p className="text-[17px] text-white/50 max-w-[560px] mx-auto leading-relaxed">
+        <p className="text-lg text-white/50 max-w-[560px] mx-auto leading-relaxed">
           Building the platform layer between pharmaceutical GLP-1 drugs and
           the supplement aisle.
         </p>
       </section>
 
       {/* Leadership */}
-      <section className="py-24 px-6 md:px-12 bg-forest-black">
+      <section className="py-24 px-6 md:px-12">
         <div className="max-w-[900px] mx-auto">
-          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-10">
+          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-10">
             Leadership
           </p>
 
@@ -94,7 +94,7 @@ export default function AboutPage() {
                 key={person.name}
                 className="md:flex md:gap-12 md:items-start"
               >
-                <div className="w-[180px] h-[220px] rounded-xl overflow-hidden shrink-0 mb-8 md:mb-0 bg-white/[0.07] border border-white/[0.12]">
+                <div className="w-[180px] h-[220px] rounded-xl overflow-hidden shrink-0 mb-8 md:mb-0 bg-cream-warm border border-rule">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={person.image}
@@ -106,15 +106,15 @@ export default function AboutPage() {
                 </div>
 
                 <div>
-                  <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-3">
+                  <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-3">
                     {person.role}
                   </p>
                   <h2
-                    className="text-[26px] md:text-[36px] font-normal tracking-tight text-white mb-4 font-heading"
+                    className="text-2xl md:text-3xl font-normal tracking-tight text-ink mb-4 font-display"
                   >
                     {person.name}
                   </h2>
-                  <div className="space-y-4 text-[16px] leading-[1.75] text-white/60">
+                  <div className="space-y-4 text-[16px] leading-[1.75] text-mist">
                     {person.bio.map((paragraph, i) => (
                       <p key={i}>{paragraph}</p>
                     ))}
@@ -126,21 +126,21 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <hr className="max-w-[720px] mx-auto border-t border-white/[0.10]" />
+      <hr className="max-w-[720px] mx-auto border-t border-rule" />
 
       {/* Company thesis */}
-      <section className="py-24 px-6 md:px-12 bg-forest-black">
+      <section className="py-24 px-6 md:px-12">
         <div className="max-w-[720px] mx-auto">
-          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
+          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
             The Thesis
           </p>
           <h2
-            className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-6 text-white font-heading"
+            className="text-2xl md:text-3xl font-normal tracking-tight leading-tight mb-6 text-ink font-display"
           >
             The supplement aisle has a delivery problem, not a formulation
             problem.
           </h2>
-          <div className="space-y-4 text-[16px] leading-[1.75] text-white/60">
+          <div className="space-y-4 text-[16px] leading-[1.75] text-mist">
             <p>
               The compounds that activate natural GLP-1 production have
               published clinical evidence. AMPK activation stimulates L-cell
@@ -150,10 +150,11 @@ export default function AboutPage() {
             </p>
             <p>
               The gap between what the research shows and what consumers
-              experience is bioavailability. Standard oral supplements lose 95%
-              or more of their active compounds to stomach acid degradation,
-              poor intestinal absorption, and first-pass liver metabolism. The
-              compounds work. The delivery does not.
+              experience is bioavailability. Published research suggests standard
+              oral supplements lose the vast majority of their active compounds
+              to stomach acid degradation, poor intestinal absorption, and
+              first-pass liver metabolism. The compounds work. The delivery
+              does not.
             </p>
             <p>
               NutraGLP exists to solve the delivery problem. The patent-pending
@@ -168,13 +169,13 @@ export default function AboutPage() {
       </section>
 
       {/* Quality */}
-      <section className="py-20 px-6 md:px-12 bg-forest-deep border-t border-white/[0.10]">
+      <section className="py-20 px-6 md:px-12 bg-cream-warm">
         <div className="max-w-[720px] mx-auto">
-          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
+          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
             Standards
           </p>
           <h2
-            className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-8 text-white font-heading"
+            className="text-2xl md:text-3xl font-normal tracking-tight leading-tight mb-8 text-ink font-display"
           >
             How the product is made
           </h2>
@@ -199,10 +200,10 @@ export default function AboutPage() {
             ].map((item) => (
               <div
                 key={item.label}
-                className="p-6 bg-white/[0.07] border border-white/[0.12] rounded-xl"
+                className="p-6 bg-white border border-rule rounded-xl"
               >
-                <p className="text-[13px] font-bold text-white mb-2">{item.label}</p>
-                <p className="text-sm text-white/60 leading-relaxed">{item.desc}</p>
+                <p className="text-[13px] font-bold text-ink mb-2">{item.label}</p>
+                <p className="text-sm text-mist leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -210,23 +211,23 @@ export default function AboutPage() {
       </section>
 
       {/* Cross-links */}
-      <section className="py-12 px-6 md:px-12 border-t border-white/[0.10]">
+      <section className="py-12 px-6 md:px-12 border-t border-rule">
         <div className="max-w-[720px] mx-auto flex flex-wrap gap-6">
           <Link
             href="/slim-shot"
-            className="text-sm text-teal-light hover:text-white transition no-underline border-b border-teal-light/40 pb-0.5"
+            className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
           >
             Slim SHOT product details &rarr;
           </Link>
           <Link
             href="/science"
-            className="text-sm text-teal-light hover:text-white transition no-underline border-b border-teal-light/40 pb-0.5"
+            className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
           >
             The science &rarr;
           </Link>
           <Link
             href="/blog"
-            className="text-sm text-teal-light hover:text-white transition no-underline border-b border-teal-light/40 pb-0.5"
+            className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
           >
             Research &amp; insights &rarr;
           </Link>

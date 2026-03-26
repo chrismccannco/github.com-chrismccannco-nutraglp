@@ -1,52 +1,46 @@
-import FadeIn from "./FadeIn";
-
-const them = [
-  { text: "Weekly self-injection", icon: "💉" },
-  { text: "$800–$1,600/month without insurance", icon: "💸" },
-  { text: "Nausea, vomiting, gastroparesis risk", icon: "⚠" },
-  { text: "Provider visit + prior authorization", icon: "📋" },
-  { text: "Single synthetic mechanism", icon: "🔬" },
-  { text: "Muscle loss concerns at higher doses", icon: "↓" },
+const pharma = [
+  { text: "Weekly self-injection" },
+  { text: "$800\u2013$1,600/month without insurance" },
+  { text: "Nausea, vomiting, gastroparesis risk" },
+  { text: "Provider visit + prior authorization" },
+  { text: "Single synthetic mechanism" },
+  { text: "FDA-approved with established clinical data" },
 ];
 
-const us = [
-  { text: "Daily drinkable liquid nanoemulsion", icon: "✓" },
-  { text: "Fraction of prescription cost", icon: "✓" },
-  { text: "GRAS-certified, clinically studied compounds", icon: "✓" },
-  { text: "No prescription required", icon: "✓" },
-  { text: "13 complementary metabolic pathways", icon: "✓" },
-  { text: "Designed to preserve lean mass", icon: "✓" },
+const nutraglp = [
+  { text: "Daily drinkable liquid" },
+  { text: "$155/month, ships direct" },
+  { text: "GRAS-certified, clinically studied compounds" },
+  { text: "No prescription required" },
+  { text: "Multi-pathway formula" },
+  { text: "Observational data; clinical program in progress" },
 ];
 
 export default function Contrast() {
   return (
     <section className="bg-forest-deep bg-line-texture py-24 px-6 md:px-12">
       <div className="max-w-[1000px] mx-auto">
-        <FadeIn>
-          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
-            A Different Category
-          </p>
-          <h2
-            className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-12 text-white font-heading"
-          >
-            What changes when you don&apos;t need a prescription.
-          </h2>
-        </FadeIn>
+        <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
+          Two Approaches
+        </p>
+        <h2
+          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-12 text-white font-display"
+        >
+          Same biological goal. Different path to get there.
+        </h2>
 
-        <FadeIn delay={100} className="grid grid-cols-1 md:grid-cols-2 gap-0.5">
-          {/* Them */}
-          <div className="bg-white/[0.07] rounded-lg p-6 md:p-10">
-            <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-white/40 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-0.5">
+          {/* Pharma */}
+          <div className="bg-white/[0.04] rounded-lg p-10">
+            <p className="text-[11px] font-bold uppercase tracking-[1.5px] text-white/40 mb-6">
               GLP-1 Prescriptions
             </p>
-            {them.map((item) => (
+            {pharma.map((item) => (
               <div
                 key={item.text}
                 className="py-3 border-b border-white/[0.06] flex items-start gap-3"
               >
-                <span className="w-5 h-5 shrink-0 mt-0.5 rounded-full bg-white/[0.06] flex items-center justify-center text-white/25 text-[10px]">
-                  ✕
-                </span>
+                <span className="w-1.5 h-1.5 shrink-0 mt-2 rounded-full bg-white/20" />
                 <span className="text-[15px] leading-relaxed text-white/40">
                   {item.text}
                 </span>
@@ -54,30 +48,30 @@ export default function Contrast() {
             ))}
           </div>
 
-          {/* Us */}
-          <div className="bg-teal/[0.08] border border-teal/20 rounded-lg p-6 md:p-10">
-            <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-6">
-              NutraGLP
+          {/* NutraGLP */}
+          <div className="bg-gold/[0.08] border border-gold/20 rounded-lg p-10">
+            <p className="text-[11px] font-bold uppercase tracking-[1.5px] text-gold mb-6">
+              Slim SHOT by NutraGLP
             </p>
-            {us.map((item) => (
+            {nutraglp.map((item) => (
               <div
                 key={item.text}
                 className="py-3 border-b border-white/[0.06] flex items-start gap-3"
               >
-                <span className="w-5 h-5 shrink-0 mt-0.5 rounded-full bg-teal/20 flex items-center justify-center text-teal-light text-[11px] font-bold">
-                  ✓
-                </span>
+                <span className="w-1.5 h-1.5 shrink-0 mt-2 rounded-full bg-gold/60" />
                 <span className="text-[15px] leading-relaxed text-white/85">
                   {item.text}
                 </span>
               </div>
             ))}
           </div>
-        </FadeIn>
+        </div>
 
         {/* Bottom note */}
-        <p className="text-xs text-white/20 mt-6 text-center">
-          NutraGLP is a dietary supplement, not a drug. It is not intended to diagnose, treat, cure, or prevent any disease.
+        <p className="text-xs text-white/25 mt-6 text-center max-w-[640px] mx-auto">
+          These are different product categories with different regulatory frameworks.
+          NutraGLP is not a replacement for prescribed medication. Consult your healthcare
+          provider before making changes to any treatment plan.
         </p>
       </div>
     </section>

@@ -1,21 +1,18 @@
 import WaitlistForm from "./WaitlistForm";
-import FadeIn from "./FadeIn";
 
 export default function CTA() {
   return (
     <section className="bg-forest py-20 px-6 md:px-12 text-center">
-      <FadeIn>
       <h2
-        className="text-[26px] md:text-[36px] font-normal text-white tracking-tight leading-tight mb-4 font-heading"
+        className="text-3xl md:text-4xl font-normal text-white tracking-tight mb-4 font-display"
       >
         Ready to try a different approach?
       </h2>
       <p className="text-[17px] text-white/50 max-w-[520px] mx-auto mb-8">
-        Join the waitlist for early access and pricing.
-        Slim SHOT ships direct. $155/mo. No prescription. No commitment.
+        Join the waitlist for early access and launch pricing.
+        $155/mo. No prescription. No commitment. Cancel anytime.
       </p>
       <WaitlistForm variant="cta" />
-      </FadeIn>
     </section>
   );
 }

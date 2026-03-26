@@ -1,31 +1,30 @@
+import Image from "next/image";
 import Link from "next/link";
-import FadeIn from "./FadeIn";
-import MechanismDiagram from "./MechanismDiagram";
 
 const steps = [
   {
     num: "1",
     title: "Activate",
-    text: "Four GRAS-certified active systems stimulate your body\u2019s own GLP-1 and GIP production in the gut through AMPK activation, GPR120 signaling, and insulin receptor sensitization. The same hormones the drugs target, produced naturally.",
+    text: "Clinically studied compounds signal your body to produce more of its own appetite-regulating hormones. The same ones the injectable drugs target, triggered naturally.",
   },
   {
     num: "2",
     title: "Protect",
-    text: "Natural DPP-4 inhibitors extend the life of your GLP-1 before it breaks down. More active hormone. Longer metabolic window. No synthetic peptides.",
+    text: "Natural enzyme inhibitors keep those hormones active longer before your body breaks them down. A wider window for your metabolism to respond.",
   },
   {
     num: "3",
     title: "Deliver",
-    text: "Most oral supplements fail because the body can\u2019t absorb them. Our patent-pending nanoemulsion technology solves this. High bioavailability. Every dose, every day.",
+    text: "Most supplements fail because your body can\u2019t absorb them. Our patent-pending liquid delivery system changes that. What you take actually gets where it needs to go.",
   },
 ];
 
 const howToSchema = {
   "@context": "https://schema.org",
   "@type": "HowTo",
-  name: "How NutraGLP activates natural GLP-1 production",
+  name: "How Slim SHOT works",
   description:
-    "A daily drinkable liquid that amplifies your body's natural GLP-1 production while inhibiting the enzyme that breaks it down. Three steps, one daily dose.",
+    "A daily drinkable liquid that works with your body's own biology to support appetite control and metabolic health. Three steps, one daily Slim SHOT.",
   step: steps.map((s) => ({
     "@type": "HowToStep",
     name: s.title,
@@ -36,58 +35,50 @@ const howToSchema = {
 
 export default function Mechanism() {
   return (
-    <section className="py-24 px-6 md:px-12 bg-forest-deep">
-      <div className="max-w-[1000px] mx-auto">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
-        />
-        <FadeIn>
-          <p className="text-[10px] font-bold uppercase tracking-[1.5px] text-teal-light mb-4">
-            How It Works
-          </p>
-          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-6 text-white font-heading">
-            Your body already makes GLP-1.
-            <br />
-            <span className="text-gold italic">NutraGLP helps it make more.</span>
-          </h2>
-          <p className="text-[17px] leading-relaxed text-white/50 max-w-[640px] mb-12">
-            GLP-1 drugs work by injecting synthetic hormones. NutraGLP takes a
-            different approach: a drinkable liquid that amplifies your body&apos;s
-            natural GLP-1 production while inhibiting the enzyme that breaks it
-            down. Three steps, one daily dose.
-          </p>
-        </FadeIn>
+    <section className="py-24 px-6 md:px-12 max-w-[1000px] mx-auto">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
+      <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
+        How It Works
+      </p>
+      <h2
+        className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-display"
+      >
+        Your body already makes the hormones.
+        <br />Slim SHOT helps it make more.
+      </h2>
+      <p className="text-[17px] leading-relaxed text-mist max-w-[640px] mb-12">
+        The injectable drugs replace your hormones with synthetic versions.
+        Slim SHOT takes a different approach: a daily liquid that works with
+        your biology, not instead of it.
+      </p>
 
-        <FadeIn delay={100} className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-14">
-          {steps.map((s) => (
-            <div
-              key={s.num}
-              className="p-6 md:p-8 bg-white/[0.07] border border-white/[0.12] rounded-xl"
-            >
-              <div className="w-10 h-10 bg-gold/20 border border-gold/30 rounded-lg flex items-center justify-center text-gold text-lg font-bold mb-4">
-                {s.num}
-              </div>
-              <h3 className="text-[18px] font-semibold tracking-tight mb-2 text-white">
-                {s.title}
-              </h3>
-              <p className="text-[15px] text-white/50 leading-relaxed">{s.text}</p>
-            </div>
-          ))}
-        </FadeIn>
-
-        <FadeIn delay={200}>
-          <MechanismDiagram />
-        </FadeIn>
-
-        <div className="mt-10">
-          <Link
-            href="/slim-shot"
-            className="text-sm text-white/40 hover:text-white/70 transition no-underline border-b border-white/20 pb-0.5"
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        {steps.map((s) => (
+          <div
+            key={s.num}
+            className="p-8 bg-white border border-rule rounded-xl"
           >
-            See the science, dosing, and FAQs &rarr;
-          </Link>
-        </div>
+            <div className="w-10 h-10 bg-forest rounded-lg flex items-center justify-center text-white text-lg font-bold mb-4">
+              {s.num}
+            </div>
+            <h3 className="text-[17px] font-bold tracking-tight mb-2 text-ink">
+              {s.title}
+            </h3>
+            <p className="text-sm text-mist leading-relaxed">{s.text}</p>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-14">
+        <Link
+          href="/science"
+          className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
+        >
+          The full science behind the formula &rarr;
+        </Link>
       </div>
     </section>
   );
