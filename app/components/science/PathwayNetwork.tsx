@@ -36,10 +36,10 @@ const SOURCES = [
 ];
 
 const MIDDLE = [
-  { id: "glp1",   label: "GLP-1",    sub: "Secretion",    cx: 238, cy: 218, r: 19, from: ["activate", "deliver"] },
-  { id: "gip",    label: "GIP",      sub: "Co-secretion", cx: 376, cy: 234, r: 19, from: ["activate"] },
-  { id: "dpp4",   label: "DPP-4",    sub: "Inhibited",    cx: 522, cy: 218, r: 19, from: ["protect"] },
-  { id: "absorb", label: "Enhanced", sub: "Absorption",   cx: 658, cy: 234, r: 19, from: ["deliver"] },
+  { id: "glp1",   label: "GLP-1",    sub: "Secretion",    cx: 238, cy: 218, r: 28, from: ["activate", "deliver"] },
+  { id: "gip",    label: "GIP",      sub: "Co-secretion", cx: 376, cy: 234, r: 28, from: ["activate"] },
+  { id: "dpp4",   label: "DPP-4",    sub: "Inhibited",    cx: 522, cy: 218, r: 28, from: ["protect"] },
+  { id: "absorb", label: "Enhanced", sub: "Absorption",   cx: 658, cy: 234, r: 28, from: ["deliver"] },
 ];
 
 const DOWN = [
@@ -179,14 +179,14 @@ export default function PathwayNetwork() {
                 fill="white" stroke={srcColor} strokeWidth={1.5} strokeOpacity={0.6}
               />
               <text
-                x={m.cx} y={m.cy - 1} textAnchor="middle" dominantBaseline="middle"
-                fontFamily="'DM Sans',Inter,sans-serif" fontSize={9} fontWeight={700} fill={srcColor}
+                x={m.cx} y={m.cy + 1} textAnchor="middle" dominantBaseline="middle"
+                fontFamily="'DM Sans',Inter,sans-serif" fontSize={10} fontWeight={700} fill={srcColor}
               >
                 {m.label}
               </text>
               <text
-                x={m.cx} y={m.cy + 10} textAnchor="middle" dominantBaseline="middle"
-                fontFamily="'DM Sans',Inter,sans-serif" fontSize={7.5} fill={srcColor} opacity={0.7}
+                x={m.cx} y={m.cy + m.r + 14} textAnchor="middle"
+                fontFamily="'DM Sans',Inter,sans-serif" fontSize={8} fill={srcColor} opacity={0.7}
               >
                 {m.sub}
               </text>
