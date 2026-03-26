@@ -18,7 +18,6 @@ export default function FadeIn({
     const el = ref.current;
     if (!el) return;
 
-    // Fallback: if IntersectionObserver never fires, reveal after 1.5s
     const fallbackTimer = setTimeout(() => {
       setIsVisible(true);
     }, 1500 + delay);

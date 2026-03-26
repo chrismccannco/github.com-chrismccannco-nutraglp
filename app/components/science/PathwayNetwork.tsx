@@ -1,24 +1,23 @@
 "use client";
 import { useState, useCallback } from "react";
 
-// ── Brand colors ──────────────────────────────────────────────────────────────
+// Current palette mapped from old teal scheme
 const C = {
-  navy:   "#0A2463",
-  gold:   "#C8962E",
-  teal:   "#1585B5",
-  ink:    "#1A1A18",
-  muted:  "#6B7280",
-  silver: "#9CA3AF",
+  forest:  "#1B3A5C",
+  gold:    "#b8955a",
+  blue:    "#2B5EA7",
+  ink:     "#1a1a18",
+  muted:   "#6B7280",
+  silver:  "#8a8a80",
 };
 
-// ── Source mechanisms (top tier) ──────────────────────────────────────────────
 const SOURCES = [
   {
     id: "activate",
     label: "Activate",
     sub: "AMPK · GPR120 · Insulin Receptor",
     cx: 162, cy: 80, r: 32,
-    color: C.navy,
+    color: C.forest,
   },
   {
     id: "protect",
@@ -32,21 +31,18 @@ const SOURCES = [
     label: "Deliver",
     sub: "Nanoemulsion",
     cx: 738, cy: 80, r: 32,
-    color: C.teal,
+    color: C.blue,
   },
 ];
 
-// ── Middle tier (primary biological events) ───────────────────────────────────
 const MIDDLE = [
-  { id: "glp1",   label: "GLP-1",    sub: "Secretion",    cx: 238, cy: 210, r: 26, from: ["activate", "deliver"] },
-  { id: "gip",    label: "GIP",      sub: "Co-secretion", cx: 376, cy: 226, r: 26, from: ["activate"] },
-  { id: "dpp4",   label: "DPP-4",    sub: "Inhibited",    cx: 522, cy: 210, r: 26, from: ["protect"] },
-  { id: "absorb", label: "Enhanced", sub: "Absorption",   cx: 658, cy: 226, r: 26, from: ["deliver"] },
+  { id: "glp1",   label: "GLP-1",    sub: "Secretion",    cx: 238, cy: 218, r: 19, from: ["activate", "deliver"] },
+  { id: "gip",    label: "GIP",      sub: "Co-secretion", cx: 376, cy: 234, r: 19, from: ["activate"] },
+  { id: "dpp4",   label: "DPP-4",    sub: "Inhibited",    cx: 522, cy: 218, r: 19, from: ["protect"] },
+  { id: "absorb", label: "Enhanced", sub: "Absorption",   cx: 658, cy: 234, r: 19, from: ["deliver"] },
 ];
 
-// ── 13 downstream metabolic effects ──────────────────────────────────────────
 const DOWN = [
-  // Row 1 (y ≈ 368)
   { id: "appetite", label: "Appetite",    sub: "Regulation",        cx: 50,  cy: 368, from: ["glp1", "gip"] },
   { id: "glucose",  label: "Glucose",     sub: "Uptake",            cx: 168, cy: 368, from: ["glp1", "gip", "absorb"] },
   { id: "lipid",    label: "Lipid",       sub: "Metabolism",        cx: 286, cy: 368, from: ["glp1", "gip"] },
@@ -54,7 +50,6 @@ const DOWN = [
   { id: "glut4",    label: "GLUT4",       sub: "Translocation",     cx: 522, cy: 368, from: ["glp1", "dpp4"] },
   { id: "fao",      label: "Fatty Acid",  sub: "Oxidation",         cx: 640, cy: 368, from: ["glp1", "dpp4"] },
   { id: "satiety",  label: "Gut-Brain",   sub: "Satiety",           cx: 758, cy: 368, from: ["glp1", "gip"] },
-  // Row 2 (y ≈ 452)
   { id: "trig",     label: "Triglyceride", sub: "Reduction",        cx: 82,  cy: 452, from: ["glp1", "dpp4"] },
   { id: "thermo",   label: "Thermogenesis", sub: "",                cx: 222, cy: 452, from: ["dpp4", "absorb"] },
   { id: "adipose",  label: "Adipose",     sub: "Remodeling",        cx: 362, cy: 452, from: ["dpp4", "absorb"] },
@@ -63,10 +58,8 @@ const DOWN = [
   { id: "energy",   label: "Cellular",    sub: "Energy Sensing",    cx: 776, cy: 452, from: ["dpp4", "absorb"] },
 ];
 
-// ── Layout ────────────────────────────────────────────────────────────────────
-const W = 900, H = 548;
+const W = 900, H = 528;
 
-// ── Helper: compute active sets for a given hovered source ───────────────────
 function getActive(hoveredId: string | null) {
   if (!hoveredId) return { srcIds: new Set<string>(), midIds: new Set<string>(), downIds: new Set<string>() };
   const srcIds = new Set([hoveredId]);
@@ -75,15 +68,12 @@ function getActive(hoveredId: string | null) {
   return { srcIds, midIds, downIds };
 }
 
-// ── Curved path between two nodes ─────────────────────────────────────────────
 function curvePath(x1: number, y1: number, x2: number, y2: number): string {
-  const mx = (x1 + x2) / 2;
   const my = (y1 + y2) / 2;
   const bow = Math.abs(x2 - x1) * 0.12;
   return `M${x1} ${y1} C${x1} ${my + bow},${x2} ${my - bow},${x2} ${y2}`;
 }
 
-// ── Component ─────────────────────────────────────────────────────────────────
 export default function PathwayNetwork() {
   const [hovered, setHovered] = useState<string | null>(null);
   const active = getActive(hovered);
@@ -112,7 +102,7 @@ export default function PathwayNetwork() {
         className="w-full h-auto"
         aria-label="13-pathway network map showing how Activate, Protect, and Deliver mechanisms connect to metabolic outcomes"
       >
-        {/* ── Source → Middle connections ────────────────────────────────── */}
+        {/* Source → Middle connections */}
         {MIDDLE.map(mid =>
           mid.from.map(srcId => {
             const src = SOURCES.find(s => s.id === srcId)!;
@@ -131,7 +121,7 @@ export default function PathwayNetwork() {
           })
         )}
 
-        {/* ── Middle → Downstream connections ───────────────────────────── */}
+        {/* Middle → Downstream connections */}
         {DOWN.map(down =>
           down.from.map(midId => {
             const mid = MIDDLE.find(m => m.id === midId)!;
@@ -151,7 +141,7 @@ export default function PathwayNetwork() {
           })
         )}
 
-        {/* ── Downstream nodes ──────────────────────────────────────────── */}
+        {/* Downstream nodes */}
         {DOWN.map(d => {
           const isActive = !isHovering || active.downIds.has(d.id);
           return (
@@ -161,19 +151,15 @@ export default function PathwayNetwork() {
                 fill="white" stroke={C.silver} strokeWidth={1.2}
               />
               <text
-                x={d.cx} y={d.cy + 24}
-                textAnchor="middle"
-                fontFamily="Inter,sans-serif" fontSize={8}
-                fontWeight={600} fill={C.muted}
+                x={d.cx} y={d.cy + 24} textAnchor="middle"
+                fontFamily="'DM Sans',Inter,sans-serif" fontSize={8} fontWeight={600} fill={C.muted}
               >
                 {d.label}
               </text>
               {d.sub && (
                 <text
-                  x={d.cx} y={d.cy + 34}
-                  textAnchor="middle"
-                  fontFamily="Inter,sans-serif" fontSize={7.5}
-                  fill={C.silver}
+                  x={d.cx} y={d.cy + 34} textAnchor="middle"
+                  fontFamily="'DM Sans',Inter,sans-serif" fontSize={7.5} fill={C.silver}
                 >
                   {d.sub}
                 </text>
@@ -182,7 +168,7 @@ export default function PathwayNetwork() {
           );
         })}
 
-        {/* ── Middle tier nodes ─────────────────────────────────────────── */}
+        {/* Middle tier nodes */}
         {MIDDLE.map(m => {
           const isActive = !isHovering || active.midIds.has(m.id);
           const srcColor = SOURCES.find(s => s.id === m.from[0])?.color ?? C.silver;
@@ -190,25 +176,17 @@ export default function PathwayNetwork() {
             <g key={m.id} opacity={nodeOpacity(isActive)} style={{ transition: "opacity 0.2s" }}>
               <circle
                 cx={m.cx} cy={m.cy} r={m.r}
-                fill="white"
-                stroke={srcColor} strokeWidth={1.5}
-                strokeOpacity={0.6}
+                fill="white" stroke={srcColor} strokeWidth={1.5} strokeOpacity={0.6}
               />
-              {/* Label inside circle */}
               <text
-                x={m.cx} y={m.cy}
-                textAnchor="middle" dominantBaseline="middle"
-                fontFamily="Inter,sans-serif" fontSize={10}
-                fontWeight={700} fill={srcColor}
+                x={m.cx} y={m.cy - 1} textAnchor="middle" dominantBaseline="middle"
+                fontFamily="'DM Sans',Inter,sans-serif" fontSize={9} fontWeight={700} fill={srcColor}
               >
                 {m.label}
               </text>
-              {/* Sub-label below circle */}
               <text
-                x={m.cx} y={m.cy + m.r + 13}
-                textAnchor="middle"
-                fontFamily="Inter,sans-serif" fontSize={8}
-                fill={C.muted}
+                x={m.cx} y={m.cy + 10} textAnchor="middle" dominantBaseline="middle"
+                fontFamily="'DM Sans',Inter,sans-serif" fontSize={7.5} fill={srcColor} opacity={0.7}
               >
                 {m.sub}
               </text>
@@ -216,7 +194,7 @@ export default function PathwayNetwork() {
           );
         })}
 
-        {/* ── Source nodes (interactive) ────────────────────────────────── */}
+        {/* Source nodes (interactive) */}
         {SOURCES.map(src => {
           const isActive = !isHovering || active.srcIds.has(src.id);
           return (
@@ -227,37 +205,28 @@ export default function PathwayNetwork() {
               style={{ cursor: "pointer", transition: "opacity 0.2s" }}
               opacity={nodeOpacity(isActive)}
             >
-              {/* Outer ring (hover affordance) */}
               <circle
                 cx={src.cx} cy={src.cy} r={src.r + 6}
-                fill="transparent"
-                stroke={src.color}
-                strokeWidth={1}
+                fill="transparent" stroke={src.color} strokeWidth={1}
                 strokeOpacity={hovered === src.id ? 0.25 : 0}
                 style={{ transition: "stroke-opacity 0.2s" }}
               />
-              {/* Main circle */}
               <circle
                 cx={src.cx} cy={src.cy} r={src.r}
                 fill={src.color}
                 fillOpacity={hovered === src.id ? 1 : 0.88}
                 stroke={src.color} strokeWidth={0}
               />
-              {/* Label */}
               <text
-                x={src.cx} y={src.cy - 2}
-                textAnchor="middle" dominantBaseline="middle"
+                x={src.cx} y={src.cy - 2} textAnchor="middle" dominantBaseline="middle"
                 fontFamily="'Fraunces Variable',Fraunces,Georgia,serif"
-                fontSize={13} fontWeight={600}
-                fill="white"
+                fontSize={13} fontWeight={600} fill="white"
               >
                 {src.label}
               </text>
-              {/* Sub-label below circle */}
               <text
-                x={src.cx} y={src.cy + src.r + 14}
-                textAnchor="middle"
-                fontFamily="Inter,sans-serif" fontSize={8.5}
+                x={src.cx} y={src.cy + src.r + 14} textAnchor="middle"
+                fontFamily="'DM Sans',Inter,sans-serif" fontSize={8.5}
                 fill={C.muted} letterSpacing={0.3}
               >
                 {src.sub}
@@ -266,19 +235,18 @@ export default function PathwayNetwork() {
           );
         })}
 
-        {/* ── Hover prompt (desktop only) ───────────────────────────────── */}
+        {/* Hover prompt */}
         {!isHovering && (
           <text
-            x={W / 2} y={H - 8}
-            textAnchor="middle"
-            fontFamily="Inter,sans-serif" fontSize={9}
+            x={W / 2} y={H - 8} textAnchor="middle"
+            fontFamily="'DM Sans',Inter,sans-serif" fontSize={9}
             fill={C.silver} letterSpacing={1}
           >
             HOVER A MECHANISM TO TRACE ITS PATHWAYS
           </text>
         )}
       </svg>
-      <figcaption className="text-center text-[11px] text-white/40 mt-2">
+      <figcaption className="text-center text-[11px] text-mist mt-2">
         Three primary mechanisms connect to 13 downstream metabolic effects through four biological events.
       </figcaption>
     </figure>
