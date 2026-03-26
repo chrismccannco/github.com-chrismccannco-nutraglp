@@ -33,21 +33,33 @@ function streamD(x: number, y1: number, r1: number, y2: number, r2: number) {
 
 export default function BioavailabilityIllustration() {
   const wrapRef = useRef<HTMLDivElement>(null);
-  const [on, setOn] = useState(false);
+  const [step, setStep] = useState(-1); // -1 = not started, 0..4 = revealing stages
 
   useEffect(() => {
     const el = wrapRef.current;
     if (!el) return;
     const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) setOn(true); },
-      { threshold: 0.1 }
+      ([e]) => {
+        if (e.isIntersecting) {
+          setStep(0);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.15 }
     );
     obs.observe(el);
     return () => obs.disconnect();
   }, []);
 
-  const tr = (i: number) =>
-    `transform 0.6s cubic-bezier(0.34,1.56,0.64,1) ${i * 0.12}s`;
+  // Cascade through stages once triggered
+  useEffect(() => {
+    if (step < 0 || step >= STAGES.length) return;
+    const timer = setTimeout(() => setStep(step + 1), 350);
+    return () => clearTimeout(timer);
+  }, [step]);
+
+  const visible = (i: number) => step >= i;
+  const allDone = step >= STAGES.length;
 
   return (
     <figure ref={wrapRef} className="w-full max-w-[720px] mx-auto select-none">
@@ -61,6 +73,7 @@ export default function BioavailabilityIllustration() {
           x={LX} y={24} textAnchor="middle"
           fontFamily="'DM Sans',Inter,sans-serif" fontSize={9} letterSpacing={2}
           fontWeight={700} fill="#8a8a80"
+          style={{ opacity: step >= 0 ? 1 : 0, transition: "opacity 0.4s ease-out" }}
         >
           STANDARD CAPSULE
         </text>
@@ -68,6 +81,7 @@ export default function BioavailabilityIllustration() {
           x={RX} y={24} textAnchor="middle"
           fontFamily="'DM Sans',Inter,sans-serif" fontSize={9} letterSpacing={2}
           fontWeight={700} fill="#2B5EA7"
+          style={{ opacity: step >= 0 ? 1 : 0, transition: "opacity 0.4s ease-out" }}
         >
           NUTRAGLP NANOEMULSION
         </text>
@@ -78,14 +92,15 @@ export default function BioavailabilityIllustration() {
             key={i} x={10} y={SY[i] + 4} textAnchor="start"
             fontFamily="'DM Sans',Inter,sans-serif" fontSize={9} letterSpacing={1.5}
             fill="#8a8a80"
+            style={{ opacity: visible(i) ? 1 : 0, transition: "opacity 0.4s ease-out" }}
           >
             {s.label.toUpperCase()}
           </text>
         ))}
 
-        {/* Stream fills */}
+        {/* Stream fills — fade in between revealed stages */}
         {STAGES.slice(0, -1).map((_, i) => (
-          <g key={i} opacity={0.09}>
+          <g key={i} style={{ opacity: visible(i + 1) ? 0.09 : 0, transition: "opacity 0.5s ease-out" }}>
             <path
               d={streamD(LX, SY[i], rOf(STAGES[i].std), SY[i + 1], rOf(STAGES[i + 1].std))}
               fill="#8a8a80"
@@ -97,33 +112,26 @@ export default function BioavailabilityIllustration() {
           </g>
         ))}
 
-        {/* Circles */}
+        {/* Circles — fade + grow per stage */}
         {STAGES.map((s, i) => {
           const sr = rOf(s.std);
           const nr = rOf(s.nano);
+          const show = visible(i);
           return (
             <g key={i}>
+              {/* Standard capsule */}
               <circle
-                cx={LX} cy={SY[i]} r={sr}
+                cx={LX} cy={SY[i]} r={show ? sr : 0}
                 fill="#8a8a80" fillOpacity={0.12}
-                stroke="#8a8a80" strokeWidth={1.5}
-                style={{
-                  transformBox: "fill-box",
-                  transformOrigin: "center",
-                  transform: on ? "scale(1)" : "scale(0)",
-                  transition: tr(i),
-                }}
+                stroke="#8a8a80" strokeWidth={show ? 1.5 : 0}
+                style={{ transition: "r 0.5s cubic-bezier(0.34,1.56,0.64,1), stroke-width 0.3s" }}
               />
+              {/* NutraGLP nanoemulsion */}
               <circle
-                cx={RX} cy={SY[i]} r={nr}
+                cx={RX} cy={SY[i]} r={show ? nr : 0}
                 fill="#2B5EA7" fillOpacity={0.08}
-                stroke="#2B5EA7" strokeWidth={1.5}
-                style={{
-                  transformBox: "fill-box",
-                  transformOrigin: "center",
-                  transform: on ? "scale(1)" : "scale(0)",
-                  transition: tr(i),
-                }}
+                stroke="#2B5EA7" strokeWidth={show ? 1.5 : 0}
+                style={{ transition: "r 0.5s cubic-bezier(0.34,1.56,0.64,1), stroke-width 0.3s" }}
               />
             </g>
           );
@@ -134,7 +142,7 @@ export default function BioavailabilityIllustration() {
           x={LX} y={SY[4] + rOf(9) + 17} textAnchor="middle"
           fontFamily="'DM Sans',Inter,sans-serif" fontSize={13} fontWeight={700}
           fill="#8a8a80"
-          style={{ opacity: on ? 1 : 0, transition: "opacity 0.5s ease-out 0.65s" }}
+          style={{ opacity: allDone ? 1 : 0, transition: "opacity 0.5s ease-out 0.2s" }}
         >
           9%
         </text>
@@ -142,7 +150,7 @@ export default function BioavailabilityIllustration() {
           x={RX} y={SY[4] + rOf(72) + 17} textAnchor="middle"
           fontFamily="'DM Sans',Inter,sans-serif" fontSize={13} fontWeight={700}
           fill="#2B5EA7"
-          style={{ opacity: on ? 1 : 0, transition: "opacity 0.5s ease-out 0.65s" }}
+          style={{ opacity: allDone ? 1 : 0, transition: "opacity 0.5s ease-out 0.2s" }}
         >
           72%
         </text>
@@ -150,14 +158,14 @@ export default function BioavailabilityIllustration() {
         {/* 8x callout */}
         <line
           x1={LX} y1={H - 28} x2={RX} y2={H - 28}
-          stroke="#1a1a18" strokeWidth={0.5} opacity={0.15}
-          style={{ opacity: on ? 0.15 : 0, transition: "opacity 0.4s ease-out 0.8s" }}
+          stroke="#1a1a18" strokeWidth={0.5}
+          style={{ opacity: allDone ? 0.15 : 0, transition: "opacity 0.4s ease-out 0.4s" }}
         />
         <text
           x={W / 2} y={H - 10} textAnchor="middle"
           fontFamily="'DM Sans',Inter,sans-serif" fontSize={12} fontWeight={600}
           fill="#1a1a18"
-          style={{ opacity: on ? 1 : 0, transition: "opacity 0.4s ease-out 0.85s" }}
+          style={{ opacity: allDone ? 1 : 0, transition: "opacity 0.4s ease-out 0.5s" }}
         >
           8× greater bioavailability — 72% vs 9% of active compound reaches target pathways
         </text>
