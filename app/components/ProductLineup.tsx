@@ -8,7 +8,7 @@ const products = [
     desc: "Daily liquid nanoemulsion. Our flagship GLP-1 activator.",
     status: "Waitlist open",
     live: true,
-    image: "/images/slim-shot-bottle-alt.png",
+    image: "/images/slim-shot-bottle-alt.webp",
     imgW: 600,
     imgH: 600,
     href: "/slim-shot",
