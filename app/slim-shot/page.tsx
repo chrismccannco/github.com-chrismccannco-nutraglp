@@ -146,7 +146,7 @@ export default function SlimShotPage() {
               <br />
               <span className="text-gold italic">Drink it.</span> No needle. No syringe. Ever.
             </h1>
-            <p className="text-[17px] text-white/70 leading-relaxed mb-8 max-w-[480px]">
+            <p className="text-[17px] text-white/50 leading-relaxed mb-8 max-w-[480px]">
               Slim SHOT is a drinkable liquid, not an injection. A patent-pending
               nanoemulsion you drink twice daily — morning and afternoon — that amplifies your
               body&apos;s natural GLP-1 production and inhibits the enzyme that
