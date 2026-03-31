@@ -136,9 +136,29 @@ const deliverySteps = [
   },
 ];
 
+const scienceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "The Science Behind NutraGLP",
+  "description": "How berberine, resistant starch, and targeted botanicals amplify your body's natural GLP-1 response without injections.",
+  "url": "https://nutraglp.com/science",
+  "author": { "@type": "Organization", "name": "NutraGLP" },
+  "publisher": { "@type": "Organization", "name": "NutraGLP", "url": "https://nutraglp.com" },
+  "about": [
+    { "@type": "Thing", "name": "GLP-1" },
+    { "@type": "Thing", "name": "Berberine" },
+    { "@type": "Thing", "name": "Natural Weight Loss" },
+    { "@type": "Thing", "name": "Metabolic Health" }
+  ]
+}
+
 export default function SciencePage() {
   return (
     <main>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(scienceSchema) }}
+      />
       {/* Hero */}
       <section className="bg-forest-deep px-6 md:px-12 pt-28 pb-20 text-center">
         <p className="text-[11px] font-bold uppercase tracking-[2px] text-teal-light mb-4">
