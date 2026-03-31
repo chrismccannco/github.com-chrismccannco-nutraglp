@@ -195,12 +195,12 @@ export default function SlimShotPage() {
         ].map((s) => (
           <div key={s.label} className="text-center">
             <div
-              className="text-xl font-normal tracking-tight text-gold font-heading"
-             
+              className="font-semibold tracking-tight text-gold font-display"
+              style={{fontSize: 'clamp(40px, 4vw, 48px)', lineHeight: 1, letterSpacing: '-0.03em'}}
             >
               {s.value}
             </div>
-            <div className="text-[10px] text-white/50 uppercase tracking-wider mt-0.5">
+            <div className="text-xs text-white/50 uppercase tracking-wider mt-2.5">
               {s.label}
             </div>
           </div>
