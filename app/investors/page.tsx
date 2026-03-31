@@ -817,9 +817,12 @@ html { scroll-behavior: smooth; }
           <h2>Request the deck.<br /><em>Let&apos;s talk.</em></h2>
           <p className="inv-lead">We&apos;re in active conversations with strategic and financial investors. If you&apos;re working through the science or building a position on the GLP-1 economy, we&apos;d like to talk.</p>
 
-          <div className="inv-deck-form-wrap">
-            <InvestorDeckForm />
-          </div>
+          <details className="inv-deck-form-wrap">
+            <summary className="inv-btn-gold" style={{cursor:'pointer',listStyle:'none',display:'inline-flex',alignItems:'center',gap:'8px'}}>Request the Deck <span style={{fontSize:'0.8em'}}>▾</span></summary>
+            <div style={{marginTop:'1.5rem'}}>
+              <InvestorDeckForm />
+            </div>
+          </details>
 
           <div className="inv-contact-grid">
             <div className="inv-c-card">
@@ -843,7 +846,6 @@ html { scroll-behavior: smooth; }
         <p>NutraGLP Biosciences products are dietary supplements. They are not intended to diagnose, treat, cure, or prevent any disease. The observational study referenced on this page was not a randomized controlled trial and requires appropriate scientific qualification before distribution. Forward-looking statements regarding market size, exit valuation, and acquisition timelines involve risk and uncertainty. This page does not constitute an offer to sell or solicitation of an offer to buy any securities. © 2026 NutraGLP Biosciences. All rights reserved.</p>
       </div>
 
-      <Footer />
       <InvestorInteractions />
     </main>
   );
