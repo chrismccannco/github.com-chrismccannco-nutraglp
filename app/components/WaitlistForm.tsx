@@ -61,7 +61,6 @@ export default function WaitlistForm({ variant = "default" }: { variant?: "defau
   }
 
   const isLight = variant === "cta";
-  const isDark = variant === "hero";
 
   return (
     <form
@@ -70,7 +69,7 @@ export default function WaitlistForm({ variant = "default" }: { variant?: "defau
       data-netlify="true"
       netlify-honeypot="bot-field"
       onSubmit={handleSubmit}
-        className={`flex flex-col sm:flex-row gap-3 max-w-[480px] ${variant === "hero" ? "mx-auto md:mx-0" : "mx-auto"}`}
+      className="flex flex-col sm:flex-row gap-3 max-w-[480px] mx-auto"
     >
       <input type="hidden" name="form-name" value="waitlist" />
       <p className="hidden">
@@ -86,20 +85,14 @@ export default function WaitlistForm({ variant = "default" }: { variant?: "defau
         required
         placeholder="Your email address"
         className={`flex-1 px-5 py-3.5 rounded-md text-[15px] outline-none transition ${
-          isDark
-            ? "bg-white/[0.08] border border-white/[0.12] text-white placeholder-white/30 focus:border-gold/50"
-            : isLight
+          isLight
             ? "bg-white/20 border border-white/30 text-white placeholder-white/50 focus:border-white/60"
             : "bg-white/[0.08] border border-white/[0.15] text-white placeholder-white/30 focus:border-teal-light/50"
         }`}
       />
       <button
         type="submit"
-        className={`px-7 py-3.5 text-[15px] font-bold rounded-md cursor-pointer transition whitespace-nowrap ${
-          isLight
-            ? "bg-gold text-white hover:bg-gold-light"
-            : "bg-gold text-white hover:bg-gold-light"
-        }`}
+        className="px-7 py-3.5 text-[15px] font-bold rounded-md cursor-pointer transition whitespace-nowrap bg-gold text-white hover:bg-gold-light"
       >
         Join the Waitlist
       </button>
