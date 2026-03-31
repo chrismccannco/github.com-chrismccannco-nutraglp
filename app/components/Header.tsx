@@ -32,18 +32,9 @@ export default function Header() {
           <Link href="/blog" className="text-sm text-white/50 hover:text-white transition no-underline">
             Blog
           </Link>
-          <Link href="/investors" className="text-sm text-white/50 hover:text-white transition no-underline">
-            Investors
-          </Link>
-          {pathname === '/investors' ? (
-            <Link href="/investors#deck" className="bg-gold text-white px-6 py-2.5 text-sm font-bold rounded-md tracking-tight no-underline hover:bg-gold-light transition">
-              Request the Deck
-            </Link>
-          ) : (
-            <button onClick={() => window.dispatchEvent(new CustomEvent('openSubscribePopup'))} className="bg-gold text-white px-6 py-2.5 text-sm font-bold rounded-md tracking-tight border-none cursor-pointer hover:bg-gold-light transition">
+          <button onClick={() => window.dispatchEvent(new CustomEvent('openSubscribePopup'))} className="bg-gold text-white px-6 py-2.5 text-sm font-bold rounded-md tracking-tight border-none cursor-pointer hover:bg-gold-light transition">
               Get Early Access
             </button>
-          )}
         </nav>
 
         {/* Mobile toggle */}
@@ -93,22 +84,9 @@ export default function Header() {
           >
             Blog
           </Link>
-          <Link
-            href="/investors"
-            onClick={() => setOpen(false)}
-            className="block py-3 text-sm text-white/50 hover:text-white transition no-underline"
-          >
-            Investors
-          </Link>
-          {pathname === '/investors' ? (
-          <Link href="/investors#deck" className="block mt-2 bg-gold text-white px-6 py-3 text-sm font-bold rounded-md tracking-tight text-center no-underline">
-            Request the Deck
-          </Link>
-          ) : (
           <button onClick={() => { window.dispatchEvent(new CustomEvent('openSubscribePopup')); setOpen(false); }} className="block mt-2 w-full bg-gold text-white px-6 py-3 text-sm font-bold rounded-md tracking-tight text-center border-none cursor-pointer">
             Get Early Access
           </button>
-          )}
         </div>
       )}
     </header>
