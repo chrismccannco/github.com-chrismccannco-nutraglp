@@ -818,7 +818,7 @@ html { scroll-behavior: smooth; }
           <p className="inv-lead">We&apos;re in active conversations with strategic and financial investors. If you&apos;re working through the science or building a position on the GLP-1 economy, we&apos;d like to talk.</p>
 
           <details className="inv-deck-form-wrap">
-            <summary className="inv-btn-gold" style={{cursor:'pointer',listStyle:'none',display:'inline-flex',alignItems:'center',gap:'8px'}}>Request the Deck <span style={{fontSize:'0.8em'}}>▾</span></summary>
+            <summary className="inv-btn-gold" style={{cursor:'pointer',listStyle:'none',display:'inline-flex',alignItems:'center',gap:'8px',width:'fit-content'}}>Request the Deck <span style={{fontSize:'0.8em'}}>▾</span></summary>
             <div style={{marginTop:'1.5rem'}}>
               <InvestorDeckForm />
             </div>
