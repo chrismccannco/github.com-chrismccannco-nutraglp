@@ -35,8 +35,8 @@ export default function Header() {
           <Link href="/investors" className="text-sm text-white/50 hover:text-white transition no-underline">
             Investors
           </Link>
-          <Link href="/#waitlist" className="bg-gold text-white px-6 py-2.5 text-sm font-bold rounded-md tracking-tight no-underline hover:bg-gold-light transition">
-            Join the Waitlist
+          <Link href={pathname === '/investors' ? '/investors#deck' : '/#waitlist'} className="bg-gold text-white px-6 py-2.5 text-sm font-bold rounded-md tracking-tight no-underline hover:bg-gold-light transition">
+            {pathname === '/investors' ? 'Request the Deck' : 'Join the Waitlist'}
           </Link>
         </nav>
 
@@ -95,11 +95,11 @@ export default function Header() {
             Investors
           </Link>
           <Link
-            href="/#waitlist"
+            href={pathname === '/investors' ? '/investors#deck' : '/#waitlist'}
             onClick={() => setOpen(false)}
             className="block mt-2 bg-gold text-white px-6 py-3 text-sm font-bold rounded-md tracking-tight text-center no-underline"
           >
-            Join the Waitlist
+            {pathname === '/investors' ? 'Request the Deck' : 'Join the Waitlist'}
           </Link>
         </div>
       )}
