@@ -48,6 +48,18 @@ export default function WaitlistForm({ variant = "default" }: { variant?: "defau
     );
   }
 
+  if (variant === "hero") {
+    return (
+      <button
+        type="button"
+        onClick={() => window.dispatchEvent(new CustomEvent("openSubscribePopup"))}
+        className="px-7 py-3.5 text-[15px] font-bold rounded-md cursor-pointer transition bg-gold text-white hover:bg-gold-light border-none"
+      >
+        Join the Waitlist
+      </button>
+    );
+  }
+
   const isLight = variant === "cta";
   const isDark = variant === "hero";
 
