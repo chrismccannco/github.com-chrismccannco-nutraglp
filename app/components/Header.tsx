@@ -41,7 +41,7 @@ export default function Header() {
             </Link>
           ) : (
             <button onClick={() => window.dispatchEvent(new CustomEvent('openSubscribePopup'))} className="bg-gold text-white px-6 py-2.5 text-sm font-bold rounded-md tracking-tight border-none cursor-pointer hover:bg-gold-light transition">
-              Join the Waitlist
+              Get Early Access
             </button>
           )}
         </nav>
@@ -106,7 +106,7 @@ export default function Header() {
           </Link>
           ) : (
           <button onClick={() => { window.dispatchEvent(new CustomEvent('openSubscribePopup')); setOpen(false); }} className="block mt-2 w-full bg-gold text-white px-6 py-3 text-sm font-bold rounded-md tracking-tight text-center border-none cursor-pointer">
-            Join the Waitlist
+            Get Early Access
           </button>
           )}
         </div>
