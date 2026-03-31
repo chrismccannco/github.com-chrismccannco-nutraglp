@@ -7,9 +7,9 @@ const STORAGE_KEY = "nutraglp_popup_dismissed";
 // Defaults (used while config loads or if fetch fails)
 const DEFAULT_DELAY_MS = 45000;
 const DEFAULT_SCROLL_THRESHOLD = 0.70;
-const DEFAULT_HEADING = "Get on the list before we launch.";
-const DEFAULT_SUBHEADING = "Slim SHOT ships soon. Early subscribers get first access and launch pricing.";
-const DEFAULT_CTA = "Join Early Access";
+const DEFAULT_HEADING = "Join the waitlist.";
+const DEFAULT_SUBHEADING = "Secure your spot at the $149 launch price before we open to the public.";
+const DEFAULT_CTA = "Join the WaitlistWaitlist";
 
 interface PopupConfig {
   enabled: boolean;
@@ -188,13 +188,13 @@ export default function SubscribePopup() {
               You&apos;re in.
             </p>
             <p className="text-sm text-white/60">
-              We&apos;ll reach out with early access details.
+              We&apos;ll reach out with your launch pricing details.
             </p>
           </div>
         ) : (
           <>
             <p className="text-[10px] font-bold uppercase tracking-[2px] text-teal-light mb-3">
-              Early Access
+              Waitlist
             </p>
             <h3
               className="text-2xl font-normal tracking-tight text-white mb-2 leading-snug font-heading"
