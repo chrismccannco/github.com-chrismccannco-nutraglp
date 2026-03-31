@@ -35,9 +35,15 @@ export default function Header() {
           <Link href="/investors" className="text-sm text-white/50 hover:text-white transition no-underline">
             Investors
           </Link>
-          <Link href={pathname === '/investors' ? '/investors#deck' : '/#waitlist'} className="bg-gold text-white px-6 py-2.5 text-sm font-bold rounded-md tracking-tight no-underline hover:bg-gold-light transition">
-            {pathname === '/investors' ? 'Request the Deck' : 'Join the Waitlist'}
-          </Link>
+          {pathname === '/investors' ? (
+            <Link href="/investors#deck" className="bg-gold text-white px-6 py-2.5 text-sm font-bold rounded-md tracking-tight no-underline hover:bg-gold-light transition">
+              Request the Deck
+            </Link>
+          ) : (
+            <button onClick={() => window.dispatchEvent(new CustomEvent('openSubscribePopup'))} className="bg-gold text-white px-6 py-2.5 text-sm font-bold rounded-md tracking-tight border-none cursor-pointer hover:bg-gold-light transition">
+              Join the Waitlist
+            </button>
+          )}
         </nav>
 
         {/* Mobile toggle */}
@@ -94,13 +100,15 @@ export default function Header() {
           >
             Investors
           </Link>
-          <Link
-            href={pathname === '/investors' ? '/investors#deck' : '/#waitlist'}
-            onClick={() => setOpen(false)}
-            className="block mt-2 bg-gold text-white px-6 py-3 text-sm font-bold rounded-md tracking-tight text-center no-underline"
-          >
-            {pathname === '/investors' ? 'Request the Deck' : 'Join the Waitlist'}
+          {pathname === '/investors' ? (
+          <Link href="/investors#deck" className="block mt-2 bg-gold text-white px-6 py-3 text-sm font-bold rounded-md tracking-tight text-center no-underline">
+            Request the Deck
           </Link>
+          ) : (
+          <button onClick={() => { window.dispatchEvent(new CustomEvent('openSubscribePopup')); setOpen(false); }} className="block mt-2 w-full bg-gold text-white px-6 py-3 text-sm font-bold rounded-md tracking-tight text-center border-none cursor-pointer">
+            Join the Waitlist
+          </button>
+          )}
         </div>
       )}
     </header>
