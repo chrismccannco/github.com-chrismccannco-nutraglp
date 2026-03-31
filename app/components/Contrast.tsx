@@ -20,7 +20,7 @@ export default function Contrast() {
   return (
     <section className="bg-forest-deep bg-line-texture py-24 px-6 md:px-12">
       <div className="max-w-[1000px] mx-auto">
-        <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
+        <p className="text-[11px] font-bold uppercase tracking-[2px] text-teal-light mb-4">
           Two Approaches
         </p>
         <h2
