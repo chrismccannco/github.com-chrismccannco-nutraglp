@@ -15,7 +15,7 @@ export default function Hero() {
             <br />
             <span className="text-gold italic">No catch.</span>
           </h1>
-          <p className="text-lg md:text-xl text-whit/50 max-w-[580px] mx-auto md:mx-0 mb-12 leading-relaxed">
+          <p className="text-lg md:text-xl text-white/50 max-w-[580px] mx-auto md:mx-0 mb-12 leading-relaxed">
             Slim SHOT is a daily drinkable liquid that works with your
             body&apos;s own biology. Appetite control, metabolic support,
             and sustained energy. $149/mo. Ships to your door.
