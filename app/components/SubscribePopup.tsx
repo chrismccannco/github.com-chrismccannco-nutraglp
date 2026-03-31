@@ -9,7 +9,7 @@ const DEFAULT_DELAY_MS = 45000;
 const DEFAULT_SCROLL_THRESHOLD = 0.70;
 const DEFAULT_HEADING = "Get on the list before we launch.";
 const DEFAULT_SUBHEADING = "Secure your spot at the $149 launch price before we open to the public.";
-const DEFAULT_CTA = "Join the WaitlistEARLY ACCESS";
+const DEFAULT_CTA = "Get Early Access";
 
 interface PopupConfig {
   enabled: boolean;
