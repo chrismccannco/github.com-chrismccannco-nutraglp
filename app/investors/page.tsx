@@ -259,7 +259,7 @@ html { scroll-behavior: smooth; }
   color: var(--gold-lt); margin-bottom: 6px;
 }
 .inv-barrier-step p {
-  font-size: 13px; color: rgba(255,25,255,0.45); line-height: 1.65; margin: 0;
+  font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.65; margin: 0;
 }
 
 /* Geo row */
