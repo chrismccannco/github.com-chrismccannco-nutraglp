@@ -1,7 +1,7 @@
 const stats = [
   { value: "GRAS", label: "Certified" },
   { value: "0", label: "Injections" },
-  { value: "$155", label: "Per Month" },
+  { value: "$149", label: "Per Month" },
   { value: "No Rx", label: "Required" },
 ];
 

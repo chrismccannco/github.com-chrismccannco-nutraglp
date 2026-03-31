@@ -9,7 +9,7 @@ const pharma = [
 
 const nutraglp = [
   { text: "Daily drinkable liquid" },
-  { text: "$155/month, ships direct" },
+  { text: "$149/month, ships direct" },
   { text: "GRAS-certified, clinically studied compounds" },
   { text: "No prescription required" },
   { text: "Multi-pathway formula" },

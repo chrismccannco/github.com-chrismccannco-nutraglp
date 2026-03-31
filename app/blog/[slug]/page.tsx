@@ -222,7 +222,7 @@ export default async function BlogPost({
           Ready to try a different approach?
         </h2>
         <p className="text-[17px] text-white/50 max-w-[520px] mx-auto mb-8">
-          $155/mo. No prescription. No commitment. Join the waitlist for
+          $149/mo. No prescription. No commitment. Join the waitlist for
           early access and launch pricing.
         </p>
         <WaitlistForm variant="cta" />

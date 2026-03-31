@@ -6,7 +6,7 @@ const products = [
     statusColor: "bg-gold text-white",
     description:
       "Daily liquid formula. Drink half in the morning, half in the evening. GRAS-certified compounds in a patent-pending nanoemulsion delivery system that naturally modulates GLP-1 and GIP signals.",
-    price: "$155/mo",
+    price: "$149/mo",
   },
   {
     name: "NutraGLP Sweetener",

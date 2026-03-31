@@ -7,7 +7,7 @@ const personas = [
   {
     label: "The cost question",
     headline: "I can\u2019t justify $1,600 a month. I still need something that works.",
-    body: "Ozempic without insurance runs $800\u2013$1,600/month. Compounded versions are legally uncertain. The supplement aisle is noise. Slim SHOT is $155/mo, ships to your door, and uses patent-pending delivery technology to solve the absorption problem that makes most oral formulas ineffective.",
+    body: "Ozempic without insurance runs $800\u2013$1,600/month. Compounded versions are legally uncertain. The supplement aisle is noise. Slim SHOT is $149/mo, ships to your door, and uses patent-pending delivery technology to solve the absorption problem that makes most oral formulas ineffective.",
   },
   {
     label: "The performance question",

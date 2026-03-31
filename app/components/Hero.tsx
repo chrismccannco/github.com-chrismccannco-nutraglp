@@ -8,17 +8,17 @@ export default function Hero() {
       <div className="max-w-[1000px] mx-auto md:flex md:items-center md:gap-16">
         <div className="flex-1 text-center md:text-left">
           <p className="text-xs font-semibold uppercase tracking-[3px] text-gold/70 mb-6">
-            A different approach to GLP-
+            A different approach to GLP-1
           </p>
           <h1 className="text-4xl md:text-[56px] font-normal text-white leading-[1.08] tracking-tight max-w-[800px] md:max-w-none mb-6 font-heading">
             No needle. No prescription.
             <br />
             <span className="text-gold italic">No catch.</span>
           </h1>
-          <p className="text-lg md:text-xl text-white/50 max-w-[580px] mx-auto md:mx-0 mb-12 leading-relaxed">
+          <p className="text-lg md:text-xl text-whit/50 max-w-[580px] mx-auto md:mx-0 mb-12 leading-relaxed">
             Slim SHOT is a daily drinkable liquid that works with your
             body&apos;s own biology. Appetite control, metabolic support,
-            and sustained energy. $155/mo. Ships to your door.
+            and sustained energy. $149/mo. Ships to your door.
           </p>
           <WaitlistForm variant="hero" />
           <div className="mt-6">

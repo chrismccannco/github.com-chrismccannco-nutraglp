@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     template: "%s | NutraGLP",
   },
   description:
-    "Slim SHOT is a daily liquid formula that amplifies your body's own GLP-1 production. No needle. No prescription. No catch. $155/mo.",
+    "Slim SHOT is a daily liquid formula that amplifies your body's own GLP-1 production. No needle. No prescription. No catch. $149/mo.",
   keywords: [
     "natural GLP-1 supplement",
     "GLP-1 without prescription",

@@ -25,20 +25,20 @@ export async function seed() {
     args: [
       "home",
       "NutraGLP — Natural GLP-1 Activation",
-      "Slim SHOT is a daily liquid formula that activates your body's own GLP-1 production. No needle. No prescription. No catch. $155/mo.",
+      "Slim SHOT is a daily liquid formula that activates your body's own GLP-1 production. No needle. No prescription. No catch. $149/mo.",
       JSON.stringify({
         hero: {
           kicker: "Natural GLP-1 Activation",
           headline: "No needle. No prescription.",
           headlineAccent: "No catch.",
           description:
-            "Slim SHOT is a daily liquid formula that activates your body's own GLP-1 production. Clinically studied compounds. Patent-pending nanoemulsion delivery. $155/mo.",
+            "Slim SHOT is a daily liquid formula that activates your body's own GLP-1 production. Clinically studied compounds. Patent-pending nanoemulsion delivery. $149/mo.",
           scienceLink: "Read the Science",
         },
         proofBar: [
           { value: "100%", label: "GRAS Certified" },
           { value: "0", label: "Injections" },
-          { value: "$155", label: "Per Month" },
+          { value: "$149", label: "Per Month" },
           { value: "No Rx", label: "Required" },
         ],
         problem: {
@@ -92,7 +92,7 @@ export async function seed() {
               label: "The cost question",
               headline:
                 "I can\u2019t justify $1,600 a month. I still need something that works.",
-              body: "Ozempic without insurance runs $800\u2013$1,600/month. Compounded versions are legally uncertain. The supplement aisle is noise. Slim SHOT is $155/mo, ships to your door, and uses patent-pending nanoemulsion technology to actually deliver what most supplements can\u2019t. Real mechanism of action. Real bioavailability. Price that doesn\u2019t require a second income.",
+              body: "Ozempic without insurance runs $800\u2013$1,600/month. Compounded versions are legally uncertain. The supplement aisle is noise. Slim SHOT is $149/mo, ships to your door, and uses patent-pending nanoemulsion technology to actually deliver what most supplements can\u2019t. Real mechanism of action. Real bioavailability. Price that doesn\u2019t require a second income.",
             },
             {
               label: "The performance question",
@@ -138,7 +138,7 @@ export async function seed() {
         cta: {
           headline: "Ready to try a different approach?",
           description:
-            "Join the waitlist for early access and pricing. Slim SHOT ships direct. $155/mo. No prescription. No commitment.",
+            "Join the waitlist for early access and pricing. Slim SHOT ships direct. $149/mo. No prescription. No commitment.",
         },
       }),
     ],
@@ -403,7 +403,7 @@ export async function seed() {
       "slim-shot",
       "Slim SHOT",
       "Daily liquid nanoemulsion. Our flagship GLP-1 activator.",
-      "$155/mo",
+      "$149/mo",
       "A patent-pending drinkable nanoemulsion that activates your body's natural GLP-1 and GIP production.",
       JSON.stringify([
         "Patent-pending nanoemulsion delivery",
@@ -491,8 +491,8 @@ export async function seed() {
       "Wants GLP-1 pathway support but can't justify $800-$1,600/month for prescription drugs. Price is the primary decision driver. Needs to feel the value proposition is real before committing.",
       "Age 30-50. Mixed gender. Household income $50K-$100K. May or may not have insurance that covers GLP-1 drugs. Has priced out Ozempic or been told by their doctor it's not covered. Comparison shops aggressively.",
       "Find an affordable alternative to prescription GLP-1 drugs. Understand exactly what they're paying for and why. Feel confident the money is well spent. See results within the first 30-60 days to justify continued purchase.",
-      "Sticker shock from prescription GLP-1 drug pricing. Insurance denials or high copays. Skepticism that anything at $155/mo can work if the 'real' drugs cost 10x more. Has been burned by subscription traps and auto-ship programs. Worries about ongoing cost commitment.",
-      "Lead with price comparison and value framing. Be transparent about what $155/mo includes. Data and mechanism of action matter but cost-per-result is the deciding factor. Wants to see the math. Responds to money-back guarantees and flexible subscription terms. Short, direct copy. No fluff.",
+      "Sticker shock from prescription GLP-1 drug pricing. Insurance denials or high copays. Skepticism that anything at $149/mo can work if the 'real' drugs cost 10x more. Has been burned by subscription traps and auto-ship programs. Worries about ongoing cost commitment.",
+      "Lead with price comparison and value framing. Be transparent about what $149/mo includes. Data and mechanism of action matter but cost-per-result is the deciding factor. Wants to see the math. Responds to money-back guarantees and flexible subscription terms. Short, direct copy. No fluff.",
       "If it's this much cheaper, it probably doesn't work as well. What's the catch with the subscription? Can I cancel anytime? Why can't I just buy the individual ingredients for less?",
       JSON.stringify(["google-search", "email", "comparison-sites", "facebook"]),
       0,

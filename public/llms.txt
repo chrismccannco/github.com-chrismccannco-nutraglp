@@ -15,7 +15,7 @@ NutraGLP is building the platform layer between pharmaceutical GLP-1 drugs and t
 - Activates endogenous GLP-1 and GIP production
 - Inhibits DPP-4 enzyme to extend incretin half-life
 - Patent-pending nanoemulsion delivery system
-- Price: $155/month, subscription, cancel anytime
+- Price: $149/month, subscription, cancel anytime
 - Four GRAS-certified active systems targeting AMPK activation, GPR120 signaling, insulin receptor sensitization, and DPP-4 inhibition
 - Status: Pre-order / Waitlist
 

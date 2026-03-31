@@ -131,7 +131,7 @@ const pages: SeedPage[] = [
     slug: "slim-shot",
     title: "Slim SHOT — Daily GLP-1 Activation",
     meta_description:
-      "A daily liquid formula that activates your body's own GLP-1 production. Patent-pending nanoemulsion delivery, clinically studied compounds. $155/mo.",
+      "A daily liquid formula that activates your body's own GLP-1 production. Patent-pending nanoemulsion delivery, clinically studied compounds. $149/mo.",
     meta_title: "Slim SHOT — Daily GLP-1 Activation | NutraGLP",
     published: 1,
     blocks: [
@@ -239,7 +239,7 @@ const pages: SeedPage[] = [
         type: "cta_button",
         order: 6,
         data: {
-          text: "Join the Waitlist — $155/mo",
+          text: "Join the Waitlist — $149/mo",
           url: "#waitlist",
           style: "primary",
           centered: true,

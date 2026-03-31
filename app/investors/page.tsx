@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     "NutraGLP Biosciences — a biotechnology platform for natural incretin modulation. $5.5M seed round. 40+ patent-pending formulations.",
   alternates: {
     canonical: "https://nutraglp.com/investors",
-  },
+  }
   robots: {
     index: false,
     follow: true,
@@ -259,7 +259,7 @@ html { scroll-behavior: smooth; }
   color: var(--gold-lt); margin-bottom: 6px;
 }
 .inv-barrier-step p {
-  font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.65; margin: 0;
+  font-size: 13px; color: rgba(255,25,255,0.45); line-height: 1.65; margin: 0;
 }
 
 /* Geo row */
@@ -603,7 +603,7 @@ html { scroll-behavior: smooth; }
           <div className="inv-hero-stats">
             <div className="inv-h-stat"><div className="inv-h-stat-val">$5.5M</div><div className="inv-h-stat-label">Seed Round</div></div>
             <div className="inv-h-stat"><div className="inv-h-stat-val">40+</div><div className="inv-h-stat-label">Patent-Pending Formulations</div></div>
-            <div className="inv-h-stat"><div className="inv-h-stat-val">13</div><div className="inv-h-stat-label">Validated Signaling Targets</div></div>
+            <div className="inv-h-stat"><div className="inv-h-stat-val">13</div><div className="inv-h-stat-label">Distinct Signaling Pathways</div></div>
             <div className="inv-h-stat"><div className="inv-h-stat-val">8×</div><div className="inv-h-stat-label">Bioavailability vs Standard Oral</div></div>
           </div>
         </div>
@@ -614,7 +614,7 @@ html { scroll-behavior: smooth; }
         <div className="inv-inner inv-reveal">
           <p className="inv-eyebrow">The Platform</p>
           <h2>Not a supplement company.<br /><em>A biotechnology platform.</em></h2>
-          <p className="inv-lead">NutraGLP activates endogenous GLP-1 and GIP production through a coordinated architecture of 13 validated signaling targets — including DPP-4 inhibition, AMPK activation, GPR120 signaling, and insulin receptor sensitization.</p>
+          <p className="inv-lead">NutraGLP activates endogenous GLP-1 and GIP production through a coordinated architecture of 13 Distinct Signaling Pathways — including DPP-4 inhibition, AMPK activation, GPR120 signaling, and insulin receptor sensitization.</p>
           <p className="inv-body"><strong>The moat is the architecture, not any single ingredient.</strong> Defended through 40+ patent-pending formulations, platform-level delivery technology, and system design IP that treats the full signaling stack as the defensible asset.</p>
           <div className="inv-plat-grid">
             <div className="inv-plat-card"><div className="inv-plat-top"></div><div className="inv-plat-num">01</div><h3>Activate</h3><p>Four GRAS-certified active systems stimulate endogenous GLP-1 and GIP production through AMPK activation, GPR120 signaling, and insulin receptor sensitization.</p></div>
@@ -695,11 +695,11 @@ html { scroll-behavior: smooth; }
           <p className="inv-eyebrow">Proof of Concept</p>
           <h2>Observational data. <em>503 participants.</em></h2>
           <p className="inv-lead">Study design: observational. Not a randomized controlled trial — no placebo control, no blinding. The dataset (n=503) has not been submitted for peer review and requires appropriate scientific qualification before distribution.</p>
-          <p className="inv-lead">Within those constraints: 6-month results from a licensed NutraGLP formulation exceeded published outcomes for GLP-1 and dual GLP-1/GIP pharmaceutical agents, with fewer than 5% adverse effects and no widespread discontinuation.</p>
+          <p className="inv-lead">Within those constraints: 6-month results from a licensed NutraGLP formulation showed directional improvements across participants, with fewer than 5% adverse effects and no widespread discontinuation.</p>
           <div className="inv-poc-block">
             <div className="inv-poc-layout">
               <div className="inv-poc-text">
-                <h3>Preliminary signal. Results that exceeded pharmaceutical benchmarks.</h3>
+                <h3>Preliminary signal. Encouraging directional data.</h3>
                 <p>Fewer than 5% adverse effects. No widespread discontinuation. GRAS-certified compounds throughout.</p>
                 <p>The roadmap includes biomarker-based mechanistic validation and a controlled clinical trial designed to support permissible claims and clinical positioning.</p>
               </div>
@@ -738,7 +738,7 @@ html { scroll-behavior: smooth; }
             </div>
             <div className="inv-gap-arrow">↕ THE GAP — No credible non-drug option until now</div>
             <div className="inv-gap-row">
-              <div className="inv-gap-lbl">NutraGLP Platform <span>$155/mo · No Rx · drinkable nanoemulsion</span></div>
+              <div className="inv-gap-lbl">NutraGLP Platform <span>$149/mo · No Rx · drinkable nanoemulsion</span></div>
               <div className="inv-gap-track"><div className="inv-gap-fill gf-nutra" data-width="62">ENDOGENOUS AMPLIFICATION</div></div>
             </div>
             <div className="inv-gap-arrow" style={{ color: 'var(--silver)' }}>↕</div>
@@ -776,7 +776,7 @@ html { scroll-behavior: smooth; }
             <div className="inv-rm-step"><div className="inv-rm-dot"></div><div className="inv-rm-phase">Year 2</div><div className="inv-rm-title">Platform Expansion</div>
               <ul className="inv-rm-items"><li>3 additional product lines</li><li>Controlled clinical trial</li><li>Series A</li></ul></div>
             <div className="inv-rm-step"><div className="inv-rm-dot"></div><div className="inv-rm-phase">Year 4</div><div className="inv-rm-title">Exit Window</div>
-              <ul className="inv-rm-items"><li>Strategic acquisition target</li><li>12–18× EBITDA multiple</li><li>Full IP portfolio prosecuted</li></ul></div>
+              <ul className="inv-rm-items"><li>Strategic acquisition target</li><li>Premium exit multiple</li><li>Full IP portfolio prosecuted</li></ul></div>
           </div>
         </div>
       </section>
@@ -801,9 +801,9 @@ html { scroll-behavior: smooth; }
               <ul className="inv-exit-list">
                 <li>Strategic acquisition by consumer health, CPG, or pharmaceutical acquirer</li>
                 <li>Target horizon: Year 4</li>
-                <li>Target multiple: 12–18× EBITDA</li>
+                <li>Target multiple: Premium exit multiple</li>
                 <li>Acquisition surface area: IP portfolio, nanoemulsion platform, clinical data, DTC distribution infrastructure</li>
-                <li>Comparable acquirers: Nestlé Health Science, Bayer, Unilever, Eli Lilly, Pfizer</li>
+                <li>Comparable acquirers: consumer health, CPG, and pharmaceutical strategics with active nutraceutical M&amp;A programs</li>
               </ul>
             </div>
           </div>

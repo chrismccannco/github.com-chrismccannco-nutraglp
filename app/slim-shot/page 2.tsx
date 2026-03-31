@@ -11,7 +11,7 @@ const CHECKOUT_ENABLED = process.env.NEXT_PUBLIC_STRIPE_ENABLED === "true";
 export const metadata: Metadata = {
   title: "Slim SHOT — Daily GLP-1 Amplification",
   description:
-    "A daily liquid formula that amplifies your body's own GLP-1 production. Patent-pending nanoemulsion delivery, clinically studied compounds. $155/mo.",
+    "A daily liquid formula that amplifies your body's own GLP-1 production. Patent-pending nanoemulsion delivery, clinically studied compounds. $149/mo.",
   alternates: {
     canonical: "https://nutraglp.com/slim-shot",
   },
@@ -167,12 +167,12 @@ export default function SlimShotPage() {
             </p>
             <div className="flex items-baseline gap-3 mb-8">
               <span className="text-3xl text-gold font-normal font-heading">
-                $155
+                $149
               </span>
               <span className="text-white/40 text-sm">/month &middot; Ships direct &middot; Cancel anytime</span>
             </div>
             {CHECKOUT_ENABLED ? (
-              <BuyButton variant="hero" label="Subscribe — $155/mo" />
+              <BuyButton variant="hero" label="Subscribe — $149/mo" />
             ) : (
               <WaitlistForm variant="hero" />
             )}
@@ -352,7 +352,7 @@ export default function SlimShotPage() {
           Ready to try a different approach?
         </h2>
         <p className="text-[17px] text-white/50 max-w-[520px] mx-auto mb-8">
-          $155/mo. No prescription. No commitment. Join the waitlist for
+          $149/mo. No prescription. No commitment. Join the waitlist for
           early access and launch pricing.
         </p>
         {CHECKOUT_ENABLED ? (
