@@ -24,7 +24,7 @@ const howToSchema = {
   "@type": "HowTo",
   name: "How Slim SHOT works",
   description:
-    "A daily drinkable liquid that works with your body's own biology to support appetite control and metabolic health. Three steps, one daily Slim SHOT.",
+    "A daily drinkable liquid that works with your body's own biology to support appetite control and metabolic health. Three steps, twice daily.",
   step: steps.map((s) => ({
     "@type": "HowToStep",
     name: s.title,
