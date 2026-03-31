@@ -76,7 +76,7 @@ const faqs = [
   },
   {
     q: "How do I take it? Is it an injection?",
-    a: "Not an injection. Slim SHOT is a drinkable liquid you take by mouth, like a wellness shot. One per day, ideally in the morning on an empty stomach. No needle, no syringe, no mixing, no measuring. Refrigerate after opening.",
+    a: "Not an injection. Slim SHOT is a drinkable liquid you drink, like a wellness shot. Twice daily — once in the morning and once in the afternoon. No needle, no syringe, no mixing, no measuring. Refrigerate after opening.",
   },
   {
     q: "What does it taste like?",
@@ -148,7 +148,7 @@ export default function SlimShotPage() {
             </h1>
             <p className="text-[17px] text-white/50 leading-relaxed mb-8 max-w-[480px]">
               Slim SHOT is a drinkable liquid, not an injection. A patent-pending
-              nanoemulsion you take by mouth every morning that amplifies your
+              nanoemulsion you drink twice daily — morning and afternoon — that amplifies your
               body&apos;s natural GLP-1 production and inhibits the enzyme that
               breaks it down.
             </p>
@@ -188,8 +188,8 @@ export default function SlimShotPage() {
       {/* Quick facts bar */}
       <section className="bg-forest px-6 md:px-12 py-5 flex justify-center gap-6 sm:gap-10 md:gap-14 flex-wrap">
         {[
-          { value: "1 shot", label: "Daily" },
-          { value: "30 sec", label: "Morning Routine" },
+          { value: "2 shots", label: "Daily" },
+          { value: "30 sec", label: "Each Dose" },
           { value: "GRAS", label: "Certified" },
           { value: "0", label: "Injections" },
         ].map((s) => (
