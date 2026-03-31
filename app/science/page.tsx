@@ -311,7 +311,18 @@ export default function SciencePage() {
       {/* 13-Pathway Network Illustration */}
       <section className="py-12 px-6 md:px-12 bg-white">
         <FadeIn className="max-w-[960px] mx-auto">
-          <PathwayNetwork />
+          <div className="max-w-[640px] mb-12">
+          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
+            Signaling Map
+          </p>
+          <h2 className="text-[26px] md:text-[36px] font-normal tracking-tight leading-tight mb-4 text-ink font-heading">
+            Three mechanisms. Thirteen downstream effects.
+          </h2>
+          <p className="text-[17px] leading-relaxed text-mist mb-12">
+            Hover any node to trace its pathways through the system. Each of the three primary mechanisms &mdash; Activate, Protect, Deliver &mdash; connects to a network of downstream metabolic events.
+          </p>
+        </div>
+        <PathwayNetwork />
         </FadeIn>
       </section>
 

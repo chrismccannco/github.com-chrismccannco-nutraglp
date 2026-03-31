@@ -144,7 +144,7 @@ export default function SlimShotPage() {
             >
               Daily GLP-1 amplification.
               <br />
-              <span className="text-gold italic">Drink it. No needle. No syringe. Ever.</span>
+              <span className="text-gold italic">Drink it.</span> No needle. No syringe. Ever.
             </h1>
             <p className="text-[17px] text-white/50 leading-relaxed mb-8 max-w-[480px]">
               Slim SHOT is a drinkable liquid, not an injection. A patent-pending
