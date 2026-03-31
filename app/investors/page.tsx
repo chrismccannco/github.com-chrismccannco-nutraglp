@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     "NutraGLP Biosciences — a biotechnology platform for natural incretin modulation. $5.5M seed round. 40+ patent-pending formulations.",
   alternates: {
     canonical: "https://nutraglp.com/investors",
-  }
+  },
   robots: {
     index: false,
     follow: true,
