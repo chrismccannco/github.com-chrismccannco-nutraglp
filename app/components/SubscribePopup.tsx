@@ -7,9 +7,9 @@ const STORAGE_KEY = "nutraglp_popup_dismissed";
 // Defaults (used while config loads or if fetch fails)
 const DEFAULT_DELAY_MS = 45000;
 const DEFAULT_SCROLL_THRESHOLD = 0.70;
-const DEFAULT_HEADING = "Join the waitlist.";
+const DEFAULT_HEADING = "Get on the list before we launch.";
 const DEFAULT_SUBHEADING = "Secure your spot at the $149 launch price before we open to the public.";
-const DEFAULT_CTA = "Join the WaitlistWaitlist";
+const DEFAULT_CTA = "Join the WaitlistEARLY ACCESS";
 
 interface PopupConfig {
   enabled: boolean;
@@ -63,6 +63,12 @@ export default function SubscribePopup() {
         setConfigLoaded(true);
       });
   }, []);
+
+  useEffect(() => {
+    const handler = () => setVisible(true);
+    window.addEventListener('openSubscribePopup', handler);
+    return () => window.removeEventListener('openSubscribePopup', handler);
+  }, [setVisible]);
 
   const dismiss = useCallback(() => {
     setVisible(false);
