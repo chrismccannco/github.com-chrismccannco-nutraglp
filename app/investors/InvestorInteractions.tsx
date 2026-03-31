@@ -63,9 +63,5 @@ export default function InvestorInteractions() {
     };
   }, []);
 
-  return (
-    <div className="inv-sticky-btn" id="invStickyBtn">
-      <a href="#deck" className="inv-btn-gold">Request the Deck →</a>
-    </div>
-  );
+  return null;
 }
