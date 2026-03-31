@@ -133,7 +133,7 @@ export default function SlimShotPage() {
       />
       {/* Hero */}
       <section className="bg-forest-deep px-6 md:px-12 pt-28 pb-20">
-        <div className="max-w-[1000px] mx-auto md:flex md:items-center md:gap-16 md:min-h-[430px]">
+        <div className="max-w-[1000px] mx-auto md:flex md:items-center md:gap-16 md:min-h-[530px]">
           <div className="flex-1">
             <p className="text-[10px] font-bold uppercase tracking-[2px] text-teal-light mb-4">
               Slim SHOT &mdash; a drinkable daily liquid, not an injection
