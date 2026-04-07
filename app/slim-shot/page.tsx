@@ -156,7 +156,7 @@ export default function SlimShotPage() {
           {/* Product image */}
           <div className="hidden md:flex flex-1 items-center justify-center">
             <Image
-              src="/images/slim-shot-bottle-alt.png"
+              src="/images/slim-shot-bottle-alt-t.webp"
               alt="Slim SHOT daily nanoemulsion supplement bottle"
               width={380}
               height={380}
