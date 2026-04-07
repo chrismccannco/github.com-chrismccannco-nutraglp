@@ -1,0 +1,26 @@
+name: Add transparent product images
+
+on:
+  workflow_dispatch:
+
+jobs:
+  add-images:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download images
+        run: |
+          cd public/images
+          curl -sL -o slim-shot-bottle-alt-t.webp https://files.catbox.moe/jyetpp.webp
+          curl -sL -o product-thermogenic-t.webp https://files.catbox.moe/r69kg2.webp
+          curl -sL -o product-sweetener-t.webp https://files.catbox.moe/5f9op8.webp
+          curl -sL -o product-protein-t.webp https://files.catbox.moe/pz2x5f.webp
+      - name: Commit images
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/images/*-t.webp
+          git commit -m "Add transparent product images"
+          git push
