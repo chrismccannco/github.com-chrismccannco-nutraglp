@@ -1,4 +1,4 @@
-import Image from "next/image";
+/* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 
 const products = [
@@ -7,9 +7,7 @@ const products = [
     desc: "Daily liquid nanoemulsion. Our flagship GLP-1 activator.",
     status: "Waitlist open",
     live: true,
-    image: "/images/slim-shot-bottle-alt.png",
-    imgW: 600,
-    imgH: 600,
+    image: "/images/slim-shot-bottle-alt-t.webp",
     href: "/slim-shot",
   },
   {
@@ -17,9 +15,7 @@ const products = [
     desc: "GLP-1 amplification meets clean energy. Ready-to-drink.",
     status: "Coming 2026",
     live: false,
-    image: "/images/product-thermogenic.png",
-    imgW: 640,
-    imgH: 1040,
+    image: "/images/product-thermogenic-t.webp",
     href: null,
   },
   {
@@ -27,9 +23,7 @@ const products = [
     desc: "Zero-calorie sweetener that supports incretin response.",
     status: "Coming 2026",
     live: false,
-    image: "/images/product-sweetener.png",
-    imgW: 760,
-    imgH: 960,
+    image: "/images/product-sweetener-t.webp",
     href: null,
   },
   {
@@ -37,9 +31,7 @@ const products = [
     desc: "30g protein per serving with built-in GLP-1 support.",
     status: "Coming 2027",
     live: false,
-    image: "/images/product-protein.png",
-    imgW: 760,
-    imgH: 960,
+    image: "/images/product-protein-t.webp",
     href: null,
   },
 ];
@@ -71,11 +63,10 @@ export default function ProductLineup() {
                 }`}
               >
                 <div className="flex items-end justify-center h-[180px] mb-5">
-                  <Image
+                  <img
                     src={p.image}
                     alt={p.name}
-                    width={p.imgW}
-                    height={p.imgH}
+                    loading="lazy"
                     className="max-h-[170px] w-auto object-contain drop-shadow-md"
                   />
                 </div>
