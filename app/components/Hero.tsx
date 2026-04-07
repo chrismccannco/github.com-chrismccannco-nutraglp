@@ -37,7 +37,7 @@ export default function Hero() {
         {/* Product image */}
         <div className="hidden md:flex flex-1 items-center justify-center">
           <Image
-            src="/images/slim-shot-bottle-alt.png"
+            src="/images/slim-shot-bottle-alt-t.webp"
             alt="Slim SHOT daily liquid formula bottle"
             width={380}
             height={380}
