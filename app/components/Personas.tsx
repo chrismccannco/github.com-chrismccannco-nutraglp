@@ -1,18 +1,18 @@
 const personas = [
   {
     label: "The needle question",
-    headline: "I want the results. I don\u2019t want the injection.",
-    body: "You\u2019ve read about GLP-1 drugs. Maybe your doctor mentioned them. But a weekly self-injection with nausea, gastroparesis risk, and no clear end date isn\u2019t the answer you were looking for. Slim SHOT is a daily liquid you drink. Same biological pathway, activated naturally. No needle. No clinic visit. No side effects you have to Google at 2am.",
+    headline: "You\u2019ve done the math on injections. It doesn\u2019t add up.",
+    body: "The results are real. But so is the weekly self-injection, the nausea that doesn\u2019t always pass, and the $1,600/month without insurance. You\u2019re not anti-science. You\u2019re looking for a version of this that fits your life. Slim SHOT works the same biological pathway. You drink it. No needle. No clinic visit. No side effects you have to Google at 2am.",
   },
   {
-    label: "The cost question",
-    headline: "I can\u2019t justify $1,600 a month. I still need something that works.",
-    body: "Ozempic without insurance runs $800\u2013$1,600/month. Compounded versions are legally uncertain. The supplement aisle is noise. Slim SHOT is $155/mo, ships to your door, and uses patent-pending nanoemulsion technology to actually deliver what most supplements can\u2019t. Real mechanism of action. Real bioavailability. Price that doesn\u2019t require a second income.",
+    label: "The supplement question",
+    headline: "You stopped trusting the supplement aisle a long time ago.",
+    body: "Every bottle promises something. Nothing delivers it. The issue isn\u2019t the ingredients. Published research supports several natural GLP-1 activators. The issue is that capsules and powders lose 95% of their active compounds before they reach your bloodstream. Slim SHOT uses a patent-pending nanoemulsion to solve the delivery problem. Same compounds, different result.",
   },
   {
-    label: "The performance question",
-    headline: "I\u2019m not trying to lose weight. I\u2019m trying to optimize.",
-    body: "You train. You eat well. You want metabolic efficiency without the muscle wasting that comes with synthetic GLP-1 agonists at higher doses. Slim SHOT activates 13 complementary metabolic pathways while preserving lean mass. It\u2019s built for people who want precision, not a blunt instrument. Metabolic health as a performance input, not a medical intervention.",
+    label: "The optimization question",
+    headline: "You don\u2019t need to lose weight. You want metabolic precision.",
+    body: "You already train. You already eat well. What you want is metabolic efficiency without the muscle wasting that comes with higher-dose synthetic GLP-1 agonists. Slim SHOT activates multiple complementary metabolic pathways while preserving lean mass. Metabolic health as a performance input, not a medical intervention.",
   },
 ];
 
@@ -29,8 +29,7 @@ export default function Personas() {
           Three reasons people find us.
         </h2>
         <p className="text-[17px] leading-relaxed text-mist max-w-[640px] mb-14">
-          Different starting points. Same gap in the market. If one of
-          these sounds like your story, Slim SHOT was built for you.
+          Different starting points. Same gap in the market.
         </p>
 
         <div className="grid grid-cols-1 gap-6">
