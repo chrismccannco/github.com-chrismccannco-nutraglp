@@ -2,34 +2,17 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import WaitlistForm from "../components/WaitlistForm";
-import BuyButton from "../components/BuyButton";
+import EmailCapture from "../components/EmailCapture";
 import Footer from "../components/Footer";
 
-const CHECKOUT_ENABLED = process.env.NEXT_PUBLIC_STRIPE_ENABLED === "true";
-
 export const metadata: Metadata = {
-  title: "Slim SHOT — Daily GLP-1 Amplification",
+  title: "Slim SHOT â Daily GLP-1 Amplification",
   description:
-    "A daily liquid formula that amplifies your body's own GLP-1 production. Patent-pending nanoemulsion delivery, clinically studied compounds. $149/mo.",
+    "A daily liquid formula that amplifies your body's own GLP-1 production. Patent-pending nanoemulsion delivery, clinically studied compounds. Launching Fall 2026.",
   alternates: {
     canonical: "https://nutraglp.com/slim-shot",
   },
 };
-
-const principles = [
-  {
-    title: "Activate",
-    desc: "Clinically studied compounds that stimulate your body\u2019s own GLP-1 and GIP production from intestinal L-cells.",
-  },
-  {
-    title: "Protect",
-    desc: "Natural DPP-4 inhibition extends the half-life of your endogenous hormones before enzymatic breakdown.",
-  },
-  {
-    title: "Deliver",
-    desc: "Patent-pending nanoemulsion carrier ensures bioavailability. The delivery system is the differentiator.",
-  },
-];
 
 const timeline = [
   {
@@ -38,21 +21,21 @@ const timeline = [
     desc: "Your body begins responding to the formula. Some people notice reduced cravings within the first few days. Others take longer. Both are normal.",
   },
   {
-    week: "Week 2–3",
+    week: "Week 2â3",
     title: "Activation",
-    desc: "GLP-1 production ramps up. Appetite regulation becomes more noticeable. Energy levels tend to stabilize as glucose metabolism improves.",
+    desc: "The formula builds in your system. Many people notice appetite changes becoming more consistent and energy levels feeling more stable throughout the day.",
   },
   {
     week: "Week 4+",
     title: "Steady state",
-    desc: "The full metabolic effect. Consistent appetite control, improved metabolic markers, sustained energy. This is where the compound effect of daily use shows up.",
+    desc: "This is where consistent daily use tends to show its compound effect. Individual responses vary based on metabolism, diet, and activity level. Some people feel the shift clearly; others notice it gradually.",
   },
 ];
 
 const faqs = [
   {
     q: "Is Slim SHOT FDA approved?",
-    a: "Slim SHOT is a clinical nutraceutical, not a drug. It is regulated under the dietary supplement framework (DSHEA) and does not require pre-market approval. All compounds in our formula hold GRAS (Generally Recognized as Safe) status, and the product is manufactured in cGMP-certified facilities with third-party testing for purity and potency.",
+    a: "Slim SHOT is a dietary supplement, not a drug. It is regulated under the dietary supplement framework (DSHEA) and does not require pre-market approval. All compounds in our formula hold GRAS (Generally Recognized as Safe) status, and the product is manufactured in cGMP-certified facilities with third-party testing for purity and potency.",
   },
   {
     q: "Will this interact with my medication?",
@@ -76,11 +59,26 @@ const faqs = [
   },
   {
     q: "How do I take it? Is it an injection?",
-    a: "Not an injection. Slim SHOT is a drinkable liquid you take by mouth, like a wellness shot. One per day, ideally in the morning on an empty stomach. No needle, no syringe, no mixing, no measuring. Refrigerate after opening.",
+    a: "Not an injection. Slim SHOT is a drinkable liquid you drink, like a wellness shot. Twice daily â once in the morning and once in the afternoon. No needle, no syringe, no mixing, no measuring. Refrigerate after opening.",
   },
   {
     q: "What does it taste like?",
     a: "Neutral with a mild citrus finish. It's not a smoothie. It's not unpleasant. Most people describe it as unremarkable, which is the goal.",
+  },
+];
+
+const principles = [
+  {
+    title: "Activate",
+    desc: "Clinically studied compounds that stimulate your body's own GLP-1 and GIP production from intestinal L-cells.",
+  },
+  {
+    title: "Protect",
+    desc: "Natural DPP-4 inhibition extends the half-life of your endogenous hormones before enzymatic breakdown.",
+  },
+  {
+    title: "Deliver",
+    desc: "Patent-pending nanoemulsion carrier ensures bioavailability. The delivery system is the differentiator.",
   },
 ];
 
@@ -131,41 +129,31 @@ export default function SlimShotPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
+
       {/* Hero */}
       <section className="bg-forest-deep px-6 md:px-12 pt-28 pb-20">
         <div className="max-w-[1000px] mx-auto md:flex md:items-center md:gap-16">
           <div className="flex-1">
             <p className="text-[10px] font-bold uppercase tracking-[2px] text-gold mb-4">
-              Slim SHOT &mdash; a drinkable daily liquid, not an injection
+              Launching Fall 2026 &middot; Limited First Batch
             </p>
             <h1
               className="text-3xl md:text-[44px] font-normal text-white leading-[1.1] tracking-tight mb-6 font-heading"
-             
             >
               Daily GLP-1 amplification.
               <br />
               <span className="text-gold italic">Drink it. No needle. No syringe. Ever.</span>
             </h1>
-            <p className="text-[17px] text-white/50 leading-relaxed mb-8 max-w-[480px]">
+            <p className="text-[17px] text-white/50 leading-relaxed mb-6 max-w-[480px]">
               Slim SHOT is a drinkable liquid, not an injection. A patent-pending
-              nanoemulsion you take by mouth every morning that amplifies your
-              body&apos;s natural GLP-1 production and inhibits the enzyme that
+              nanoemulsion you drink twice daily â morning and afternoon â that amplifies your
+              body's natural GLP-1 production and inhibits the enzyme that
               breaks it down.
             </p>
-            <div className="flex items-baseline gap-3 mb-8">
-              <span
-                className="text-3xl text-gold font-normal font-heading"
-               
-              >
-                $149
-              </span>
-              <span className="text-white/40 text-sm">/month &middot; Ships direct &middot; Cancel anytime</span>
-            </div>
-            {CHECKOUT_ENABLED ? (
-              <BuyButton variant="hero" label="Subscribe — $149/mo" />
-            ) : (
-              <WaitlistForm variant="hero" />
-            )}
+            <p className="text-sm text-gold/80 mb-8 max-w-[480px]">
+              Founding members lock in $149/mo for life and ship first.
+            </p>
+            <WaitlistForm variant="hero" />
           </div>
 
           {/* Product image */}
@@ -173,7 +161,7 @@ export default function SlimShotPage() {
             <div className="relative">
               <div className="absolute -inset-8 bg-gold/[0.06] rounded-full blur-3xl" />
               <Image
-                src="/images/slim-shot-bottle-alt.png"
+                src="/images/slim-shot-bottle-alt.webp"
                 alt="Slim SHOT daily nanoemulsion supplement bottle"
                 width={600}
                 height={600}
@@ -188,15 +176,14 @@ export default function SlimShotPage() {
       {/* Quick facts bar */}
       <section className="bg-forest px-6 md:px-12 py-5 flex justify-center gap-6 sm:gap-10 md:gap-14 flex-wrap">
         {[
-          { value: "1 shot", label: "Daily" },
-          { value: "30 sec", label: "Morning Routine" },
-          { value: "100%", label: "Natural" },
+          { value: "2 shots", label: "Daily" },
+          { value: "30 sec", label: "Each Dose" },
+          { value: "GRAS", label: "Certified" },
           { value: "0", label: "Injections" },
         ].map((s) => (
           <div key={s.label} className="text-center">
             <div
               className="text-xl font-normal tracking-tight text-gold font-heading"
-             
             >
               {s.value}
             </div>
@@ -207,62 +194,19 @@ export default function SlimShotPage() {
         ))}
       </section>
 
-      {/* How it works */}
+      {/* What to expect â MOVED UP: outcomes first */}
       <section className="py-24 px-6 md:px-12 max-w-[1000px] mx-auto">
-        <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
-          The Mechanism
-        </p>
-        <h2
-          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink font-heading"
-         
-        >
-          Three systems. One daily protocol.
-        </h2>
-        <p className="text-[17px] leading-relaxed text-mist max-w-[640px] mb-12">
-          Slim SHOT works at the intersection of clinical science and delivery
-          technology. The formula activates, protects, and delivers.
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {principles.map((p) => (
-            <div
-              key={p.title}
-              className="p-8 bg-white border border-rule rounded-xl"
-            >
-              <h3 className="text-[17px] font-bold tracking-tight mb-3 text-ink">
-                {p.title}
-              </h3>
-              <p className="text-sm text-mist leading-relaxed">{p.desc}</p>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-8">
-          <Link
-            href="/science"
-            className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
-          >
-            Full science breakdown &rarr;
-          </Link>
-        </div>
-      </section>
-
-      <hr className="max-w-[720px] mx-auto border-t border-rule" />
-
-      {/* What to expect */}
-      <section className="py-24 px-6 md:px-12 max-w-[1000px] mx-auto">
-        <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
+        <p className="text-[11px] font-bold uppercase tracking-[2px] text-teal-light mb-4">
           What to Expect
         </p>
         <h2
-          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-ink font-heading"
-         
+          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-white font-heading"
         >
           The first 30 days.
         </h2>
-        <p className="text-[17px] leading-relaxed text-mist max-w-[640px] mb-12">
-          This isn&apos;t a quick fix. It&apos;s a daily protocol that compounds
-          over time. Here&apos;s what the trajectory typically looks like.
+        <p className="text-[17px] leading-relaxed text-white/60 max-w-[640px] mb-12">
+          This isn't a quick fix. It's a daily protocol that compounds
+          over time. Here's what the trajectory typically looks like.
         </p>
 
         {/* Timeline with connected visual */}
@@ -278,23 +222,21 @@ export default function SlimShotPage() {
                   <div className={`w-14 h-14 rounded-full flex items-center justify-center border-2 ${
                     i === 2 ? 'border-gold bg-gold/10' : 'border-forest-mid/30 bg-forest-mid/5'
                   }`}>
-                    <span className={`text-lg font-normal ${i === 2 ? 'text-gold' : 'text-forest-mid'} font-heading`}
-                     >
+                    <span className={`text-lg font-normal ${i === 2 ? 'text-gold' : 'text-forest-mid'} font-heading`}>
                       {i + 1}
                     </span>
                   </div>
                 </div>
-                <div className="p-8 bg-white border border-rule rounded-xl flex-1">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-forest-mid mb-3">
+                <div className="p-8 bg-white/[0.04] border border-white/[0.08] rounded-xl flex-1">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-teal-light mb-3">
                     {t.week}
                   </p>
                   <h3
-                    className="text-lg font-normal tracking-tight text-ink mb-3 font-heading"
-                   
+                    className="text-lg font-normal tracking-tight text-white mb-3 font-heading"
                   >
                     {t.title}
                   </h3>
-                  <p className="text-sm text-mist leading-relaxed">{t.desc}</p>
+                  <p className="text-sm text-white/50 leading-relaxed">{t.desc}</p>
                 </div>
               </div>
             ))}
@@ -302,26 +244,42 @@ export default function SlimShotPage() {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="py-24 px-6 md:px-12 bg-cream-warm bg-dot-grid">
+      <hr className="max-w-[720px] mx-auto border-t border-white/10" />
+
+      {/* Founding member mid-page CTA */}
+      <section className="py-16 px-6 md:px-12 text-center">
+        <div className="max-w-[520px] mx-auto">
+          <p className="text-[17px] text-white/50 leading-relaxed mb-2">
+            First production batch ships to founding members only.
+          </p>
+          <p className="text-sm text-white/30 mb-6">
+            $149/mo locked in. No prescription. Cancel anytime.
+          </p>
+          <WaitlistForm variant="cta" />
+        </div>
+      </section>
+
+      <hr className="max-w-[720px] mx-auto border-t border-white/10" />
+
+      {/* FAQ â MOVED UP: objection handling before mechanism */}
+      <section className="py-24 px-6 md:px-12">
         <div className="max-w-[720px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
+          <p className="text-[11px] font-bold uppercase tracking-[2px] text-teal-light mb-4">
             Questions
           </p>
           <h2
-            className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-12 text-ink font-heading"
-           
+            className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-12 text-white font-heading"
           >
             Things people ask before they start.
           </h2>
 
           <div className="space-y-6">
             {faqs.map((faq) => (
-              <div key={faq.q} className="bg-white border border-rule rounded-xl p-6 md:p-8">
-                <h3 className="text-[15px] font-bold text-ink mb-3">
+              <div key={faq.q} className="bg-white/[0.04] border border-white/[0.08] rounded-xl p-6 md:p-8">
+                <h3 className="text-[15px] font-bold text-white mb-3">
                   {faq.q}
                 </h3>
-                <p className="text-sm text-mist leading-relaxed">
+                <p className="text-sm text-white/50 leading-relaxed">
                   {faq.a}
                 </p>
               </div>
@@ -330,7 +288,7 @@ export default function SlimShotPage() {
           <div className="mt-8">
             <Link
               href="/faq"
-              className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
+              className="text-sm text-teal-light hover:text-white transition no-underline border-b border-teal-light/30 pb-0.5"
             >
               More questions about GLP-1, nanoemulsions, and the science &rarr;
             </Link>
@@ -338,23 +296,68 @@ export default function SlimShotPage() {
         </div>
       </section>
 
-      {/* CTA */}
+      <hr className="max-w-[720px] mx-auto border-t border-white/10" />
+
+      {/* How it works â MOVED DOWN: mechanism for the curious */}
+      <section className="py-24 px-6 md:px-12 max-w-[1000px] mx-auto">
+        <p className="text-[11px] font-bold uppercase tracking-[2px] text-teal-light mb-4">
+          The Mechanism
+        </p>
+        <h2
+          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-white font-heading"
+        >
+          Three systems. One daily protocol.
+        </h2>
+        <p className="text-[17px] leading-relaxed text-white/60 max-w-[640px] mb-12">
+          Slim SHOT works at the intersection of clinical science and delivery
+          technology. The formula activates, protects, and delivers.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {principles.map((p) => (
+            <div
+              key={p.title}
+              className="p-8 bg-white/[0.04] border border-white/[0.08] rounded-xl"
+            >
+              <h3 className="text-[17px] font-bold tracking-tight mb-3 text-white">
+                {p.title}
+              </h3>
+              <p className="text-sm text-white/50 leading-relaxed">{p.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-8">
+          <Link
+            href="/science"
+            className="text-sm text-teal-light hover:text-white transition no-underline border-b border-teal-light/30 pb-0.5"
+          >
+            Full science breakdown &rarr;
+          </Link>
+        </div>
+      </section>
+
+      {/* Low-commitment email capture */}
+      <EmailCapture />
+
+      {/* Bottom CTA */}
       <section className="bg-forest py-20 px-6 md:px-12 text-center">
+        <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
+          Launching Fall 2026
+        </p>
         <h2
           className="text-3xl md:text-4xl font-normal text-white tracking-tight mb-4 font-heading"
-         
         >
-          Ready to try a different approach?
+          Reserve your spot.
         </h2>
-        <p className="text-[17px] text-white/50 max-w-[520px] mx-auto mb-8">
-          $149/mo. No prescription. No commitment. Join the waitlist for
-          early access and launch pricing.
+        <p className="text-[17px] text-white/50 max-w-[520px] mx-auto mb-2">
+          Founding members get first access, locked-in pricing at $149/mo,
+          and ship before anyone else.
         </p>
-        {CHECKOUT_ENABLED ? (
-          <BuyButton variant="cta" label="Start your subscription" />
-        ) : (
-          <WaitlistForm variant="cta" />
-        )}
+        <p className="text-sm text-white/30 max-w-[440px] mx-auto mb-8">
+          No prescription. No commitment. Cancel anytime.
+        </p>
+        <WaitlistForm variant="cta" />
       </section>
 
       <Footer />
