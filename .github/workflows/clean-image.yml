@@ -1,0 +1,36 @@
+name: Clean bottle image
+on: workflow_dispatch
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install rembg pillow onnxruntime
+      - name: Process image
+        run: |
+          python3 << 'PYEOF'
+          from rembg import remove
+          from PIL import Image
+          import io
+
+          with open("public/images/slim-shot-bottle-alt.png", "rb") as f:
+              data = f.read()
+          output = remove(data)
+          img = Image.open(io.BytesIO(output))
+          r, g, b, a = img.split()
+          a = a.point(lambda x: 0 if x < 20 else x)
+          result = Image.merge("RGBA", (r, g, b, a))
+          result.save("public/images/slim-shot-bottle-alt-t.webp", "WEBP", quality=92)
+          print("Done:", result.size)
+          PYEOF
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/images/slim-shot-bottle-alt-t.webp
+          git commit -m "Clean bottle image background with rembg"
+          git push
