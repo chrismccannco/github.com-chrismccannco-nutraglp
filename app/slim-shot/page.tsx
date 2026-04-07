@@ -6,9 +6,9 @@ import EmailCapture from "../components/EmailCapture";
 import Footer from "../components/Footer";
 
 export const metadata: Metadata = {
-  title: "Slim SHOT â Daily GLP-1 Amplification",
+  title: "Slim SHOT — Daily GLP-1 Amplification",
   description:
-    "A daily liquid formula that amplifies your body's own GLP-1 production. Patent-pending nanoemulsion delivery, clinically studied compounds. Launching Fall 2026.",
+    "A daily liquid formula that amplifies your body's own GLP-1 production. Patent-pending nanoemulsion delivery, clinically studied compounds. Launching Summer 2026.",
   alternates: {
     canonical: "https://nutraglp.com/slim-shot",
   },
@@ -21,7 +21,7 @@ const timeline = [
     desc: "Your body begins responding to the formula. Some people notice reduced cravings within the first few days. Others take longer. Both are normal.",
   },
   {
-    week: "Week 2â3",
+    week: "Week 2–3",
     title: "Activation",
     desc: "The formula builds in your system. Many people notice appetite changes becoming more consistent and energy levels feeling more stable throughout the day.",
   },
@@ -43,11 +43,11 @@ const faqs = [
   },
   {
     q: "How is this different from Ozempic or Wegovy?",
-    a: "GLP-1 drugs inject synthetic peptides that mimic your incretin hormones. Slim SHOT takes the opposite approach: it amplifies your body's own GLP-1 production while inhibiting the enzyme that breaks it down. No injection, no prescription, no synthetic peptides. Different mechanism, same biological pathway.",
+    a: "GLP-1 drugs inject synthetic peptides that mimic your incretin hormones. Slim SHOT takes the opposite approach: it amplifies your body’s own GLP-1 production while inhibiting the enzyme that breaks it down. No injection, no prescription, no synthetic peptides. Different mechanism, same biological pathway.",
   },
   {
-    q: "What if it doesn't work for me?",
-    a: "Individual responses vary based on metabolism, diet, and baseline GLP-1 activity. We recommend a minimum 30-day trial to allow the formula to reach steady-state effect. If you're not seeing results, contact us and we'll work with you.",
+    q: "What if it doesn’t work for me?",
+    a: "Individual responses vary based on metabolism, diet, and baseline GLP-1 activity. We recommend a minimum 30-day trial to allow the formula to reach steady-state effect. If you’re not seeing results, contact us and we’ll work with you.",
   },
   {
     q: "Can I cancel anytime?",
@@ -59,18 +59,18 @@ const faqs = [
   },
   {
     q: "How do I take it? Is it an injection?",
-    a: "Not an injection. Slim SHOT is a drinkable liquid you drink, like a wellness shot. Twice daily â once in the morning and once in the afternoon. No needle, no syringe, no mixing, no measuring. Refrigerate after opening.",
+    a: "Not an injection. Slim SHOT is a drinkable liquid you drink, like a wellness shot. Twice daily — once in the morning and once in the afternoon. No needle, no syringe, no mixing, no measuring. Refrigerate after opening.",
   },
   {
     q: "What does it taste like?",
-    a: "Neutral with a mild citrus finish. It's not a smoothie. It's not unpleasant. Most people describe it as unremarkable, which is the goal.",
+    a: "Neutral with a mild citrus finish. It’s not a smoothie. It’s not unpleasant. Most people describe it as unremarkable, which is the goal.",
   },
 ];
 
 const principles = [
   {
     title: "Activate",
-    desc: "Clinically studied compounds that stimulate your body's own GLP-1 and GIP production from intestinal L-cells.",
+    desc: "Clinically studied compounds that stimulate your body’s own GLP-1 and GIP production from intestinal L-cells.",
   },
   {
     title: "Protect",
@@ -120,7 +120,7 @@ const faqSchema = {
 
 export default function SlimShotPage() {
   return (
-    <main>
+    <main className="bg-forest-deep">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
@@ -135,7 +135,7 @@ export default function SlimShotPage() {
         <div className="max-w-[1000px] mx-auto md:flex md:items-center md:gap-16">
           <div className="flex-1">
             <p className="text-[10px] font-bold uppercase tracking-[2px] text-gold mb-4">
-              Launching Fall 2026 &middot; Limited First Batch
+              Launching Summer 2026 &middot; Limited First Batch
             </p>
             <h1
               className="text-3xl md:text-[44px] font-normal text-white leading-[1.1] tracking-tight mb-6 font-heading"
@@ -146,8 +146,8 @@ export default function SlimShotPage() {
             </h1>
             <p className="text-[17px] text-white/50 leading-relaxed mb-6 max-w-[480px]">
               Slim SHOT is a drinkable liquid, not an injection. A patent-pending
-              nanoemulsion you drink twice daily â morning and afternoon â that amplifies your
-              body's natural GLP-1 production and inhibits the enzyme that
+              nanoemulsion you drink twice daily &mdash; morning and afternoon &mdash; that amplifies your
+              body&apos;s natural GLP-1 production and inhibits the enzyme that
               breaks it down.
             </p>
             <p className="text-sm text-gold/80 mb-8 max-w-[480px]">
@@ -161,11 +161,12 @@ export default function SlimShotPage() {
             <div className="relative">
               <div className="absolute -inset-8 bg-gold/[0.06] rounded-full blur-3xl" />
               <Image
-                src="/images/slim-shot-bottle-alt.webp"
+                src="/images/slim-shot-bottle-alt.png"
                 alt="Slim SHOT daily nanoemulsion supplement bottle"
-                width={600}
-                height={600}
-                className="relative drop-shadow-2xl max-h-[380px] w-auto"
+                width={380}
+                height={380}
+                className="relative drop-shadow-2xl object-contain"
+                style={{ width: "380px", height: "380px" }}
                 priority
               />
             </div>
@@ -194,7 +195,7 @@ export default function SlimShotPage() {
         ))}
       </section>
 
-      {/* What to expect â MOVED UP: outcomes first */}
+      {/* What to expect */}
       <section className="py-24 px-6 md:px-12 max-w-[1000px] mx-auto">
         <p className="text-[11px] font-bold uppercase tracking-[2px] text-teal-light mb-4">
           What to Expect
@@ -205,8 +206,8 @@ export default function SlimShotPage() {
           The first 30 days.
         </h2>
         <p className="text-[17px] leading-relaxed text-white/60 max-w-[640px] mb-12">
-          This isn't a quick fix. It's a daily protocol that compounds
-          over time. Here's what the trajectory typically looks like.
+          This isn&apos;t a quick fix. It&apos;s a daily protocol that compounds
+          over time. Here&apos;s what the trajectory typically looks like.
         </p>
 
         {/* Timeline with connected visual */}
@@ -261,7 +262,7 @@ export default function SlimShotPage() {
 
       <hr className="max-w-[720px] mx-auto border-t border-white/10" />
 
-      {/* FAQ â MOVED UP: objection handling before mechanism */}
+      {/* FAQ */}
       <section className="py-24 px-6 md:px-12">
         <div className="max-w-[720px] mx-auto">
           <p className="text-[11px] font-bold uppercase tracking-[2px] text-teal-light mb-4">
@@ -298,7 +299,7 @@ export default function SlimShotPage() {
 
       <hr className="max-w-[720px] mx-auto border-t border-white/10" />
 
-      {/* How it works â MOVED DOWN: mechanism for the curious */}
+      {/* How it works */}
       <section className="py-24 px-6 md:px-12 max-w-[1000px] mx-auto">
         <p className="text-[11px] font-bold uppercase tracking-[2px] text-teal-light mb-4">
           The Mechanism
@@ -343,7 +344,7 @@ export default function SlimShotPage() {
       {/* Bottom CTA */}
       <section className="bg-forest py-20 px-6 md:px-12 text-center">
         <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
-          Launching Fall 2026
+          Launching Summer 2026
         </p>
         <h2
           className="text-3xl md:text-4xl font-normal text-white tracking-tight mb-4 font-heading"
