@@ -5,26 +5,26 @@ const steps = [
   {
     num: "1",
     title: "Activate",
-    text: "Four GRAS-certified active systems stimulate your body\u2019s own GLP-1 and GIP production in the gut through AMPK activation, GPR120 signaling, and insulin receptor sensitization. The same hormones the drugs target, produced naturally.",
+    text: "Clinically studied compounds signal your body to produce more of its own appetite-regulating hormones. The same ones the injectable drugs target, triggered naturally.",
   },
   {
     num: "2",
     title: "Protect",
-    text: "Natural DPP-4 inhibitors extend the life of your GLP-1 before it breaks down. More active hormone. Longer metabolic window. No synthetic peptides.",
+    text: "Natural enzyme inhibitors keep those hormones active longer before your body breaks them down. A wider window for your metabolism to respond.",
   },
   {
     num: "3",
     title: "Deliver",
-    text: "Most oral supplements fail because the body can\u2019t absorb them. Our patent-pending nanoemulsion technology solves this. High bioavailability. Every dose, every day.",
+    text: "Most supplements fail because your body can’t absorb them. Our patent-pending liquid delivery system changes that. What you take actually gets where it needs to go.",
   },
 ];
 
 const howToSchema = {
   "@context": "https://schema.org",
   "@type": "HowTo",
-  name: "How Slim SHOT activates natural GLP-1 production",
+  name: "How Slim SHOT works",
   description:
-    "A daily drinkable liquid that amplifies your body's natural GLP-1 production while inhibiting the enzyme that breaks it down. Three steps, one daily Slim SHOT.",
+    "A daily drinkable liquid that works with your body's own biology to support appetite control and metabolic health. Three steps, twice daily.",
   step: steps.map((s) => ({
     "@type": "HowToStep",
     name: s.title,
@@ -35,63 +35,51 @@ const howToSchema = {
 
 export default function Mechanism() {
   return (
-    <section className="py-24 px-6 md:px-12 max-w-[1000px] mx-auto">
+    <section className="bg-forest-deep py-24 px-6 md:px-12"><div className="max-w-[1000px] mx-auto">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
-      <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
+      <p className="text-[11px] font-bold uppercase tracking-[2px] text-teal-light mb-4">
         How It Works
       </p>
       <h2
-        className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-display"
+        className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-white font-display"
       >
-        Your body already makes GLP-1.
+        Your body already makes the hormones.
         <br />Slim SHOT helps it make more.
       </h2>
-      <p className="text-[17px] leading-relaxed text-mist max-w-[640px] mb-12">
-        GLP-1 drugs work by injecting synthetic hormones. Slim SHOT takes a
-        different approach: a drinkable liquid that amplifies your body&apos;s
-        natural GLP-1 production while inhibiting the enzyme that breaks it
-        down. Three steps, one daily Slim SHOT.
+      <p className="text-[17px] leading-relaxed text-white/60 max-w-[640px] mb-12">
+        The injectable drugs replace your hormones with synthetic versions.
+        Slim SHOT takes a different approach: a daily liquid that works with
+        your biology, not instead of it.
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
         {steps.map((s) => (
           <div
             key={s.num}
-            className="p-8 bg-white border border-rule rounded-xl"
+            className="p-8 bg-white/[0.04] border border-white/[0.08] rounded-xl"
           >
             <div className="w-10 h-10 bg-forest rounded-lg flex items-center justify-center text-white text-lg font-bold mb-4">
               {s.num}
             </div>
-            <h3 className="text-[17px] font-bold tracking-tight mb-2 text-ink">
+            <h3 className="text-[17px] font-bold tracking-tight mb-2 text-white">
               {s.title}
             </h3>
-            <p className="text-sm text-mist leading-relaxed">{s.text}</p>
+            <p className="text-sm text-white/50 leading-relaxed">{s.text}</p>
           </div>
         ))}
       </div>
 
-      {/* Mechanism diagram */}
-      <div className="mt-14 mb-10">
-        <Image
-          src="/images/mechanism-diagram.png"
-          alt="How the NutraGLP nanoemulsion works: active compounds are encapsulated in lipid nanoparticles, absorbed through intestinal L-cells, triggering GLP-1 release and metabolic effects across 13 pathways"
-          width={1920}
-          height={840}
-          className="w-full h-auto rounded-xl border border-rule"
-        />
-      </div>
-
-      <div className="mt-10">
+      <div className="mt-14">
         <Link
-          href="/slim-shot"
-          className="text-sm text-forest-mid hover:text-forest transition no-underline border-b border-forest-mid/30 pb-0.5"
+          href="/science"
+          className="text-sm text-teal-light hover:text-white transition no-underline border-b border-teal-light/30 pb-0.5"
         >
-          See the science, dosing, and FAQs &rarr;
+          The full science behind the formula &rarr;
         </Link>
       </div>
-    </section>
+    </div></section>
   );
 }
