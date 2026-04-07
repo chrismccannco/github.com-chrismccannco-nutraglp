@@ -134,21 +134,18 @@ export default function SlimShotPage() {
       <section className="bg-forest-deep px-6 md:px-12 pt-28 pb-20">
         <div className="max-w-[1000px] mx-auto md:flex md:items-center md:gap-16">
           <div className="flex-1">
-            <p className="text-[10px] font-bold uppercase tracking-[2px] text-gold mb-4">
+            <p className="text-xs font-semibold uppercase tracking-[3px] text-gold/70 mb-6">
               Launching Summer 2026 &middot; Limited First Batch
             </p>
-            <h1
-              className="text-3xl md:text-[44px] font-normal text-white leading-[1.1] tracking-tight mb-6 font-heading"
-            >
+            <h1 className="text-4xl md:text-[56px] font-normal text-white leading-[1.08] tracking-tight mb-6 font-heading">
               Daily GLP-1 amplification.
               <br />
-              <span className="text-gold italic">Drink it. No needle. No syringe. Ever.</span>
+              <span className="text-gold italic">Drink it. No needle. Ever.</span>
             </h1>
-            <p className="text-[17px] text-white/50 leading-relaxed mb-6 max-w-[480px]">
-              Slim SHOT is a drinkable liquid, not an injection. A patent-pending
-              nanoemulsion you drink twice daily &mdash; morning and afternoon &mdash; that amplifies your
+            <p className="text-lg md:text-xl text-white/50 leading-relaxed mb-8 max-w-[520px]">
+              A patent-pending nanoemulsion you drink twice daily that amplifies your
               body&apos;s natural GLP-1 production and inhibits the enzyme that
-              breaks it down.
+              breaks it down. No injection. No prescription.
             </p>
             <p className="text-sm text-gold/80 mb-8 max-w-[480px]">
               Founding members lock in $149/mo for life and ship first.
@@ -158,18 +155,15 @@ export default function SlimShotPage() {
 
           {/* Product image */}
           <div className="hidden md:flex flex-1 items-center justify-center">
-            <div className="relative">
-              <div className="absolute -inset-8 bg-gold/[0.06] rounded-full blur-3xl" />
-              <Image
-                src="/images/slim-shot-bottle-alt.png"
-                alt="Slim SHOT daily nanoemulsion supplement bottle"
-                width={380}
-                height={380}
-                className="relative drop-shadow-2xl object-contain"
-                style={{ width: "380px", height: "380px" }}
-                priority
-              />
-            </div>
+            <Image
+              src="/images/slim-shot-bottle-alt.png"
+              alt="Slim SHOT daily nanoemulsion supplement bottle"
+              width={380}
+              height={380}
+              className="drop-shadow-2xl object-contain"
+              style={{ width: "380px", height: "380px" }}
+              priority
+            />
           </div>
         </div>
       </section>
@@ -183,9 +177,7 @@ export default function SlimShotPage() {
           { value: "0", label: "Injections" },
         ].map((s) => (
           <div key={s.label} className="text-center">
-            <div
-              className="text-xl font-normal tracking-tight text-gold font-heading"
-            >
+            <div className="text-xl font-normal tracking-tight text-gold font-heading">
               {s.value}
             </div>
             <div className="text-[10px] text-white/50 uppercase tracking-wider mt-0.5">
@@ -200,9 +192,7 @@ export default function SlimShotPage() {
         <p className="text-[11px] font-bold uppercase tracking-[2px] text-teal-light mb-4">
           What to Expect
         </p>
-        <h2
-          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-white font-heading"
-        >
+        <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-white font-heading">
           The first 30 days.
         </h2>
         <p className="text-[17px] leading-relaxed text-white/60 max-w-[640px] mb-12">
@@ -210,15 +200,11 @@ export default function SlimShotPage() {
           over time. Here&apos;s what the trajectory typically looks like.
         </p>
 
-        {/* Timeline with connected visual */}
         <div className="relative">
-          {/* Connecting line (desktop only) */}
           <div className="hidden md:block absolute top-[28px] left-[calc(16.67%-8px)] right-[calc(16.67%-8px)] h-[2px] bg-gradient-to-r from-forest-mid/20 via-forest-mid/40 to-gold/40" />
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {timeline.map((t, i) => (
               <div key={t.week} className="relative flex flex-col">
-                {/* Step dot */}
                 <div className="flex justify-center mb-4">
                   <div className={`w-14 h-14 rounded-full flex items-center justify-center border-2 ${
                     i === 2 ? 'border-gold bg-gold/10' : 'border-forest-mid/30 bg-forest-mid/5'
@@ -232,9 +218,7 @@ export default function SlimShotPage() {
                   <p className="text-[10px] font-bold uppercase tracking-wider text-teal-light mb-3">
                     {t.week}
                   </p>
-                  <h3
-                    className="text-lg font-normal tracking-tight text-white mb-3 font-heading"
-                  >
+                  <h3 className="text-lg font-normal tracking-tight text-white mb-3 font-heading">
                     {t.title}
                   </h3>
                   <p className="text-sm text-white/50 leading-relaxed">{t.desc}</p>
@@ -268,21 +252,14 @@ export default function SlimShotPage() {
           <p className="text-[11px] font-bold uppercase tracking-[2px] text-teal-light mb-4">
             Questions
           </p>
-          <h2
-            className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-12 text-white font-heading"
-          >
+          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-12 text-white font-heading">
             Things people ask before they start.
           </h2>
-
           <div className="space-y-6">
             {faqs.map((faq) => (
               <div key={faq.q} className="bg-white/[0.04] border border-white/[0.08] rounded-xl p-6 md:p-8">
-                <h3 className="text-[15px] font-bold text-white mb-3">
-                  {faq.q}
-                </h3>
-                <p className="text-sm text-white/50 leading-relaxed">
-                  {faq.a}
-                </p>
+                <h3 className="text-[15px] font-bold text-white mb-3">{faq.q}</h3>
+                <p className="text-sm text-white/50 leading-relaxed">{faq.a}</p>
               </div>
             ))}
           </div>
@@ -304,30 +281,21 @@ export default function SlimShotPage() {
         <p className="text-[11px] font-bold uppercase tracking-[2px] text-teal-light mb-4">
           The Mechanism
         </p>
-        <h2
-          className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-white font-heading"
-        >
+        <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-4 text-white font-heading">
           Three systems. One daily protocol.
         </h2>
         <p className="text-[17px] leading-relaxed text-white/60 max-w-[640px] mb-12">
           Slim SHOT works at the intersection of clinical science and delivery
           technology. The formula activates, protects, and delivers.
         </p>
-
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {principles.map((p) => (
-            <div
-              key={p.title}
-              className="p-8 bg-white/[0.04] border border-white/[0.08] rounded-xl"
-            >
-              <h3 className="text-[17px] font-bold tracking-tight mb-3 text-white">
-                {p.title}
-              </h3>
+            <div key={p.title} className="p-8 bg-white/[0.04] border border-white/[0.08] rounded-xl">
+              <h3 className="text-[17px] font-bold tracking-tight mb-3 text-white">{p.title}</h3>
               <p className="text-sm text-white/50 leading-relaxed">{p.desc}</p>
             </div>
           ))}
         </div>
-
         <div className="mt-8">
           <Link
             href="/science"
@@ -338,7 +306,6 @@ export default function SlimShotPage() {
         </div>
       </section>
 
-      {/* Low-commitment email capture */}
       <EmailCapture />
 
       {/* Bottom CTA */}
@@ -346,9 +313,7 @@ export default function SlimShotPage() {
         <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
           Launching Summer 2026
         </p>
-        <h2
-          className="text-3xl md:text-4xl font-normal text-white tracking-tight mb-4 font-heading"
-        >
+        <h2 className="text-3xl md:text-4xl font-normal text-white tracking-tight mb-4 font-heading">
           Reserve your spot.
         </h2>
         <p className="text-[17px] text-white/50 max-w-[520px] mx-auto mb-2">
