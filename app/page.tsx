@@ -1,12 +1,15 @@
 import Hero from "./components/Hero";
 import ProofBar from "./components/ProofBar";
 import Problem from "./components/Problem";
+import Recognition from "./components/Recognition";
 import Mechanism from "./components/Mechanism";
 import Personas from "./components/Personas";
 import Contrast from "./components/Contrast";
 import Science from "./components/Science";
 import ProductLineup from "./components/ProductLineup";
 import LatestResearch from "./components/LatestResearch";
+import EmailCapture from "./components/EmailCapture";
+import FounderSignal from "./components/FounderSignal";
 import CTA from "./components/CTA";
 import Footer from "./components/Footer";
 import SubscribePopup from "./components/SubscribePopup";
@@ -17,13 +20,16 @@ export default function Home() {
       <Hero />
       <ProofBar />
       <Problem />
+      <Recognition />
       <hr className="max-w-[720px] mx-auto border-t border-rule" />
       <Mechanism />
       <Personas />
       <Contrast />
+      <EmailCapture />
       <Science />
       <ProductLineup />
       <LatestResearch />
+      <FounderSignal />
       <CTA />
       <Footer />
       <SubscribePopup />
