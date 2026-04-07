@@ -8,7 +8,7 @@ export default function Hero() {
       <div className="max-w-[1000px] mx-auto md:flex md:items-center md:gap-16">
         <div className="flex-1 text-center md:text-left">
           <p className="text-xs font-semibold uppercase tracking-[3px] text-gold/70 mb-6">
-            Launching Fall 2026 &middot; Limited First Batch
+            Launching Summer 2026 &middot; Limited First Batch
           </p>
           <h1 className="text-4xl md:text-[56px] font-normal text-white leading-[1.08] tracking-tight max-w-[800px] md:max-w-none mb-6 font-heading">
             No needle. No prescription.
@@ -36,18 +36,15 @@ export default function Hero() {
 
         {/* Product image */}
         <div className="hidden md:flex flex-1 items-center justify-center">
-          <div className="relative">
-            <div className="absolute -inset-8 bg-gold/[0.06] rounded-full blur-3xl" />
-            <Image
-              src="/images/slim-shot-bottle-alt.png"
-              alt="Slim SHOT daily liquid formula bottle"
-              width={380}
-              height={380}
-              className="relative drop-shadow-2xl object-contain"
-              style={{ width: "380px", height: "380px" }}
-              priority
-            />
-          </div>
+          <Image
+            src="/images/slim-shot-bottle-alt.png"
+            alt="Slim SHOT daily liquid formula bottle"
+            width={380}
+            height={380}
+            className="drop-shadow-2xl object-contain"
+            style={{ width: "380px", height: "380px" }}
+            priority
+          />
         </div>
       </div>
     </section>
