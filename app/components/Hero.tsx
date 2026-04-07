@@ -39,11 +39,12 @@ export default function Hero() {
           <div className="relative">
             <div className="absolute -inset-8 bg-gold/[0.06] rounded-full blur-3xl" />
             <Image
-              src="/images/slim-shot-bottle-alt.webp"
+              src="/images/slim-shot-bottle-alt.png"
               alt="Slim SHOT daily liquid formula bottle"
-              width={600}
-              height={600}
-              className="relative drop-shadow-2xl max-h-[380px] w-auto"
+              width={380}
+              height={380}
+              className="relative drop-shadow-2xl object-contain"
+              style={{ width: "380px", height: "380px" }}
               priority
             />
           </div>
