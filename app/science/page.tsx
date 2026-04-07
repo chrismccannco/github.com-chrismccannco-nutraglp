@@ -76,7 +76,7 @@ export default function SciencePage() {
         </p>
         <h1
           className="text-3xl md:text-[48px] font-normal text-white leading-[1.1] tracking-tight max-w-[720px] mx-auto mb-6 font-heading"
-         
+
         >
           Built on published research. Not marketing claims.
         </h1>
@@ -91,7 +91,7 @@ export default function SciencePage() {
       <section className="py-20 px-6 md:px-12 max-w-[720px] mx-auto">
         <h2
           className="text-2xl md:text-3xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading"
-         
+
         >
           What is endogenous GLP-1 amplification?
         </h2>
@@ -102,7 +102,7 @@ export default function SciencePage() {
           effects, and costs upward of $1,000 per month.
         </p>
         <p className="text-[17px] leading-relaxed text-mist mb-5">
-          NutraGLP takes a different approach. Rather than replacing the body&apos;s
+          NutraGLP takes a different approach. Rather than replacing the body's
           incretin production with synthetic analogs, the formula is designed to
           amplify the GLP-1 and GIP your gut already produces, while extending
           the window those hormones remain active by inhibiting DPP-4, the
@@ -122,7 +122,7 @@ export default function SciencePage() {
       <section className="py-20 px-6 md:px-12 max-w-[1000px] mx-auto">
         <h2
           className="text-2xl md:text-3xl font-normal tracking-tight leading-tight mb-4 text-ink font-heading"
-         
+
         >
           Which metabolic pathways does NutraGLP target?
         </h2>
@@ -164,7 +164,7 @@ export default function SciencePage() {
       <section className="py-20 px-6 md:px-12 max-w-[720px] mx-auto">
         <h2
           className="text-2xl md:text-3xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading"
-         
+
         >
           Why do most oral supplements fail at absorption?
         </h2>
@@ -224,7 +224,7 @@ export default function SciencePage() {
           </p>
           <h2
             className="text-2xl md:text-3xl font-normal tracking-tight leading-tight mb-6 text-white font-heading"
-           
+
           >
             How does NutraGLP meet quality and safety standards?
           </h2>
@@ -246,14 +246,20 @@ export default function SciencePage() {
 
       {/* CTA */}
       <section className="bg-forest py-16 px-6 md:px-12 text-center">
+        <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
+          Launching Fall 2026
+        </p>
         <h2
           className="text-2xl md:text-3xl font-normal text-white tracking-tight mb-4 font-heading"
-         
         >
-          Questions about the science?
+          Reserve your spot.
         </h2>
-        <p className="text-[17px] text-white/50 max-w-[480px] mx-auto mb-6">
-          Join the waitlist. We&apos;ll send the full science brief and clinical references.
+        <p className="text-[17px] text-white/50 max-w-[480px] mx-auto mb-2">
+          Founding members get first access, locked-in pricing at $149/mo,
+          and ship before anyone else.
+        </p>
+        <p className="text-sm text-white/30 max-w-[440px] mx-auto mb-6">
+          No prescription. No commitment. Cancel anytime.
         </p>
         <WaitlistForm variant="cta" />
         <div className="mt-6">
