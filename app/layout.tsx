@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "./components/Header";
+import MobileStickyCTA from "./components/MobileStickyCTA";
 import PageViewTracker from "./components/PageViewTracker";
 import AnalyticsScripts from "./components/AnalyticsScripts";
 
@@ -97,6 +98,7 @@ export default function RootLayout({
         <PageViewTracker />
         <Header />
         {children}
+        <MobileStickyCTA />
       </body>
     </html>
   );
