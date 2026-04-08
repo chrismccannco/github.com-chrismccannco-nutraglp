@@ -42,12 +42,7 @@ export default function Hero() {
             width={380}
             height={380}
             className="drop-shadow-2xl object-contain"
-            style={{
-              width: "380px",
-              height: "380px",
-              maskImage: "linear-gradient(to bottom, black 88%, transparent 100%)",
-              WebkitMaskImage: "linear-gradient(to bottom, black 88%, transparent 100%)",
-            }}
+            style={{ width: "380px", height: "380px" }}
             priority
           />
         </div>
