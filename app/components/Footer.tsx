@@ -11,17 +11,11 @@ export default function Footer() {
           healthcare provider before starting any new supplement regimen.
         </p>
         <div className="flex justify-center gap-4 sm:gap-6 mt-6 text-xs text-white/40 flex-wrap">
-          <Link href="/slim-shot" className="hover:text-white/60 transition no-underline">
-            Slim SHOT
-          </Link>
           <Link href="/science" className="hover:text-white/60 transition no-underline">
             Science
           </Link>
           <Link href="/blog" className="hover:text-white/60 transition no-underline">
             Blog
-          </Link>
-          <Link href="/investors" className="hover:text-white/60 transition no-underline">
-            Investors
           </Link>
           <Link href="/about" className="hover:text-white/60 transition no-underline">
             About
