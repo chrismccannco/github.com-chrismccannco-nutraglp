@@ -76,8 +76,8 @@ const ipItems = [
 const channels = [
   { timing: "Now", name: "D2C Subscription", desc: "Recurring revenue model. No prescription required. GRAS-certified formulations shipped direct to consumer.", margin: "70%+ gross margin" },
   { timing: "Year 1–2", name: "Telehealth Integration", desc: "Plugs into existing metabolic health and weight management programs. Retention, step-down, and maintenance use cases.", margin: "85%+ gross margin" },
-  { timing: "Year –3", name: "IP Licensing", desc: "Functional ingredient and formulation licensing into foods, beverages, and nutrition products. The platform travels.", margin: "" },
-  { timing: "Year ―3", name: "Clinical Integration", desc: "White-label and practice partnerships. Weight-management practices and integrative medicine clinics.", margin: "60%+ gross margin" },
+  { timing: "Year 2–3", name: "IP Licensing", desc: "Functional ingredient and formulation licensing into foods, beverages, and nutrition products. The platform travels.", margin: "" },
+  { timing: "Year 2–3", name: "Clinical Integration", desc: "White-label and practice partnerships. Weight-management practices and integrative medicine clinics.", margin: "60%+ gross margin" },
   { timing: "2028", name: "Retail & Wholesale", desc: "Pharmacy, wellness, and specialty retail channels. OTC distribution without pharmaceutical supply chain dependency.", margin: "45–55% gross margin" },
 ];
 
@@ -97,8 +97,8 @@ const ltvData = [
 
 const roadmap = [
   { quarter: "Q1 — Market Entry", title: "Launch infrastructure", desc: "Regulatory compliance finalized. Full-scale production. eCommerce platform live. Strategic marketing campaigns. Key hires. Pre-order list build.", revenue: "" },
-  { quarter: "Q2 — Expansion", title: "First partnerships", desc: "Market penetration campaign. First telehealth licensing agreement secured. 1–7 clinical and wholesale partners onboarded. Customer Advisory Board formed.", revenue: "$300K revenue" },
-  { quarter: "Q3 — Retail Pilots", title: "Channel expansion", desc: "↕3– retail pilot programs secured. Expanded telehealth partnerships. NutraGLP Sweetener launched. Supply chain optimized for scale.", revenue: "$900K revenue" },
+  { quarter: "Q2 — Expansion", title: "First partnerships", desc: "Market penetration campaign. First telehealth licensing agreement secured. 5–7 clinical and wholesale partners onboarded. Customer Advisory Board formed.", revenue: "$300K revenue" },
+  { quarter: "Q3 — Retail Pilots", title: "Channel expansion", desc: "1–2 retail pilot programs secured. Expanded telehealth partnerships. NutraGLP Sweetener launched. Supply chain optimized for scale.", revenue: "$900K revenue" },
   { quarter: "Q4 — Retail Launch", title: "Clinical data & scale", desc: "Retail pilot live. Expanded telehealth licensing. Broader clinical network. Initial clinical data published.", revenue: "$1.8M revenue" },
 ];
 
@@ -113,8 +113,8 @@ const fundAllocation = [
 const risks = [
   { title: "Observational Design", desc: "Current evidence is from a non-randomized observational study. Controlled clinical trials are planned and funded by this raise." },
   { title: "Multi-Ingredient Attribution", desc: "The multi-ingredient nature of the platform limits the ability to attribute effects to individual components. Biomarker studies will address mechanism-level validation." },
-  { title: "Long-Term Durability", desc: "SIvK-Month observation window. Longer-term persistence and tolerability data will come from real-world studies planned for Year ―2." },
-  { title: "Regulatory Landscape", desc: "The dietary supplement regulatory environment is evolving. Platform compliance architecture is designed to adapt within ^isting and anticipated frameworks." },
+  { title: "Long-Term Durability", desc: "Six-month observation window. Longer-term persistence and tolerability data will come from real-world studies planned for Year 1–2." },
+  { title: "Regulatory Landscape", desc: "The dietary supplement regulatory environment is evolving. Platform compliance architecture is designed to adapt within existing and anticipated frameworks." },
 ];
 
 export default function Investors() {
@@ -126,11 +126,11 @@ export default function Investors() {
           NutraGLP Sync&trade; Platform
         </p>
         <h1 className="text-4xl md:text-[52px] font-normal text-white leading-[1.08] tracking-tight max-w-[820px] mx-auto mb-6 font-heading">
-          Your body already makes GIP-1.
+          Your body already makes GLP-1.
           <br />
           <span className="text-gold italic">We built the platform to optimize it.</span>
         </h1>
-        <p className="text-lg text-white-/50 max-w-[620px] mx-auto mb-10 leading-relaxed">
+        <p className="text-lg text-white/50 max-w-[620px] mx-auto mb-10 leading-relaxed">
           A patent-pending metabolic amplification platform that coordinates
           endogenous incretin pathways through GRAS-certified bioactives and
           proprietary nanoemulsion delivery. One core mechanism. Multiple product
@@ -190,22 +190,22 @@ export default function Investors() {
 
       {/* === REGULATORY CATALYST === */}
       <section className="bg-forest-deep py-24 px-6 md:px-12">
-        <div class="max-w-[1000px] mx-auto">
-          <p class="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
+        <div className="max-w-[1000px] mx-auto">
+          <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
             Regulatory Catalyst
           </p>
-          <h2 class="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-white font-heading">
+          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-white font-heading">
             The compound pharmacy window is closing.
           </h2>
-          <p class="text-[17px] leading-relaxed text-white/50 mb-8">
-            FDA enforcement against compounded GIP-1 pharmacies is accelerating. The platforms built on that distribution model face structural risk. NutraGIP is GRAS-certified, drug-free, and outside the regulatory blast radius.
+          <p className="text-[17px] leading-relaxed text-white/50 mb-8">
+            FDA enforcement against compounded GLP-1 pharmacies is accelerating. The platforms built on that distribution model face structural risk. NutraGLP is GRAS-certified, drug-free, and outside the regulatory blast radius.
           </p>
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {catalystCards.map((c) => (
-              <div key={c.title} class="bg-white/[0.04] border border-white/[0.08] rounded-lg p-6">
-                <div class="text-2xl font-normal text-gold font-heading mb-2">{c.stat}</div>
-                <div class="text-sm font-semibold text-white mb-2">{c.title}</div>
-                <div class="text-xs text-white/40 leading-relaxed">{c.desc}</div>
+              <div key={c.title} className="bg-white/[0.04] border border-white/[0.08] rounded-lg p-6">
+                <div className="text-2xl font-normal text-gold font-heading mb-2">{c.stat}</div>
+                <div className="text-sm font-semibold text-white mb-2">{c.title}</div>
+                <div className="text-xs text-white/40 leading-relaxed">{c.desc}</div>
               </div>
             ))}
           </div>
@@ -213,31 +213,31 @@ export default function Investors() {
       </section>
 
       {/* === REGULATORY POSITIONING === */}
-      <section class="bg-forest-deep pb-24 px-6 md:px-12">
-        <div class="max-w-[1000px] mx-auto">
-          <p class="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
+      <section className="bg-forest-deep pb-24 px-6 md:px-12">
+        <div className="max-w-[1000px] mx-auto">
+          <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
             Regulatory Positioning
           </p>
-          <h2 class="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-white font-heading">
+          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-white font-heading">
             Different regulatory lane. Same validated biology.
           </h2>
-          <p class="text-[17px] leading-relaxed text-white/50 mb-8">
+          <p className="text-[17px] leading-relaxed text-white/50 mb-8">
             GRAS (Generally Recognized as Safe) ingredients do not require FDA drug approval. Products ship as dietary supplements, functional foods, or food additives under existing regulatory frameworks. Structure/function claims are permissible. The compliance architecture is designed into the platform, not managed as ongoing regulatory risk.
           </p>
-          <div class="grid md:grid-cols-2 gap-6">
-            <div class="bg-white-[0.03] border border-white-[0.08] rounded-lg p-7">
-              <p class="text-sm font-bold uppercase tracking-wider text-white/50 mb-4">Compound GLP-1 Pharmacies</p>
-              {+"FDA enforcement accelerating", "Prescription-dependent distribution", "Supply chain vulnerability", "Regulatory risk embedded in model", "35% patient discontinuation rate"].map((item) => (
-                <div key={item} class="flex gap-2 py-2 border-b border-white/[0.04] last:border-b-0 text-sm text-white/40">
-                  <span class="text-white/25">&times;</span> {item}
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-white/[0.03] border border-white/[0.08] rounded-lg p-7">
+              <p className="text-sm font-bold uppercase tracking-wider text-white/50 mb-4">Compound GLP-1 Pharmacies</p>
+              {["FDA enforcement accelerating", "Prescription-dependent distribution", "Supply chain vulnerability", "Regulatory risk embedded in model", "35% patient discontinuation rate"].map((item) => (
+                <div key={item} className="flex gap-2 py-2 border-b border-white/[0.04] last:border-b-0 text-sm text-white/40">
+                  <span className="text-white/25">&times;</span> {item}
                 </div>
               ))}
             </div>
-            <div class="bg-gold/[0.08] border border-gold/20 rounded-lg p-7">
-              <p class="text-sm font-bold uppercase tracking-wider text-gold mb-4">NutraGLP Platform</p>
+            <div className="bg-gold/[0.08] border border-gold/20 rounded-lg p-7">
+              <p className="text-sm font-bold uppercase tracking-wider text-gold mb-4">NutraGLP Platform</p>
               {["GRAS-certified, no FDA drug approval needed", "No prescription required", "Scalable consumer distribution", "Compliance built into platform design", "Addresses 200M+ underserved patients"].map((item) => (
-                <div key={item} class="flex gap-2 py-2 border-b border-white/[0.04] last:border-b-0 text-sm text-white/40">
-                  <span class="text-gold">&check;</span> {item}
+                <div key={item} className="flex gap-2 py-2 border-b border-white/[0.04] last:border-b-0 text-sm text-white/40">
+                  <span className="text-gold">&check;</span> {item}
                 </div>
               ))}
             </div>
@@ -245,19 +245,13 @@ export default function Investors() {
         </div>
       </section>
 
-      {/* === INVESTMENT T RUSIS === */}
-      <section class="py-24 px-6 md:px-12">
-        <div class="max-w-[720px] mx-auto">
-          <p class="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
+      {/* === INVESTMENT THESIS === */}
+      <section className="py-24 px-6 md:px-12">
+        <div className="max-w-[720px] mx-auto">
+          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
             Investment Thesis
           </p>
-          <h2 class="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
-            The space between pharma and supplements is unoccupied.
-          </h2>
-          <p class="text-[17px] leading-relaxed text-mist mb-5">
-            GLP-1 drugs are a $50B+ category growing 40% year over year. But
-            the delivery model, weekly injections at $800&ndash;$1,600/month,
-ng-tight leading-tight mb-6 text-ink font-heading">
+          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
             The space between pharma and supplements is unoccupied.
           </h2>
           <p className="text-[17px] leading-relaxed text-mist mb-5">
@@ -406,84 +400,13 @@ ng-tight leading-tight mb-6 text-ink font-heading">
         </div>
       </section>
 
-      {/* === COMPESITIVE POSITIONING === */}
+      {/* === COMPETITIVE POSITIONING === */}
       <section className="py-24 px-6 md:px-12">
         <div className="max-w-[1100px] mx-auto">
           <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
             Competitive Positioning
           </p>
           <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
-            Same biology. Different model entirely.
-          </h2>
-
-          {/* vs Pharma */}
-          <p className="text-xs font-bold uppercase tracking-wider text-mist mt-8 mb-4">vs. Pharmaceutical GLP-1</p>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm border-collapse">
-              <thead>
-                <tr>
-                  <th className="text-left p-3 text-xs font-semibold uppercase tracking-wider border-b-2 border-forest-mid text-forest-mid" />
-                  <th className="text-left p-3 text-xs font-semibold uppercase tracking-wider border-b-2 border-gold text-gold">NutraGLP Slim SHOT</th>
-                  <th className="text-left p-3 text-xs font-semibold uppercase tracking-wider border-b-2 border-forest-mid text-forest-mid">Semaglutide</th>
-                  <th className="text-left p-3 text-xs font-semibold uppercase tracking-wider border-b-2 border-forest-mid text-forest-mid">Tirzepatide</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  ["Monthly Cost", "$145", "$900 – $1,100", "$1,000 – $1,300"],
-                  ["Delivery", "Oral (nanoemulsion)", "Weekly injection", "Weekly injection"],
-                  ["Prescription", "No", "Yes", "Yes"],
-                  ["Adverse Effects", "<5% (mild)", ">80% (mild to severe)", ">80% (mild to severe)"],
-                  ["Avg. Weight Loss (6 mo.)", "14.1%*", "5.8%", "10.1%"],
-                  ["Muscle / Collagen Loss", "Not observed", "Documented", "Documented"],
-                ].map((row) => (
-                  <tr key={row[0]}>
-                    <td className="p-3 border-b border-gray-100 text-xs font-medium text-mist">{row[0]}</td>
-                    <td className="p-3 border-b border-gray-100 font-semibold text-forest-mid">{row[1]}</td>
-                    <td className="p-3 border-b border-gray-100 text-ink">{row[2]}</td>
-                    <td className="p-3 border-b border-gray-100 text-ink">{row[3]}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* vs Supplements */}
-          <p className="text-xs font-bold uppercase tracking-wider text-mist mt-12 mb-4">vs. GLP-1 Supplements</p>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm border-collapse">
-              <thead>
-                <tr>
-                  <th className="text-left p-3 text-xs font-semibold uppercase tracking-wider border-b-2 border-forest-mid text-forest-mid" />
-                  <th className="text-left p-3 text-xs font-semibold uppercase tracking-wider border-b-2 border-gold text-gold">NutraGLP</th>
-                  <th className="text-left p-3 text-xs font-semibold uppercase tracking-wider border-b-2 border-forest-mid text-forest-mid">Inno Supps</th>
-                  <th className="text-left p-3 text-xs font-semibold uppercase tracking-wider border-b-2 border-forest-mid text-forest-mid">Lemme GLP-1</th>
-                  <th className="text-left p-3 text-xs font-semibold uppercase tracking-wider border-b-2 border-forest-mid text-forest-mid">Supergut</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  ["Clinical Data", "6-mo human observational (n=503)", "None", "None", "3-mo (no weight loss measured)"],
-                  ["DPP-4 Inhibition", "Yes", "No", "No", "No"],
-                  ["Patent Protection", "Patent-pending platform", "None", "None", "None"],
-                  ["Mechanism", "GLP-1 + GIP + DPP-4 + thermogenic", "Thermogenic claims", "Herbal GLP-1 claims", "Prebiotic fiber"],
-                  ["Monthly Price", "$145", "$167", "$80", "$30"],
-                ].map((row) => (
-                  <tr key={row[0]}>
-                    <td className="p-3 border-b border-gray-100 text-xs font-medium text-mist">{row[0]}</td>
-                    <td className="p-3 border-b border-gray-100 font-semibold text-gold">{row[1]}</td>
-                    <td className="p-3 border-b border-gray-100 text-mist">{row[2]}</td>
-                    <td className="p-3 border-b border-gray-100 text-mist">{row[3]}</td>
-                    <td className="p-3 border-b border-gray-100 text-mist">{row[4]}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      {/* === MONTEK   <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
             Same biology. Different model entirely.
           </h2>
 
@@ -583,13 +506,13 @@ ng-tight leading-tight mb-6 text-ink font-heading">
             <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-3">Platform Intelligence</p>
             <h3 className="text-xl font-normal text-white font-heading mb-3">NutraGLP Intelligence Engine</h3>
             <p className="text-sm text-white/40 leading-relaxed">
-              An integrated AI system delivers personalized dietary and lifestyle recommendations to maximize outcomes and adherence. Ingests user data and biomarkers, runs metabolic profiling, generates personalized protocols, and continuously refines recommendations. 30+ patent-pending formulations across the platform. Designed for retention and lng-term engagement.
+              An integrated AI system delivers personalized dietary and lifestyle recommendations to maximize outcomes and adherence. Ingests user data and biomarkers, runs metabolic profiling, generates personalized protocols, and continuously refines recommendations. 30+ patent-pending formulations across the platform. Designed for retention and long-term engagement.
             </p>
           </div>
         </div>
       </section>
 
-      {/* === MANFACTURING === */}
+      {/* === MANUFACTURING === */}
       <section className="bg-forest py-24 px-6 md:px-12">
         <div className="max-w-[1000px] mx-auto">
           <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
@@ -607,7 +530,7 @@ ng-tight leading-tight mb-6 text-ink font-heading">
             ].map((m) => (
               <div key={m.title} className="border-t border-white/[0.06] pt-6">
                 <div className="text-sm font-semibold text-white mb-2">{m.title}</div>
-                <div className="text-xs text-white-40 leading-relaxed">{m.desc}</div>
+                <div className="text-xs text-white/40 leading-relaxed">{m.desc}</div>
               </div>
             ))}
           </div>
@@ -623,7 +546,7 @@ ng-tight leading-tight mb-6 text-ink font-heading">
           <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
             Platform-level IP. Not ingredient-level.
           </h2>
-          <p class="assName="text-[17px] leading-relaxed text-mist mb-8">
+          <p className="text-[17px] leading-relaxed text-mist mb-8">
             The formulation architecture is designed to be defensible at the system level. Patent filings span methods, compositions, manufacturing, and delivery systems across 30+ consumer product formats. The breadth of the IP estate creates significant acquisition value for strategic buyers.
           </p>
           <div className="grid sm:grid-cols-2 gap-x-8">
@@ -923,5 +846,5 @@ ng-tight leading-tight mb-6 text-ink font-heading">
 
       <Footer />
     </main>
-  
-                            }
+  );
+}
