@@ -20,9 +20,6 @@ export default function Header() {
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-8">
-          <Link href="/slim-shot" className="text-sm text-white/50 hover:text-white transition no-underline">
-            Slim SHOT
-          </Link>
           <Link href="/science" className="text-sm text-white/50 hover:text-white transition no-underline">
             Science
           </Link>
@@ -32,12 +29,9 @@ export default function Header() {
           <Link href="/blog" className="text-sm text-white/50 hover:text-white transition no-underline">
             Blog
           </Link>
-          <Link href="/investors" className="text-sm text-white/50 hover:text-white transition no-underline">
-            Investors
-          </Link>
-          <Link href="/#waitlist" className="bg-gold text-white px-6 py-2.5 text-sm font-bold rounded-md tracking-tight no-underline hover:bg-gold-light transition">
-            Join the Waitlist
-          </Link>
+          <a href="mailto:investors@nutraglp.com" className="bg-gold text-white px-6 py-2.5 text-sm font-bold rounded-md tracking-tight no-underline hover:bg-gold-light transition">
+            Request the Deck
+          </a>
         </nav>
 
         {/* Mobile toggle */}
@@ -60,13 +54,6 @@ export default function Header() {
       {open && (
         <div className="md:hidden bg-forest-deep border-t border-white/[0.06] px-6 pb-6">
           <Link
-            href="/slim-shot"
-            onClick={() => setOpen(false)}
-            className="block py-3 text-sm text-white/50 hover:text-white transition no-underline"
-          >
-            Slim SHOT
-          </Link>
-          <Link
             href="/science"
             onClick={() => setOpen(false)}
             className="block py-3 text-sm text-white/50 hover:text-white transition no-underline"
@@ -87,20 +74,13 @@ export default function Header() {
           >
             Blog
           </Link>
-          <Link
-            href="/investors"
-            onClick={() => setOpen(false)}
-            className="block py-3 text-sm text-white/50 hover:text-white transition no-underline"
-          >
-            Investors
-          </Link>
-          <Link
-            href="/#waitlist"
+          <a
+            href="mailto:investors@nutraglp.com"
             onClick={() => setOpen(false)}
             className="block mt-2 bg-gold text-white px-6 py-3 text-sm font-bold rounded-md tracking-tight text-center no-underline"
           >
-            Join the Waitlist
-          </Link>
+            Request the Deck
+          </a>
         </div>
       )}
     </header>
