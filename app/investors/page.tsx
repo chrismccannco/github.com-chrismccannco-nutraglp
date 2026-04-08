@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Footer from "../components/Footer";
+import RequestDeckModal from "../components/RequestDeckModal";
 
 export const metadata: Metadata = {
   title: "Investors",
@@ -136,12 +137,7 @@ export default function Investors() {
           proprietary nanoemulsion delivery. One core mechanism. Multiple product
           formats. A $132B market with no platform-level entrant.
         </p>
-        <a
-          href="mailto:investors@nutraglp.com"
-          className="inline-block bg-gold text-white text-sm font-semibold px-8 py-3 rounded-full no-underline hover:bg-gold-light transition"
-        >
-          Request the Deck
-        </a>
+        <RequestDeckModal buttonClassName="inline-block bg-gold text-white text-sm font-semibold px-8 py-3 rounded-full no-underline hover:bg-gold-light transition cursor-pointer border-none" />
       </section>
 
       {/* Metrics Bar */}
@@ -237,7 +233,7 @@ export default function Investors() {
               <p className="text-sm font-bold uppercase tracking-wider text-gold mb-4">NutraGLP Platform</p>
               {["GRAS-certified, no FDA drug approval needed", "No prescription required", "Scalable consumer distribution", "Compliance built into platform design", "Addresses 200M+ underserved patients"].map((item) => (
                 <div key={item} className="flex gap-2 py-2 border-b border-white/[0.04] last:border-b-0 text-sm text-white/40">
-                  <span className="text-gold">&check;</span> {item}
+                  <span className="text-gold">✓</span> {item}
                 </div>
               ))}
             </div>
@@ -833,12 +829,7 @@ export default function Investors() {
           For the full deck, scientific monograph, clinical data,
           and a conversation about what we&apos;re building.
         </p>
-        <a
-          href="mailto:investors@nutraglp.com"
-          className="inline-block bg-gold text-white text-sm font-semibold px-8 py-3 rounded-full no-underline hover:bg-gold-light transition"
-        >
-          Request the Deck
-        </a>
+        <RequestDeckModal buttonClassName="inline-block bg-gold text-white text-sm font-semibold px-8 py-3 rounded-full no-underline hover:bg-gold-light transition cursor-pointer border-none" />
         <p className="text-xs text-white/25 mt-5">
           Executive summary, scientific monograph, and detailed financials available upon request.
         </p>
