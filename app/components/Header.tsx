@@ -1,14 +1,14 @@
 "use client";
-
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import RequestDeckModal from "./RequestDeckModal";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
-  // Hide site header on admin pages — admin has its own sidebar nav
+  // Hide site header on admin pages â admin has its own sidebar nav
   if (pathname.startsWith("/admin")) return null;
 
   return (
@@ -20,6 +20,9 @@ export default function Header() {
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-8">
+          <Link href="/" className="text-sm text-white/50 hover:text-white transition no-underline">
+            Investors
+          </Link>
           <Link href="/science" className="text-sm text-white/50 hover:text-white transition no-underline">
             Science
           </Link>
@@ -29,9 +32,7 @@ export default function Header() {
           <Link href="/blog" className="text-sm text-white/50 hover:text-white transition no-underline">
             Blog
           </Link>
-          <a href="mailto:investors@nutraglp.com" className="bg-gold text-white px-6 py-2.5 text-sm font-bold rounded-md tracking-tight no-underline hover:bg-gold-light transition">
-            Request the Deck
-          </a>
+          <RequestDeckModal buttonClassName="bg-gold text-white px-6 py-2.5 text-sm font-bold rounded-md tracking-tight no-underline hover:bg-gold-light transition cursor-pointer border-none" />
         </nav>
 
         {/* Mobile toggle */}
@@ -54,6 +55,13 @@ export default function Header() {
       {open && (
         <div className="md:hidden bg-forest-deep border-t border-white/[0.06] px-6 pb-6">
           <Link
+            href="/"
+            onClick={() => setOpen(false)}
+            className="block py-3 text-sm text-white/50 hover:text-white transition no-underline"
+          >
+            Investors
+          </Link>
+          <Link
             href="/science"
             onClick={() => setOpen(false)}
             className="block py-3 text-sm text-white/50 hover:text-white transition no-underline"
@@ -74,13 +82,11 @@ export default function Header() {
           >
             Blog
           </Link>
-          <a
-            href="mailto:investors@nutraglp.com"
-            onClick={() => setOpen(false)}
-            className="block mt-2 bg-gold text-white px-6 py-3 text-sm font-bold rounded-md tracking-tight text-center no-underline"
-          >
-            Request the Deck
-          </a>
+          <div className="mt-2">
+            <RequestDeckModal
+              buttonClassName="block w-full bg-gold text-white px-6 py-3 text-sm font-bold rounded-md tracking-tight text-center no-underline hover:bg-gold-light transition cursor-pointer border-none"
+            />
+          </div>
         </div>
       )}
     </header>
