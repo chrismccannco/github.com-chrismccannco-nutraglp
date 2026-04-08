@@ -11,6 +11,9 @@ export default function Footer() {
           healthcare provider before starting any new supplement regimen.
         </p>
         <div className="flex justify-center gap-4 sm:gap-6 mt-6 text-xs text-white/40 flex-wrap">
+          <Link href="/" className="hover:text-white/60 transition no-underline">
+            Investors
+          </Link>
           <Link href="/science" className="hover:text-white/60 transition no-underline">
             Science
           </Link>
@@ -28,7 +31,8 @@ export default function Footer() {
           </Link>
         </div>
         <p className="text-xs text-white/40 mt-6 text-center">
-          &copy; {new Date().getFullYear()} NutraGLP Biosciences. All rights reserved.
+          &copy; {new Date().getFullYear()} NutraGLP Biosciences. All rights
+          reserved.
         </p>
       </div>
     </footer>
