@@ -118,13 +118,6 @@ const faqSchema = {
   })),
 };
 
-const bottleStyle = {
-  width: "380px",
-  height: "380px",
-  maskImage: "linear-gradient(to bottom, black 88%, transparent 100%)",
-  WebkitMaskImage: "linear-gradient(to bottom, black 88%, transparent 100%)",
-};
-
 export default function SlimShotPage() {
   return (
     <main className="bg-forest-deep">
@@ -168,7 +161,7 @@ export default function SlimShotPage() {
               width={380}
               height={380}
               className="drop-shadow-2xl object-contain"
-              style={bottleStyle}
+              style={{ width: "380px", height: "380px" }}
               priority
             />
           </div>
