@@ -1,35 +1,37 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "./components/Header";
-import MobileStickyCTA from "./components/MobileStickyCTA";
 import PageViewTracker from "./components/PageViewTracker";
 import AnalyticsScripts from "./components/AnalyticsScripts";
 
 export const metadata: Metadata = {
   title: {
-    default: "NutraGLP — Natural GLP-1 Amplification",
-    template: "%s | NutraGLP",
+    default: "NutraGLP Biosciences â Natural GLP-1 Amplification",
+    template: "%s | NutraGLP Biosciences",
   },
   description:
-    "Slim SHOT is a daily liquid formula that amplifies your body's own GLP-1 production. No needle. No prescription. No catch. $155/mo.",
+    "NutraGLP Biosciences is developing a patent-pending metabolic amplification platform that coordinates endogenous incretin pathways through GRAS-certified bioactives and proprietary nanoemulsion delivery.",
   keywords: [
-    "natural GLP-1 supplement",
-    "GLP-1 without prescription",
-    "natural GLP-1 agonist",
-    "nanoemulsion GLP-1",
-    "DPP-4 inhibitor supplement",
-    "natural weight management",
+    "NutraGLP Biosciences",
     "natural GLP-1 amplification",
+    "GLP-1 biotech",
+    "metabolic amplification platform",
+    "nanoemulsion bioactives",
+    "incretin pathway",
+    "DPP-4 inhibitor supplement",
+    "GLP-1 investment opportunity",
+    "biotech seed round",
+    "natural weight management biotech",
   ],
   alternates: {
     canonical: "https://nutraglp.com",
   },
   openGraph: {
-    title: "NutraGLP — Natural GLP-1 Amplification",
+    title: "NutraGLP Biosciences â Natural GLP-1 Amplification",
     description:
-      "A patent-pending drinkable nanoemulsion that amplifies your body's natural GLP-1 and GIP production. No prescription. No injection. 13 metabolic pathways.",
+      "A patent-pending metabolic amplification platform that coordinates endogenous incretin pathways through GRAS-certified bioactives and proprietary nanoemulsion delivery.",
     url: "https://nutraglp.com",
-    siteName: "NutraGLP",
+    siteName: "NutraGLP Biosciences",
     type: "website",
     locale: "en_US",
     images: [
@@ -37,15 +39,15 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "NutraGLP — Natural GLP-1 Amplification",
+        alt: "NutraGLP Biosciences â Natural GLP-1 Amplification",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "NutraGLP — Natural GLP-1 Amplification",
+    title: "NutraGLP Biosciences â Natural GLP-1 Amplification",
     description:
-      "A patent-pending drinkable nanoemulsion that amplifies your body's natural GLP-1 and GIP production.",
+      "A patent-pending metabolic amplification platform that coordinates endogenous incretin pathways through GRAS-certified bioactives.",
   },
   robots: {
     index: true,
@@ -77,16 +79,23 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              name: "NutraGLP",
+              name: "NutraGLP Biosciences",
               url: "https://nutraglp.com",
               logo: "https://nutraglp.com/apple-touch-icon.png",
               description:
-                "NutraGLP develops patent-pending nanoemulsion supplements for natural GLP-1 amplification. Flagship product: Slim SHOT, a daily drinkable liquid formula.",
-              brand: {
-                "@type": "Brand",
-                name: "NutraGLP",
-              },
+                "NutraGLP Biosciences is a metabolic health company developing a patent-pending platform that amplifies the body's natural GLP-1 production through GRAS-certified bioactives and proprietary nanoemulsion delivery.",
               foundingDate: "2025",
+              industry: "Biotechnology",
+              numberOfEmployees: {
+                "@type": "QuantitativeValue",
+                minValue: 2,
+                maxValue: 10,
+              },
+              contactPoint: {
+                "@type": "ContactPoint",
+                email: "investors@nutraglp.com",
+                contactType: "investor relations",
+              },
               sameAs: [
                 "https://www.linkedin.com/company/nutraglp",
                 "https://www.instagram.com/nutraglp",
@@ -98,7 +107,6 @@ export default function RootLayout({
         <PageViewTracker />
         <Header />
         {children}
-        <MobileStickyCTA />
       </body>
     </html>
   );
