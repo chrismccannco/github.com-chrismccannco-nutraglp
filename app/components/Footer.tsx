@@ -17,9 +17,6 @@ export default function Footer() {
           <Link href="/science" className="hover:text-white/60 transition no-underline">
             Science
           </Link>
-          <Link href="/blog" className="hover:text-white/60 transition no-underline">
-            Blog
-          </Link>
           <Link href="/about" className="hover:text-white/60 transition no-underline">
             About
           </Link>
