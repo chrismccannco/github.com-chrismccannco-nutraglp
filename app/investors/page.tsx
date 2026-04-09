@@ -731,8 +731,8 @@ html { scroll-behavior: smooth; }
 .inv-hero-sub      { animation-delay: 0.2s; }
 .inv-hero-ctas     { animation-delay: 0.26s; }
 .inv-hero-stats    { animation-delay: 0.34s; }
-.inv-reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.5s ease; }
-.inv-reveal.vis { opacity: 1; transform: translateY(0); }
+.inv-reveal { opacity: 1; transform: none; }
+.inv-reveal.vis { opacity: 1; transform: none; }
 
 /* ═══════════════════ RESPONSIVE ═══════════════════ */
 @media (max-width: 900px) {
