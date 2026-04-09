@@ -5,7 +5,7 @@ import RequestDeckModal from "../components/RequestDeckModal";
 export const metadata: Metadata = {
   title: "Investors",
   description:
-    "NutraGLP investor overview. $132B addressable market, patent-pending nanoemulsion platform, and a clear path to category leadership in natural GLP-1 amplification.",
+    "NutraGLP Biosciences â a biotechnology platform for natural incretin modulation. $4.5M seed round. 40+ patent-pending formulations.",
   alternates: {
     canonical: "https://nutraglp.com/investors",
   },
@@ -15,827 +15,1232 @@ export const metadata: Metadata = {
   },
 };
 
-const topMetrics = [
-  { value: "$132B", label: "Total Addressable Market" },
-  { value: "30+", label: "Patent-Pending Formulations" },
-  { value: "13", label: "Validated Signaling Targets" },
-  { value: "503", label: "Study Participants" },
-  { value: "$5.5M", label: "Seed Round" },
-];
-
-const problemStats = [
-  { value: "130M+", title: "Adults with Overweight or Obesity", desc: "In the U.S. alone. One of the largest unaddressed therapeutic markets." },
-  { value: "$900–$1,300", title: "Monthly Patient Cost", desc: "Typical out-of-pocket cost of branded GLP-1/GIP drugs." },
-  { value: "70%+", title: "Experience Adverse Effects", desc: "Including nausea, serious GI events, muscle and collagen loss." },
-  { value: "3,000+", title: "Active GLP-1 Lawsuits", desc: "Adverse effects, compounding violations, marketing claims, FDA infringement." },
-];
-
-const catalystCards = [
-  { stat: "10/10", title: "Impurity Rate", desc: "Every Lilly-tested compounded tirzepatide sample contained unknown impurities." },
-  { stat: "FDA", title: "Enforcement Discretion Ended", desc: "Shortage resolved. Compounders no longer shielded from enforcement action." },
-  { stat: "C&D", title: "Cease-and-Desist Orders", desc: "Both Lilly and Novo issuing C&Ds across the entire compounding supply chain." },
-  { stat: "Zero", title: "Safety Studies", desc: "No safety studies exist on compounded GLP-1 impurities." },
-];
-
-const moaSteps = [
-  { num: 1, title: "Oral Intake", desc: "Nanoemulsion and microencapsulation delivery" },
-  { num: 2, title: "GLP-1 / GIP Release", desc: "L-cell and K-cell stimulation via natural secretagogues" },
-  { num: 3, title: "DPP-4 Inhibition", desc: "Extended incretin half-life preserving signal duration" },
-  { num: 4, title: "Signaling Coordination", desc: "Downstream metabolic pathway engagement across 13 targets" },
-  { num: 5, title: "Outcomes", desc: "Appetite control, glucose regulation, durable weight loss" },
-];
-
-const pathwayTargets = [
-  "GLP-1 / GIP / DPP-4", "Insulin / IRS / PI3K-AKT", "AMPK", "mTOR",
-  "MAPK / p38", "Leptin / Adiponectin", "NF-κB / JNK / IKKβ",
-  "PPARα/γ/δ", "Wnt / β-Catenin", "Hedgehog",
-  "cGMP / PKG", "TGF-β / SMAD3",
-];
-
-const evidenceStats = [
-  { num: "14.1%", label: "Avg. Weight Loss at 6 Months" },
-  { num: "<5%", label: "Adverse Effect Rate (All Mild)" },
-  { num: "0", label: "Serious Adverse Events" },
-  { num: "503", label: "Participants Observed" },
-  { num: "0%", label: "Muscle or Collagen Loss" },
-];
-
-const pipeline = [
-  { name: "Slim SHOT", desc: "Lead product. Daily 60ml nanoemulsion. GLP-1/GIP amplification, DPP-4 inhibition, thermogenic activation. $145/month. 30ml AM + 30ml PM.", timing: "NOW" },
-  { name: "GLP-1 Sweetener", desc: "First incretin-activating zero-calorie sweetener. Mass-market daily-use format. The platform in the most accessible form factor possible.", timing: "2026" },
-  { name: "GLP-1 Protein", desc: "High-protein formulation with GLP-1/GIP benefits. Addresses lean mass preservation, the key clinical distinction from pharma GLP-1 drugs.", timing: "2027" },
-  { name: "ThermoGEN", desc: "Thermogenic energy drink and performance gel. GLP pathway activation in convenience formats.", timing: "2026" },
-];
-
-const ipItems = [
-  { title: "GLP-1 & GIP Secretagogue Methods", desc: "Natural incretin release and optimization compositions. Methods for combining secretagogues with DPP-4 inhibitors to increase systemic incretin delivery." },
-  { title: "DPP-4 Inhibition Architecture", desc: "Extending endogenous incretin half-life through non-pharmaceutical DPP-4 modulation. The gating variable for non-pharma incretin efficacy." },
-  { title: "Cell-Signaling Pathway Compositions", desc: "Compositions for weight loss and glucose regulation targeting 13 validated signaling pathways across 6 pathway categories." },
-  { title: "Delivery & Manufacturing Systems", desc: "Proprietary nanoemulsion and encapsulation technologies. Scalable manufacturing processes across 30+ product formats." },
-];
-
-const channels = [
-  { timing: "Now", name: "D2C Subscription", desc: "Recurring revenue model. No prescription required. GRAS-certified formulations shipped direct to consumer.", margin: "70%+ gross margin" },
-  { timing: "Year 1–2", name: "Telehealth Integration", desc: "Plugs into existing metabolic health and weight management programs. Retention, step-down, and maintenance use cases.", margin: "85%+ gross margin" },
-  { timing: "Year 2–3", name: "IP Licensing", desc: "Functional ingredient and formulation licensing into foods, beverages, and nutrition products. The platform travels.", margin: "" },
-  { timing: "Year 2–3", name: "Clinical Integration", desc: "White-label and practice partnerships. Weight-management practices and integrative medicine clinics.", margin: "60%+ gross margin" },
-  { timing: "2028", name: "Retail & Wholesale", desc: "Pharmacy, wellness, and specialty retail channels. OTC distribution without pharmaceutical supply chain dependency.", margin: "45–55% gross margin" },
-];
-
-const projections = [
-  { year: "Year 1", revenue: "$3M", ebitda: "$644K", note: "Slim SHOT launch + DTC" },
-  { year: "Year 2", revenue: "$15M", ebitda: "$6.2M", note: "Sweetener launch + retail" },
-  { year: "Year 3", revenue: "$45M", ebitda: "$22M", note: "Full product line + app" },
-  { year: "Year 4", revenue: "$135M", ebitda: "$79.1M", note: "Scale + international" },
-];
-
-const ltvData = [
-  { year: "Year 1", ratio: "3.2x", pct: 29 },
-  { year: "Year 2", ratio: "6.2x", pct: 56 },
-  { year: "Year 3", ratio: "8.0x", pct: 73 },
-  { year: "Year 4", ratio: "11x", pct: 100 },
-];
-
-const roadmap = [
-  { quarter: "Q1 — Market Entry", title: "Launch infrastructure", desc: "Regulatory compliance finalized. Full-scale production. eCommerce platform live. Strategic marketing campaigns. Key hires. Pre-order list build.", revenue: "" },
-  { quarter: "Q2 — Expansion", title: "First partnerships", desc: "Market penetration campaign. First telehealth licensing agreement secured. 5–7 clinical and wholesale partners onboarded. Customer Advisory Board formed.", revenue: "$300K revenue" },
-  { quarter: "Q3 — Retail Pilots", title: "Channel expansion", desc: "1–2 retail pilot programs secured. Expanded telehealth partnerships. NutraGLP Sweetener launched. Supply chain optimized for scale.", revenue: "$900K revenue" },
-  { quarter: "Q4 — Retail Launch", title: "Clinical data & scale", desc: "Retail pilot live. Expanded telehealth licensing. Broader clinical network. Initial clinical data published.", revenue: "$1.8M revenue" },
-];
-
-const fundAllocation = [
-  { pct: "35%", label: "Formulation Science & IP" },
-  { pct: "25%", label: "Clinical Validation" },
-  { pct: "15%", label: "Regulatory & Compliance" },
-  { pct: "15%", label: "Go-to-Market & Partnerships" },
-  { pct: "10%", label: "Operations & Team" },
-];
-
-const risks = [
-  { title: "Observational Design", desc: "Current evidence is from a non-randomized observational study. Controlled clinical trials are planned and funded by this raise." },
-  { title: "Multi-Ingredient Attribution", desc: "The multi-ingredient nature of the platform limits the ability to attribute effects to individual components. Biomarker studies will address mechanism-level validation." },
-  { title: "Long-Term Durability", desc: "Six-month observation window. Longer-term persistence and tolerability data will come from real-world studies planned for Year 1–2." },
-  { title: "Regulatory Landscape", desc: "The dietary supplement regulatory environment is evolving. Platform compliance architecture is designed to adapt within existing and anticipated frameworks." },
-];
-
-export default function Investors() {
+export default function InvestorsPage() {
   return (
-    <main>
-      {/* Hero */}
-      <section className="bg-forest-deep px-6 md:px-12 pt-28 pb-20 text-center">
-        <p className="text-xs font-semibold uppercase tracking-[3px] text-gold mb-6">
-          NutraGLP Sync&trade; Platform
-        </p>
-        <h1 className="text-4xl md:text-[52px] font-normal text-white leading-[1.08] tracking-tight max-w-[820px] mx-auto mb-6 font-heading">
-          Your body already makes GLP-1.
-          <br />
-          <span className="text-gold italic">We built the platform to optimize it.</span>
-        </h1>
-        <p className="text-lg text-white/50 max-w-[620px] mx-auto mb-10 leading-relaxed">
-          A patent-pending metabolic amplification platform that coordinates
-          endogenous incretin pathways through GRAS-certified bioactives and
-          proprietary nanoemulsion delivery. One core mechanism. Multiple product
-          formats. A $132B market with no platform-level entrant.
-        </p>
-        <RequestDeckModal buttonClassName="inline-block bg-gold text-white text-sm font-semibold px-8 py-3 rounded-full no-underline hover:bg-gold-light transition cursor-pointer border-none" />
+    <main className="inv-page">
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+/* âââââââââââââââââââ INVESTOR PAGE STYLES âââââââââââââââââââ */
+html { scroll-behavior: smooth; }
+.inv-page {
+  --navy-deep: #0a2463;
+  --navy: #0066cc;
+  --teal: #1585b5;
+  --gold: #c8962e;
+  --gold-lt: #d4a94a;
+  --inv-white: #ffffff;
+  --cream: #f8f7f4;
+  --cream-warm: #f2f0ec;
+  --ink: #1a1a18;
+  --ink-mid: #3a3a36;
+  --mist: #6b7280;
+  --silver: #9ca3af;
+  --rule: #e5e5e0;
+  --rule-dark: rgba(255,255,255,0.08);
+}
+
+.inv-section { padding: 96px 0; }
+.inv-inner { max-width: 1100px; margin: 0 auto; padding: 0 48px; box-sizing: border-box; }
+.inv-eyebrow {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  margin-bottom: 16px; color: var(--teal);
+}
+.inv-page h2 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(26px, 3.2vw, 38px);
+  font-weight: 500; line-height: 1.18;
+  letter-spacing: -0.02em; margin-bottom: 20px;
+  font-optical-sizing: auto;
+}
+.inv-page h2 em { font-style: italic; font-weight: 400; }
+.inv-lead {
+  font-size: 16px; font-weight: 400;
+  line-height: 1.75; margin-bottom: 16px; max-width: 700px;
+}
+.inv-body {
+  font-size: 15px; line-height: 1.75;
+  margin-bottom: 14px; max-width: 700px;
+}
+.inv-body strong { font-weight: 600; }
+
+/* Light section defaults */
+.inv-light h2 { color: var(--navy-deep); }
+.inv-light h2 em { color: var(--teal); }
+.inv-light .inv-lead { color: var(--ink-mid); }
+.inv-light .inv-body { color: var(--mist); }
+.inv-light .inv-body strong { color: var(--ink-mid); }
+
+/* Dark section defaults */
+.inv-dark { background: var(--navy-deep); }
+.inv-dark h2 { color: #fff; }
+.inv-dark h2 em { color: var(--gold-lt); }
+.inv-dark .inv-eyebrow { color: var(--teal); }
+.inv-dark .inv-lead { color: rgba(255,255,255,0.6); }
+.inv-dark .inv-body { color: rgba(255,255,255,0.45); }
+.inv-dark .inv-body strong { color: rgba(255,255,255,0.75); }
+
+.inv-bg-white { background: var(--inv-white); }
+.inv-bg-cream { background: var(--cream-warm); }
+
+/* âââââââââââââââââââ HERO âââââââââââââââââââ */
+.inv-hero {
+  background: var(--navy-deep);
+  padding: 112px 0 88px;
+  position: relative; overflow: hidden;
+}
+.inv-hero::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 50% 70% at 80% 30%, rgba(21,133,181,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 10% 80%, rgba(200,150,46,0.06) 0%, transparent 60%);
+  pointer-events: none;
+}
+.inv-hero::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(21,133,181,0.4) 50%, transparent 100%);
+}
+.inv-hero-inner { max-width: 1100px; margin: 0 auto; padding: 0 48px; box-sizing: border-box; position: relative; }
+.inv-hero-eyebrow {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--teal); margin-bottom: 24px;
+}
+.inv-hero h1 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(38px, 5vw, 60px);
+  font-weight: 500; line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: #fff; margin-bottom: 24px;
+  font-optical-sizing: auto;
+}
+.inv-hero h1 em {
+  font-style: italic; font-weight: 400;
+  color: var(--gold-lt);
+}
+.inv-hero-sub {
+  font-size: 17px; font-weight: 400;
+  color: rgba(255,255,255,0.55);
+  max-width: 600px; line-height: 1.7; margin-bottom: 40px;
+}
+.inv-hero-ctas {
+  display: flex; align-items: center; gap: 20px; margin-bottom: 64px;
+}
+.inv-btn-gold {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--gold); color: var(--navy-deep);
+  padding: 13px 28px; border-radius: 4px;
+  font-size: 14px; font-weight: 600;
+  text-decoration: none; transition: all 0.2s;
+  border: none; cursor: pointer;
+}
+.inv-btn-gold:hover { background: var(--gold-lt); transform: translateY(-1px); }
+.inv-btn-outline {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: transparent; color: rgba(255,255,255,0.65);
+  padding: 13px 24px; border-radius: 4px;
+  font-size: 14px; font-weight: 500;
+  text-decoration: none; transition: all 0.2s;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.inv-btn-outline:hover { border-color: rgba(255,255,255,0.3); color: #fff; }
+
+/* Hero stats */
+.inv-hero-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid rgba(255,255,255,0.14); padding-top: 40px;
+}
+.inv-h-stat { padding-right: 24px; position: relative; }
+.inv-h-stat:not(:last-child)::after {
+  content: ''; position: absolute; right: 0; top: 0; bottom: 0;
+  width: 1px; background: rgba(255,255,255,0.14);
+}
+.inv-h-stat:not(:first-child) { padding-left: 24px; }
+.inv-h-stat-val {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(40px, 4vw, 48px); font-weight: 600;
+  color: #fff; line-height: 1; letter-spacing: -0.03em;
+  font-optical-sizing: auto;
+}
+.inv-h-stat-label {
+  font-size: 13px; font-weight: 500;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: rgba(255,255,255,0.70); margin-top: 10px; line-height: 1.35;
+}
+
+/* âââââââââââââââââââ PLATFORM âââââââââââââââââââ */
+.inv-plat-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 0; margin-top: 48px; border-radius: 8px; overflow: hidden;
+  border: 1px solid var(--rule);
+}
+.inv-plat-card {
+  padding: 36px 28px; background: var(--inv-white);
+  border-right: 1px solid var(--rule);
+}
+.inv-plat-card:last-child { border-right: none; }
+.inv-plat-card:nth-child(2) { background: var(--cream); }
+.inv-plat-top { height: 3px; margin: -36px -28px 28px; }
+.inv-plat-card:nth-child(1) .inv-plat-top { background: var(--teal); }
+.inv-plat-card:nth-child(2) .inv-plat-top { background: var(--gold); }
+.inv-plat-card:nth-child(3) .inv-plat-top { background: var(--navy); }
+.inv-plat-num {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 48px; font-weight: 500;
+  color: var(--rule); line-height: 1; margin-bottom: 14px;
+}
+.inv-plat-card h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 19px; font-weight: 500;
+  color: var(--navy-deep); margin-bottom: 10px;
+}
+.inv-plat-card p { font-size: 14px; color: var(--mist); line-height: 1.7; margin: 0; }
+
+/* âââââââââââââââââââ IP CARDS âââââââââââââââââââ */
+.inv-ip-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 20px; margin-top: 48px;
+}
+.inv-ip-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px; padding: 36px 28px;
+  position: relative; overflow: hidden;
+}
+.inv-ip-card::after {
+  content: ''; position: absolute; top: -40px; right: -40px;
+  width: 100px; height: 100px; border-radius: 50%;
+  background: rgba(21,133,181,0.08);
+}
+.inv-ip-val {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 52px; font-weight: 600;
+  color: var(--gold-lt); line-height: 1;
+  letter-spacing: -0.04em; font-optical-sizing: auto;
+}
+.inv-ip-sub {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--teal); margin-top: 4px; margin-bottom: 20px;
+}
+.inv-ip-card h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 17px; font-weight: 500;
+  color: #fff; margin-bottom: 10px;
+}
+.inv-ip-card > p {
+  font-size: 14px; color: rgba(255,255,255,0.5);
+  line-height: 1.7; margin: 0; position: relative;
+}
+
+/* Barrier block */
+.inv-barrier {
+  margin-top: 48px; padding: 40px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06); border-radius: 8px;
+}
+.inv-barrier h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 19px; font-weight: 500;
+  color: #fff; margin-bottom: 20px;
+}
+.inv-barrier-cols {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+}
+.inv-barrier-step { position: relative; padding-left: 20px; }
+.inv-barrier-step::before {
+  content: ''; position: absolute; left: 0; top: 6px;
+  width: 8px; height: 8px; border-radius: 50%; background: var(--teal);
+}
+.inv-barrier-step h4 {
+  font-size: 14px; font-weight: 600;
+  color: var(--gold-lt); margin-bottom: 6px;
+}
+.inv-barrier-step p {
+  font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.65; margin: 0;
+}
+
+/* Geo row */
+.inv-geo-row {
+  display: flex; align-items: center; gap: 20px;
+  margin-top: 36px; padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.inv-geo-num {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 48px; font-weight: 600;
+  color: var(--gold-lt); line-height: 1;
+  letter-spacing: -0.04em; flex-shrink: 0;
+}
+.inv-geo-text { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.6; }
+.inv-geo-text strong { color: rgba(255,255,255,0.8); font-weight: 600; }
+
+/* Competitive table */
+.inv-comp-tbl {
+  width: 100%; border-collapse: collapse;
+  margin-top: 40px; border-radius: 8px; overflow: hidden; font-size: 13px;
+}
+.inv-comp-tbl th {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--teal); background: rgba(255,255,255,0.04);
+  padding: 12px 16px; text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.inv-comp-tbl td {
+  padding: 12px 16px; color: rgba(255,255,255,0.5);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  vertical-align: top; line-height: 1.5;
+}
+.inv-comp-tbl tr:last-child td { border-bottom: none; }
+.inv-comp-tbl td:first-child { font-weight: 600; color: rgba(255,255,255,0.75); white-space: nowrap; }
+.inv-comp-tbl .inv-check { color: var(--teal); font-weight: 700; }
+.inv-comp-tbl .inv-x { color: rgba(255,255,255,0.2); }
+.inv-comp-tbl .inv-nutra-row td { background: rgba(21,133,181,0.08); color: rgba(255,255,255,0.7); }
+.inv-comp-tbl .inv-nutra-row td:first-child { color: var(--gold-lt); }
+
+/* âââââââââââââââââââ POC âââââââââââââââââââ */
+.inv-poc-block {
+  background: var(--navy-deep); border-radius: 8px; padding: 52px;
+  margin-top: 48px; position: relative; overflow: hidden;
+}
+.inv-poc-block::before {
+  content: ''; position: absolute; top: -80px; right: -80px;
+  width: 300px; height: 300px; border-radius: 50%;
+  background: rgba(21,133,181,0.06);
+}
+.inv-poc-layout {
+  display: grid; grid-template-columns: 1.2fr 1fr;
+  gap: 48px; align-items: center;
+}
+.inv-poc-text h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 24px; font-weight: 500;
+  color: #fff; line-height: 1.25; margin-bottom: 16px;
+}
+.inv-poc-text p { color: rgba(255,255,255,0.55); font-size: 15px; line-height: 1.75; margin-bottom: 12px; }
+.inv-poc-caveat { font-style: italic; font-size: 13px !important; color: rgba(255,255,255,0.3) !important; margin-top: 16px !important; }
+.inv-poc-nums { display: flex; flex-direction: column; gap: 24px; }
+.inv-poc-row { display: flex; align-items: baseline; gap: 14px; }
+.inv-poc-big {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 54px; font-weight: 600;
+  color: var(--gold-lt); line-height: 1; letter-spacing: -0.04em;
+}
+.inv-poc-lbl { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.4; }
+.inv-mid-cta {
+  background: rgba(21,133,181,0.06);
+  border: 1px solid rgba(21,133,181,0.15);
+  border-radius: 8px; padding: 28px 36px;
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 40px;
+}
+.inv-mid-cta p { font-size: 15px; color: var(--ink-mid); margin: 0; }
+.inv-mid-cta p strong { color: var(--navy-deep); }
+
+/* âââââââââââââââââââ MARKET âââââââââââââââââââ */
+.inv-mkt-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 0; margin-top: 48px; border-radius: 8px; overflow: hidden;
+  border: 1px solid var(--rule);
+}
+.inv-mkt-s {
+  padding: 40px 28px; background: var(--inv-white);
+  border-right: 1px solid var(--rule); text-align: center;
+}
+.inv-mkt-s:last-child { border-right: none; }
+.inv-mkt-s:nth-child(2) { background: var(--cream); }
+.inv-mkt-num {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 42px; font-weight: 600;
+  color: var(--navy-deep); line-height: 1; letter-spacing: -0.03em;
+}
+.inv-mkt-lbl { font-size: 13px; font-weight: 600; color: var(--mist); margin-top: 8px; }
+.inv-mkt-sub { font-size: 12px; color: var(--silver); margin-top: 3px; }
+
+/* Gap chart */
+.inv-gap-chart {
+  margin-top: 48px; padding: 36px;
+  background: var(--inv-white); border: 1px solid var(--rule); border-radius: 8px;
+}
+.inv-gap-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 17px; font-weight: 500;
+  color: var(--navy-deep); margin-bottom: 28px;
+}
+.inv-gap-row { margin-bottom: 20px; }
+.inv-gap-row:last-child { margin-bottom: 0; }
+.inv-gap-lbl {
+  font-size: 13px; font-weight: 600;
+  color: var(--ink-mid); margin-bottom: 6px;
+  display: flex; justify-content: space-between;
+}
+.inv-gap-lbl span { font-weight: 400; color: var(--silver); font-size: 12px; }
+.inv-gap-track { height: 28px; background: var(--cream); border-radius: 4px; overflow: hidden; }
+.inv-gap-fill {
+  height: 100%; border-radius: 4px;
+  display: flex; align-items: center; padding-left: 12px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.03em;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.inv-gap-fill.gf-pharma { background: var(--navy-deep); color: #fff; }
+.inv-gap-fill.gf-nutra  { background: var(--teal); color: #fff; }
+.inv-gap-fill.gf-supps  { background: var(--silver); color: #fff; }
+.inv-gap-arrow {
+  text-align: center; padding: 10px 0;
+  font-size: 12px; font-weight: 700; color: var(--teal); letter-spacing: 0.06em;
+}
+
+/* M&A table */
+.inv-ma-tbl {
+  width: 100%; border-collapse: collapse;
+  margin-top: 48px; border-radius: 8px; overflow: hidden;
+  border: 1px solid var(--rule);
+}
+.inv-ma-tbl th {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: #fff; background: var(--navy-deep);
+  padding: 14px 20px; text-align: left;
+}
+.inv-ma-tbl td {
+  padding: 14px 20px; font-size: 14px;
+  color: var(--ink-mid); border-bottom: 1px solid var(--rule); vertical-align: top;
+}
+.inv-ma-tbl tr:last-child td { border-bottom: none; }
+.inv-ma-tbl tr:nth-child(even) td { background: var(--cream); }
+.inv-ma-tbl tr:nth-child(odd) td { background: var(--inv-white); }
+.inv-ma-tbl td:first-child { font-weight: 600; color: var(--navy-deep); }
+.inv-ma-tbl td:nth-child(3) { font-weight: 600; color: var(--gold); white-space: nowrap; }
+.inv-ma-tbl td:last-child { font-size: 13px; color: var(--mist); }
+
+/* âââââââââââââââââââ ROADMAP âââââââââââââââââââ */
+.inv-roadmap {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 0; margin-top: 48px; position: relative;
+}
+.inv-roadmap::before {
+  content: ''; position: absolute; top: 24px; left: 6%; right: 6%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--teal) 0%, var(--teal) 25%, rgba(255,255,255,0.1) 25%);
+}
+.inv-rm-step { text-align: center; position: relative; padding-top: 52px; }
+.inv-rm-dot {
+  position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+  width: 20px; height: 20px; border-radius: 50%;
+  border: 3px solid var(--teal); background: var(--navy-deep);
+}
+.inv-rm-step:first-child .inv-rm-dot { background: var(--teal); }
+.inv-rm-phase {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--teal); margin-bottom: 6px;
+}
+.inv-rm-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 17px; font-weight: 500;
+  color: #fff; margin-bottom: 14px;
+}
+.inv-rm-items { list-style: none; display: flex; flex-direction: column; gap: 6px; text-align: left; padding: 0 8px; }
+.inv-rm-items li {
+  font-size: 13px; color: rgba(255,255,255,0.5);
+  line-height: 1.5; padding-left: 14px; position: relative;
+}
+.inv-rm-items li::before {
+  content: '\\2192'; position: absolute; left: 0;
+  color: var(--teal); font-size: 11px;
+}
+
+/* âââââââââââââââââââ THE RAISE âââââââââââââââââââ */
+.inv-raise-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 24px; margin-top: 48px;
+}
+.inv-raise-card {
+  background: var(--inv-white); border: 1px solid var(--rule);
+  border-radius: 8px; padding: 36px;
+}
+.inv-raise-card h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 19px; font-weight: 500;
+  color: var(--navy-deep); margin-bottom: 24px;
+}
+.inv-fund-row { margin-bottom: 18px; }
+.inv-fund-row:last-child { margin-bottom: 0; }
+.inv-fund-lbl {
+  display: flex; justify-content: space-between;
+  font-size: 13px; font-weight: 600;
+  color: var(--ink-mid); margin-bottom: 5px;
+}
+.inv-fund-lbl span { color: var(--teal); font-weight: 700; }
+.inv-fund-track { height: 7px; background: var(--cream); border-radius: 4px; overflow: hidden; }
+.inv-fund-fill {
+  height: 100%; border-radius: 4px; background: var(--navy-deep);
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.inv-exit-list { list-style: none; display: flex; flex-direction: column; gap: 10px; padding: 0; }
+.inv-exit-list li {
+  font-size: 14px; color: var(--ink-mid);
+  display: flex; gap: 10px; align-items: flex-start; line-height: 1.6;
+}
+.inv-exit-list li::before {
+  content: '\\2192'; color: var(--teal);
+  font-size: 12px; margin-top: 3px; flex-shrink: 0;
+}
+
+/* âââââââââââââââââââ CONTACT âââââââââââââââââââ */
+.inv-contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 48px; margin-top: 48px;
+}
+.inv-c-card { border-top: 2px solid var(--teal); padding-top: 24px; }
+.inv-c-role {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--teal); margin-bottom: 6px;
+}
+.inv-c-card h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 22px; font-weight: 500;
+  color: #fff; margin-bottom: 4px;
+}
+.inv-c-title { font-size: 14px; color: rgba(255,255,255,0.45); margin-bottom: 16px; }
+.inv-c-card a {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 15px; font-weight: 500;
+  color: #fff; text-decoration: none;
+  border-bottom: 1px solid rgba(21,133,181,0.4);
+  padding-bottom: 2px; transition: all 0.2s;
+}
+.inv-c-card a:hover { color: var(--teal); border-color: var(--teal); }
+
+/* âââââââââââââââââââ DECK FORM âââââââââââââââââââ */
+.inv-deck-form-wrap {
+  margin-top: 40px; margin-bottom: 56px;
+  padding: 40px; border-radius: 8px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* âââââââââââââââââââ DISCLAIMER âââââââââââââââââââ */
+.inv-disclaimer {
+  background: var(--cream-warm);
+  padding: 28px 48px; border-top: 1px solid var(--rule);
+}
+.inv-disclaimer p {
+  font-size: 12px; color: var(--silver);
+  max-width: 960px; margin: 0 auto; line-height: 1.8;
+}
+
+/* âââââââââââââââââââ STICKY CTA âââââââââââââââââââ */
+.inv-sticky-btn {
+  position: fixed; bottom: 24px; right: 24px; z-index: 90;
+  opacity: 0; transform: translateY(16px);
+  transition: all 0.4s ease; pointer-events: none;
+}
+.inv-sticky-btn.show { opacity: 1; transform: translateY(0); pointer-events: all; }
+.inv-sticky-btn .inv-btn-gold {
+  box-shadow: 0 6px 24px rgba(10,36,99,0.25);
+  font-size: 13px; padding: 11px 22px;
+}
+
+
+/* âââââââââââââââââââ THE PROBLEM âââââââââââââââââââ */
+.inv-prob-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 0; margin-top: 48px; border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 40px;
+}
+.inv-prob-stat { padding-right: 24px; position: relative; }
+.inv-prob-stat:not(:last-child)::after {
+  content: ''; position: absolute; right: 0; top: 0; bottom: 0;
+  width: 1px; background: rgba(255,255,255,0.08);
+}
+.inv-prob-stat:not(:first-child) { padding-left: 24px; }
+.inv-prob-val {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(24px, 2.5vw, 34px); font-weight: 600;
+  color: var(--gold-lt); line-height: 1; letter-spacing: -0.03em;
+  margin-bottom: 8px; font-optical-sizing: auto;
+}
+.inv-prob-lbl { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+
+/* âââââââââââââââââââ REGULATORY CATALYST âââââââââââââââââââ */
+.inv-reg-stats {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 0; margin-top: 48px; border-radius: 8px; overflow: hidden;
+  border: 1px solid var(--rule);
+}
+.inv-reg-stat {
+  padding: 28px 24px; background: var(--inv-white);
+  border-right: 1px solid var(--rule); text-align: center;
+}
+.inv-reg-stat:last-child { border-right: none; }
+.inv-reg-val {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 36px; font-weight: 600;
+  color: var(--navy-deep); line-height: 1; letter-spacing: -0.03em;
+  margin-bottom: 8px;
+}
+.inv-reg-lbl { font-size: 12px; color: var(--mist); line-height: 1.5; }
+.inv-reg-box {
+  margin-top: 32px; padding: 24px 32px;
+  background: rgba(10,36,99,0.05);
+  border-left: 3px solid var(--navy-deep);
+  border-radius: 0 8px 8px 0;
+}
+.inv-reg-box p { font-size: 15px; color: var(--ink-mid); line-height: 1.75; margin: 0; }
+.inv-reg-box strong { color: var(--navy-deep); font-weight: 600; }
+
+/* âââââââââââââââââââ CLINICAL VALIDATION âââââââââââââââââââ */
+.inv-clinical-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 0; margin-top: 48px; border-radius: 8px; overflow: hidden;
+  border: 1px solid var(--rule);
+}
+.inv-clinical-card {
+  padding: 32px 24px; background: var(--inv-white);
+  border-right: 1px solid var(--rule); position: relative;
+}
+.inv-clinical-card:last-child { border-right: none; }
+.inv-clinical-card.done { background: var(--cream); }
+.inv-clinical-badge {
+  display: inline-block; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 3px; margin-bottom: 16px;
+}
+.inv-clinical-badge.done { background: rgba(21,133,181,0.1); color: var(--teal); }
+.inv-clinical-badge.planned { background: rgba(107,114,128,0.08); color: var(--mist); }
+.inv-clinical-card h4 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 16px; font-weight: 500;
+  color: var(--navy-deep); margin-bottom: 10px;
+}
+.inv-clinical-card p { font-size: 13px; color: var(--mist); line-height: 1.7; margin: 0; }
+
+/* âââââââââââââââââââ TELEHEALTH âââââââââââââââââââ */
+.inv-tel-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 0; margin-top: 48px; border-radius: 8px; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.inv-tel-card {
+  padding: 32px 28px; background: rgba(255,255,255,0.03);
+  border-right: 1px solid rgba(255,255,255,0.06);
+}
+.inv-tel-card:last-child { border-right: none; }
+.inv-tel-card h4 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 18px; font-weight: 500;
+  color: var(--gold-lt); margin-bottom: 10px;
+}
+.inv-tel-card p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.7; margin: 0; }
+
+/* âââââââââââââââââââ PIPELINE âââââââââââââââââââ */
+.inv-pipe-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 0; margin-top: 48px; border-radius: 8px; overflow: hidden;
+  border: 1px solid var(--rule);
+}
+.inv-pipe-card {
+  padding: 32px 24px; background: var(--inv-white);
+  border-right: 1px solid var(--rule);
+}
+.inv-pipe-card:last-child { border-right: none; }
+.inv-pipe-card:nth-child(1) { background: var(--cream); }
+.inv-pipe-when {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--teal); margin-bottom: 8px;
+}
+.inv-pipe-name {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 20px; font-weight: 500;
+  color: var(--navy-deep); margin-bottom: 12px;
+}
+.inv-pipe-card p { font-size: 13px; color: var(--mist); line-height: 1.7; margin: 0; }
+
+/* âââââââââââââââââââ TEAM âââââââââââââââââââ */
+.inv-team-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 24px; margin-top: 48px;
+}
+.inv-team-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 8px; padding: 40px;
+  position: relative; overflow: hidden;
+}
+.inv-team-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px; background: linear-gradient(90deg, var(--teal) 0%, var(--navy) 100%);
+}
+.inv-team-role {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--teal); margin-bottom: 8px;
+}
+.inv-team-card h3 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 24px; font-weight: 500;
+  color: #fff; margin-bottom: 4px;
+}
+.inv-team-title { font-size: 13px; color: rgba(255,255,255,0.4); margin-bottom: 18px; }
+.inv-team-bio {
+  font-size: 14px; color: rgba(255,255,255,0.6);
+  line-height: 1.75; margin-bottom: 24px;
+}
+.inv-team-highlights {
+  display: flex; flex-direction: column; gap: 8px;
+  padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.06);
+}
+.inv-team-hl {
+  font-size: 12px; color: rgba(255,255,255,0.45);
+  padding-left: 18px; position: relative; line-height: 1.5;
+}
+.inv-team-hl::before {
+  content: '\2192'; position: absolute; left: 0;
+  color: var(--teal); font-size: 11px;
+}
+
+/* âââââââââââââââââââ FAQ âââââââââââââââââââ */
+.inv-faq-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 24px; margin-top: 48px;
+}
+.inv-faq-card {
+  background: var(--cream-warm); border-radius: 8px; padding: 32px;
+  border: 1px solid var(--rule);
+}
+.inv-faq-q {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 17px; font-weight: 500;
+  color: var(--navy-deep); margin-bottom: 12px;
+}
+.inv-faq-a { font-size: 14px; color: var(--mist); line-height: 1.75; margin: 0; }
+
+/* âââââââââââââââââââ ANIMATIONS âââââââââââââââââââ */
+@keyframes invFadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.inv-hero-inner > * { animation: invFadeUp 0.65s ease both; }
+.inv-hero-eyebrow  { animation-delay: 0.05s; }
+.inv-hero h1       { animation-delay: 0.12s; }
+.inv-hero-sub      { animation-delay: 0.2s; }
+.inv-hero-ctas     { animation-delay: 0.26s; }
+.inv-hero-stats    { animation-delay: 0.34s; }
+.inv-reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.inv-reveal.vis { opacity: 1; transform: translateY(0); }
+
+/* âââââââââââââââââââ RESPONSIVE âââââââââââââââââââ */
+@media (max-width: 900px) {
+  .inv-prob-stats { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .inv-reg-stats { grid-template-columns: repeat(2, 1fr); }
+  .inv-reg-stat:nth-child(2) { border-right: none; }
+  .inv-clinical-grid { grid-template-columns: 1fr 1fr; }
+  .inv-clinical-card { border-right: none; border-bottom: 1px solid var(--rule); }
+  .inv-tel-grid { grid-template-columns: 1fr; }
+  .inv-tel-card { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .inv-pipe-grid { grid-template-columns: 1fr 1fr; }
+  .inv-pipe-card { border-right: none; border-bottom: 1px solid var(--rule); }
+  .inv-team-grid { grid-template-columns: 1fr; }
+  .inv-faq-grid { grid-template-columns: 1fr; }
+
+  .inv-section { padding: 64px 0; }
+  .inv-inner { padding: 0 24px; }
+  .inv-hero-inner { padding: 0 24px; }
+  .inv-hero { padding: 96px 0 60px; }
+  .inv-hero-stats { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .inv-h-stat::after { display: none; }
+  .inv-h-stat:not(:first-child) { padding-left: 0; }
+  .inv-plat-grid, .inv-ip-grid { grid-template-columns: 1fr; }
+  .inv-barrier-cols { grid-template-columns: 1fr; }
+  .inv-plat-card { border-right: none; border-bottom: 1px solid var(--rule); }
+  .inv-plat-card:last-child { border-bottom: none; }
+  .inv-poc-layout { grid-template-columns: 1fr; gap: 32px; }
+  .inv-poc-block { padding: 32px 24px; }
+  .inv-mkt-stats { grid-template-columns: 1fr; }
+  .inv-mkt-s { border-right: none; border-bottom: 1px solid var(--rule); }
+  .inv-mkt-s:last-child { border-bottom: none; }
+  .inv-roadmap { grid-template-columns: 1fr; gap: 28px; }
+  .inv-roadmap::before { display: none; }
+  .inv-rm-step { padding-top: 0; padding-left: 36px; text-align: left; }
+  .inv-rm-dot { top: 2px; left: 0; }
+  .inv-raise-grid { grid-template-columns: 1fr; }
+  .inv-contact-grid { grid-template-columns: 1fr; }
+  .inv-mid-cta { flex-direction: column; gap: 14px; text-align: center; }
+}
+          `,
+        }}
+      />
+
+{/* âââ HERO âââ */}
+      <section className="inv-hero">
+        <div className="inv-hero-inner">
+          <p className="inv-hero-eyebrow">NutraGLP Biosciences â Investor Overview</p>
+          <h1>A new class of<br /><em>bioactive signaling molecules.</em></h1>
+          <p className="inv-hero-sub">For weight loss and glycemic control â delivered as consumer supplements and foods. Drug-level biology. Consumer-scale distribution. No prescription required.</p>
+          <div className="inv-hero-ctas">
+            <a href="#deck" className="inv-btn-gold">Request the Deck â</a>
+            <a href="#platform" className="inv-btn-outline">Read the Thesis</a>
+          </div>
+          <div className="inv-hero-stats">
+            <div className="inv-h-stat"><div className="inv-h-stat-val">$4.5M</div><div className="inv-h-stat-label">Seed Round</div></div>
+            <div className="inv-h-stat"><div className="inv-h-stat-val">40+</div><div className="inv-h-stat-label">Patent-Pending Formulations</div></div>
+            <div className="inv-h-stat"><div className="inv-h-stat-val">13</div><div className="inv-h-stat-label">Validated Signaling Targets</div></div>
+            <div className="inv-h-stat"><div className="inv-h-stat-val">8Ã</div><div className="inv-h-stat-label">Bioavailability vs Standard Oral</div></div>
+          </div>
+        </div>
       </section>
 
-      {/* Metrics Bar */}
-      <section className="bg-forest px-6 md:px-12 py-5 flex justify-center gap-6 sm:gap-12 flex-wrap">
-        {topMetrics.map((s) => (
-          <div key={s.label} className="text-center">
-            <div className="text-2xl font-normal tracking-tight text-gold font-heading">
-              {s.value}
+      {/* âââ THE PROBLEM â dark âââ */}
+      <section className="inv-section inv-dark">
+        <div className="inv-inner inv-reveal">
+          <p className="inv-eyebrow">The Problem</p>
+          <h2>GLP-1 drugs work.<br /><em>But they&apos;re failing patients.</em></h2>
+          <p className="inv-lead">3,000+ active GLP-1/GIP lawsuits in the U.S. Muscle loss. Collagen degradation. Weight regain after discontinuation. The market demands a safer, effective, drug-free alternative.</p>
+          <div className="inv-prob-stats">
+            <div className="inv-prob-stat">
+              <div className="inv-prob-val">130M+</div>
+              <div className="inv-prob-lbl">Adults with overweight or obesity in the U.S. â one of the largest unaddressed therapeutic markets</div>
             </div>
-            <div className="text-xs text-white/50 uppercase tracking-wider mt-0.5">
-              {s.label}
+            <div className="inv-prob-stat">
+              <div className="inv-prob-val">$900â$1,200</div>
+               <div className="inv-prob-lbl">Monthly out-of-pocket cost for branded GLP-1/GIP drugs</div>
+            </div>
+            <div className="inv-prob-stat">
+              <div className="inv-prob-val">70%+</div>
+              <div className="inv-prob-lbl">Of patients experience adverse effects including nausea, serious GI events, muscle and collagen loss</div>
+            </div>
+            <div className="inv-prob-stat">
+              <div className="inv-prob-val">50%+</div>
+              <div className="inv-prob-lbl">Discontinue within 12 months. Most regain lost weight after stopping.</div>
             </div>
           </div>
-        ))}
+        </div>
       </section>
 
-      {/* === THE PROBLEM === */}
-      <section className="py-24 px-6 md:px-12">
-        <div className="max-w-[720px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
-            The Problem
-          </p>
-          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
-            Obesity is a signaling disorder. Not a willpower problem.
-          </h2>
-          <p className="text-[17px] leading-relaxed text-mist mb-5">
-            130 million adults in the U.S. live with overweight or obesity. The downstream cascade, Type 2 diabetes, cardiovascular disease, NAFLD, chronic inflammation, represents one of the largest unaddressed therapeutic markets in the world.
-          </p>
-          <p className="text-[17px] leading-relaxed text-mist mb-5">
-            Pharmacologic GLP-1 drugs confirmed that incretin biology is a powerful metabolic control axis. But their efficacy depends on sustained supraphysiologic receptor activation, bypassing endogenous feedback control. The result: 70%+ adverse effect rates, 35% discontinuation within six months, significant loss of lean muscle and collagen, and weight regain after stopping.
-          </p>
-          <p className="text-[17px] leading-relaxed text-mist mb-8">
-            Meanwhile, 200 million people globally can&apos;t access, tolerate, or stay on pharmaceutical GLP-1. The supplement aisle offers nothing credible. The space between pharma and supplements is structurally empty.
-          </p>
-        </div>
-        <div className="max-w-[1000px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
-          {problemStats.map((s) => (
-            <div key={s.title} className="bg-cream rounded-lg p-6 text-center">
-              <div className="text-2xl font-normal text-forest-mid font-heading tracking-tight mb-2">{s.value}</div>
-              <div className="text-sm font-semibold text-ink mb-1">{s.title}</div>
-              <div className="text-xs text-mist">{s.desc}</div>
+      {/* OSV REGULATORY CATALYST â cream */}
+      <section className="inv-section inv-light inv-bg-cream">
+        <div className="inv-inner inv-reveal">
+          <p className="inv-eyebrow">Regulatory Catalyst</p>
+          <h2>Compounded GLP-1s under fire.<br /><em>The window is open.</em></h2>
+          <p className="inv-lead">The FDA ended enforcement discretion on compounded GLP-1s after Lilly found unknown impurities in all compounded tirzepatide samples tested. Novo Nordisk and Eli Lilly are issuing cease-and-desist orders across the entire compounding supply chain.</p>
+          <div className="inv-reg-stats">
+            <div className="inv-reg-stat">
+              <div className="inv-reg-val">10/10</div>
+              <div className="inv-reg-lbl">Lilly-tested compounded samples had impurities</div>
             </div>
-          ))}
+            <div className="inv-reg-stat">
+              <div className="inv-reg-val">FDA</div>
+              <div className="inv-reg-lbl">Ended enforcement discretion â shortage resolved</div>
+            </div>
+            <div className="inv-reg-stat">
+              <div className="inv-reg-val">Zero</div>
+              <div className="inv-reg-lbl">Safety studies on compounded impurities existed</div>
+            </div>
+            <div className="inv-reg-stat">
+              <div className="inv-reg-val">C&amp;D</div>
+              <div className="inv-reg-lbl">Cease-and-desist orders across entire supply chain</div>
+            </div>
+          </div>
+          <div className="inv-reg-box">
+            <p>NutraGLP is <strong>drug-free, GRAS-certified, and entirely outside this regulatory blast radius.</strong> The compounding window is closing precisely as NutraGLP moves to market â creating a structural demand gap for a compliant, effective alternative.</p>
+          </div>
         </div>
       </section>
 
-      {/* === REGULATORY CATALYST === */}
-      <section className="bg-forest-deep py-24 px-6 md:px-12">
-        <div className="max-w-[1000px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
-            Regulatory Catalyst
-          </p>
-          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-white font-heading">
-            The compound pharmacy window is closing.
-          </h2>
-          <p className="text-[17px] leading-relaxed text-white/50 mb-8">
-            FDA enforcement against compounded GLP-1 pharmacies is accelerating. The platforms built on that distribution model face structural risk. NutraGLP is GRAS-certified, drug-free, and outside the regulatory blast radius.
-          </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {catalystCards.map((c) => (
-              <div key={c.title} className="bg-white/[0.04] border border-white/[0.08] rounded-lg p-6">
-                <div className="text-2xl font-normal text-gold font-heading mb-2">{c.stat}</div>
-                <div className="text-sm font-semibold text-white mb-2">{c.title}</div>
-                <div className="text-xs text-white/40 leading-relaxed">{c.desc}</div>
+      {/* âââ PLATFORM â white âââ */}
+      <section className="inv-section inv-light inv-bg-white" id="platform">
+        <div className="inv-inner inv-reveal">
+          <p className="inv-eyebrow">The Platform</p>
+          <h2>Not a supplement company.<br /><em>A biotechnology platform.</em></h2>
+          <p className="inv-lead">NutraGLP is a non-pharmaceutical biotechnology platform. It occupies a new class that bridges pharmaceuticals, foods, and supplements â engineered as a coordinated signaling architecture with multiple mechanisms including natural incretin hormone activation (GLP-1, GIP), DPP-4 inhibition, blood glucose control, and thermogenesis.</p>
+          <p className="inv-body"><strong>The system design â not any single ingredient â is the defensible moat.</strong> Defended through a patent-pending architecture of more than 40 foods, supplements, and food additives, with platform-level formulation systems and delivery technologies designed for reproducibility and scalability.</p>
+          <div className="inv-plat-grid">
+            <div className="inv-plat-card"><div className="inv-plat-top"></div><div className="inv-plat-num">01</div><h3>Drug-Level Biology</h3><p>Amplifies GLP-1, GIP, and downstream signaling pathways using GRAS-certified bioactives â no synthetic peptides, no prescription required. Activates the same validated biology as pharmacologic therapy.</p></div>
+            <div className="inv-plat-card"><div className="inv-plat-top"></div><div className="inv-plat-num">02</div><h3>Consumer-Scale Distribution</h3><p>Delivered as OTCs, supplements, and functional foods across DTC, telehealth, retail pharmacy, and clinical channels simultaneously. Platform-based commercialization â not a single-product business.</p></div>
+            <div className="inv-plat-card"><div className="inv-plat-top"></div><div className="inv-plat-num">03</div><h3>Prescription-Free Access</h3><p>No injection. No pharmacy. No prescription. $145/month versus $900â$1,300/month for pharmacologic alternatives. Outcomes comparable to Ozempic and Mounjaro. Every barrier to patient access removed.</p></div>
+          </div>
+        </div>
+      </section>
+
+      {/* âââ IP & DEFENSIBILITY â dark âââ */}
+      <section className="inv-section inv-dark">
+        <div className="inv-inner inv-reveal">
+          <p className="inv-eyebrow">IP &amp; Defensibility</p>
+          <h2>Three layers of <em>compounding protection.</em></h2>
+          <p className="inv-lead">The IP strategy creates compounding defensibility. Each layer reinforces the others. A competitor cannot replicate the platform by copying a single formulation â they would need to independently develop all three.</p>
+
+          <div className="inv-ip-grid">
+            <div className="inv-ip-card">
+              <div className="inv-ip-val">40+</div><div className="inv-ip-sub">patent-pending</div>
+              <h3>Formulation IP</h3>
+              <p>Methods combining natural GLP-1 and GIP secretagogues with DPP-4 inhibitors to increase systemic incretin delivery. Cell-signaling pathway compositions for weight loss and glucose regulation. Each formulation independently defensible.</p>
+            </div>
+            <div className="inv-ip-card">
+              <div className="inv-ip-val">8Ã</div><div className="inv-ip-sub">bioavailability</div>
+              <h3>Delivery IP</h3>
+              <p>Proprietary nanoemulsion system protected independently from the active formulations it carries. Developed over two decades of nano-encapsulation research. The delivery platform is the second moat.</p>
+            </div>
+            <div className="inv-ip-card">
+              <div className="inv-ip-val">13</div><div className="inv-ip-sub">signaling targets</div>
+              <h3>System Design IP</h3>
+              <p>The coordinated activation architecture itself is the invention. Targeting multiple pathways simultaneously â which pathways, what combination, what timing â is proprietary knowledge that does not exist outside this platform.</p>
+            </div>
+          </div>
+
+          <div className="inv-geo-row">
+            <div className="inv-geo-num">24+</div>
+            <div className="inv-geo-text"><strong>Countries with patent protection</strong> covering nanoparticle delivery systems for nutraceutical and pharmaceutical biotechnology applications. The delivery IP originated from the founder&apos;s work at Nanosphere Health Sciences (publicly traded), which earned the Frost &amp; Sullivan Nano-Encapsulation Innovation Award.</div>
+          </div>
+
+          <div className="inv-barrier">
+            <h3>What it would take to replicate this platform</h3>
+            <div className="inv-barrier-cols">
+              <div className="inv-barrier-step">
+                <h4>Reverse-engineer 40+ formulations</h4>
+                <p>Each formulation uses synergistic multi-compound combinations. Copying a single ingredient does nothing â the interactions between compounds across 13 signaling targets are the mechanism. Years of combinatorial research.</p>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* === REGULATORY POSITIONING === */}
-      <section className="bg-forest-deep pb-24 px-6 md:px-12">
-        <div className="max-w-[1000px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
-            Regulatory Positioning
-          </p>
-          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-white font-heading">
-            Different regulatory lane. Same validated biology.
-          </h2>
-          <p className="text-[17px] leading-relaxed text-white/50 mb-8">
-            GRAS (Generally Recognized as Safe) ingredients do not require FDA drug approval. Products ship as dietary supplements, functional foods, or food additives under existing regulatory frameworks. Structure/function claims are permissible. The compliance architecture is designed into the platform, not managed as ongoing regulatory risk.
-          </p>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-white/[0.03] border border-white/[0.08] rounded-lg p-7">
-              <p className="text-sm font-bold uppercase tracking-wider text-white/50 mb-4">Compound GLP-1 Pharmacies</p>
-              {["FDA enforcement accelerating", "Prescription-dependent distribution", "Supply chain vulnerability", "Regulatory risk embedded in model", "35% patient discontinuation rate"].map((item) => (
-                <div key={item} className="flex gap-2 py-2 border-b border-white/[0.04] last:border-b-0 text-sm text-white/40">
-                  <span className="text-white/25">&times;</span> {item}
-                </div>
-              ))}
-            </div>
-            <div className="bg-gold/[0.08] border border-gold/20 rounded-lg p-7">
-              <p className="text-sm font-bold uppercase tracking-wider text-gold mb-4">NutraGLP Platform</p>
-              {["GRAS-certified, no FDA drug approval needed", "No prescription required", "Scalable consumer distribution", "Compliance built into platform design", "Addresses 200M+ underserved patients"].map((item) => (
-                <div key={item} className="flex gap-2 py-2 border-b border-white/[0.04] last:border-b-0 text-sm text-white/40">
-                  <span className="text-gold">✓</span> {item}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* === INVESTMENT THESIS === */}
-      <section className="py-24 px-6 md:px-12">
-        <div className="max-w-[720px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
-            Investment Thesis
-          </p>
-          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
-            The space between pharma and supplements is unoccupied.
-          </h2>
-          <p className="text-[17px] leading-relaxed text-mist mb-5">
-            GLP-1 drugs are a $50B+ category growing 40% year over year. But
-            the delivery model, weekly injections at $800&ndash;$1,600/month,
-            excludes the majority of the addressable market. Meanwhile, the
-            supplement aisle offers no credible alternative.
-          </p>
-          <p className="text-[17px] leading-relaxed text-mist mb-5">
-            NutraGLP is building the platform layer between these two worlds.
-            Our patent-pending technology amplifies endogenous GLP-1 production
-            and inhibits DPP-4 degradation, delivered through a proprietary
-            nanoemulsion system that solves the bioavailability problem that
-            makes most oral formats ineffective.
-          </p>
-          <p className="text-[17px] leading-relaxed text-mist">
-            Slim SHOT is the lead product. It ships first, generates revenue,
-            and validates the core mechanism. The same technology powers
-            every product in the pipeline: sweeteners, protein, energy
-            formats, and an AI-driven companion app. One R&amp;D investment,
-            multiple revenue streams.
-          </p>
-        </div>
-      </section>
-
-      {/* === MECHANISM OF ACTION === */}
-      <section className="bg-forest-deep py-24 px-6 md:px-12">
-        <div className="max-w-[1000px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
-            Mechanism of Action
-          </p>
-          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-white font-heading">
-            Incretin amplification and multi-pathway signaling.
-          </h2>
-          <p className="text-[17px] leading-relaxed text-white/50 mb-10">
-            NutraGLP Sync amplifies endogenous incretin effects by combining natural GLP-1/GIP secretagogues with DPP-4 inhibitors, while coordinating downstream signaling pathways that regulate appetite, blood sugar, and energy expenditure.
-          </p>
-          <div className="flex flex-wrap justify-center items-start gap-0">
-            {moaSteps.map((step, i) => (
-              <div key={step.num} className="flex items-start">
-                <div className="text-center px-2" style={{ minWidth: 140, maxWidth: 180 }}>
-                  <div className="w-10 h-10 rounded-full bg-gold text-white text-base font-bold flex items-center justify-center mx-auto mb-3">
-                    {step.num}
-                  </div>
-                  <div className="text-sm font-bold text-white mb-1">{step.title}</div>
-                  <div className="text-xs text-white/40">{step.desc}</div>
-                </div>
-                {i < moaSteps.length - 1 && (
-                  <div className="text-gold text-xl pt-2 px-1">&rsaquo;</div>
-                )}
+              <div className="inv-barrier-step">
+                <h4>Independently develop nanoemulsion delivery</h4>
+                <p>The delivery system is protected by separate patent claims across 24+ countries. A competitor would need to invent an alternative nano-carrier from scratch â and prove equivalent bioavailability. This took two decades.</p>
               </div>
-            ))}
-          </div>
-          <div className="flex flex-wrap gap-2 mt-8 justify-center">
-            {pathwayTargets.map((t) => (
-              <span key={t} className="text-[11px] font-semibold tracking-wide px-3 py-1.5 rounded-full border border-white/10 text-white/50">
-                {t}
-              </span>
-            ))}
-          </div>
-          <p className="text-center text-sm text-white/30 italic mt-6">
-            Supported by a reference library of 200+ peer-reviewed publications. Scientific Monograph available upon request.
-          </p>
-        </div>
-      </section>
-
-      {/* === CLINICAL EVIDENCE === */}
-      <section className="bg-cream py-24 px-6 md:px-12">
-        <div className="max-w-[1000px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
-            Clinical Evidence
-          </p>
-          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
-            Proof of concept. 503 participants. Six months.
-          </h2>
-          <p className="text-[17px] leading-relaxed text-mist mb-8">
-            An observational evaluation of a licensed NutraGLP formulation containing endogenous GLP-1 and GIP secretagogues, natural DPP-4 inhibitors, and thermogenic compounds produced measurable weight-loss outcomes with a favorable tolerability profile.
-          </p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mb-8">
-            {evidenceStats.map((s) => (
-              <div key={s.label} className="bg-white rounded-lg p-6 text-center">
-                <div className="text-3xl font-normal text-forest-mid font-heading tracking-tight">{s.num}</div>
-                <div className="text-xs text-mist mt-1">{s.label}</div>
-              </div>
-            ))}
-          </div>
-
-          {/* Clinical Dev Plan */}
-          <div className="mt-16">
-            <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
-              Clinical Development Plan
-            </p>
-            <h3 className="text-2xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
-              Validation pathway.
-            </h3>
-            <div className="overflow-x-auto">
-              <div className="min-w-[600px]">
-                <div className="grid grid-cols-[200px_1fr] gap-0 mb-1">
-                  <div />
-                  <div className="grid grid-cols-4 gap-0.5">
-                    {["Observational", "Biomarker", "Controlled", "Real-World"].map((h) => (
-                      <div key={h} className="text-center text-[10px] font-bold uppercase tracking-wider text-mist py-2">{h}</div>
-                    ))}
-                  </div>
-                </div>
-                {[
-                  { name: "Slim SHOT (Lead)", stages: ["Complete", "Planned", "Planned", "Planned"] },
-                  { name: "GLP-1 Sweetener", stages: ["Planned", "Planned", "—", "—"] },
-                  { name: "GLP-1 Protein", stages: ["Planned", "Planned", "—", "—"] },
-                ].map((row) => (
-                  <div key={row.name} className="grid grid-cols-[200px_1fr] gap-0 mb-0.5">
-                    <div className="bg-white border-r-2 border-cream px-4 py-3 text-sm font-semibold text-ink">{row.name}</div>
-                    <div className="grid grid-cols-4 gap-0.5">
-                      {row.stages.map((s, i) => (
-                        <div
-                          key={i}
-                          className={`py-3 text-center text-[11px] font-semibold uppercase tracking-wide ${
-                            s === "Complete" ? "bg-forest-mid text-white" :
-                            s === "Planned" ? "bg-gold text-white" :
-                            "bg-gray-200 text-mist"
-                          }`}
-                        >
-                          {s}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
+              <div className="inv-barrier-step">
+                <h4>Discover the system architecture</h4>
+                <p>The coordinated multi-pathway activation model is not documented in any published literature. The signaling stack â which pathways to activate, in what combination, with what timing â is proprietary knowledge that does not exist outside this platform.</p>
               </div>
             </div>
           </div>
 
-          {/* Biomarker Strategy */}
-          <div className="mt-16">
-            <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
-              Biomarker Strategy
-            </p>
-            <p className="text-[17px] leading-relaxed text-mist">
-              Planned mechanistic validation will measure circulating active GLP-1 and GIP concentrations, DPP-4 activity levels, postprandial insulin and glucagon dynamics, and validated markers of insulin sensitivity. These endpoints confirm whether the platform preserves and amplifies endogenous incretin signaling, not just whether weight comes off.
-            </p>
-          </div>
-
-          <p className="text-sm text-mist italic mt-8">
-            Observational outcomes from a licensed NutraGLP formulation. Non-randomized study design. Findings should be interpreted within the scope of the study. Controlled clinical trials planned. Scientific Brief and full reference library available upon request.
-          </p>
+          <h3 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: 19, fontWeight: 500, color: '#fff', marginTop: 48, marginBottom: 6 }}>Four segments. One white space. NutraGLP owns it.</h3>
+          <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', lineHeight: 1.7, marginBottom: 0, maxWidth: 700 }}>The incretin biology market is currently divided into four segments â none of which deliver scalable, durable weight loss outside of pharmaceuticals. Until now.</p>
+          <table className="inv-comp-tbl">
+            <thead>
+              <tr><th>Segment</th><th>Proprietary IP</th><th>DPL-4 Inhibition</th><th>Delivery Innovation</th><th>No Rx Required</th><th>Key Risk</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Pharma GLP-1 Drugs</td><td className="inv-check">â</td><td className="inv-check">â</td><td className="inv-check">â</td><td className="inv-x">â</td><td>Cost ($900â$1,300/mo), tolerability, 50%+ discontinue within 12 months</td></tr>
+              <tr><td>Telehealth Compounders</td><td className="inv-x">â</td><td className="inv-check">â</td><td className="inv-x">â</td><td className="inv-x">â</td><td>Regulatory arbitrage closing â FDA enforcement, Novo/Lilly C&amp;D orders</td></tr>
+              <tr><td>GLP-1 Supplements</td><td className="inv-x">â</td><td className="inv-x">â</td><td className="inv-x">â</td><td className="inv-check">â</td><td>No DPP-4 inhibition â GLP-1 degraded in minutes. No validated outcomes.</td></tr>
+              <tr><td>Conventional Nutraceuticals</td><td className="inv-x">â</td><td className="inv-x">â</td><td className="inv-x">â</td><td className="inv-check">â</td><td>Not incretin-relevant, limited validation, inconsistent outcomes</td></tr>
+              <tr className="inv-nutra-row"><td>NutraGLP</td><td className="inv-check">â</td><td className="inv-check">â</td><td className="inv-check">â</td><td className="inv-check">â</td><td>Clinical validation in progress (seed-stage risk)</td></tr>
+            </tbody>
+          </table>
         </div>
       </section>
 
-      {/* === COMPETITIVE POSITIONING === */}
-      <section className="py-24 px-6 md:px-12">
-        <div className="max-w-[1100px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
-            Competitive Positioning
-          </p>
-          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
-            Same biology. Different model entirely.
-          </h2>
-
-          {/* vs Pharma */}
-          <p className="text-xs font-bold uppercase tracking-wider text-mist mt-8 mb-4">vs. Pharmaceutical GLP-1</p>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm border-collapse">
-              <thead>
-                <tr>
-                  <th className="text-left p-3 text-xs font-semibold uppercase tracking-wider border-b-2 border-forest-mid text-forest-mid" />
-                  <th className="text-left p-3 text-xs font-semibold uppercase tracking-wider border-b-2 border-gold text-gold">NutraGLP Slim SHOT</th>
-                  <th className="text-left p-3 text-xs font-semibold uppercase tracking-wider border-b-2 border-forest-mid text-forest-mid">Semaglutide</th>
-                  <th className="text-left p-3 text-xs font-semibold uppercase tracking-wider border-b-2 border-forest-mid text-forest-mid">Tirzepatide</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  ["Monthly Cost", "$145", "$900 – $1,100", "$1,000 – $1,300"],
-                  ["Delivery", "Oral (nanoemulsion)", "Weekly injection", "Weekly injection"],
-                  ["Prescription", "No", "Yes", "Yes"],
-                  ["Adverse Effects", "<5% (mild)", ">80% (mild to severe)", ">80% (mild to severe)"],
-                  ["Avg. Weight Loss (6 mo.)", "14.1%*", "5.8%", "10.1%"],
-                  ["Muscle / Collagen Loss", "Not observed", "Documented", "Documented"],
-                ].map((row) => (
-                  <tr key={row[0]}>
-                    <td className="p-3 border-b border-gray-100 text-xs font-medium text-mist">{row[0]}</td>
-                    <td className="p-3 border-b border-gray-100 font-semibold text-forest-mid">{row[1]}</td>
-                    <td className="p-3 border-b border-gray-100 text-ink">{row[2]}</td>
-                    <td className="p-3 border-b border-gray-100 text-ink">{row[3]}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* vs Supplements */}
-          <p className="text-xs font-bold uppercase tracking-wider text-mist mt-12 mb-4">vs. GLP-1 Supplements</p>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm border-collapse">
-              <thead>
-                <tr>
-                  <th className="text-left p-3 text-xs font-semibold uppercase tracking-wider border-b-2 border-forest-mid text-forest-mid" />
-                  <th className="text-left p-3 text-xs font-semibold uppercase tracking-wider border-b-2 border-gold text-gold">NutraGLP</th>
-                  <th className="text-left p-3 text-xs font-semibold uppercase tracking-wider border-b-2 border-forest-mid text-forest-mid">Inno Supps</th>
-                  <th className="text-left p-3 text-xs font-semibold uppercase tracking-wider border-b-2 border-forest-mid text-forest-mid">Lemme GLP-1</th>
-                  <th className="text-left p-3 text-xs font-semibold uppercase tracking-wider border-b-2 border-forest-mid text-forest-mid">Supergut</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  ["Clinical Data", "6-mo human observational (n=503)", "None", "None", "3-mo (no weight loss measured)"],
-                  ["DPP-4 Inhibition", "Yes", "No", "No", "No"],
-                  ["Patent Protection", "Patent-pending platform", "None", "None", "None"],
-                  ["Mechanism", "GLP-1 + GIP + DPP-4 + thermogenic", "Thermogenic claims", "Herbal GLP-1 claims", "Prebiotic fiber"],
-                  ["Monthly Price", "$145", "$167", "$80", "$30"],
-                ].map((row) => (
-                  <tr key={row[0]}>
-                    <td className="p-3 border-b border-gray-100 text-xs font-medium text-mist">{row[0]}</td>
-                    <td className="p-3 border-b border-gray-100 font-semibold text-forest-mid">{row[1]}</td>
-                    <td className="p-3 border-b border-gray-100 text-ink">{row[2]}</td>
-                    <td className="p-3 border-b border-gray-100 text-ink">{row[3]}</td>
-                    <td className="p-3 border-b border-gray-100 text-ink">{row[4]}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="text-sm text-mist italic mt-4">
-            *Observational outcomes from a licensed NutraGLP formulation. Not a head-to-head comparison. Future controlled clinical trials planned.
-          </p>
-        </div>
-      </section>
-
-      {/* === PRODUCT PIPELINE === */}
-      <section className="bg-forest-deep py-24 px-6 md:px-12">
-        <div className="max-w-[1000px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
-            Product Pipeline
-          </p>
-          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-white font-heading">
-            Four product lines. One platform.
-          </h2>
-          <p className="text-[17px] leading-relaxed text-white/50 mb-8 max-w-[640px]">
-            Every product in the pipeline runs on the same patent-pending signaling architecture. One R&amp;D investment. Multiple revenue streams. Multiple form factors.
-          </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {pipeline.map((p) => (
-              <div key={p.name} className="bg-white/[0.04] border border-white/[0.08] rounded-lg p-6">
-                <div className="text-sm font-semibold text-gold mb-2">{p.name}</div>
-                <div className="text-xs text-white/40 leading-relaxed mb-3">{p.desc}</div>
-                <div className="text-[11px] font-semibold text-gold">{p.timing}</div>
-              </div>
-            ))}
-          </div>
-          {/* AI Engine */}
-          <div className="mt-12 p-8 bg-white/[0.03] border border-white/[0.08] rounded-lg">
-            <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-3">Platform Intelligence</p>
-            <h3 className="text-xl font-normal text-white font-heading mb-3">NutraGLP Intelligence Engine</h3>
-            <p className="text-sm text-white/40 leading-relaxed">
-              An integrated AI system delivers personalized dietary and lifestyle recommendations to maximize outcomes and adherence. Ingests user data and biomarkers, runs metabolic profiling, generates personalized protocols, and continuously refines recommendations. 30+ patent-pending formulations across the platform. Designed for retention and long-term engagement.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* === MANUFACTURING === */}
-      <section className="bg-forest py-24 px-6 md:px-12">
-        <div className="max-w-[1000px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
-            Manufacturing &amp; Delivery
-          </p>
-          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-8 text-white font-heading">
-            Production-ready. Shelf-stable. Scalable.
-          </h2>
-          <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              { title: "Nano-Engineered Delivery", desc: "Proprietary nanoemulsion and microencapsulation for up to 8x bioavailability vs. standard oral delivery." },
-              { title: "Cross-Format Stability", desc: "Formulations engineered for GI environment survival and commercial shelf stability across shots, powders, beverages, gels, and foods." },
-              { title: "Manufacturing Partners Secured", desc: "Production partnerships in place for scale. Platform architecture maintains biological consistency across product categories." },
-              { title: "Unified Architecture", desc: "The underlying signaling architecture remains constant across all product formats. One platform. Multiple delivery vehicles." },
-            ].map((m) => (
-              <div key={m.title} className="border-t border-white/[0.06] pt-6">
-                <div className="text-sm font-semibold text-white mb-2">{m.title}</div>
-                <div className="text-xs text-white/40 leading-relaxed">{m.desc}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* === IP === */}
-      <section className="py-24 px-6 md:px-12">
-        <div className="max-w-[720px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
-            Intellectual Property
-          </p>
-          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
-            Platform-level IP. Not ingredient-level.
-          </h2>
-          <p className="text-[17px] leading-relaxed text-mist mb-8">
-            The formulation architecture is designed to be defensible at the system level. Patent filings span methods, compositions, manufacturing, and delivery systems across 30+ consumer product formats. The breadth of the IP estate creates significant acquisition value for strategic buyers.
-          </p>
-          <div className="grid sm:grid-cols-2 gap-x-8">
-            {ipItems.map((item) => (
-              <div key={item.title} className="py-6 border-t border-gray-200">
-                <div className="text-[15px] font-semibold text-ink mb-1">{item.title}</div>
-                <div className="text-sm text-mist leading-relaxed">{item.desc}</div>
-              </div>
-            ))}
-          </div>
-          <p className="text-[15px] text-mist italic mt-6">
-            Capital raised funds expansion and clinical research, not technical validation. The IP foundation is built.
-          </p>
-        </div>
-      </section>
-
-      {/* === MARKET OPPORTUNITY === */}
-      <section className="bg-cream py-24 px-6 md:px-12">
-        <div className="max-w-[720px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
-            Market Opportunity
-          </p>
-          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-8 text-ink font-heading">
-            $132B TAM. No platform-level entrant.
-          </h2>
-          {[
-            { value: "$132B", title: "Total Addressable Market", desc: "Global GLP-1/GIP and weight-loss market. Metabolic signaling extends into diabetes, cardiovascular, and longevity." },
-            { value: "$21B", title: "Serviceable Addressable Market", desc: "GLP-1 discontinuers (cost and side effects) plus consumers spending $150+/month on weight-loss products." },
-            { value: "~$500M", title: "Serviceable Obtainable Market", desc: "2% of U.S. adults discontinuing GLP-1 drugs, seeking safer alternatives. Achievable within 3–4 years of launch." },
-          ].map((item) => (
-            <div key={item.value} className="grid grid-cols-[90px_1fr] sm:grid-cols-[120px_1fr] items-baseline gap-4 sm:gap-6 mb-6">
-              <span className="text-2xl sm:text-3xl font-normal text-gold text-right font-heading">
-                {item.value}
-              </span>
-              <div>
-                <p className="text-[15px] font-semibold text-ink">{item.title}</p>
-                <p className="text-sm text-mist mt-0.5">{item.desc}</p>
-              </div>
+      {/* âââ CLINICAL VALIDATION PATHWAY â white âââ */}
+      <section className="inv-section inv-light inv-bg-white">
+        <div className="inv-inner inv-reveal">
+          <p className="inv-eyebrow">Clinical Validation</p>
+          <h2>Building the evidence base <em>biotech investors expect.</em></h2>
+          <p className="inv-lead">The clinical roadmap begins with completed observational data and advances through controlled trials, biomarker validation, and peer-reviewed publication â each stage de-risking the next.</p>
+          <div className="inv-clinical-grid">
+            <div className="inv-clinical-card done">
+              <span className="inv-clinical-badge done">â Completed</span>
+              <h4>Observational Human Trial</h4>
+              <p>6-month study with licensed NutraGLP formulation. 503 subjects. 14.1% average weight loss. &lt;5% adverse effects. Zero serious adverse events. Full methodology available under NDA.</p>
             </div>
-          ))}
-          <p className="text-sm text-mist mt-6">
-            Market tailwinds: GLP-1 drug supply shortages, rising consumer health spending, telehealth expansion, insurance coverage gaps, and accelerating regulatory pressure on compounders.
-          </p>
-        </div>
-      </section>
-
-      {/* === CHANNEL STRATEGY === */}
-      <section className="py-24 px-6 md:px-12">
-        <div className="max-w-[720px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
-            Commercialization
-          </p>
-          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-8 text-ink font-heading">
-            Platform-based distribution. Sequenced for capital efficiency.
-          </h2>
-          {channels.map((ch) => (
-            <div key={ch.name} className="grid grid-cols-[100px_1fr] gap-5 py-5 border-b border-gray-200 last:border-b-0">
-              <div className="text-xs font-bold uppercase tracking-wider text-gold text-right pt-0.5">{ch.timing}</div>
-              <div>
-                <div className="text-[15px] font-semibold text-ink mb-1">{ch.name}</div>
-                <div className="text-sm text-mist leading-relaxed">{ch.desc}</div>
-                {ch.margin && (
-                  <span className="inline-block mt-2 text-[11px] font-semibold text-forest-mid bg-forest-mid/[0.08] px-2.5 py-1 rounded-full">
-                    {ch.margin}
-                  </span>
-                )}
-              </div>
+            <div className="inv-clinical-card">
+              <span className="inv-clinical-badge planned">Planned</span>
+              <h4>Controlled Human Study</h4>
+              <p>Randomized, placebo-controlled trial measuring weight loss, metabolic biomarkers, and GLP-1/GIP blood levels. Designed to support permissible claims and clinical positioning.</p>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* === FINANCIAL PROJECTIONS === */}
-      <section className="bg-forest-deep py-24 px-6 md:px-12">
-        <div className="max-w-[1000px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
-            Financial Projections
-          </p>
-          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-white font-heading">
-            Path to $135M in four years.
-          </h2>
-          <p className="text-[17px] leading-relaxed text-white/50 mb-12 max-w-[640px]">
-            Revenue scales across D2C, retail, and licensing channels. Margins expand as acquisition costs decline and platform leverage increases.
-          </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {projections.map((y) => (
-              <div key={y.year} className="text-center">
-                <p className="text-xs text-white/40 uppercase tracking-wider mb-2">{y.year}</p>
-                <p className="text-3xl font-normal text-gold mb-1 font-heading">{y.revenue}</p>
-                <p className="text-sm text-white/35 mb-1">EBITDA: {y.ebitda}</p>
-                <p className="text-xs text-white/30">{y.note}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* LTV:CAC */}
-          <div className="mt-16">
-            <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
-              Unit Economics
-            </p>
-            <h3 className="text-2xl font-normal text-white font-heading mb-6">
-              LTV:CAC improves from 3.2x to 11x.
-            </h3>
-            <div className="space-y-3">
-              {ltvData.map((d) => (
-                <div key={d.year} className="grid grid-cols-[80px_1fr_80px] items-center gap-4">
-                  <div className="text-xs text-white/40 text-right uppercase tracking-wider">{d.year}</div>
-                  <div className="h-2 bg-white/[0.06] rounded-full overflow-hidden">
-                    <div className="h-full bg-gold rounded-full" style={{ width: `${d.pct}%` }} />
-                  </div>
-                  <div className="text-xl font-normal text-gold font-heading">{d.ratio}</div>
-                </div>
-              ))}
+            <div className="inv-clinical-card">
+              <span className="inv-clinical-badge planned">Planned</span>
+              <h4>Biomarker Tracking</h4>
+              <p>Continuous metabolic monitoring across cohorts â GLP-1, GIP, HbA1c, insulin sensitivity, and inflammatory markers. Mechanistic validation of the signaling architecture.</p>
+            </div>
+            <div className="inv-clinical-card">
+              <span className="inv-clinical-badge planned">Planned</span>
+              <h4>Peer-Reviewed Publication</h4>
+              <p>Submission to metabolic health or nutrition journals. Critical for category credibility, B2B licensing conversations, and acquisition positioning.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* === 12-MONTH ROADMAP === */}
-      <section className="bg-forest py-24 px-6 md:px-12">
-        <div className="max-w-[720px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
-            12-Month Roadmap
-          </p>
-          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-10 text-white font-heading">
-            What the next four quarters look like.
-          </h2>
-          <div className="relative pl-10">
-            <div className="absolute left-[15px] top-0 bottom-0 w-0.5 bg-white/[0.08]" />
-            {roadmap.map((r) => (
-              <div key={r.quarter} className="relative mb-9 last:mb-0">
-                <div className="absolute -left-[25px] top-1 w-3 h-3 rounded-full bg-gold" />
-                <p className="text-[11px] font-bold uppercase tracking-[1.5px] text-gold mb-1">{r.quarter}</p>
-                <p className="text-base font-semibold text-white mb-1">{r.title}</p>
-                <p className="text-sm text-white/40 leading-relaxed">{r.desc}</p>
-                {r.revenue && (
-                  <span className="inline-block mt-2 text-xs font-semibold text-gold bg-gold/10 px-3 py-1 rounded-full">
-                    {r.revenue}
-                  </span>
-                )}
+      {/* âââ PROOF OF CONCEPT â cream âââ */}
+      <section className="inv-section inv-light inv-bg-cream">
+        <div className="inv-inner inv-reveal">
+          <p className="inv-eyebrow">Proof of Concept</p>
+          <h2>Observational data. <em>503 participants.</em></h2>
+          <p className="inv-lead">A 503-person observational trial demonstrated significant weight loss at 6 months with fewer than 5% adverse effects and no widespread discontinuation. Study design: observational, non-randomized, non-blinded. Full methodology available under NDA.</p>
+          <p className="inv-lead">These findings require appropriate scientific qualification before distribution. What they establish: a clear preliminary signal, a strong tolerability profile, and a validated pathway to controlled trial design.</p>
+          <div className="inv-poc-block">
+            <div className="inv-poc-layout">
+              <div className="inv-poc-text">
+                <h3>Preliminary signal. Strong tolerability profile.</h3>
+                <p>Fewer than 5% adverse effects â all mild. No serious adverse events. No muscle or collagen loss observed. No widespread discontinuation. GRAS-certified compounds throughout.</p>
+                <p>The roadmap includes biomarker-based mechanistic validation and a controlled clinical trial designed to support permissible claims and clinical positioning.</p>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* === THE RAISE === */}
-      <section className="bg-forest-deep py-24 px-6 md:px-12">
-        <div className="max-w-[720px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
-            The Raise
-          </p>
-          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-white font-heading">
-            $5.5M Seed Round
-          </h2>
-          <p className="text-[17px] leading-relaxed text-white/50 mb-8">
-            This raise transitions NutraGLP from a single-product commercial launch into a multi-product, multi-channel revenue platform with a clear path to profitability in Year 1.
-          </p>
-          {fundAllocation.map((f, i) => (
-            <div key={f.label} className={`grid grid-cols-[100px_1fr] gap-4 items-center py-4 ${i < fundAllocation.length - 1 ? "border-b border-white/[0.06]" : ""}`}>
-              <div className="text-2xl font-normal text-gold text-right font-heading">{f.pct}</div>
-              <div className="text-sm text-white/70 font-medium">{f.label}</div>
-            </div>
-          ))}
-          <div className="mt-8 p-5 bg-white/[0.03] border border-white/[0.08] rounded-lg">
-            <p className="text-sm text-white/40 leading-relaxed">
-              Key milestones funded by this round: Clinical study data publication, first telehealth distribution partnership, IP portfolio expansion, and first revenue.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* === EXIT STRATEGY === */}
-      <section className="py-24 px-6 md:px-12">
-        <div className="max-w-[720px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
-            Exit Strategy
-          </p>
-          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-6 text-ink font-heading">
-            Engineered for scale. Built to be acquired.
-          </h2>
-          <p className="text-[17px] leading-relaxed text-mist mb-8">
-            Potential acquirers include pharmaceutical companies, consumer health conglomerates, medical nutrition platforms, telehealth networks, and global wellness companies. Applied comparable transaction benchmarks to projected Year 4 EBITDA of $79M.
-          </p>
-          <div className="grid grid-cols-3 gap-4 mb-10">
-            {[
-              { mult: "12x EBITDA", val: "$850M" },
-              { mult: "15x EBITDA", val: "$1.05B" },
-              { mult: "18x EBITDA", val: "$1.25B" },
-            ].map((e) => (
-              <div key={e.mult} className="text-center p-6 bg-cream rounded-lg">
-                <div className="text-xs font-semibold text-mist uppercase tracking-wider mb-2">{e.mult}</div>
-                <div className="text-3xl font-normal text-forest-mid font-heading">{e.val}</div>
+              <div className="inv-poc-nums">
+                <div className="inv-poc-row"><span className="inv-poc-big">503</span><span className="inv-poc-lbl">Participants<br />in observational trial</span></div>
+                <div className="inv-poc-row"><span className="inv-poc-big">&lt;5%</span><span className="inv-poc-lbl">Adverse effects<br />all mild, no serious events</span></div>
+                <div className="inv-poc-row"><span className="inv-poc-big">6mo</span><span className="inv-poc-lbl">Trial duration<br />with sustained results</span></div>
               </div>
-            ))}
+            </div>
           </div>
+          <div className="inv-mid-cta">
+            <p>Interested in the full dataset and study design? <strong>We&apos;ll walk you through it.</strong></p>
+            <a href="#deck" className="inv-btn-gold">Request the Deck â</a>
+          </div>
+        </div>
+      </section>
 
-          <p className="text-xs font-bold uppercase tracking-wider text-mist mb-4">Comparable Transactions</p>
-          {[
-            { name: "Nestlé / The Bountiful Company", detail: "Consumer health, supplements", mult: "$5.75B / 16.8x EBITDA" },
-            { name: "Bayer / Care/of", detail: "Personalized supplements, D2C", mult: "Acquired" },
-            { name: "Unilever / OLLY Nutrition", detail: "Premium supplements, retail", mult: "Acquired" },
-          ].map((c) => (
-            <div key={c.name} className="flex justify-between items-baseline py-3 border-b border-gray-200 last:border-b-0">
-              <div>
-                <span className="text-sm font-semibold text-ink">{c.name}</span>
-                <br />
-                <span className="text-xs text-mist">{c.detail}</span>
+      {/* âââ TELEHEALTH OPPORTUNITY â dark âââ */}
+      <section className="inv-section inv-dark">
+        <div className="inv-inner inv-reveal">
+          <p className="inv-eyebrow">Telehealth Opportunity</p>
+          <h2>The platform telehealth built demand for.<br /><em>The product they don&apos;t have yet.</em></h2>
+          <p className="inv-lead">Telehealth platforms built massive patient demand around injectable GLP-1 therapies â then watched compounded supply collapse under regulatory pressure. NutraGLP is the expansion they need: clinically validated, fully compliant, high-margin, and designed to retain patients long-term.</p>
+          <div className="inv-tel-grid">
+            <div className="inv-tel-card">
+              <h4>Hims &amp; Hers</h4>
+              <p>Already operating in compounded GLP-1 space with regulatory sensitivity. NutraGLP as metabolic adjunct within their weight-loss retention funnel. Not a competitor â a complement.</p>
+            </div>
+            <div className="inv-tel-card">
+              <h4>Ro</h4>
+              <p>Telehealth plus prescribing plus pharmacy workflows. NutraGLP as co-branded clinician-integrated protocol with shared outcome data embedded in prescriber workflows.</p>
+            </div>
+            <div className="inv-tel-card">
+              <h4>Noom</h4>
+              <p>Behavior change platform plus Noom Med. NutraGLP as metabolic optimization layer enhancing retention and sustainability inside their medical program.</p>
+            </div>
+          </div>
+          <div className="inv-barrier" style={{ marginTop: 32 }}>
+            <h3>Why telehealth platforms move now</h3>
+            <div className="inv-barrier-cols">
+              <div className="inv-barrier-step">
+                <h4>Patient retention risk</h4>
+                <p>Compounded GLP-1 discontinuation creates revenue and retention risk. Platforms that move beyond pharmaceutical GLP-1 dependency retain more patients and reduce regulatory exposure.</p>
               </div>
-              <span className="text-sm font-semibold text-forest-mid whitespace-nowrap ml-4">{c.mult}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* === LEADERSHIP === */}
-      <section className="bg-forest-deep py-24 px-6 md:px-12">
-        <div className="max-w-[1000px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-gold mb-4">
-            Leadership
-          </p>
-          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-8 text-white font-heading">
-            Built to commercialize. Built to scale.
-          </h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white/[0.04] border border-white/[0.08] rounded-lg p-8">
-              <h3 className="text-xl font-normal text-white font-heading mb-1">Richard Clark Kaufman, PhD</h3>
-              <p className="text-sm font-semibold text-gold mb-4">Founder &amp; CEO | Chief Science Officer</p>
-              <p className="text-sm text-white/50 leading-relaxed">
-                Architect of the NutraGLP platform and IP portfolio. Inventor of patented nanoparticle delivery systems for nutraceutical and pharmaceutical biotechnology across 24+ countries. CSO and Co-Founder of Nanosphere Health Sciences. Frost &amp; Sullivan Nano-Encapsulation Innovation Award recipient.
-              </p>
-            </div>
-            <div className="bg-white/[0.04] border border-white/[0.08] rounded-lg p-8">
-              <h3 className="text-xl font-normal text-white font-heading mb-1">Chris McCann</h3>
-              <p className="text-sm font-semibold text-gold mb-4">Co-Founder | President, Commercialization</p>
-              <p className="text-sm text-white/50 leading-relaxed">
-                15 years commercializing emerging technology from pre-revenue to category leadership at commercetools, Contentstack, and Typeface (pre-A through Series D). Built go-to-market engines that created markets before analyst validation. Leads commercial strategy, capital formation, and partner development.
-              </p>
-            </div>
-          </div>
-          <div className="mt-8 grid grid-cols-3 gap-4">
-            <div className="p-5 bg-white/[0.03] rounded-lg text-center">
-              <div className="text-xl font-normal text-gold font-heading">24+</div>
-              <div className="text-xs text-white/40 mt-1">Countries with Patent Coverage</div>
-            </div>
-            <div className="p-5 bg-white/[0.03] rounded-lg text-center">
-              <div className="text-xl font-normal text-gold font-heading">200+</div>
-              <div className="text-xs text-white/40 mt-1">Peer-Reviewed References</div>
-            </div>
-            <div className="p-5 bg-white/[0.03] rounded-lg text-center">
-              <div className="text-sm font-semibold text-gold">Frost &amp; Sullivan</div>
-              <div className="text-xs text-white/40 mt-1">Nano-Encapsulation Innovation Award</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* === KNOWN LIMITATIONS === */}
-      <section className="bg-cream py-24 px-6 md:px-12">
-        <div className="max-w-[720px] mx-auto">
-          <p className="text-[11px] font-bold uppercase tracking-[2px] text-forest-mid mb-4">
-            Known Limitations
-          </p>
-          <h2 className="text-3xl md:text-4xl font-normal tracking-tight leading-tight mb-8 text-ink font-heading">
-            What we know. What we&apos;re proving.
-          </h2>
-          <div className="grid sm:grid-cols-2 gap-5">
-            {risks.map((r) => (
-              <div key={r.title} className="pl-5 border-l-[3px] border-gold">
-                <div className="text-sm font-semibold text-ink mb-1">{r.title}</div>
-                <div className="text-sm text-mist leading-relaxed">{r.desc}</div>
+              <div className="inv-barrier-step">
+                <h4>Regulatory compliance</h4>
+                <p>NutraGLP carries no compounding risk â fully compliant nutraceutical, drug-free, GRAS-certified. New subscription revenue line with high margin and zero liability from compounding enforcement.</p>
               </div>
-            ))}
+              <div className="inv-barrier-step">
+                <h4>85%+ gross margins</h4>
+                <p>Telehealth licensing and revenue-share channel delivers 85%+ gross margins versus 45â55% for retail. Clinical integration channel at 60%+ margin. Platform-based from day one.</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* === CTA === */}
-      <section className="bg-forest py-20 px-6 md:px-12 text-center">
-        <h2 className="text-3xl md:text-4xl font-normal text-white tracking-tight mb-4 font-heading">
-          Raising $5.5M seed.
-        </h2>
-        <p className="text-[17px] text-white/50 max-w-[520px] mx-auto mb-8">
-          For the full deck, scientific monograph, clinical data,
-          and a conversation about what we&apos;re building.
-        </p>
-        <RequestDeckModal buttonClassName="inline-block bg-gold text-white text-sm font-semibold px-8 py-3 rounded-full no-underline hover:bg-gold-light transition cursor-pointer border-none" />
-        <p className="text-xs text-white/25 mt-5">
-          Executive summary, scientific monograph, and detailed financials available upon request.
-        </p>
+      {/* âââ MARKET â white âââ */}
+      <section className="inv-section inv-light inv-bg-white">
+        <div className="inv-inner inv-reveal">
+          <p className="inv-eyebrow">The Market</p>
+          <h2>$132B total market.<br /><em>Clear path to $500M in 3â4 years.</em></h2>
+          <p className="inv-lead">The GLP-1/GIP and weight-loss market across the U.S., Europe, and Asia. Metabolic signaling disorders extend into diabetes, cardiovascular, and longevity â the platform addresses all of them. A significant and growing population cannot access, afford, or tolerate pharmacologic therapy. No credible non-drug option has existed until now.</p>
+
+          <div className="inv-mkt-stats">
+            <div className="inv-mkt-s"><div className="inv-mkt-num">$132B</div><div className="inv-mkt-lbl">Total Addressable Market</div><div className="inv-mkt-sub">by 2030</div></div>
+            <div className="inv-mkt-s"><div className="inv-mkt-num">$21B</div><div className="inv-mkt-lbl">Serviceable Addressable Market</div><div className="inv-mkt-sub">GLP-1 discontinuers + $150+/mo spenders</div></div>
+            <div className="inv-mkt-s"><div className="inv-mkt-num">$500M+</div><div className="inv-mkt-lbl">Serviceable Obtainable Market</div><div className="inv-mkt-sub">achievable within 3â4 years of launch</div></div>
+          </div>
+
+          <div className="inv-gap-chart" data-animate-bars>
+            <div className="inv-gap-title">The positioning gap NutraGLP occupies</div>
+            <div className="inv-gap-row">
+              <div className="inv-gap-lbl">Pharmaceutical GLP-1 Drugs <span>$900â$1,300/mo Â· Rx required Â· weekly injection</span></div>
+              <div className="inv-gap-track"><div className="inv-gap-fill gf-pharma" data-width="88">HIGH EFFICACY</div></div>
+            </div>
+            <div className="inv-gap-arrow">â THE GAP â No credible non-drug option until now</div>
+            <div className="inv-gap-row">
+              <div className="inv-gap-lbl">NutraGLP Platform <span>$145/mo Â· No Rx Â· drinkable nanoemulsion</span></div>
+              <div className="inv-gap-track"><div className="inv-gap-fill gf-nutra" data-width="62">ENDOGENOUS AMPLIFICATION</div></div>
+            </div>
+            <div className="inv-gap-arrow" style={{ color: 'var(--silver)' }}>â</div>
+            <div className="inv-gap-row">
+              <div className="inv-gap-lbl">Commodity GLP-1 Supplements <span>$20â$80/mo Â· No IP Â· no DPP-4 inhibition</span></div>
+              <div className="inv-gap-track"><div className="inv-gap-fill gf-supps" data-width="42">LOW BIOAVAILABILITY</div></div>
+            </div>
+          </div>
+
+          <h3 style={{ fontFamily: "'Fraunces', Georgia, serif", fontSize: 19, fontWeight: 500, color: 'var(--navy-deep)', marginTop: 52, marginBottom: 6 }}>Acquisition Comparables</h3>
+          <p className="inv-body" style={{ marginBottom: 0 }}>Strategic acquirers are paying platform premiums. Benchmark: NestlÃ© acquired The Bountiful Company for $5.75B at a 16.8Ã EBITDA multiple â a directly comparable transaction in consumer health.</p>
+          <table className="inv-ma-tbl">
+            <thead><tr><th>Transaction</th><th>Acquirer</th><th>Value</th><th>Signal</th></tr></thead>
+            <tbody>
+              <tr><td>The Bountiful Company</td><td>NestlÃ©</td><td>$5.75B</td><td>16.8Ã EBITDA â consumer health platform acquisition. Direct comparable.</td></tr>
+              <tr><td>Metsera</td><td>Pfizer</td><td>$10B</td><td>Oral GLP-1 pipeline acquisition at pre-revenue stage</td></tr>
+              <tr><td>Carmot Therapeutics</td><td>Roche</td><td>$2.7B</td><td>GLP-1/GIP dual agonist platform with Phase I data</td></tr>
+              <tr><td>Inversago Pharma</td><td>Novo Nordisk</td><td>$1.1B</td><td>CB1 receptor inverse agonist for metabolic disease</td></tr>
+            </tbody>
+          </table>
+        </div>
       </section>
+
+      {/* âââ PRODUCT PIPELINE â cream âââ */}
+      <section className="inv-section inv-light inv-bg-cream">
+        <div className="inv-inner inv-reveal">
+          <p className="inv-eyebrow">Product Pipeline</p>
+          <h2>A full portfolio of<br /><em>incretin-modulating consumer products.</em></h2>
+          <p className="inv-lead">NutraGLP Syncâ¢ is designed for parallel commercialization across multiple channels as FDA-compliant OTCs, functional foods, dietary supplements, and food additives â the same platform architecture powering every product line.</p>
+          <div className="inv-pipe-grid">
+            <div className="inv-pipe-card">
+              <div className="inv-pipe-when">Now â Lead Product</div>
+              <div className="inv-pipe-name">Slim SHOT</div>
+              <p>60ml daily nanoemulsion. GLP-1/GIP amplification, DPL-4 inhibition, thermogenic activation. $145/month. Simple protocol: 30ml AM, 30ml PM.</p>
+            </div>
+            <div className="inv-pipe-card">
+              <div className="inv-pipe-when">2026</div>
+              <div className="inv-pipe-name">ThermoGEN</div>
+              <p>Thermogenic energy drink delivering incretin-activating ingredients with GLP pathway activation. Convenience format for daily use.</p>
+            </div>
+            <div className="inv-pipe-card">
+              <div className="inv-pipe-when">2026</div>
+              <div className="inv-pipe-name">GLP-1 Sweetener</div>
+              <p>World's first incretin-activating zero-calorie sweetener. Daily-use mass market format delivering GLP-1/GIP activation with every use.</p>
+            </div>
+            <div className="inv-pipe-card">
+              <div className="inv-pipe-when">2027</div>
+              <div className="inv-pipe-name">GLP-1 Protein</div>
+              <p>High-protein formulation with GLP-1 and GIP benefits for weight management and glycemic control. Lean mass preservation built in.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* âââ ROADMAP â dark âââ */}
+      <section className="inv-section inv-dark">
+        <div className="inv-inner inv-reveal">
+          <p className="inv-eyebrow">Roadmap</p>
+          <h2>Seed to exit <em>in four years.</em></h2>
+          <p className="inv-lead">Capital deployed across clinical validation, manufacturing scale, go-to-market execution, and IP prosecution. Each milestone de-risks the next and funds the one after.</p>
+          <div className="inv-roadmap">
+            <div className="inv-rm-step"><div className="inv-rm-dot"></div><div className="inv-rm-phase">Q1-Q2 2026</div><div className="inv-rm-title">Market Entry</div>
+              <ul className="inv-rm-items"><li>$4.5M seed close</li><li>D2C ctaunch â Slim SHOT</li><li>eCommerce + 1 telehealth license</li><li>Target: $300K revenue</li></ul></div>
+            <div className="inv-rm-step"><div className="inv-rm-dot"></div><div className="inv-rm-phase">Q3âQ4 2026</div><div className="inv-rm-title">Expansion</div>
+              <ul className="inv-rm-items"><li>Retail pilot programs</li><li>GLP-1 Sweetener launch</li><li>Clinical data publication</li><li>Target: $1.8M revenue</li></ul></div>
+            <div className="inv-rm-step"><div className="inv-rm-dot"></div><div className="inv-rm-phase">Year 2</div><div className="inv-rm-title">Platform Scale</div>
+             <ul className="inv-rm-items"><li>3 additional product lines</li><li>Controlled clinical trial</li><li>National retail + telehealth</li><li>Series A â $15M target</li></ul></div>
+            <div className="inv-rm-step"><div className="inv-rm-dot"></div><div className="inv-rm-phase">Year 4</div><div className="inv-rm-title">Exit Window</div>
+              <ul className="inv-rm-items"><li>$135M revenue target</li><li>$79M EBITDA</li><li>Strategic acquisition target</li><li>$850Mâ$1.25B at 12â18Ã EBITDA</li></ul></div>
+          </div>
+        </div>
+      </section>
+
+      {/* âââ THE RAISE â cream âââ */}
+      <section className="inv-section inv-light inv-bg-cream">
+        <div className="inv-inner inv-reveal">
+          <p className="inv-eyebrow">The Raise</p>
+          <h2>The $4.5M <em>seed round.</em></h2>
+          <p className="inv-lead">SAFE and equity investment. This raise transitions NutraGLP from a single-product commercial launch into a multi-product, multi-channel revenue platform â supporting $3M in Year 1 revenue and a clear path to $15M by Year 2.</p>
+          <div className="inv-raise-grid">
+            <div className="inv-raise-card" data-animate-bars>
+              <h3>Use of Funds</h3>
+              <div className="inv-fund-row"><div className="inv-fund-lbl">Growth &amp; Marketing <span>$1.35M</span></div><div className="inv-fund-track"><div className="inv-fund-fill" data-width="30"></div></div></div>
+              <div className="inv-fund-row"><div className="inv-fund-lbl">G&amp;A / Operations <span>$1.03M</span></div><div className="inv-fund-track"><div className="inv-fund-fill" data-width="23"></div></div></div>
+              <div className="inv-fund-row"><div className="inv-fund-lbl">Manufacturing &amp; Inventory <span>$990K</span></div><div className="inv-fund-track"><div className="inv-fund-fill" data-width="22"></div></div></div>
+              <div className="inv-fund-row"><div className="inv-fund-lbl">B2B Sales &amp; Partnerships <span>$585K</span></div><div className="inv-fund-track"><div className="inv-fund-fill" data-width="13"></div></div></div>
+              <div className="inv-fund-row"><div className="inv-fund-lbl">Product / Clinical / Regulatory <span>$540K</span></div><div className="inv-fund-track"><div className="inv-fund-fill" data-width="12"></div></div></div>
+            </div>
+            <div className="inv-raise-card">
+              <h3>Exit Thesis</h3>
+              <ul className="inv-exit-list">
+                <li>Strategic acquisition by consumer health, CPG, or pharmaceutical acquirer</li>
+                <li>Target horizon: Year 4 at $135M revenue, $79M EBITDA</li>
+                <li>Projected exit: $850Mâ$1.25B at 12â18Ã EBITDA</li>
+                <li>Benchmark: NestlÃ© / Bountiful Company at 16.8Ã EBITDA â direct comparable</li>
+                <li>Acquirer profile: NestlÃ©, Bayer, P&amp;G, Unilever, pharmaceutical companies building incretin-adjacent pipelines</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* âââ TEAM â dark âââ */}
+      <section className="inv-section inv-dark">
+        <div className="inv-inner inv-reveal">
+          <p className="inv-eyebrow">Leadership</p>
+          <h2>Science, IP, and commercialization.<br /><em>The team that executes.</em></h2>
+          <p className="inv-lead">Two operators. One built the platform and the IP portfolio. One built the commercial machine. Neither is doing this for the first time.</p>
+          <div className="inv-team-grid">
+            <div className="inv-team-card">
+              <p className="inv-team-role">Science &amp; IP</p>
+              <h3>Richard Clark Kaufman, PhD</h3>
+              <p className="inv-team-title">Founder &amp; CEOÂ· Chief Science Officer</p>
+              <p className="inv-team-bio">Architect of the NutraGLP platform and IP portfolio. Inventor of patented nanoparticle delivery systems for nutraceutical and pharmaceutical biotechnology across 24+ countries. Co-Founder and CSO of Nanosphere Health Sciences (publicly traded). Recipient of the Frost &amp; Sullivan Nano-Encapsulation Innovation Award. The platform, the science, and the IP estate are his work.</p>
+              <div className="inv-team-highlights">
+                <div className="inv-team-hl">Nanosphere Health Sciences â publicly traded, Frost &amp; Sullivan award recipient</div>
+                <div className="inv-team-hl">24+ country patent portfolio in nanoparticle delivery systems</div>
+                <div className="inv-team-hl">NutraGLP Scientific Monograph â 40+ formulations, 13 signaling targets</div>
+              </div>
+              <div style={{ marginTop: 20 }}><a href="mailto:Richard@nutraglpbio.com" style={{ color: 'rgba(255,255,255,0.7)', fontSize: 14, textDecoration: 'none', borderBottom: '1px solid rgba(21,133,181,0.4)', paddingBottom: 2 }}>Richard@nutraglpbio.com â</a></div>
+            </div>
+            <div className="inv-team-card">
+              <p className="inv-team-role">Commercial</p>
+              <h3>Chris McCann</h3>
+              <p className="inv-team-title">Co-Founder &amp; President, Commercialization</p>
+              <p className="inv-team-bio">15 years scaling emerging enterprise technology from pre-revenue to category leadership. Led Contentstack from pre-Series A through $85M Series C. Category creation specialist â built go-to-market engines for commercetools and Typeface before analyst validation. Now building NutraGLP&apos;s commercial machine across a $200B+ TAM. Has done this before.</p>
+              <div className="inv-team-highlights">
+                <div className="inv-team-hl">Contentstack â pre-Series A through $85M Series C</div>
+                <div className="inv-team-hl">Category creation at commercetools and Typeface pre-validation</div>
+                <div className="inv-team-hl">15 years enterprise tech, now building across $200B+ TAM</div>
+              </div>
+              <div style={{ marginTop: 20 }}><a href="mailto:Chris@nutraglpbio.com" style={{ color: 'rgba(255,255,255,0.7)', fontSize: 14, textDecoration: 'none', borderBottom: '1px solid rgba(21,133,181,0.4)', paddingBottom: 2 }}>Chris@nutraglpbio.com â</a></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* âââ INVESTOR FAQ â white âââ */}
+      <section className="inv-section inv-light inv-bg-white">
+        <div className="inv-inner inv-reveal">
+          <p className="inv-eyebrow">Common Questions</p>
+          <h2>What sophisticated investors <em>want to know.</em></h2>
+          <div className="inv-faq-grid">
+            <div className="inv-faq-card">
+              <p className="inv-faq-q">Is this just supplements?</p>
+              <p className="inv-faq-a">No. NutraGLP is a non-pharmaceutical biotechnology platform. It occupies a new class that bridges pharmaceuticals, foods, and supplements â engineered as a coordinated signaling architecture with multiple weight loss mechanisms including natural incretin hormone activation (GLP-1, GIP), blood glucose control, and thermogenesis. The delivery system is pharmaceutical-grade. The IP is platform-level. The distribution is consumer-scale.</p>
+            </div>
+            <div className="inv-faq-card">
+              <p className="inv-faq-q">How do you defend this?</p>
+              <p className="inv-faq-a">The platform is defended through a patent-pending architecture of more than 40 foods, supplements, and food additives, with platform-level formulation systems and delivery technologies designed for reproducibility and scalability. The system design â not any single ingredient â is the defensible moat. A competitor cannot replicate the platform by copying a single formulation.</p>
+            </div>
+            <div className="inv-faq-card">
+              <p className="inv-faq-q">What about clinical validation?</p>
+              <p className="inv-faq-a">A 503-person observational trial demonstrated significant weight loss at 6 months, with fewer than 5% adverse effects and no widespread discontinuation. The roadmap includes biomarker-based mechanistic validation and controlled studies to inform permissible claims and positioning. Full methodology available under NDA.</p>
+            </div>
+            <div className=[Y\KXØ\Û\ÜÓ[YOH[Y\K\H\H[ÝHÛÛ\][ÈÚ]ÓLHYÜÏÏÜÛ\ÜÓ[YOH[Y\KXHËH]ÜH\ÈZ[Ü[ÜHÚÈØ[ÝÛ\]KØ[ÝXØÙ\ÜËÜÈÝØ[ÚÛXÈ\XXÛÛÙÚXÈ\[[ÙH8 %Ú[H]\YÚ[ÈHØ[YH[Y]Y[ÛÙÞK\È\ÈH]ÈØØ[XHÛYYÈÛ\ÜËÝH\XÙ[Y[Ü\XXÛÛÙÚXÈ\\H[[ÛÛ^ËH
+L	JÈ\ØÛÛ[X][Û]H\ÈHX\Ù]ÙHÙ\KÜÙ]Ù]Ù]ÜÙXÝ[ÛËÊ8¥¤ø¥¤ø¥¤ÈÓÓPÕH\È8¥¤ø¥¤ø¥¤È
+ßBÙXÝ[ÛÛ\ÜÓ[YOH[\ÙXÝ[Û[Y\ÈYHXÚÈ]Û\ÜÓ[YOH[Z[\[\]X[Û\ÜÓ[YOH[Y^YXÝÈÙ][ÝXÚÜH]\HÙÙZYÚÜÜÏÏ[O[d metabolic health.</em></h2>
+          <p className="inv-lead">We&apos;re in active conversations with strategic and financial investors. If you&apos;re building a position on the GLP-1 economy â or looking for what comes after compounded pharma â we&apos;d like to talk.</p>
+
+          <div className="inv-deck-form-wrap">
+            <RequestDeckModal buttonClassName="inline-block bg-gold text-white text-sm font-semibold px-8 py-3 rounded-full no-underline hover:bg-gold-light transition cursor-pointer border-none" />
+          </div>
+
+          <div className="inv-contact-grid">
+            <div className="inv-c-card">
+              <p className="inv-c-role">Science &amp; IP</p>
+              <h3>Richard Clark Kaufman, PhD</h3>
+              <p className="inv-c-title">Founder &amp; CEO Â· 310-990-6770</p>
+              <a href="mailto:Richard@nutraglpbio.com">Richard@nutraglpbio.com â</a>
+            </div>
+            <div className="inv-c-card">
+              <p className="inv-c-role">Commercial</p>
+              <h3>Chris McCann</h3>
+              <p className="inv-c-title">Co-Founder &amp; President Â· 424-382-9931</p>
+              <a href="mailto:Chris@nutraglpbio.com">Chris@nutraglpbio.com â</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Investor-specific disclaimer */}
+      <div className="inv-disclaimer">
+        <p>NutraGLP Biosciences products are dietary supplements regulated under DSHEA. They are not intended to diagnose, treat, cure, or prevent any disease. The observational study referenced on this page was not a randomized controlled trial â findings are preliminary and require appropriate scientific qualification before distribution. Forward-looking statements regarding market size, revenue projections, exit valuation, and acquisition timelines involve risk and uncertainty and are not a guarantee of future performance. This page does not constitute an offer to sell or solicitation of an offer to buy any securities. Prospective investors should consult their own professional advisors. Â© 2026 NutraGLP Biosciences. All rights reserved.</p>
+      </div>
 
       <Footer />
+
     </main>
   );
 }
