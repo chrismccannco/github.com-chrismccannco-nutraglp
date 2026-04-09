@@ -700,7 +700,7 @@ html { scroll-behavior: smooth; }
   padding-left: 18px; position: relative; line-height: 1.5;
 }
 .inv-team-hl::before {
-  content: '\2192'; position: absolute; left: 0;
+  content: '\\2192'; position: absolute; left: 0;
   color: var(--teal); font-size: 11px;
 }
 
