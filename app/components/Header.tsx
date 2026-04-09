@@ -29,9 +29,6 @@ export default function Header() {
           <Link href="/faq" className="text-sm text-white/50 hover:text-white transition no-underline">
             FAQ
           </Link>
-          <Link href="/blog" className="text-sm text-white/50 hover:text-white transition no-underline">
-            Blog
-          </Link>
           <RequestDeckModal buttonClassName="bg-gold text-white px-6 py-2.5 text-sm font-bold rounded-md tracking-tight no-underline hover:bg-gold-light transition cursor-pointer border-none" />
         </nav>
 
@@ -74,13 +71,6 @@ export default function Header() {
             className="block py-3 text-sm text-white/50 hover:text-white transition no-underline"
           >
             FAQ
-          </Link>
-          <Link
-            href="/blog"
-            onClick={() => setOpen(false)}
-            className="block py-3 text-sm text-white/50 hover:text-white transition no-underline"
-          >
-            Blog
           </Link>
           <div className="mt-2">
             <RequestDeckModal
