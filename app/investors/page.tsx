@@ -5,7 +5,7 @@ import RequestDeckModal from "../components/RequestDeckModal";
 export const metadata: Metadata = {
   title: "Investors",
   description:
-    "NutraGLP Biosciences — a biotechnology platform for natural incretin modulation. $4.5M seed round. 40+ patent-pending formulations.",
+    "NutraGLP Biosciences — a biotechnology platform for natural incretin modulation. $5.5M seed round. 40+ patent-pending formulations.",
   alternates: {
     canonical: "https://nutraglp.com/investors",
   },
@@ -787,7 +787,7 @@ html { scroll-behavior: smooth; }
             <a href="#platform" className="inv-btn-outline">Read the Thesis</a>
           </div>
           <div className="inv-hero-stats">
-            <div className="inv-h-stat"><div className="inv-h-stat-val">$4.5M</div><div className="inv-h-stat-label">Seed Round</div></div>
+            <div className="inv-h-stat"><div className="inv-h-stat-val">$5.5M</div><div className="inv-h-stat-label">Seed Round</div></div>
             <div className="inv-h-stat"><div className="inv-h-stat-val">40+</div><div className="inv-h-stat-label">Patent-Pending Formulations</div></div>
             <div className="inv-h-stat"><div className="inv-h-stat-val">13</div><div className="inv-h-stat-label">Validated Signaling Targets</div></div>
             <div className="inv-h-stat"><div className="inv-h-stat-val">8×</div><div className="inv-h-stat-label">Bioavailability vs Standard Oral</div></div>
@@ -1115,7 +1115,7 @@ html { scroll-behavior: smooth; }
           <p className="inv-lead">Capital deployed across clinical validation, manufacturing scale, go-to-market execution, and IP prosecution. Each milestone de-risks the next and funds the one after.</p>
           <div className="inv-roadmap">
             <div className="inv-rm-step"><div className="inv-rm-dot"></div><div className="inv-rm-phase">Q1–Q2 2026</div><div className="inv-rm-title">Market Entry</div>
-              <ul className="inv-rm-items"><li>$4.5M seed close</li><li>D2C launch — Slim SHOT</li><li>eCommerce + 1 telehealth license</li><li>Target: $300K revenue</li></ul></div>
+              <ul className="inv-rm-items"><li>$5.5M seed close</li><li>D2C launch — Slim SHOT</li><li>eCommerce + 1 telehealth license</li><li>Target: $300K revenue</li></ul></div>
             <div className="inv-rm-step"><div className="inv-rm-dot"></div><div className="inv-rm-phase">Q3–Q4 2026</div><div className="inv-rm-title">Expansion</div>
               <ul className="inv-rm-items"><li>Retail pilot programs</li><li>GLP-1 Sweetener launch</li><li>Clinical data publication</li><li>Target: $1.8M revenue</li></ul></div>
             <div className="inv-rm-step"><div className="inv-rm-dot"></div><div className="inv-rm-phase">Year 2</div><div className="inv-rm-title">Platform Scale</div>
@@ -1130,7 +1130,7 @@ html { scroll-behavior: smooth; }
       <section className="inv-section inv-light inv-bg-cream">
         <div className="inv-inner inv-reveal">
           <p className="inv-eyebrow">The Raise</p>
-          <h2>The $4.5M <em>seed round.</em></h2>
+          <h2>The $5.5M <em>seed round.</em></h2>
           <p className="inv-lead">SAFE and equity investment. This raise transitions NutraGLP from a single-product commercial launch into a multi-product, multi-channel revenue platform — supporting $3M in Year 1 revenue and a clear path to $15M by Year 2.</p>
           <div className="inv-raise-grid">
             <div className="inv-raise-card" data-animate-bars>
