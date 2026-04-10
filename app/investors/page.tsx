@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import RequestDeckModal from "../components/RequestDeckModal";
 
 export const metadata: Metadata = {
   title: "Investors",
@@ -921,7 +920,6 @@ html { scroll-behavior: smooth; scroll-padding-top: 52px; }
         </div>
       </div>
 
-      <RequestDeckModal />
     </main>
   );
 }
