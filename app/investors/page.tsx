@@ -483,6 +483,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 52px; }
 .inv-credential h4 { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
 .inv-credential p { font-size: 13px; color: var(--mist); line-height: 1.6; margin: 0; }
 
+.inv-leader-right { padding-top: 160px; }
 .inv-leader-quote {
   font-family: 'Fraunces', Georgia, serif;
   font-size: 18px; font-weight: 400; font-style: italic;
@@ -582,6 +583,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 52px; }
   .inv-mkt-stat-row { grid-template-columns: 1fr; gap: 12px; }
   .inv-brief-row { flex-direction: column; align-items: flex-start; }
   .inv-leader-grid { grid-template-columns: 1fr; gap: 48px; }
+  .inv-leader-right { padding-top: 0; }
   .inv-track-row { grid-template-columns: 1fr; gap: 4px; }
   .inv-disclaimer { padding: 28px 24px; }
 }
@@ -872,7 +874,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 52px; }
                 <p>Developed across Science-Based Health, General Research Labs, Life Enhancement, First Fitness International, and Vitamin Research Products</p>
               </div>
             </div>
-            <div>
+            <div className="inv-leader-right">
               <div className="inv-leader-quote">&ldquo;I identify biological mechanisms before markets understand them. That is what I have done my entire career &mdash; and it is what I have done with NutraGLP&reg; Biosciences.&rdquo;</div>
               <div className="inv-track-row">
                 <div className="inv-track-name">Melatonin</div>
