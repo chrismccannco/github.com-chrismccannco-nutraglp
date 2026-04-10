@@ -110,11 +110,11 @@ html { scroll-behavior: smooth; scroll-padding-top: 52px; }
   height: 48px;
 }
 .inv-nav-logo {
-  font-family: 'Fraunces', Georgia, serif;
-  font-size: 15px; font-weight: 400;
-  color: rgba(255,255,255,0.85);
-  text-decoration: none; white-space: nowrap;
-  letter-spacing: -0.01em;
+  display: flex; align-items: center;
+  text-decoration: none;
+}
+.inv-nav-logo img {
+  height: 32px; width: auto;
 }
 .inv-nav-links {
   display: flex; align-items: center; gap: 32px;
@@ -594,7 +594,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 52px; }
 {/* ═══ NAV ═══ */}
       <nav className="inv-nav">
         <div className="inv-nav-inner">
-          <a href="#" className="inv-nav-logo">NutraGLP&reg; Biosciences</a>
+          <a href="#" className="inv-nav-logo"><img src="/nutraglp-logo.svg" alt="NutraGLP Biosciences" /></a>
           <ul className="inv-nav-links">
             <li><a href="#platform">Platform</a></li>
             <li><a href="#clinical">Clinical</a></li>
