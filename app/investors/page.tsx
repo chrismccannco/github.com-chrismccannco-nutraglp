@@ -601,7 +601,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 52px; }
             <li><a href="#leadership">Leadership</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
-          <a href="mailto:info@nutraglpbio.com?bcc=richard@nutrglpbio.com,chris@nutraglpbio.com&amp;subject=Send%20me%20the%20brief" className="inv-nav-cta">Request Brief</a>
+          <a href="mailto:info@nutraglpbio.com?bcc=richard@nutrglpbio.com,chris@nutraglpbio.com&subject=Send%20me%20the%20brief" className="inv-nav-cta">Request Brief</a>
         </div>
       </nav>
 
@@ -612,7 +612,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 52px; }
           <h1>A new class of<br /><em>Bioactive Signaling Molecules</em><br />for metabolic health</h1>
           <p className="inv-hero-sub">A patented, non-pharmaceutical biotechnology platform that restores endogenous incretin signaling through coordinated multi-pathway activation. Drug-level biology. Consumer-scale distribution. No prescription. No injection.</p>
           <div className="inv-hero-ctas">
-            <a href="mailto:info@nutraglpbio.com?bcc=richard@nutrglpbio.com,chris@nutraglpbio.com&amp;subject=Send%20me%20the%20brief" className="inv-btn-gold">Request Scientific Brief</a>
+            <a href="mailto:info@nutraglpbio.com?bcc=richard@nutrglpbio.com,chris@nutraglpbio.com&subject=Send%20me%20the%20brief" className="inv-btn-gold">Request Scientific Brief</a>
             <a href="#platform" className="inv-btn-outline">Explore the Platform</a>
           </div>
         </div>
@@ -828,7 +828,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 52px; }
                 <div className="inv-brief-title">Bioactive Signaling Molecules: A New Non-Pharmaceutical Biotechnology Platform for Metabolic Health</div>
                 <div className="inv-brief-author">Richard Clark Kaufman, PhD &middot; NutraGLP&reg; Biosciences &middot; 200+ peer-reviewed references</div>
               </div>
-              <a href="https://www.linkedin.com/posts/richard-clark-kaufman-phd-43511bb3_beyond-glp-1-drugs-bioactive-signaling-molecules-activity-7444936008699351040-z_cp?utm_source=share&amp;utm_medium=member_desktop&amp;rcm=ACoAAABSxKoBmUW81fe_lpwvGH_C9ci9DXuFz7g" target="_blank" rel="noopener noreferrer" className="inv-btn-gold-outline">Read Article &rarr;</a>
+              <a href="https://www.linkedin.com/posts/richard-clark-kaufman-phd-43511bb3_beyond-glp-1-drugs-bioactive-signaling-molecules-activity-7444936008699351040-z_cp?utm_source=share&utm_medium=member_desktop&rcm=ACoAAABSxKoBmUW81fe_lpwvGH_C9ci9DXuFz7g" target="_blank" rel="noopener noreferrer" className="inv-btn-gold-outline">Read Article &rarr;</a>
             </div>
           </div>
         </div>
