@@ -2,11 +2,11 @@
   <style>
     .nutra { font-family: 'Arial Black', 'Helvetica Neue', Arial, sans-serif; font-weight: 900; font-size: 62px; fill: #ffffff; }
     .glp { font-family: 'Arial Black', 'Helvetica Neue', Arial, sans-serif; font-weight: 900; font-size: 62px; fill: #2a7fb5; }
-    .reg { font-family: 'Arial', 'Helvetica Neue', Arial, sans-serif; font-weight: 700; font-size: 16px; fill: #2a7fb5; }
+    .reg { font-family: 'Arial', 'Helvetica Neue', Arial, sans-serif; font-weight: 700; font-size: 15px; fill: #2a7fb5; }
     .bio { font-family: 'Arial', 'Helvetica Neue', Helvetica, sans-serif; font-weight: 400; font-size: 22px; fill: #ffffff; letter-spacing: 6px; }
   </style>
   <text class="nutra" x="10" y="65">Nutra</text>
   <text class="glp" x="200" y="65">GLP</text>
-  <text class="reg" x="310" y="32">&#174;</text>
+  <text class="reg" x="305" y="24">&#174;</text>
   <text class="bio" x="12" y="96">BIOSCIENCES</text>
 </svg>
