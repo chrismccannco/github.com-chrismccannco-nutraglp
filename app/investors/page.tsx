@@ -603,7 +603,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 52px; }
             <li><a href="#leadership">Leadership</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
-          <a href="mailto:info@nutraglpbio.com?bcc=richard@nutrglpbio.com,chris@nutraglpbio.com&subject=Send%20me%20the%20brief" className="inv-nav-cta">Request Brief</a>
+          <a href={"mailto:info@nutraglpbio.com?bcc=richard@nutrglpbio.com,chris@nutraglpbio.com&subject=Send%20me%20the%20brief"} className="inv-nav-cta">Request Brief</a>
         </div>
       </nav>
 
@@ -614,7 +614,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 52px; }
           <h1>A new class of<br /><em>Bioactive Signaling Molecules</em><br />for metabolic health</h1>
           <p className="inv-hero-sub">A patented, non-pharmaceutical biotechnology platform that restores endogenous incretin signaling through coordinated multi-pathway activation. Drug-level biology. Consumer-scale distribution. No prescription. No injection.</p>
           <div className="inv-hero-ctas">
-            <a href="mailto:info@nutraglpbio.com?bcc=richard@nutrglpbio.com,chris@nutraglpbio.com&subject=Send%20me%20the%20brief" className="inv-btn-gold">Request Scientific Brief</a>
+            <a href={"mailto:info@nutraglpbio.com?bcc=richard@nutrglpbio.com,chris@nutraglpbio.com&subject=Send%20me%20the%20brief"} className="inv-btn-gold">Request Scientific Brief</a>
             <a href="#platform" className="inv-btn-outline">Explore the Platform</a>
           </div>
         </div>
@@ -907,7 +907,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 52px; }
           <p className="inv-eyebrow">NutraGLP&reg; Biosciences</p>
           <h2>The biology is proven.<br />The IP is defensible.<br /><em>The market is ready.</em></h2>
           <p className="inv-lead" style={{ margin: '0 auto 48px', textAlign: 'center' }}>Scientific brief, executive summary, observational data, and full platform documentation available to qualified parties upon request.</p>
-          <a href="mailto:info@nutraglpbio.com" className="inv-contact-email">info@nutraglpbio.com</a>
+          <a href={"mailto:info@nutraglpbio.com?bcc=richard@nutrglpbio.com,chris@nutraglpbio.com&subject=Send%20me%20the%20brief"} className="inv-contact-email">info@nutraglpbio.com</a>
           <div className="inv-contact-divider"></div>
           <div className="inv-contact-phone">310 &middot; 990 &middot; 6770</div>
           <div className="inv-contact-location">NutraGLP&reg; Biosciences &middot; Santa Monica, California</div>
