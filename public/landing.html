@@ -88,12 +88,11 @@ section { padding: 104px 48px; scroll-margin-top: 84px; }
 .f-name { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 300; line-height: 1.08; color: var(--white); margin-bottom: 8px; }
 .f-title { font-size: 14px; font-weight: 600; color: var(--forest-accent); margin-bottom: 32px; }
 .f-bio { font-size: 17px; line-height: 1.75; color: rgba(255,255,255,0.65); font-weight: 600; margin-bottom: 18px; }
-.f-awards { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.f-awards .award:last-child { grid-column: 1 / -1; max-width: calc(50% - 8px); justify-self: center; }
-.award { display: flex; gap: 16px; padding: 20px 24px; background: rgba(255,255,255,0.04); border-left: 3px solid var(--gold); }
-.award-icon { color: var(--gold); font-size: 16px; flex-shrink: 0; margin-top: 2px; }
-.award-t { font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 4px; }
-.award-d { font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.5; }
+.f-awards { margin-top: 48px; display: flex; gap: 12px; }
+.award { flex: 1; padding: 24px 20px; background: rgba(255,255,255,0.04); border-top: 2px solid var(--gold); border-left: none; text-align: center; }
+.award-icon { color: var(--gold); font-size: 14px; margin-bottom: 12px; }
+.award-t { font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 8px; line-height: 1.35; }
+.award-d { font-size: 12px; color: rgba(255,255,255,0.5); line-height: 1.5; }
 .f-right { padding-top: 56px; }
 .f-quote { font-family: 'Playfair Display', serif; font-size: 22px; font-style: italic; font-weight: 300; color: var(--white); line-height: 1.5; margin-bottom: 40px; border-left: 2px solid var(--gold); padding-left: 24px; }
 .cat-list { display: flex; flex-direction: column; }
@@ -231,8 +230,8 @@ footer { background: #07070f; padding: 40px 48px; display: flex; align-items: ce
   .cred-item { padding: 12px 20px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); width: 50%; }
   .cred-item:last-child { border-bottom: none; }
   .founder-grid { grid-template-columns: 1fr; gap: 48px; }
-  .f-awards { grid-template-columns: 1fr; }
-  .f-awards .award:last-child { max-width: 100%; }
+  .f-awards { flex-wrap: wrap; }
+  .f-awards .award { flex: 1 1 calc(50% - 12px); min-width: 140px; }
   .f-right { padding-top: 0; }
   .moa-flow { grid-template-columns: 1fr; }
   .ev-grid { grid-template-columns: repeat(3, 1fr); }
@@ -688,49 +687,40 @@ footer { background: #07070f; padding: 40px 48px; display: flex; align-items: ce
       <div class="f-name">Richard Clark<br>Kaufman, PhD</div>
       <div class="f-title">Founder &amp; CEO — NutraGLP<sup>®</sup> Biosciences</div>
       <p class="f-bio">For decades, one pattern has defined his career: identify the biological roadblocks and mechanisms before the market understands them, build the science to deliver them, and create the category.</p>
-      <p class="f-bio">His track record spans more than four decades of category-defining firsts. NutraGLP<sup>®</sup> Biosciences applies the same pattern to the largest metabolic health opportunity of this generation.</p>
-      <div class="f-awards">
-        <div class="award">
-          <div class="award-icon">◆</div>
-          <div>
-            <div class="award-t">Founder &amp; CEO — NutraGLP<sup>®</sup> Biosciences</div>
-            <div class="award-d">Architect of the platform IP, formulation science, and Bioactive Signaling Molecule category</div>
-          </div>
-        </div>
-        <div class="award">
-          <div class="award-icon">◆</div>
-          <div>
-            <div class="award-t">Founder &amp; CSO — NanoSphere Health Sciences (CSE: NSHS)</div>
-            <div class="award-d">Built to C$100M market capitalization. Expanded to 200+ licensed outlets across North America. Recipient of the Frost &amp; Sullivan Nano-Encapsulation Technology Innovation Award.</div>
-          </div>
-        </div>
-        <div class="award">
-          <div class="award-icon">◆</div>
-          <div>
-            <div class="award-t">Inventor — Patented NanoSphere Lipid Nanoparticle Delivery Systems</div>
-            <div class="award-d">Granted patents across 24+ countries. First patent ever issued for nanoparticle delivery of cannabinoids. Nanoemulsion, nanoencapsulation, and microencapsulation platforms at commercial scale.</div>
-          </div>
-        </div>
-        <div class="award">
-          <div class="award-icon">◆</div>
-          <div>
-            <div class="award-t">Antiaging Author &amp; Researcher</div>
-            <div class="award-d">Author of the bestseller “The Age Reduction System”. Co-director of the first life extension medical clinic in North America. Pioneered the use of melatonin, Co-Q10, 5-HTP, and GSH.</div>
-          </div>
-        </div>
-        <div class="award">
-          <div class="award-icon">◆</div>
-          <div>
-            <div class="award-t">150+ Commercial Health Products</div>
-            <div class="award-d">Developed leading products for Science-Based Health, General Research Labs, Life Enhancement, First Fitness International, and Vitamin Research Products</div>
-          </div>
-        </div>
-      </div>
+      <p class=”f-bio”>His track record spans more than four decades of category-defining firsts. NutraGLP<sup>®</sup> Biosciences applies the same pattern to the largest metabolic health opportunity of this generation.</p>
     </div>
 
-    <div class="f-right">
-      <div class="f-quote">"I identify biological mechanisms before markets understand them. That is what I have done my entire career — and it is what I have done with NutraGLP<sup>®</sup> Biosciences."</div>
+    <div class=”f-right”>
+      <div class=”f-quote”>”I identify biological mechanisms before markets understand them. That is what I have done my entire career — and it is what I have done with NutraGLP<sup>®</sup> Biosciences.”</div>
       
+    </div>
+  </div>
+
+  <div class="f-awards" style="max-width: 1000px; margin: 0 auto;">
+    <div class="award">
+      <div class="award-icon">◆</div>
+      <div class="award-t">Founder &amp; CEO — NutraGLP<sup>®</sup> Biosciences</div>
+      <div class="award-d">Architect of the platform IP, formulation science, and Bioactive Signaling Molecule category</div>
+    </div>
+    <div class="award">
+      <div class="award-icon">◆</div>
+      <div class="award-t">Founder &amp; CSO — NanoSphere Health Sciences (CSE: NSHS)</div>
+      <div class="award-d">Built to C$100M market capitalization. Expanded to 200+ licensed outlets across North America. Frost &amp; Sullivan Innovation Award.</div>
+    </div>
+    <div class="award">
+      <div class="award-icon">◆</div>
+      <div class="award-t">Inventor — Patented Lipid Nanoparticle Delivery</div>
+      <div class="award-d">Patents across 24+ countries. First patent ever issued for nanoparticle delivery of cannabinoids.</div>
+    </div>
+    <div class="award">
+      <div class="award-icon">◆</div>
+      <div class="award-t">Antiaging Author &amp; Researcher</div>
+      <div class="award-d">Author of "The Age Reduction System". Co-director of the first life extension medical clinic in North America.</div>
+    </div>
+    <div class="award">
+      <div class="award-icon">◆</div>
+      <div class="award-t">150+ Commercial Health Products</div>
+      <div class="award-d">Developed leading products for Science-Based Health, General Research Labs, Life Enhancement, and more.</div>
     </div>
   </div>
 </section>
