@@ -94,9 +94,12 @@ section { padding: 104px 48px; scroll-margin-top: 84px; }
 .stat:not(:last-child)::after { content: ''; position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 1px; height: 40px; background: rgba(196,163,90,0.2); }
 .stat-num { font-family: 'Playfair Display', serif; font-size: 42px; font-weight: 400; color: var(--gold); line-height: 1; margin-bottom: 10px; }
 .stat-label { font-size: 11px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.4); }
-.cred-row { display: flex; justify-content: center; gap: 32px; padding: 32px 0 0; flex-wrap: wrap; }
-.cred-tag { font-size: 12px; color: rgba(255,255,255,0.35); line-height: 1.5; }
-.cred-tag strong { color: rgba(255,255,255,0.55); font-weight: 600; }
+.cred-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; padding-top: 40px; background: rgba(196,163,90,0.1); }
+.cred-grid .cred-card { background: var(--deep); padding: 32px 28px; }
+.cred-card-title { font-size: 14px; font-weight: 600; color: var(--gold); margin-bottom: 10px; line-height: 1.35; }
+.cred-card-desc { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.65; }
+.cred-grid-bottom { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: rgba(196,163,90,0.1); }
+.cred-grid-bottom .cred-card { background: var(--deep); padding: 32px 28px; }
 .f-right { padding-top: 56px; }
 .f-quote { font-family: 'Playfair Display', serif; font-size: 22px; font-style: italic; font-weight: 300; color: var(--white); line-height: 1.5; margin-bottom: 40px; border-left: 2px solid var(--gold); padding-left: 24px; }
 .cat-list { display: flex; flex-direction: column; }
@@ -240,7 +243,8 @@ footer { background: #07070f; padding: 64px 48px 48px; display: flex; flex-direc
   .stat { flex: 0 0 50%; }
   .stat:not(:last-child)::after { display: none; }
   .stat-num { font-size: 32px; }
-  .cred-row { flex-direction: column; gap: 16px; align-items: center; text-align: center; }
+  .cred-grid { grid-template-columns: 1fr; }
+  .cred-grid-bottom { grid-template-columns: 1fr; }
   .f-right { padding-top: 0; }
   .moa-flow { grid-template-columns: 1fr; }
   .ev-grid { grid-template-columns: repeat(3, 1fr); }
@@ -724,10 +728,29 @@ footer { background: #07070f; padding: 64px 48px 48px; display: flex; flex-direc
         <div class="stat-label">Years in Category Creation</div>
       </div>
     </div>
-    <div class="cred-row">
-      <div class="cred-tag"><strong>NanoSphere Health Sciences</strong> &mdash; Founder &amp; CSO. Frost &amp; Sullivan Innovation Award.</div>
-      <div class="cred-tag"><strong>First patent issued</strong> for nanoparticle delivery of cannabinoids</div>
-      <div class="cred-tag"><strong>Author</strong>, "The Age Reduction System"</div>
+    <div class="cred-grid">
+      <div class="cred-card">
+        <div class="cred-card-title">Founder &amp; CEO — NutraGLP<sup>®</sup> Biosciences</div>
+        <div class="cred-card-desc">Architect of the platform IP, formulation science, and the Bioactive Signaling Molecule category.</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-card-title">Founder &amp; CSO — NanoSphere Health Sciences (CSE: NSHS)</div>
+        <div class="cred-card-desc">Built to C$100M market cap. 200+ licensed outlets across North America. Frost &amp; Sullivan Nano-Encapsulation Technology Innovation Award.</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-card-title">Inventor — Patented Nanoparticle Delivery Systems</div>
+        <div class="cred-card-desc">Granted patents across 24+ countries. First patent ever issued for nanoparticle delivery of cannabinoids. Nanoemulsion, nanoencapsulation, and microencapsulation platforms at commercial scale.</div>
+      </div>
+    </div>
+    <div class="cred-grid-bottom">
+      <div class="cred-card">
+        <div class="cred-card-title">Antiaging Author &amp; Researcher</div>
+        <div class="cred-card-desc">Author of "The Age Reduction System." Co-director of the first life extension medical clinic in North America. Pioneered the use of melatonin, Co-Q10, 5-HTP, and GSH.</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-card-title">150+ Commercial Health Products</div>
+        <div class="cred-card-desc">Formulated for Science-Based Health, General Research Labs, Life Enhancement, First Fitness International, and Vitamin Research Products.</div>
+      </div>
     </div>
   </div>
 </section>
