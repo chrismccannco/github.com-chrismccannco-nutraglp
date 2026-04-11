@@ -88,7 +88,8 @@ section { padding: 104px 48px; scroll-margin-top: 84px; }
 .f-name { font-family: 'Playfair Display', serif; font-size: 40px; font-weight: 300; line-height: 1.08; color: var(--white); margin-bottom: 8px; }
 .f-title { font-size: 14px; font-weight: 600; color: var(--forest-accent); margin-bottom: 32px; }
 .f-bio { font-size: 17px; line-height: 1.75; color: rgba(255,255,255,0.65); font-weight: 600; margin-bottom: 18px; }
-.f-awards { margin-top: 40px; display: flex; flex-direction: column; gap: 14px; }
+.f-awards { margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.f-awards .award:last-child { grid-column: 1 / -1; max-width: calc(50% - 8px); justify-self: center; }
 .award { display: flex; gap: 16px; padding: 20px 24px; background: rgba(255,255,255,0.04); border-left: 3px solid var(--gold); }
 .award-icon { color: var(--gold); font-size: 16px; flex-shrink: 0; margin-top: 2px; }
 .award-t { font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 4px; }
@@ -202,7 +203,7 @@ section { padding: 104px 48px; scroll-margin-top: 84px; }
 
 /* CONTACT */
 .contact { background: var(--deep); padding: 160px 48px; text-align: center; position: relative; overflow: hidden; }
-.contact::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 100%, rgba(45,107,71,0.18) 0%, transparent 70%); }
+.contact::before { display: none; }
 .contact-inner { position: relative; z-index: 1; max-width: 620px; margin: 0 auto; }
 .c-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 36px; }
 .c-title { font-family: 'Playfair Display', serif; font-size: clamp(36px, 5vw, 62px); font-weight: 300; color: var(--white); line-height: 1.1; margin-bottom: 24px; letter-spacing: -0.5px; }
@@ -230,6 +231,8 @@ footer { background: #07070f; padding: 40px 48px; display: flex; align-items: ce
   .cred-item { padding: 12px 20px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); width: 50%; }
   .cred-item:last-child { border-bottom: none; }
   .founder-grid { grid-template-columns: 1fr; gap: 48px; }
+  .f-awards { grid-template-columns: 1fr; }
+  .f-awards .award:last-child { max-width: 100%; }
   .f-right { padding-top: 0; }
   .moa-flow { grid-template-columns: 1fr; }
   .ev-grid { grid-template-columns: repeat(3, 1fr); }
@@ -306,7 +309,7 @@ footer { background: #07070f; padding: 40px 48px; display: flex; align-items: ce
       Drug-level biology. Consumer-scale distribution. No prescription. No injection.
     </p>
     <div class="hero-actions">
-      <a href="#contact" class="btn-primary">Read Our Scientific Brief</a>
+      <a href="mailto:info@nutraglpbio.com?subject=Request%20for%20Scientific%20Brief" class="btn-primary">Request Our Scientific Brief</a>
       <a href="#platform" class="btn-ghost">Explore the Platform</a>
     </div>
   </div>
@@ -741,7 +744,7 @@ footer { background: #07070f; padding: 40px 48px; display: flex; align-items: ce
       <em>The market is ready.</em>
     </h2>
     <p class="c-sub">Scientific brief, executive summary, observational data, and full platform documentation available to qualified parties upon request.</p>
-    <div class="c-email">Info@nutraglpbio.com</div>
+    <a href="mailto:info@nutraglpbio.com" class="c-email" style="display:block;">Info@nutraglpbio.com</a>
     
     
     
@@ -752,8 +755,10 @@ footer { background: #07070f; padding: 40px 48px; display: flex; align-items: ce
     Join our mailing list to stay informed from the very beginning.
   </p>
 
-  <form id="mailingListForm" onsubmit="handleMailingList(event)" style="display: flex; gap: 12px; max-width: 520px; margin: 0 auto; flex-wrap: wrap; justify-content: center;">
-    <input type="email" id="mlEmail" placeholder="Your email address" required
+  <form id="mailingListForm" name="waitlist" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="display: flex; gap: 12px; max-width: 520px; margin: 0 auto; flex-wrap: wrap; justify-content: center;">
+    <input type="hidden" name="form-name" value="waitlist">
+    <p style="display:none;"><label>Don't fill this out: <input name="bot-field"></label></p>
+    <input type="email" name="email" id="mlEmail" placeholder="Your email address" required
       style="flex: 1; min-width: 220px; padding: 14px 20px; background: rgba(255,255,255,0.06); border: 1px solid rgba(196,163,90,0.25); color: #fff; font-size: 14px; font-family: inherit; outline: none; border-radius: 2px;">
     <button id="mlSubmitBtn" type="submit"
       style="padding: 14px 28px; background: var(--gold); color: #0a0a0f; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; border: none; cursor: pointer; border-radius: 2px; white-space: nowrap; font-family: inherit;">
@@ -767,84 +772,40 @@ footer { background: #07070f; padding: 40px 48px; display: flex; align-items: ce
   <div id="mlError" class="ml-status-error" style="display:none; margin-top: 20px; font-size: 14px; letter-spacing: 0.3px;">
     There was a problem submitting your email. Please try again in a moment.
   </div>
-
-  <div style="margin-top: 18px;">
-    <a id="mlAdminLink" class="ml-admin-link" href="#" target="_blank" rel="noopener noreferrer" style="display:none;">Open mailing list admin sheet</a>
-  </div>
 </div>
 
 <script>
-const MAILING_LIST_CONFIG = {
-  endpoint: "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE",
-  adminSheetUrl: "PASTE_YOUR_GOOGLE_SHEET_URL_HERE"
-};
-
-(function initMailingListAdminLink() {
-  const adminLink = document.getElementById('mlAdminLink');
-  if (adminLink && MAILING_LIST_CONFIG.adminSheetUrl && !MAILING_LIST_CONFIG.adminSheetUrl.includes('PASTE_YOUR')) {
-    adminLink.href = MAILING_LIST_CONFIG.adminSheetUrl;
-    adminLink.style.display = 'inline-block';
-  }
-})();
-
-async function handleMailingList(e) {
+document.getElementById('mailingListForm').addEventListener('submit', async function(e) {
   e.preventDefault();
-
-  const emailInput = document.getElementById('mlEmail');
+  const form = e.target;
   const submitBtn = document.getElementById('mlSubmitBtn');
   const confirmBox = document.getElementById('mlConfirm');
   const errorBox = document.getElementById('mlError');
-  const form = document.getElementById('mailingListForm');
 
   confirmBox.style.display = 'none';
   errorBox.style.display = 'none';
-
-  const email = emailInput.value.trim();
-  if (!email) return;
-
-  if (!MAILING_LIST_CONFIG.endpoint || MAILING_LIST_CONFIG.endpoint.includes('PASTE_YOUR')) {
-    errorBox.textContent = "Setup incomplete: add your Google Apps Script web-app URL in MAILING_LIST_CONFIG.";
-    errorBox.style.display = 'block';
-    return;
-  }
-
   submitBtn.disabled = true;
   submitBtn.textContent = 'Submitting...';
   submitBtn.style.opacity = '0.75';
 
   try {
-    const response = await fetch(MAILING_LIST_CONFIG.endpoint, {
+    const response = await fetch('/', {
       method: 'POST',
-      body: JSON.stringify({
-        email,
-        source: 'NutraGLP Landing Page',
-        page: window.location.href,
-        userAgent: navigator.userAgent,
-        submittedAt: new Date().toISOString()
-      }),
-      headers: {
-        'Content-Type': 'text/plain;charset=utf-8'
-      }
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(new FormData(form)).toString()
     });
-
-    const data = await response.json().catch(() => ({}));
-
-    if (!response.ok || (data && data.status && data.status !== 'success')) {
-      throw new Error((data && data.message) || 'Submission failed');
-    }
-
+    if (!response.ok) throw new Error('Submission failed');
     form.reset();
     confirmBox.style.display = 'block';
   } catch (err) {
     errorBox.textContent = 'There was a problem submitting your email. Please try again in a moment.';
     errorBox.style.display = 'block';
-    console.error('Mailing list submission error:', err);
   } finally {
     submitBtn.disabled = false;
     submitBtn.textContent = 'Join the List';
     submitBtn.style.opacity = '1';
   }
-}
+});
 </script>
 
     <p class="c-note">NutraGLP<sup>®</sup> Biosciences is building the next category in metabolic health. Executive summary, scientific monograph, and clinical documentation available to qualified strategic and investment partners upon request.</p>
