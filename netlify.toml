@@ -36,35 +36,3 @@
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
     Netlify-CDN-Cache-Control = "public, max-age=0, must-revalidate"
-[build]
-  command = "npm run build"
-  publish = ".next"
-
-[functions]
-  external_node_modules = ["@libsql/client"]
-  node_bundler = "esbuild"
-
-[functions."*"]
-  timeout = 60
-
-[[plugins]]
-  package = "@netlify/plugin-nextjs"
-
-# Force blog routes to be served fresh (not from stale pre-render cache)
-[[headers]]
-  for = "/blog"
-  [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
-    Netlify-CDN-Cache-Control = "public, max-age=0, must-revalidate"
-
-[[headers]]
-  for = "/blog/*"
-  [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
-    Netlify-CDN-Cache-Control = "public, max-age=0, must-revalidate"
-
-[[headers]]
-  for = "/api/*"
-  [headers.values]
-    Cache-Control = "public, max-age=0, must-revalidate"
-    Netlify-CDN-Cache-Control = "public, max-age=0, must-revalidate"
