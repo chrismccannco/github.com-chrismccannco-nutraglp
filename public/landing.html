@@ -957,7 +957,7 @@ footer { background: #07070f; padding: 64px 48px 48px; display: flex; flex-direc
     </h2>
     <p class="c-sub">Scientific brief, executive summary, observational data, and full platform documentation available to qualified parties upon request.</p>
 
-    <a href="mailto:info@nutraglpbio.com?subject=NutraGLP%20Scientific%20Brief" style="display: inline-block; padding: 18px 48px; background: var(--gold); color: #0a0a14; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; margin-bottom: 12px;">Request Documentation</a>
+    <a href="#" onclick="event.preventDefault(); document.getElementById('docModal').style.display='flex';" style="display: inline-block; padding: 18px 48px; background: var(--gold); color: #0a0a14; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; margin-bottom: 12px; cursor:pointer;">Request Documentation</a>
     <p style="font-size: 13px; color: rgba(255,255,255,0.35);">For qualified strategic and investment partners</p>
 
     <div style="margin-top: 80px; padding-top: 56px; border-top: 1px solid rgba(196,163,90,0.12); display: grid; grid-template-columns: 1fr 1px 1fr; gap: 48px; max-width: 780px; margin-left: auto; margin-right: auto; text-align: center;">
@@ -966,6 +966,10 @@ footer { background: #07070f; padding: 64px 48px 48px; display: flex; flex-direc
         <p style="font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.6; margin-bottom: 24px;">Platform milestones, clinical progress, and partnership announcements.</p>
         <form id="mailingListForm" name="waitlist" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="display: flex; gap: 10px; justify-content: center;">
           <input type="hidden" name="form-name" value="waitlist">
+          <input type="hidden" name="utm_source" value="">
+          <input type="hidden" name="utm_medium" value="">
+          <input type="hidden" name="utm_campaign" value="">
+          <input type="hidden" name="page_url" value="">
           <p style="display:none;"><label>Don't fill this out: <input name="bot-field"></label></p>
           <input type="email" name="email" id="mlEmail" placeholder="Your email" required
             style="flex: 1; min-width: 160px; padding: 12px 16px; background: rgba(255,255,255,0.06); border: 1px solid rgba(196,163,90,0.25); color: #fff; font-size: 13px; font-family: inherit; outline: none; border-radius: 2px;">
@@ -1035,13 +1039,19 @@ document.getElementById('mailingListForm').addEventListener('submit', async func
     <div style="font-size:10px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:24px;">Private Access</div>
     <div style="font-family:'Playfair Display',serif; font-size:clamp(28px,4vw,40px); font-weight:300; color:var(--white); line-height:1.15; margin-bottom:16px;">Read the Scientific Brief</div>
     <p style="font-size:15px; color:rgba(255,255,255,0.5); line-height:1.6; margin-bottom:36px; max-width:400px; margin-left:auto; margin-right:auto;">Enter your email to access the full report, supporting data, and reference library.</p>
-    <form id="briefAccessForm" name="brief-access" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="display:flex; gap:10px; max-width:440px; margin:0 auto;">
+    <form id="briefAccessForm" name="brief-access" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="display:flex; flex-direction:column; gap:10px; max-width:440px; margin:0 auto;">
       <input type="hidden" name="form-name" value="brief-access">
+      <input type="hidden" name="utm_source" value="">
+      <input type="hidden" name="utm_medium" value="">
+      <input type="hidden" name="utm_campaign" value="">
+      <input type="hidden" name="page_url" value="">
       <p style="display:none;"><label>Don't fill this out: <input name="bot-field"></label></p>
       <input type="email" name="email" id="briefEmail" placeholder="Your email address" required
-        style="flex:1; min-width:0; padding:14px 16px; background:rgba(255,255,255,0.05); border:1px solid rgba(57,186,242,0.3); color:#fff; font-size:14px; font-family:inherit; outline:none; border-radius:2px;">
+        style="width:100%; padding:14px 16px; background:rgba(255,255,255,0.05); border:1px solid rgba(57,186,242,0.3); color:#fff; font-size:14px; font-family:inherit; outline:none; border-radius:2px;">
+      <input type="text" name="company" placeholder="Company (optional)"
+        style="width:100%; padding:14px 16px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#fff; font-size:14px; font-family:inherit; outline:none; border-radius:2px;">
       <button id="briefSubmitBtn" type="submit"
-        style="padding:14px 24px; background:var(--gold); color:#0a0a0f; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; border:none; cursor:pointer; border-radius:2px; white-space:nowrap; font-family:inherit;">Continue to Brief</button>
+        style="width:100%; padding:16px 24px; background:var(--gold); color:#0a0a0f; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; border:none; cursor:pointer; border-radius:2px; white-space:nowrap; font-family:inherit; margin-top:4px;">Continue to Brief</button>
     </form>
     <div id="briefConfirm" style="display:none; margin-top:24px; color:var(--gold); font-size:14px;">
       ✓ &nbsp;Access granted. Opening the brief now.
@@ -1053,7 +1063,56 @@ document.getElementById('mailingListForm').addEventListener('submit', async func
   </div>
 </div>
 
+<!-- DOCUMENTATION REQUEST MODAL -->
+<div id="docModal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.75); backdrop-filter:blur(8px); align-items:center; justify-content:center; padding:24px;">
+  <div style="position:relative; background:linear-gradient(180deg, #12121e 0%, #0e0e18 100%); border:1px solid rgba(196,163,90,0.2); max-width:560px; width:100%; padding:64px 48px; text-align:center;">
+    <button onclick="document.getElementById('docModal').style.display='none';" style="position:absolute; top:16px; right:16px; background:none; border:1px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.5); font-size:18px; width:36px; height:36px; cursor:pointer; display:flex; align-items:center; justify-content:center; line-height:1;">&times;</button>
+    <div style="font-size:10px; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--gold); margin-bottom:24px;">For Qualified Parties</div>
+    <div style="font-family:'Playfair Display',serif; font-size:clamp(28px,4vw,40px); font-weight:300; color:var(--white); line-height:1.15; margin-bottom:16px;">Request Documentation</div>
+    <p style="font-size:15px; color:rgba(255,255,255,0.5); line-height:1.6; margin-bottom:36px; max-width:420px; margin-left:auto; margin-right:auto;">Executive summary, observational data, and full platform documentation for strategic and investment partners.</p>
+    <form id="docRequestForm" name="doc-request" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="display:flex; flex-direction:column; gap:10px; max-width:440px; margin:0 auto; text-align:left;">
+      <input type="hidden" name="form-name" value="doc-request">
+      <input type="hidden" name="utm_source" value="">
+      <input type="hidden" name="utm_medium" value="">
+      <input type="hidden" name="utm_campaign" value="">
+      <input type="hidden" name="page_url" value="">
+      <p style="display:none;"><label>Don't fill this out: <input name="bot-field"></label></p>
+      <input type="text" name="name" placeholder="Full name" required
+        style="width:100%; padding:14px 16px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#fff; font-size:14px; font-family:inherit; outline:none; border-radius:2px;">
+      <input type="email" name="email" placeholder="Email address" required
+        style="width:100%; padding:14px 16px; background:rgba(255,255,255,0.05); border:1px solid rgba(57,186,242,0.3); color:#fff; font-size:14px; font-family:inherit; outline:none; border-radius:2px;">
+      <input type="text" name="company" placeholder="Company"
+        style="width:100%; padding:14px 16px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#fff; font-size:14px; font-family:inherit; outline:none; border-radius:2px;">
+      <textarea name="message" placeholder="What are you looking for? (optional)" rows="3"
+        style="width:100%; padding:14px 16px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#fff; font-size:14px; font-family:inherit; outline:none; border-radius:2px; resize:vertical;"></textarea>
+      <button id="docSubmitBtn" type="submit"
+        style="width:100%; padding:16px 24px; background:var(--gold); color:#0a0a0f; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; border:none; cursor:pointer; border-radius:2px; white-space:nowrap; font-family:inherit; margin-top:4px;">Submit Request</button>
+    </form>
+    <div id="docConfirm" style="display:none; margin-top:24px; color:var(--gold); font-size:14px;">
+      ✓ &nbsp;Request received. We'll follow up within 24 hours.
+    </div>
+    <div id="docError" style="display:none; margin-top:24px; color:#ffb0a8; font-size:14px;">
+      There was a problem. Please try again or email info@nutraglpbio.com directly.
+    </div>
+    <p style="font-size:12px; color:rgba(255,255,255,0.3); margin-top:24px; line-height:1.5;">Your information will only be used to respond to this request and provide relevant updates.</p>
+  </div>
+</div>
+
 <script>
+// UTM capture: populate hidden fields on all forms
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  var utmFields = ['utm_source', 'utm_medium', 'utm_campaign'];
+  document.querySelectorAll('input[name="utm_source"], input[name="utm_medium"], input[name="utm_campaign"]').forEach(function(el) {
+    var val = params.get(el.name);
+    if (val) el.value = val;
+  });
+  document.querySelectorAll('input[name="page_url"]').forEach(function(el) {
+    el.value = window.location.href;
+  });
+})();
+
+// Brief access form
 document.getElementById('briefAccessForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   const form = e.target;
@@ -1076,11 +1135,11 @@ document.getElementById('briefAccessForm').addEventListener('submit', async func
     if (!response.ok) throw new Error('Submission failed');
     form.reset();
     confirmBox.style.display = 'block';
-    // Auto-close modal after 2 seconds (user would be redirected to brief in production)
     setTimeout(function() {
+      window.open('https://jumpshare.com/share/loYDnS0XNPFe7nGRh7WR', '_blank');
       document.getElementById('briefModal').style.display = 'none';
       confirmBox.style.display = 'none';
-    }, 3000);
+    }, 1500);
   } catch (err) {
     errorBox.style.display = 'block';
   } finally {
@@ -1090,14 +1149,51 @@ document.getElementById('briefAccessForm').addEventListener('submit', async func
   }
 });
 
-// Close modal on backdrop click
-document.getElementById('briefModal').addEventListener('click', function(e) {
-  if (e.target === this) this.style.display = 'none';
+// Documentation request form
+document.getElementById('docRequestForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const form = e.target;
+  const btn = document.getElementById('docSubmitBtn');
+  const confirmBox = document.getElementById('docConfirm');
+  const errorBox = document.getElementById('docError');
+
+  confirmBox.style.display = 'none';
+  errorBox.style.display = 'none';
+  btn.disabled = true;
+  btn.textContent = 'Submitting...';
+  btn.style.opacity = '0.75';
+
+  try {
+    const response = await fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(new FormData(form)).toString()
+    });
+    if (!response.ok) throw new Error('Submission failed');
+    form.reset();
+    confirmBox.style.display = 'block';
+  } catch (err) {
+    errorBox.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Submit Request';
+    btn.style.opacity = '1';
+  }
 });
 
-// Close modal on Escape key
+// Close modals on backdrop click
+['briefModal', 'docModal'].forEach(function(id) {
+  document.getElementById(id).addEventListener('click', function(e) {
+    if (e.target === this) this.style.display = 'none';
+  });
+});
+
+// Close modals on Escape key
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') document.getElementById('briefModal').style.display = 'none';
+  if (e.key === 'Escape') {
+    document.getElementById('briefModal').style.display = 'none';
+    document.getElementById('docModal').style.display = 'none';
+  }
 });
 </script>
 
