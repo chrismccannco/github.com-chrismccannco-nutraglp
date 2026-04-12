@@ -483,7 +483,7 @@ footer { background: #07070f; padding: 64px 48px 48px; display: flex; flex-direc
     <li><a href="#ip">IP</a></li>
     <li><a href="#market">Market</a></li>
     <li><a href="#leadership">Leadership</a></li>
-    <li><a href="#" onclick="event.preventDefault(); document.getElementById('docModal').style.display='flex';">Contact</a></li>
+    <li><a href="#" onclick="event.preventDefault(); document.getElementById('contactModal').style.display='flex';">Contact</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Menu">
     <span></span><span></span><span></span>
@@ -496,7 +496,7 @@ footer { background: #07070f; padding: 64px 48px 48px; display: flex; flex-direc
   <a href="#ip" onclick="closeMenu()">IP</a>
   <a href="#market" onclick="closeMenu()">Market</a>
   <a href="#leadership" onclick="closeMenu()">Leadership</a>
-  <a href="#" onclick="event.preventDefault(); closeMenu(); document.getElementById('docModal').style.display='flex';">Contact</a>
+  <a href="#" onclick="event.preventDefault(); closeMenu(); document.getElementById('contactModal').style.display='flex';">Contact</a>
 </div>
 </header>
 
@@ -1103,6 +1103,34 @@ document.getElementById('mailingListForm').addEventListener('submit', async func
   </div>
 </div>
 
+<!-- Contact Modal (light) -->
+<div id="contactModal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.75); backdrop-filter:blur(8px); align-items:center; justify-content:center; padding:24px;">
+  <div style="position:relative; background:linear-gradient(180deg, #12121e 0%, #0e0e18 100%); border:1px solid rgba(196,163,90,0.2); max-width:480px; width:100%; padding:56px 48px; text-align:center;">
+    <button onclick="document.getElementById('contactModal').style.display='none';" style="position:absolute; top:16px; right:16px; background:none; border:1px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.5); font-size:18px; width:36px; height:36px; cursor:pointer; display:flex; align-items:center; justify-content:center; line-height:1;">&times;</button>
+    <div style="font-family:'Playfair Display',serif; font-size:clamp(28px,4vw,36px); font-weight:300; color:var(--white); line-height:1.15; margin-bottom:32px;">Get in Touch</div>
+    <form id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" style="display:flex; flex-direction:column; gap:10px; max-width:400px; margin:0 auto; text-align:left;">
+      <input type="hidden" name="form-name" value="contact">
+      <input type="hidden" name="utm_source" value="">
+      <input type="hidden" name="utm_medium" value="">
+      <input type="hidden" name="utm_campaign" value="">
+      <input type="hidden" name="page_url" value="">
+      <p style="display:none;"><label>Don't fill this out: <input name="bot-field"></label></p>
+      <input type="email" name="email" placeholder="Email address" required
+        style="width:100%; padding:14px 16px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#fff; font-size:14px; font-family:inherit; outline:none; border-radius:2px;">
+      <textarea name="message" placeholder="Message (optional)" rows="3"
+        style="width:100%; padding:14px 16px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); color:#fff; font-size:14px; font-family:inherit; outline:none; border-radius:2px; resize:vertical;"></textarea>
+      <button id="contactSubmitBtn" type="submit"
+        style="width:100%; padding:16px 24px; background:var(--gold); color:#0a0a0f; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; border:none; cursor:pointer; border-radius:2px; white-space:nowrap; font-family:inherit; margin-top:4px;">Send</button>
+    </form>
+    <div id="contactConfirm" style="display:none; margin-top:24px; color:var(--gold); font-size:14px;">
+      ✓ Sent. We'll be in touch.
+    </div>
+    <div id="contactError" style="display:none; margin-top:24px; color:#ffb0a8; font-size:14px;">
+      Something went wrong. Try info@nutraglpbio.com directly.
+    </div>
+  </div>
+</div>
+
 <script>
 // UTM capture: populate hidden fields on all forms
 (function() {
@@ -1186,8 +1214,39 @@ document.getElementById('docRequestForm').addEventListener('submit', async funct
   }
 });
 
+// Contact form
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  var form = this;
+  var btn = document.getElementById('contactSubmitBtn');
+  var confirmBox = document.getElementById('contactConfirm');
+  var errorBox = document.getElementById('contactError');
+  confirmBox.style.display = 'none';
+  errorBox.style.display = 'none';
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+  btn.style.opacity = '0.75';
+
+  try {
+    const response = await fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(new FormData(form)).toString()
+    });
+    if (!response.ok) throw new Error('Submission failed');
+    form.reset();
+    confirmBox.style.display = 'block';
+  } catch (err) {
+    errorBox.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Send';
+    btn.style.opacity = '1';
+  }
+});
+
 // Close modals on backdrop click
-['briefModal', 'docModal'].forEach(function(id) {
+['briefModal', 'docModal', 'contactModal'].forEach(function(id) {
   document.getElementById(id).addEventListener('click', function(e) {
     if (e.target === this) this.style.display = 'none';
   });
@@ -1198,6 +1257,7 @@ document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
     document.getElementById('briefModal').style.display = 'none';
     document.getElementById('docModal').style.display = 'none';
+    document.getElementById('contactModal').style.display = 'none';
   }
 });
 </script>
