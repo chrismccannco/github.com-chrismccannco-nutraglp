@@ -266,8 +266,7 @@ footer { background: #07070f; padding: 40px 48px; display: flex; align-items: ce
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 .mobile-menu { display: none; position: absolute; top: 64px; left: 0; right: 0; background: rgba(8,15,10,0.98); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(196,163,90,0.15); z-index: 140; padding: 0; }
-.mobile-menu.open { display: block; }
-.mobile-menu a { display: block; padding: 16px 24px; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.65); border-bottom: 1px solid rgba(255,255,255,0.06); text-decoration: none; transition: color 0.2s, background 0.2s; }
+disclosure p { margin: 0;.mobile-menu a { display: block; padding: 16px 24px; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.65); border-bottom: 1px solid rgba(255,255,255,0.06); text-decoration: none; transition: color 0.2s, background 0.2s; }
 .mobile-menu a:last-child { border-bottom: none; }
 .mobile-menu a:hover { color: var(--gold); background: rgba(255,255,255,0.03); }
 @media (max-width: 1000px) {
@@ -286,7 +285,8 @@ footer { background: #07070f; padding: 40px 48px; display: flex; align-items: ce
 .study-link-btn:hover { background: rgba(196,163,90,0.08); border-color: rgba(196,163,90,0.5); }
 .study-link-meta { font-size: 12px; color: rgba(255,255,255,0.78); margin: 0; line-height: 1.5; }
 .study-disclosure { margin-top: 32px; padding: 20px 28px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 1px; }
-.study-disclosure p { margin: 0; font-style: normal; font-size: 12px; color: rgba(255,255,255,0.44); line-height: 1.72; }
+.study-disclosure p { margin: 0 0 16px 0; font-style: normal; font-size: 12px; color: rgba(255,255,255,0.44); line-height: 1.72; }
+.study-disclosure p:last-child { margin-bottom: 0; }
 .study-disclosure strong { color: rgba(255,255,255,0.58); font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; }
 
 /* ASSET GATE MODAL */
