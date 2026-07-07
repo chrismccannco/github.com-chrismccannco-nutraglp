@@ -5,21 +5,35 @@ export const dynamic = "force-dynamic";
 
 const DEFAULT_HTML = `
 <h1>The Field</h1>
-<p class="fn-lead">The room that comes next.</p>
-<p>If you've been reading Field Notes, you already know the territory.</p>
-<p>The questions that come back no matter how much you achieve. The gap between who you are at work and who you are when nobody's watching. The sense that something is off in a way that doesn't show up on any dashboard.</p>
-<p>This is where we work on that. Six people. Six weeks. Weekly 90-minute calls, live. Starting in September.</p>
-<p>The conversations start in the calls. Most of what matters happens in between them.</p>
+<p class="fn-lead">A room for the work that doesn't have a name yet.</p>
+
+<p>If you've been reading Field Notes, you already know the territory. The place where what you do for a living starts to bump up against something larger. Where the old frameworks stop fitting and you're not sure what's next.</p>
+
+<p>I've spent fifteen years in enterprise tech. I've also spent a long time studying consciousness, identity, and what actually changes people. Those two tracks are not separate things. They converge in rooms like this one.</p>
+
 <h3>Who this is for</h3>
-<p>People who've been reading Field Notes and recognize something in it they haven't been able to name. Leaders who are performing and quietly hollowing out. People who are done explaining it to others and ready to sit with it directly.</p>
+
+<p>Leaders who sense something is off but can't quite name it. People who are good at what they do and starting to wonder if that's enough. Not beginners. Not people looking for a productivity system. People who are willing to sit with hard questions in front of other people who are doing the same.</p>
+
 <h3>What we work on</h3>
-<p>Who you are when the performance stops. Why you're here. What you're running from.</p>
-<p>No curriculum distributed in advance. The direction follows what's in the room.</p>
+
+<p>Whatever's actually present. Identity under pressure. The gap between the version of yourself you perform and the one you know is there. How experience accumulates and what to do with it. What your work is really asking of you.</p>
+
+<p>No pre-built curriculum. The room shapes itself around the people in it.</p>
+
 <h3>Before we begin</h3>
-<p>Each person gets 60 minutes with me before the cohort starts. No agenda. I work intuitively — reading what's present, what's in the room, who or what shows up. Some people call it psychic. Some call it mediumship. Some just call it a sense of knowing. Whatever it is, we use it to set the table for the six weeks ahead.</p>
+
+<p>Before the cohort starts, each person gets sixty minutes with me alone. I work intuitively in these sessions — drawing on psychic and mediumship capacities I've developed alongside the more conventional coaching and facilitation training. Some people know exactly what that means. Others don't, and that's fine. You'll know if it's for you.</p>
+
+<p>This isn't a reading in the traditional sense. It's a clearing. An attunement. A way of beginning the work before the group work begins.</p>
+
 <h3>Format</h3>
-<p>Six people. Six weeks. 90 minutes weekly. Live — not recorded. Starting September 2026. $1,500.</p>
-<p>If any of this landed, <a href="mailto:chris@chrismccann.co">write me</a>. I'll send details and we'll talk briefly first.</p>
+
+<p>Six people. Six weeks. Ninety minutes weekly. Live — not recorded. Starting September 2026. \$1,500.</p>
+
+<p>Small on purpose. The number matters because the room matters.</p>
+
+<p>If any of this landed, <a href="mailto:chris@chrismccann.co">write me</a>. I'll send details and we'll talk briefly first. Not every reply becomes a yes.</p>
 `;
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -27,8 +41,9 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     alternates: { canonical: "/the-field" },
     title: "The Field",
-    description: s.page_the_field_description ||
-      "Six people. Six weeks. The questions that don't leave you alone. A live cohort with Chris McCann, starting September 2026.",
+    description:
+      s.page_the_field_description ||
+      "A six-person, six-week live cohort for leaders doing the work that doesn't have a name yet. Starting September 2026.",
   };
 }
 
